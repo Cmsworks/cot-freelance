@@ -1,4 +1,4 @@
-<!-- BEGIN: folio -->
+<!-- BEGIN: FOLIO -->
 <div class="mboxHD">{PHP.L.folio} </div>
 <div id="listfolio">
 	<!-- BEGIN: PRD_ROWS -->
@@ -16,4 +16,4 @@
 	<!-- END: PRD_ROWS -->
 </div>
 <div class="pagination"><ul>{PAGENAV_PAGES}</ul></div>
-<!-- END: folio -->
+<!-- END: FOLIO -->
