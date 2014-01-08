@@ -1,14 +1,23 @@
 ##Фриланс-биржа на Cotonti Siena##
 
-Copyright CMSWorks Team 2013
-
+Copyright 2014 CMSWorks Team (CMSWorks.ru)
 
 Информация о сборке: http://cmsworks.ru/apps/freelance2
 
-Форум техподдержки для подписчиков: http://cmsworks.ru/forums/apps/freelance2
+Форум техподдержки: http://cmsworks.ru/forums/apps/freelance2
+
 
 ##Разработчики:##
 
   Булат Юсупов support@cmsworks.ru (CMSWorks.ru)
   
   Павел Микулик esclkm@gmail.com (littledev.ru)
+
+
+##Порядок установки##
+
+Это не готовая сборка сайта! Для установки необходима последняя версия фреймворка Cotonti Siena, которую можно скачать и установить с сайта http://cotonti.com
+
+1. Скачиваете Cotonti Siena. Распаковываете архив в директорию будущего сайта.
+2. Скачиваете данную сборку фриланс-биржи и распаковываете в ту же директорию, в которую распакован Cotonti.
+3. Далее следуете инструкции, опубликованной по ссылке: http://cmsworks.ru/docs/docs-apps/freelance2-docs/instrukciya-po-ustanovke
