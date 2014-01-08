@@ -1,0 +1,67 @@
+<?php
+
+/**
+ * folio module
+ *
+ * @package folio
+ * @version 2.5.2
+ * @author CMSWorks Team
+ * @copyright Copyright (c) CMSWorks.ru, littledev.ru
+ * @license BSD
+ */
+
+defined('COT_CODE') or die('Wrong URL.');
+
+/**
+ * Module Config
+ */
+$L['cfg_pagelimit'] = array('Число записей в списках');
+$L['cfg_shorttextlen'] = array('Количество символов в списках');
+$L['cfg_prevalidate'] = array('Включить предварительную модерацию');
+$L['cfg_preview'] = array('Включить предварительный просмотр');
+$L['cfg_foliositemap'] = 'Включить в Sitemap';
+$L['cfg_foliositemap_freq'] = 'Частота изменения в Sitemap';
+$L['cfg_foliositemap_freq_params'] = $sitemap_freqs;
+$L['cfg_foliositemap_prio'] = array('Приоритет в Sitemap');
+$L['cfg_description'] = array('Description');
+$L['cfg_foliosearch'] = array('Включить в общий поиск');
+
+$L['folio_select_cat'] = "Выберите раздел";
+$L['folio_empty_title'] = "Название не может быть пустым";
+$L['folio_empty_text'] = "Описание не может быть пустым";
+$L['folio_large_img'] = "Изображение слишком большое";
+
+$L['folio_forreview'] = 'Ваша работа находится на проверке. Модератор утвердит ее публикацию в ближайшее время.';
+
+$L['folio'] = 'Портфолио';
+$L['folio_catalog'] = 'Каталог';
+$L['folio_add_to_catalog'] = 'Добавить работу';
+$L['folio_add_work'] = 'Добавить работу';
+$L['folio_edit_work'] = 'Редактировать работу';
+$L['folio_add_work_title'] = 'Добавление работы в портфолио';
+$L['folio_edit_work_title'] = 'Редактирование работы из портфолио';
+
+$L['folio_hidden'] = 'Работа не опубликована';
+$L['folio_location'] = 'Местоположение';
+$L['folio_price'] = 'Бюджет работы';
+$L['folio_image_limit'] = 'Разрешенные форматы JPEG, GIF, JPG, PNG. Максимальный размер 1Мб.';
+
+$L['folio_costasc'] = 'Цена по возрастанию';
+$L['folio_costdesc'] = 'Цена по убыванию';
+$L['folio_mostrelevant'] = 'Наиболее актуальные';
+
+$L['folio_notfound'] = 'Работы не найдены';
+$L['folio_empty'] = 'Работ нет';
+
+$L['folio_added_mail_subj'] = 'Работа добавлена в Портфолио';
+$L['folio_senttovalidation_mail_subj'] = 'Ваша новая работа из Портфолио была отправлена на проверку';
+$L['folio_admin_home_valqueue'] = 'На проверке';
+$L['folio_admin_home_public'] = 'Опубликовано';
+$L['folio_admin_home_hidden'] = 'Скрытые';
+
+$L['folio_added_mail_body'] = 'Здравствуйте, {$user_name}. '."\n\n".'Работа "{$prd_name}" была добавлена в ваше Портфолио на сайте {$sitename} - {$link}';
+$L['folio_senttovalidation_mail_body'] = 'Здравствуйте, {$user_name}.'."\n\n".'Ваша работа "{$prd_name}" из Портфолио была отправлена на проверку. Модератор утвердит ее публикацию в ближайшее время.';
+
+$L['folio_status_published'] = 'Опубликовано';
+$L['folio_status_moderated'] = 'На проверке';
+$L['folio_status_hidden'] = 'Скрыто';

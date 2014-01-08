@@ -1,0 +1,77 @@
+<?php
+
+/**
+ * PayTop plugin
+ *
+ * @package paytop
+ * @version 1.0.2
+ * @author CMSWorks Team
+ * @copyright Copyright (c) CMSWorks.ru, littledev.ru
+ * @license BSD
+ */
+
+defined('COT_CODE') or die('Wrong URL');
+
+// Requirements
+require_once cot_langfile('paytop', 'plug');
+
+// Global variables
+global $db_users_top, $db_x;
+$db_users_top = (isset($db_users_top)) ? $db_users_top : $db_x . 'users_top';
+
+// Global variables
+function cot_cfg_paytop()
+{
+	global $cfg;
+	
+	$tpaset = str_replace("\r\n", "\n", $cfg['plugin']['paytop']['paytopareas']);
+	$tpaset = explode("\n", $tpaset);
+	$paytopset = array();
+	foreach ($tpaset as $lineset)
+	{
+		$lines = explode("|", $lineset);
+		$lines[0] = trim($lines[0]);
+		$lines[1] = trim($lines[1]);
+		$lines[2] = (float)trim($lines[2]);
+		
+		if (!empty($lines[0]) && $lines[2] > 0)
+		{
+			$paytopset[$lines[0]]['name'] = $lines[1];
+			$paytopset[$lines[0]]['cost'] = $lines[2];
+
+		}
+	}
+	return $paytopset;
+}
+
+function cot_get_paytop ($area='', $count=0, $order = "s.service_id DESC")
+{
+	global $db, $cfg, $db_payments_services, $db_users;
+	
+	$pt_cfg = cot_cfg_paytop();
+	
+	if (empty($area) && !isset($pt_cfg[$area]['cost']))
+	{
+		return false;
+	}
+	
+	$count = (int)$count > 0 ? $count : $cfg['maxrowsperpage'];
+	$t1 = new XTemplate(cot_tplfile(array('paytop', 'list', $area), 'plug'));
+	
+	$paytops = $db->query("SELECT * FROM $db_payments_services as s
+		LEFT JOIN $db_users AS u ON u.user_id=s.service_userid
+		WHERE s.service_area='paytop.".$db->prep($area)."' ORDER BY $order LIMIT " . $count)->fetchAll();
+
+	foreach ($paytops as $tur)
+	{
+		$t1->assign(cot_generate_usertags($tur, 'TOP_ROW_'));
+		$t1->parse('MAIN.TOP_ROW');
+	}
+
+	$t1->assign('PAYTOP_BUY_URL', cot_url('plug', 'e=paytop&area='.$area));
+
+	$t1->parse('MAIN');
+	return $t1->text('MAIN');
+}
+
+?>
