@@ -7,7 +7,7 @@ Copyright 2014 CMSWorks Team (CMSWorks.ru)
 Форум техподдержки: http://cmsworks.ru/forums/apps/freelance2
 
 
-##Разработчики:##
+##Разработчики##
 
   Булат Юсупов support@cmsworks.ru (CMSWorks.ru)
   
@@ -21,3 +21,5 @@ Copyright 2014 CMSWorks Team (CMSWorks.ru)
 1. Скачиваете Cotonti Siena. Распаковываете архив в директорию будущего сайта.
 2. Скачиваете данную сборку фриланс-биржи и распаковываете в ту же директорию, в которую распакован Cotonti.
 3. Далее следуете инструкции, опубликованной по ссылке: http://cmsworks.ru/docs/docs-apps/freelance2-docs/instrukciya-po-ustanovke
+
+Если нет желания собирать сайт по частям, готовую сборку фриланс-биржи можно скачать на нашем сайте CMSWorks.ru
