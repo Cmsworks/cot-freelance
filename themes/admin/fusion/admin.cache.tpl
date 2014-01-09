@@ -1,10 +1,10 @@
 <!-- BEGIN: MAIN -->
 		<h2>{PHP.L.adm_internalcache}</h2>
 		{FILE "{PHP.cfg.themes_dir}/admin/{PHP.cfg.admintheme}/warnings.tpl"}
-		<div class="block button-toolbar">
-			<a href="{ADMIN_CACHE_URL_REFRESH}" class="ajax button large btn">{PHP.L.Refresh}</a>
-			<a href="{ADMIN_CACHE_URL_PURGE}" class="ajax button large btn">{PHP.L.adm_purgeall}</a>
-			<a href="{ADMIN_CACHE_URL_SHOWALL}" class="ajax button large btn">{PHP.L.adm_cache_showall}</a>
+		<div class="block btn-toolbar">
+			<a href="{ADMIN_CACHE_URL_REFRESH}" class="ajax btn large btn">{PHP.L.Refresh}</a>
+			<a href="{ADMIN_CACHE_URL_PURGE}" class="ajax btn large btn">{PHP.L.adm_purgeall}</a>
+			<a href="{ADMIN_CACHE_URL_SHOWALL}" class="ajax btn large btn">{PHP.L.adm_cache_showall}</a>
 		</div>
 <!-- BEGIN: ADMIN_CACHE_MEMORY -->
 		<div class="block">
@@ -36,7 +36,7 @@
 					<td class="textcenter">{ADMIN_CACHE_EXPIRE}</td>
 					<td class="textcenter">{ADMIN_CACHE_SIZE}</td>
 					<td>{ADMIN_CACHE_VALUE}</td>
-					<td class="centerall"><a title="{PHP.L.Delete}" href="{ADMIN_CACHE_ITEM_DEL_URL}" class="ajax button">{PHP.L.Delete}</a></td>
+					<td class="centerall"><a title="{PHP.L.Delete}" href="{ADMIN_CACHE_ITEM_DEL_URL}" class="ajax btn">{PHP.L.Delete}</a></td>
 				</tr>
 <!-- END: ADMIN_CACHE_ROW -->
 				<tr class="strong">

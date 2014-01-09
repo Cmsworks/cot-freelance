@@ -156,7 +156,7 @@
 				</td>
 				<td class="centerall {ADMIN_EXTRAFIELDS_ROW_ODDEVEN}">
 
-					<a title="{PHP.L.Delete}" href="{ADMIN_EXTRAFIELDS_ROW_DEL_URL}" class="ajax button">{PHP.L.Delete}</a>
+					<a title="{PHP.L.Delete}" href="{ADMIN_EXTRAFIELDS_ROW_DEL_URL}" class="ajax btn">{PHP.L.Delete}</a>
 				</td>
 			</tr>
 			<!-- END: EXTRAFIELDS_ROW -->

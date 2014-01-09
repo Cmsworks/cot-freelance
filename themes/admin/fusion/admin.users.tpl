@@ -2,7 +2,7 @@
 		<h2>{PHP.L.Users}</h2>
 		{FILE "{PHP.cfg.themes_dir}/admin/{PHP.cfg.admintheme}/warnings.tpl"}
 
-		<div class="block button-toolbar">
+		<div class="block btn-toolbar">
 			<a title="{PHP.L.Configuration}" href="{ADMIN_USERS_URL}" class="btn">{PHP.L.Configuration}</a>
 			<a href="{ADMIN_USERS_EXTRAFIELDS_URL}" class="btn">{PHP.L.adm_extrafields}</a>
 		</div>
@@ -179,7 +179,7 @@
 					</tr>
 <!-- ENDIF -->
 					<tr>
-						<td class="valid" colspan="2"><button class="btn btn-success" >{PHP.L.Update}</button></td>
+						<td class="valid" colspan="2"><btn class="btn btn-success" >{PHP.L.Update}</btn></td>
 					</tr>
 				</table>
 			</form>

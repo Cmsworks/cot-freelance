@@ -65,7 +65,7 @@
         <tfoot>
           <tr>
             <td colspan="3">
-              <button type="submit" class="btn btn-primary">{PHP.L.Update}</button>
+              <btn type="submit" class="btn btn-primary">{PHP.L.Update}</btn>
             </td>
           </tr>
         </tfoot>

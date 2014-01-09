@@ -331,8 +331,8 @@
     {ADMIN_EXTENSIONS_EDIT_LOG}
   </div>
 </div>
-<div class="block button-toolbar">
-  <a href="{ADMIN_EXTENSIONS_EDIT_CONTINUE_URL}" class="ajax button special large">{PHP.L.Clickhere}</a>
+<div class="block btn-toolbar">
+  <a href="{ADMIN_EXTENSIONS_EDIT_CONTINUE_URL}" class="ajax btn special large">{PHP.L.Clickhere}</a>
 </div>
 <!-- END: EDIT -->
 
