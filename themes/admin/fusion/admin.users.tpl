@@ -179,7 +179,7 @@
 					</tr>
 <!-- ENDIF -->
 					<tr>
-						<td class="valid" colspan="2"><btn class="btn btn-success" >{PHP.L.Update}</btn></td>
+						<td class="valid" colspan="2"><button class="btn btn-success" >{PHP.L.Update}</button></td>
 					</tr>
 				</table>
 			</form>
