@@ -17,7 +17,7 @@ sub			{ top:.5em; }
 sup			{ top:-.5em; }
 
 input, select	{ width: inherit!important; }
-textarea	{ width: 99%; min-height: 100px; }
+textarea	{ width: inherit!important; min-height: 100px; }
 ul { margin: 0; padding: 0; }
 .error { color: red; }
 
