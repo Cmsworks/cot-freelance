@@ -69,3 +69,12 @@ $L['market_senttovalidation_mail_body'] = 'Здравствуйте, {$user_name
 $L['market_status_published'] = 'Опубликовано';
 $L['market_status_moderated'] = 'На проверке';
 $L['market_status_hidden'] = 'Скрыто';
+
+$L['plu_market_set_sec'] = 'Категории товаров';
+$L['plu_market_res_sort1'] = 'Дате публикации';
+$L['plu_market_res_sort2'] = 'Названию';
+$L['plu_market_res_sort3'] = 'Популярности';
+$L['plu_market_res_sort3'] = 'Категории';
+$L['plu_market_search_names'] = 'Поиск в названиях товаров';
+$L['plu_market_search_text'] = 'Поиск в описании';
+$L['plu_market_set_subsec'] = 'Поиск в подразделах';

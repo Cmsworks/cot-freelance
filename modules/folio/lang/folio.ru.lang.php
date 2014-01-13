@@ -65,3 +65,12 @@ $L['folio_senttovalidation_mail_body'] = 'Здравствуйте, {$user_name}
 $L['folio_status_published'] = 'Опубликовано';
 $L['folio_status_moderated'] = 'На проверке';
 $L['folio_status_hidden'] = 'Скрыто';
+
+$L['plu_folio_set_sec'] = 'Категории работ';
+$L['plu_folio_res_sort1'] = 'Дате публикации';
+$L['plu_folio_res_sort2'] = 'Названию';
+$L['plu_folio_res_sort3'] = 'Популярности';
+$L['plu_folio_res_sort3'] = 'Категории';
+$L['plu_folio_search_names'] = 'Поиск в названиях';
+$L['plu_folio_search_text'] = 'Поиск в описании';
+$L['plu_folio_set_subsec'] = 'Поиск в подразделах';

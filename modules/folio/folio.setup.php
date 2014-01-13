@@ -4,7 +4,7 @@
  * Code=folio
  * Name=Folio
  * Description=Портфолио
- * Version=2.5.3
+ * Version=2.5.4
  * Date=24.11.2012
  * Author=CMSWorks Team
  * Copyright=Copyright (c) CMSWorks.ru, littledev.ru
@@ -22,10 +22,10 @@
  * shorttextlen=03:string::200:Обрезка текста в категориях
  * prevalidate=04:radio::0:Включить предварительную модерацию
  * preview=05:radio::1:Включить предварительный просмотр
- * marketsitemap=06:radio::1:Включить вывод в sitemap
- * marketsitemap_freq=07:select:default,always,hourly,daily,weekly,monthly,yearly,never:default:Частота изменений для sitemap
- * marketsitemap_prio=08:select:0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0:0.5:Приоритет для sitemap
- * marketsearch=09:radio::1:Включить в общий поиск
+ * foliositemap=06:radio::1:Включить вывод в sitemap
+ * foliositemap_freq=07:select:default,always,hourly,daily,weekly,monthly,yearly,never:default:Частота изменений для sitemap
+ * foliositemap_prio=08:select:0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0:0.5:Приоритет для sitemap
+ * foliosearch=09:radio::1:Включить в общий поиск
  * title_folio=10:string::{TITLE} - {CATEGORY}:
  * [END_COT_EXT_CONFIG]
  * 
@@ -45,7 +45,7 @@
  * folio module
  *
  * @package folio
- * @version 2.5.3
+ * @version 2.5.4
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru, littledev.ru
  * @license BSD

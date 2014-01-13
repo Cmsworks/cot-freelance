@@ -62,16 +62,16 @@ if ($cfg['folio']['foliosearch'])
 		/* ===== */
 
 		$t->assign(array(
-			'PLUGIN_MARKET_SEC_LIST' => cot_selectbox($rs['foliosub'], 'rs[foliosub][]', array_keys($folio_cat_list), array_values($folio_cat_list), false, 'multiple="multiple" style="width:50%"'),
-			'PLUGIN_MARKET_RES_SORT' => cot_selectbox($rs['foliosort'], 'rs[foliosort]', array('date', 'title', 'count', 'cat'), array($L['plu_folio_res_sort1'], $L['plu_folio_res_sort2'], $L['plu_folio_res_sort3'], $L['plu_folio_res_sort4']), false),
-			'PLUGIN_MARKET_RES_SORT_WAY' => cot_radiobox($rs['foliosort2'], 'rs[foliosort2]', array('DESC', 'ASC'), array($L['plu_sort_desc'], $L['plu_sort_asc'])),
-			'PLUGIN_MARKET_SEARCH_NAMES' => cot_checkbox(($rs['foliotitle'] == 1 || count($rs['foliosub']) == 0), 'rs[foliotitle]', $L['plu_folio_search_names']),
-			'PLUGIN_MARKET_SEARCH_TEXT' => cot_checkbox(($rs['foliotext'] == 1 || count($rs['foliosub']) == 0), 'rs[foliotext]', $L['plu_folio_search_text']),
-			'PLUGIN_MARKET_SEARCH_SUBCAT' => cot_checkbox($rs['foliosubcat'], 'rs[foliosubcat]', $L['plu_folio_set_subsec']),
+			'PLUGIN_FOLIO_SEC_LIST' => cot_selectbox($rs['foliosub'], 'rs[foliosub][]', array_keys($folio_cat_list), array_values($folio_cat_list), false, 'multiple="multiple" style="width:50%"'),
+			'PLUGIN_FOLIO_RES_SORT' => cot_selectbox($rs['foliosort'], 'rs[foliosort]', array('date', 'title', 'count', 'cat'), array($L['plu_folio_res_sort1'], $L['plu_folio_res_sort2'], $L['plu_folio_res_sort3'], $L['plu_folio_res_sort4']), false),
+			'PLUGIN_FOLIO_RES_SORT_WAY' => cot_radiobox($rs['foliosort2'], 'rs[foliosort2]', array('DESC', 'ASC'), array($L['plu_sort_desc'], $L['plu_sort_asc'])),
+			'PLUGIN_FOLIO_SEARCH_NAMES' => cot_checkbox(($rs['foliotitle'] == 1 || count($rs['foliosub']) == 0), 'rs[foliotitle]', $L['plu_folio_search_names']),
+			'PLUGIN_FOLIO_SEARCH_TEXT' => cot_checkbox(($rs['foliotext'] == 1 || count($rs['foliosub']) == 0), 'rs[foliotext]', $L['plu_folio_search_text']),
+			'PLUGIN_FOLIO_SEARCH_SUBCAT' => cot_checkbox($rs['foliosubcat'], 'rs[foliosubcat]', $L['plu_folio_set_subsec']),
 		));
 		if ($tab == 'folio' || (empty($tab) && $cfg['plugin']['search']['extrafilters']))
 		{
-			$t->parse('MAIN.MARKET_OPTIONS');
+			$t->parse('MAIN.FOLIO_OPTIONS');
 		}
 	}
 }

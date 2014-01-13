@@ -69,3 +69,12 @@ $L['market_senttovalidation_mail_body'] = 'Hello, {$user_name}. '."\n\n".'Your p
 $L['market_status_published'] = 'Published';
 $L['market_status_moderated'] = 'Moderated';
 $L['market_status_hidden'] = 'Hidden';
+
+$L['plu_market_set_sec'] = 'Products categories';
+$L['plu_market_res_sort1'] = 'Date';
+$L['plu_market_res_sort2'] = 'Title';
+$L['plu_market_res_sort3'] = 'Popularity';
+$L['plu_market_res_sort3'] = 'Category';
+$L['plu_market_search_names'] = 'Search in titles';
+$L['plu_market_search_text'] = 'Search in text';
+$L['plu_market_set_subsec'] = 'Include subcategories';

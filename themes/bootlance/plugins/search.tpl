@@ -7,7 +7,15 @@
 						<input type="hidden" name="e" value="search" />
 						<p class="textcenter">
 							<a href="{PHP|cot_url('plug','e=search')}">{PHP.L.plu_tabs_all}</a> |
+							<!-- IF {PHP.cfg.projects.prjsearch} -->
 							<a href="{PHP|cot_url('plug','e=search&amp;tab=projects')}">{PHP.L.projects_projects}</a> |
+							<!-- ENDIF -->
+							<!-- IF {PHP.cfg.market.marketsearch} -->
+							<a href="{PHP|cot_url('plug','e=search&amp;tab=market')}">{PHP.L.market}</a> |
+							<!-- ENDIF -->
+							<!-- IF {PHP.cfg.folio.foliosearch} -->
+							<a href="{PHP|cot_url('plug','e=search&amp;tab=folio')}">{PHP.L.folio}</a> |
+							<!-- ENDIF -->
 							<a href="{PHP|cot_url('plug','e=search&amp;tab=frm')}">{PHP.L.Forums}</a> |
 							<a href="{PHP|cot_url('plug','e=search&amp;tab=pag')}">{PHP.L.Pages}</a>
 						</p>
@@ -45,6 +53,50 @@
 							</tr>
 						</table>
 <!-- END: PROJECTS_OPTIONS -->
+<!-- BEGIN: MARKET_OPTIONS -->
+						<h3>{PHP.L.market}</h3>
+						<table class="main">
+							<tr>
+								<td class="width50">
+									<p class="strong">{PHP.L.plu_market_set_sec}:</p>
+									<p>{PLUGIN_MARKET_SEC_LIST}</p>
+									<p>{PLUGIN_MARKET_SEARCH_SUBCAT}</p>
+									<p class="small">{PHP.L.plu_ctrl_list}</p>
+								</td>
+								<td class="width50">
+									<p class="strong">{PHP.L.plu_other_opt}:</p>
+									<p><label>{PLUGIN_MARKET_SEARCH_NAMES}</label></p>
+									<p>{PLUGIN_MARKET_SEARCH_TEXT}</p>
+									<p>{PLUGIN_MARKET_SEARCH_FILE}</p>
+									<p class="strong">{PHP.L.plu_res_sort}:</p>
+									<p>{PLUGIN_MARKET_RES_SORT}</p>
+									<p>{PLUGIN_MARKET_RES_SORT_WAY}</p>
+								</td>
+							</tr>
+						</table>
+<!-- END: MARKET_OPTIONS -->
+<!-- BEGIN: FOLIO_OPTIONS -->
+						<h3>{PHP.L.folio}</h3>
+						<table class="main">
+							<tr>
+								<td class="width50">
+									<p class="strong">{PHP.L.plu_folio_set_sec}:</p>
+									<p>{PLUGIN_FOLIO_SEC_LIST}</p>
+									<p>{PLUGIN_FOLIO_SEARCH_SUBCAT}</p>
+									<p class="small">{PHP.L.plu_ctrl_list}</p>
+								</td>
+								<td class="width50">
+									<p class="strong">{PHP.L.plu_other_opt}:</p>
+									<p><label>{PLUGIN_FOLIO_SEARCH_NAMES}</label></p>
+									<p>{PLUGIN_FOLIO_SEARCH_TEXT}</p>
+									<p>{PLUGIN_FOLIO_SEARCH_FILE}</p>
+									<p class="strong">{PHP.L.plu_res_sort}:</p>
+									<p>{PLUGIN_FOLIO_RES_SORT}</p>
+									<p>{PLUGIN_FOLIO_RES_SORT_WAY}</p>
+								</td>
+							</tr>
+						</table>
+<!-- END: FOLIO_OPTIONS -->
 <!-- BEGIN: PAGES_OPTIONS -->
 						<h3>{PHP.L.Pages}</h3>
 						<table class="main">

@@ -65,3 +65,12 @@ $L['folio_senttovalidation_mail_body'] = 'Hello, {$user_name}. '."\n\n".'Your wo
 $L['folio_status_published'] = 'Published';
 $L['folio_status_moderated'] = 'Moderated';
 $L['folio_status_hidden'] = 'Hidden';
+
+$L['plu_folio_set_sec'] = 'Works categories';
+$L['plu_folio_res_sort1'] = 'Date';
+$L['plu_folio_res_sort2'] = 'Title';
+$L['plu_folio_res_sort3'] = 'Popularity';
+$L['plu_folio_res_sort3'] = 'Category';
+$L['plu_folio_search_names'] = 'Search in titles';
+$L['plu_folio_search_text'] = 'Search in text';
+$L['plu_folio_set_subsec'] = 'Include subcategories';
