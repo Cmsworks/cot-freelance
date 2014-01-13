@@ -106,7 +106,7 @@ if ($cfg['projects']['prjsearch'] && ($tab == 'projects' || empty($tab)) && cot_
 			'PLUGIN_PROJECTSRES_CATEGORY' => cot_rc_link($url_cat, $structure['projects'][$row['item_cat']]['tpath']),
 			'PLUGIN_PROJECTSRES_CATEGORY_URL' => $url_cat,
 			'PLUGIN_PROJECTSRES_TITLE' => cot_rc_link($url_prj, htmlspecialchars($row['item_title'])),
-			'PLUGIN_PROJECTSRES_TEXT' => cot_clear_mark($row['item_text'], $row['item_type'], $words),
+			'PLUGIN_PROJECTSRES_TEXT' => cot_clear_mark($row['item_text'], $words),
 			'PLUGIN_PROJECTSRES_TIME' => cot_date('datetime_medium', $row['item_date']),
 			'PLUGIN_PROJECTSRES_TIMESTAMP' => $row['item_date'],
 			'PLUGIN_PROJECTSRES_ODDEVEN' => cot_build_oddeven($jj),

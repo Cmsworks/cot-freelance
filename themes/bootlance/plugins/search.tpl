@@ -118,6 +118,48 @@
 <!-- END: ITEM -->
 				</table>
 <!-- END: PROJECTS -->
+<!-- BEGIN: MARKET -->
+				<h3>{PHP.L.market}</h3>
+				<table class="cells">
+					<tr>
+						<td colspan="2" class="coltop">{PHP.L.plu_result}: {PHP.L.market}
+						</td>
+					</tr>
+<!-- BEGIN: ITEM -->
+					<tr>
+						<td colspan="2" class="{PLUGIN_MARKETRES_ODDEVEN}">{PLUGIN_MARKETRES_TITLE}</td>
+					</tr>
+					<tr>
+						<td colspan="2" class="{PLUGIN_MARKETRES_ODDEVEN}">{PLUGIN_MARKETRES_TEXT}</td>
+					</tr>
+					<tr>
+						<td class="{PLUGIN_MARKETRES_ODDEVEN} width50"><p class="small">{PHP.L.plu_last_date}: {PLUGIN_MARKETRES_TIME}</p></td>
+						<td class="{PLUGIN_MARKETRES_ODDEVEN} textright width50"><p class="small">{PHP.L.plu_section}: {PLUGIN_MARKETRES_CATEGORY}</p></td>
+					</tr>
+<!-- END: ITEM -->
+				</table>
+<!-- END: MARKET -->
+<!-- BEGIN: FOLIO -->
+				<h3>{PHP.L.folio}</h3>
+				<table class="cells">
+					<tr>
+						<td colspan="2" class="coltop">{PHP.L.plu_result}: {PHP.L.folio}
+						</td>
+					</tr>
+<!-- BEGIN: ITEM -->
+					<tr>
+						<td colspan="2" class="{PLUGIN_FOLIORES_ODDEVEN}">{PLUGIN_FOLIORES_TITLE}</td>
+					</tr>
+					<tr>
+						<td colspan="2" class="{PLUGIN_FOLIORES_ODDEVEN}">{PLUGIN_FOLIORES_TEXT}</td>
+					</tr>
+					<tr>
+						<td class="{PLUGIN_FOLIORES_ODDEVEN} width50"><p class="small">{PHP.L.plu_last_date}: {PLUGIN_FOLIORES_TIME}</p></td>
+						<td class="{PLUGIN_FOLIORES_ODDEVEN} textright width50"><p class="small">{PHP.L.plu_section}: {PLUGIN_FOLIORES_CATEGORY}</p></td>
+					</tr>
+<!-- END: ITEM -->
+				</table>
+<!-- END: FOLIO -->
 <!-- BEGIN: PAGES -->
 				<h3>{PHP.L.Pages}</h3>
 				<table class="cells">

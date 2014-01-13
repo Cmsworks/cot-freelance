@@ -76,8 +76,8 @@ if ($cfg['folio']['foliosearch'] && ($tab == 'folio' || empty($tab)) && cot_modu
 		$rs['foliosort'] = 'date';
 	}
 
-	$sqllist = $db->query("SELECT SQL_CALC_FOUND_ROWS m.* $search_join_columns
-		FROM $db_folio AS p $search_join_condition
+	$sqllist = $db->query("SELECT SQL_CALC_FOUND_ROWS f.* $search_join_columns
+		FROM $db_folio AS f $search_join_condition
 		WHERE $where
 		ORDER BY item_".$rs['foliosort']." ".$rs['foliosort2']."
 		LIMIT $d, ".$cfg_maxitems
@@ -106,7 +106,7 @@ if ($cfg['folio']['foliosearch'] && ($tab == 'folio' || empty($tab)) && cot_modu
 			'PLUGIN_MARKETRES_CATEGORY' => cot_rc_link($url_cat, $structure['folio'][$row['item_cat']]['tpath']),
 			'PLUGIN_MARKETRES_CATEGORY_URL' => $url_cat,
 			'PLUGIN_MARKETRES_TITLE' => cot_rc_link($url_folio, htmlspecialchars($row['item_title'])),
-			'PLUGIN_MARKETRES_TEXT' => cot_clear_mark($row['item_text'], $row['item_type'], $words),
+			'PLUGIN_MARKETRES_TEXT' => cot_clear_mark($row['item_text'], $words),
 			'PLUGIN_MARKETRES_TIME' => cot_date('datetime_medium', $row['item_date']),
 			'PLUGIN_MARKETRES_TIMESTAMP' => $row['item_date'],
 			'PLUGIN_MARKETRES_ODDEVEN' => cot_build_oddeven($jj),
