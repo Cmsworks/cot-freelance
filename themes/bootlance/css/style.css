@@ -16,10 +16,10 @@ sub, sup	{ font-size:.8em; position:relative; }
 sub			{ top:.5em; }
 sup			{ top:-.5em; }
 
-.customform input	{ width: inherit!important; }
-.customform textarea	{ width: 99%; min-height: 100px; }
-.customform ul { margin: 0; padding: 0; }
-.customform .error { color: red; }
+input, select	{ width: inherit!important; }
+textarea	{ width: 99%; min-height: 100px; }
+ul { margin: 0; padding: 0; }
+.error { color: red; }
 
 .schstring { width: 99%!important; }
 .locselectcountry, .locselectregion, .locselectcity { width: 160px!important; }
@@ -87,11 +87,6 @@ table.fico td img	{ margin-right:10px; vertical-align:middle; }
 .coltop img	{ vertical-align:middle; }
 .centerall 	{ text-align:center; vertical-align:middle; }
 .valid 		{ height:48px; text-align:center; vertical-align:middle; border:0!important; }
-
-/* 5. Forms
--------------------------------------------------- */
-
-input, select	{ width: inherit!important; }
 
 /* 6. Misc
 -------------------------------------------------- */
