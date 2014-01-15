@@ -193,7 +193,7 @@ function cot_usercategories_tree($selected = array(), $level = '')
 
 function cot_usercategories_lighttree($selected = array(), $level = '', $full = false)
 {
-	global $R, $cot_usercategories, $gm;
+	global $R, $cot_usercategories, $cot_groups, $gm, $urr;
 	if (!is_array($selected))
 	{
 		$selected[] = $selected;
@@ -219,6 +219,11 @@ function cot_usercategories_lighttree($selected = array(), $level = '', $full = 
 	$count = 0;
 	
 	$t = new XTemplate(cot_tplfile(array('usercategories', 'cattree'), 'plug'));
+
+	if(!empty($urr['user_maingrp']))
+	{
+		$group = $cot_groups[$urr['user_maingrp']]['alias'];
+	}
 	
 	foreach ($getlevel as $cat)
 	{
@@ -228,7 +233,7 @@ function cot_usercategories_lighttree($selected = array(), $level = '', $full = 
 			$t->assign(array(
 				'OPTION' => $cot_usercategories[$cat]['title'],
 				'SELECTED' => in_array($cat, $selected) ? 'active' : '',
-				'HREF' => cot_url("users", "gm=" . $gm . "&cat=" . $cat."&group=".$role),
+				'HREF' => cot_url("users", "gm=" . $gm . "&cat=" . $cat."&group=".$group),
 				'SUBLEVEL' => cot_usercategories_lighttree($selected, $cat, true)
 			));
 			$t->parse('CAT_TREE.ROW');
