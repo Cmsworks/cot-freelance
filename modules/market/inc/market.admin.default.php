@@ -13,7 +13,6 @@ defined('COT_CODE') or die('Wrong URL');
 
 require_once cot_incfile('market', 'module');
 
-list($pn, $d, $d_url) = cot_import_pagenav('d', $cfg['maxrowsperpage']);
 $type = cot_import('type', 'G', 'INT');
 $c = cot_import('c', 'G', 'ALP');
 $state = cot_import('state', 'G', 'INT');
@@ -22,6 +21,9 @@ $ajax = cot_import('ajax', 'G', 'INT');
 $ajax = empty($ajax) ? 0 : (int)$ajax;
 
 $sq = cot_import('sq', 'G', 'TXT');
+
+$maxrowsperpage = ($cfg['market']['cat_' . $c]['maxrowsperpage']) ? $cfg['market']['cat_' . $c]['maxrowsperpage'] : $cfg['market']['cat___default']['maxrowsperpage'];
+list($pn, $d, $d_url) = cot_import_pagenav('d', $maxrowsperpage);
 
 /* === Hook === */
 foreach (cot_getextplugins('market.admin.list.first') as $pl)
@@ -86,11 +88,9 @@ if (!empty($c))
 if (!empty($sq))
 {
 	$words = explode(' ', $sq);
-	$words_count = count($words);
+	$sqlsearch = '%'.implode('%', $words).'%';
 
-	$sqlsearch = str_replace(" ", "%' OR item_title LIKE '%", $db->prep($sq));
-
-	$where['search'] = "(item_title LIKE '%".$sqlsearch."%' OR item_text LIKE '%".$sqlsearch."%')";
+	$where['search'] = "(item_title LIKE '".$db->prep($sqlsearch)."' OR item_text LIKE '".$db->prep($sqlsearch)."')";
 }
 
 $order['date'] = 'item_date DESC';
@@ -128,12 +128,13 @@ $order = ($order) ? 'ORDER BY '.implode(', ', $order) : '';
 $totalitems = $db->query("SELECT COUNT(*) FROM $db_market 
 	".$where."")->fetchColumn();
 
-$sqllist = $db->query("SELECT * FROM $db_market AS m LEFT JOIN $db_users AS u ON u.user_id=m.item_userid
+$sqllist = $db->query("SELECT * FROM $db_market AS m 
+	LEFT JOIN $db_users AS u ON u.user_id=m.item_userid
 	".$where." 
 	".$order." 
-	LIMIT $d, ".$cfg['maxrowsperpage']);
+	LIMIT $d, ".$maxrowsperpage);
 
-$pagenav = cot_pagenav('admin', $list_url_path, $d, $totalitems, $cfg['maxrowsperpage']);
+$pagenav = cot_pagenav('admin', $list_url_path, $d, $totalitems, $maxrowsperpage);
 
 $t->assign(array(
 	'PAGENAV_PAGES' => $pagenav['main'],

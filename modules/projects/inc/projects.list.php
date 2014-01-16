@@ -68,11 +68,9 @@ if (!empty($type))
 if (!empty($sq))
 {
 	$words = explode(' ', $sq);
-	$words_count = count($words);
+	$sqlsearch = '%'.implode('%', $words).'%';
 
-	$sqlsearch = str_replace(" ", "%' OR item_title LIKE '%", $db->prep($sq));
-
-	$where['search'] = "(item_title LIKE '%" . $sqlsearch . "%' OR item_text LIKE '%" . $sqlsearch . "%')";
+	$where['search'] = "(item_title LIKE '".$db->prep($sqlsearch)."' OR item_text LIKE '".$db->prep($sqlsearch)."')";
 }
 
 switch($sort)
