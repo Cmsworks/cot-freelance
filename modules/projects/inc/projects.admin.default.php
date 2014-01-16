@@ -92,24 +92,6 @@ if (!empty($sq))
 
 $list_url_path = array('m' => 'projects', 'c' => $c, 'type'=> $type, 'sort' => $sort, 'sq' => $sq);
 
-$t->assign(array(
-	"SEARCH_ACTION_URL" => cot_url('admin', "m=projects&c=".$c."&type=".$type, '', true),
-	"SEARCH_SQ" => cot_inputbox('text', 'sq', $sq, 'class="schstring"'),
-	"SEARCH_STATE" => cot_radiobox($state, 'state', array(0, 1, 2), array('опубликованные', 'скрытые', 'на проверке')),
-	"SEARCH_CAT" => cot_projects_selectcat($c, 'c'),
-	"SEARCH_SORTER" => cot_selectbox($sort, "sort", array('', 'costasc', 'costdesc'), array($L['projects_mostrelevant'], $L['projects_costasc'], $L['projects_costdesc']), false),
-));
-
-/* === Hook === */
-foreach (cot_getextplugins('projects.admin.list.searchtags') as $pl)
-{
-	include $pl;
-}
-/* ===== */
-
-$t->parse("MAIN.SEARCH");
-// ==============================================
-
 /* === Hook === */
 foreach (cot_getextplugins('projects.admin.list.query') as $pl)
 {
@@ -151,6 +133,11 @@ $t->assign(array(
 $t->parse('MAIN.TYPES');
 
 $t->assign(array(
+	"SEARCH_ACTION_URL" => cot_url('admin', "m=projects&c=".$c."&type=".$type, '', true),
+	"SEARCH_SQ" => cot_inputbox('text', 'sq', $sq, 'class="schstring"'),
+	"SEARCH_STATE" => cot_radiobox($state, 'state', array(0, 1, 2), array('опубликованные', 'скрытые', 'на проверке')),
+	"SEARCH_CAT" => cot_projects_selectcat($c, 'c'),
+	"SEARCH_SORTER" => cot_selectbox($sort, "sort", array('', 'costasc', 'costdesc'), array($L['projects_mostrelevant'], $L['projects_costasc'], $L['projects_costdesc']), false),
 	'TYPES_EDIT' => cot_url('admin', 'm=projects&p=types'),
 	'PAGENAV_PAGES' => $pagenav['main'],
 	'PAGENAV_PREV' => $pagenav['prev'],

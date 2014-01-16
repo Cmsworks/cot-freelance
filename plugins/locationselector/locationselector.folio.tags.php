@@ -2,7 +2,7 @@
 
 /**
  * [BEGIN_COT_EXT]
- * Hooks=folio.list.searchtags,folio.admin.list.searchtags
+ * Hooks=folio.list.tags,folio.admin.list.tags
  * [END_COT_EXT]
  */
 /**

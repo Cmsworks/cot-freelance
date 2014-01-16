@@ -2,7 +2,6 @@
 
 <h3>{PHP.L.folio}</h3>
 
-<!-- BEGIN: SEARCH -->
 <div class="well">	
 	<form action="{SEARCH_ACTION_URL}" method="get">
 		<input type="hidden" name="m" value="{PHP.m}" />
@@ -36,7 +35,6 @@
 		</table>		
 	</form>
 </div>
-<!-- END: SEARCH -->
 
 <div id="listfolio">
 	<!-- BEGIN: PRD_ROWS -->

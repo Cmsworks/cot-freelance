@@ -13,8 +13,6 @@
 	</div>
 	<div class="span9">
 
-		<!-- BEGIN: SEARCH -->
-
 		<!-- BEGIN: PTYPES -->
 		<ul class="nav nav-tabs">
 			<li<!-- IF {PTYPE_ALL_ACT} --> class="active"<!-- ENDIF -->><a href="{PTYPE_ALL_URL}">{PHP.L.All}</a></li>
@@ -55,7 +53,6 @@
 				</table>		
 			</form>
 		</div>
-		<!-- END: SEARCH -->
 
 		<div id="listprojects">
 			<!-- BEGIN: PRJ_ROWS -->

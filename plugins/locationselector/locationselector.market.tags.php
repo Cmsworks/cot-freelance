@@ -2,7 +2,7 @@
 
 /**
  * [BEGIN_COT_EXT]
- * Hooks=market.list.searchtags,market.admin.list.searchtags
+ * Hooks=market.list.tags,market.admin.list.tags
  * [END_COT_EXT]
  */
 /**

@@ -113,24 +113,7 @@ $t->assign(array(
 	"REALIZED_ACT" => (!empty($realized)) ? true : false,
 ));
 
-$t->parse("MAIN.SEARCH.PTYPES");
-
-$t->assign(array(
-	"SEARCH_ACTION_URL" => cot_url('projects', "&type=" . $type, '', true),
-	"SEARCH_SQ" => cot_inputbox('text', 'sq', $sq, 'class="schstring"'),
-	"SEARCH_CAT" => cot_projects_selectcat($c, 'c'),
-	"SEARCH_SORTER" => cot_selectbox($sort, "sort", array('', 'costasc', 'costdesc'), array($L['projects_mostrelevant'], $L['projects_costasc'], $L['projects_costdesc']), false),
-));
-
-/* === Hook === */
-foreach (cot_getextplugins('projects.list.searchtags') as $pl)
-{
-	include $pl;
-}
-/* ===== */
-
-$t->parse("MAIN.SEARCH");
-// ==============================================
+$t->parse("MAIN.PTYPES");
 
 /* === Hook === */
 foreach (cot_getextplugins('projects.list.query') as $pl)
@@ -162,6 +145,10 @@ if(!empty($c))
 $catpath = cot_breadcrumbs($catpatharray, $cfg['homebreadcrumb'], true);
 
 $t->assign(array(
+	"SEARCH_ACTION_URL" => cot_url('projects', "&type=" . $type, '', true),
+	"SEARCH_SQ" => cot_inputbox('text', 'sq', $sq, 'class="schstring"'),
+	"SEARCH_CAT" => cot_projects_selectcat($c, 'c'),
+	"SEARCH_SORTER" => cot_selectbox($sort, "sort", array('', 'costasc', 'costdesc'), array($L['projects_mostrelevant'], $L['projects_costasc'], $L['projects_costdesc']), false),
 	"PAGENAV_PAGES" => $pagenav['main'],
 	"PAGENAV_PREV" => $pagenav['prev'],
 	"PAGENAV_NEXT" => $pagenav['next'],

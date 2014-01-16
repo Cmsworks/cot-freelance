@@ -80,23 +80,6 @@ $list_url_path = array('c' => $c, 'sort' => $sort, 'sq' => $sq);
 $mskin = cot_tplfile(array('market', 'list', $structure['market'][$item['item_cat']]['tpl']));
 $t = new XTemplate($mskin);
 
-$t->assign(array(
-	"SEARCH_ACTION_URL" => cot_url('market', '', '', true),
-	"SEARCH_SQ" => cot_inputbox('text', 'sq', $sq, 'class="schstring"'),
-	"SEARCH_CAT" => cot_market_selectcat($c, 'c'),
-	"SEARCH_SORTER" => cot_selectbox($sort, "sort", array('', 'costasc', 'costdesc'), array($L['market_mostrelevant'], $L['market_costasc'], $L['market_costdesc']), false),
-));
-
-/* === Hook === */
-foreach (cot_getextplugins('market.list.searchtags') as $pl)
-{
-	include $pl;
-}
-/* ===== */
-
-$t->parse("MAIN.SEARCH");
-// ==============================================
-
 /* === Hook === */
 foreach (cot_getextplugins('market.list.query') as $pl)
 {
@@ -128,6 +111,10 @@ if(!empty($c))
 $catpath = cot_breadcrumbs($catpatharray, $cfg['homebreadcrumb'], true);
 
 $t->assign(array(
+	"SEARCH_ACTION_URL" => cot_url('market', '', '', true),
+	"SEARCH_SQ" => cot_inputbox('text', 'sq', $sq, 'class="schstring"'),
+	"SEARCH_CAT" => cot_market_selectcat($c, 'c'),
+	"SEARCH_SORTER" => cot_selectbox($sort, "sort", array('', 'costasc', 'costdesc'), array($L['market_mostrelevant'], $L['market_costasc'], $L['market_costdesc']), false),
 	"PAGENAV_PAGES" => $pagenav['main'],
 	"PAGENAV_PREV" => $pagenav['prev'],
 	"PAGENAV_NEXT" => $pagenav['next'],

@@ -12,8 +12,6 @@
 	<li><a href="{TYPES_EDIT}">{PHP.L.projects_types_edit}</a></li>	
 </div>
 
-
-<!-- BEGIN: SEARCH -->
 <div class="well" id="schform">
 	<form action="{SEARCH_ACTION_URL}" method="get">
 		<input type="hidden" name="m" value="{PHP.m}" />
@@ -48,7 +46,7 @@
 		</table>		
 	</form>
 </div>
-<!-- END: SEARCH -->
+
 <div class="block" id="listprojects">
 	<table class="table">
 		<thead>

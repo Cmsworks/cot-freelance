@@ -19,7 +19,6 @@
 		<!-- IF {CATALOG} --><div class="well well-small">{CATALOG}</div><!-- ENDIF -->
 	</div>
 	<div class="span9">
-		<!-- BEGIN: SEARCH -->
 		<div class="well">	
 			<form action="{SEARCH_ACTION_URL}" method="get">
 				<input type="hidden" name="c" value="{PHP.c}" />
@@ -49,7 +48,6 @@
 				</table>		
 			</form>
 		</div>
-		<!-- END: SEARCH -->
 
 		<div id="listfolio">
 			<!-- BEGIN: PRD_ROWS -->

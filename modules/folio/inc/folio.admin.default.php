@@ -95,24 +95,6 @@ $list_url_path = array('m' => 'folio', 'c' => $c, 'sort' => $sort, 'sq' => $sq);
 
 $order['date'] = 'item_date DESC';
 
-$t->assign(array(
-	"SEARCH_ACTION_URL" => cot_url('admin', "m=folio&c=".$c, '', true),
-	"SEARCH_SQ" => cot_inputbox('text', 'sq', $sq, 'class="schstring"'),
-	"SEARCH_STATE" => cot_radiobox($state, 'state', array(0, 1, 2), array('опубликованные', 'скрытые', 'на проверке')),
-	"SEARCH_CAT" => cot_market_selectcat($c, 'c'),
-	"SEARCH_SORTER" => cot_selectbox($sort, "sort", array('', 'costasc', 'costdesc'), array($L['folio_mostrelevant'], $L['folio_costasc'], $L['folio_costdesc']), false),
-));
-
-/* === Hook === */
-foreach (cot_getextplugins('folio.admin.list.searchtags') as $pl)
-{
-	include $pl;
-}
-/* ===== */
-
-$t->parse("MAIN.SEARCH");
-// ==============================================
-
 /* === Hook === */
 foreach (cot_getextplugins('folio.admin.list.query') as $pl)
 {
@@ -134,6 +116,11 @@ $sqllist = $db->query("SELECT * FROM $db_folio AS m LEFT JOIN $db_users AS u ON 
 $pagenav = cot_pagenav('admin', $list_url_path, $d, $totalitems, $cfg['maxrowsperpage']);
 
 $t->assign(array(
+	"SEARCH_ACTION_URL" => cot_url('admin', "m=folio&c=".$c, '', true),
+	"SEARCH_SQ" => cot_inputbox('text', 'sq', $sq, 'class="schstring"'),
+	"SEARCH_STATE" => cot_radiobox($state, 'state', array(0, 1, 2), array('опубликованные', 'скрытые', 'на проверке')),
+	"SEARCH_CAT" => cot_market_selectcat($c, 'c'),
+	"SEARCH_SORTER" => cot_selectbox($sort, "sort", array('', 'costasc', 'costdesc'), array($L['folio_mostrelevant'], $L['folio_costasc'], $L['folio_costdesc']), false),
 	'PAGENAV_PAGES' => $pagenav['main'],
 	'PAGENAV_PREV' => $pagenav['prev'],
 	'PAGENAV_NEXT' => $pagenav['next'],

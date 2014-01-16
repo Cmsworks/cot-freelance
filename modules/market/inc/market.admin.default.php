@@ -97,24 +97,6 @@ $order['date'] = 'item_date DESC';
 
 $list_url_path = array('m' => 'market', 'c' => $c, 'sort' => $sort, 'sq' => $sq);
 
-$t->assign(array(
-	"SEARCH_ACTION_URL" => cot_url('admin', "m=market&c=".$c, '', true),
-	"SEARCH_SQ" => cot_inputbox('text', 'sq', $sq, 'class="schstring"'),
-	"SEARCH_STATE" => cot_radiobox($state, 'state', array(0, 1, 2), array('опубликованные', 'скрытые', 'на проверке')),
-	"SEARCH_CAT" => cot_market_selectcat($c, 'c'),
-	"SEARCH_SORTER" => cot_selectbox($sort, "sort", array('', 'costasc', 'costdesc'), array($L['market_mostrelevant'], $L['market_costasc'], $L['market_costdesc']), false),
-));
-
-/* === Hook === */
-foreach (cot_getextplugins('market.admin.list.searchtags') as $pl)
-{
-	include $pl;
-}
-/* ===== */
-
-$t->parse("MAIN.SEARCH");
-// ==============================================
-
 /* === Hook === */
 foreach (cot_getextplugins('market.admin.list.query') as $pl)
 {
@@ -137,6 +119,11 @@ $sqllist = $db->query("SELECT * FROM $db_market AS m
 $pagenav = cot_pagenav('admin', $list_url_path, $d, $totalitems, $maxrowsperpage);
 
 $t->assign(array(
+	"SEARCH_ACTION_URL" => cot_url('admin', "m=market&c=".$c, '', true),
+	"SEARCH_SQ" => cot_inputbox('text', 'sq', $sq, 'class="schstring"'),
+	"SEARCH_STATE" => cot_radiobox($state, 'state', array(0, 1, 2), array('опубликованные', 'скрытые', 'на проверке')),
+	"SEARCH_CAT" => cot_market_selectcat($c, 'c'),
+	"SEARCH_SORTER" => cot_selectbox($sort, "sort", array('', 'costasc', 'costdesc'), array($L['market_mostrelevant'], $L['market_costasc'], $L['market_costdesc']), false),
 	'PAGENAV_PAGES' => $pagenav['main'],
 	'PAGENAV_PREV' => $pagenav['prev'],
 	'PAGENAV_NEXT' => $pagenav['next'],
