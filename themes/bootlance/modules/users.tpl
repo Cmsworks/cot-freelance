@@ -14,11 +14,13 @@
 		<div class="span9">
 		
 			<div class="well">
-				<form action="{USERS_TOP_FILTER_ACTION}" method="post">
-					<input type="hidden" name="gm" value="{PHP.gm}"/>
+				<form action="{SEARCH_ACTION_URL}" method="get">
+					<input type="hidden" name="group" value="{PHP.group}" />
+					<input type="hidden" name="cat" value="{PHP.cat}" />
+					<p>{PHP.L.Location}: {SEARCH_LOCATION}</p>
 					<div class="row">
 						<div class="span7"><input type="text" name="y" value="{PHP.y}" class="schstring"/></div>
-						<div class="span1"><button type="submit" class="btn">{PHP.L.Submit}</button></div>
+						<div class="span1"><button type="submit" class="btn btn-success">{PHP.L.Submit}</button></div>
 					</div>
 				</form>
 			</div>

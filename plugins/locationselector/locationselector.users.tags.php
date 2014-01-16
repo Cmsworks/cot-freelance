@@ -18,10 +18,7 @@ defined('COT_CODE') or die('Wrong URL.');
 
 // ==============================================
 $t->assign(array(
-	'SEARCH_ACTION_URL' => cot_url('users', "gm=" . $gm . "&c=" . $c, '', true),
+	'SEARCH_ACTION_URL' => cot_url('users', "group=" . $group . "&cat=" . $c, '', true),
 	'SEARCH_LOCATION' => (function_exists('cot_select_location')) ?
 			cot_select_location('slocation', $location['country'], $location['region'], $location['city']) : ''
 ));
-
-$t->parse('MAIN.SEARCH');
-// ==============================================
