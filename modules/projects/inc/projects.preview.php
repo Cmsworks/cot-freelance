@@ -39,7 +39,7 @@ if ($a == 'save')
 	cot_check_xg();
 
 	$prj = array();
-	if($cfg['projects']['prevalidate']){
+	if($cfg['projects']['prevalidate'] && !$usr['isadmin']){
 		$prj['item_state'] = 2;
 		
 		$r_url = (empty($ritem['item_alias'])) ? 

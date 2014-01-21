@@ -461,7 +461,7 @@ function cot_market_add(&$ritem, $auth = array())
 	}
 	
 	if(!$cfg['market']['preview']){
-		$ritem['item_state'] = (!$cfg['market']['prevalidate']) ? 0 : 2;
+		$ritem['item_state'] = (!$cfg['market']['prevalidate'] || $auth['isadmin']) ? 0 : 2;
 	}
 	else
 	{
@@ -617,7 +617,7 @@ function cot_market_update($id, &$ritem, $auth = array())
 	}
 	
 	if(!$cfg['market']['preview']){
-		$ritem['item_state'] = (!$cfg['market']['prevalidate']) ? 0 : 2;
+		$ritem['item_state'] = (!$cfg['market']['prevalidate'] || $auth['isadmin']) ? 0 : 2;
 	}
 	else
 	{

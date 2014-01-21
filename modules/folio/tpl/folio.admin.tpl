@@ -45,6 +45,12 @@
 		</div>
 		<!-- ENDIF -->
 		<h4><!-- IF {PRD_ROW_COST} > 0 --><div class="cost pull-right">{PRD_ROW_COST} {PHP.cfg.payments.valuta}</div><!-- ENDIF --><a href="{PRD_ROW_URL}">{PRD_ROW_SHORTTITLE}</a></h4>
+		<div class="pull-right">
+			<!-- IF {PRD_ROW_STATE} == 2 -->
+			<a href="{PRD_ROW_VALIDATE_URL}" class="button btn btn-success">{PHP.L.Validate}</a>
+			<!-- ENDIF -->
+			<a href="{PRD_ROW_DELETE_URL}" class="button btn btn-warning">{PHP.L.Delete}</a>
+		</div>
 		<p class="owner">{PRD_ROW_OWNER_NAME} <span class="date">[{PRD_ROW_DATE}]</span> &nbsp;{PRD_ROW_COUNTRY} {PRD_ROW_REGION} {PRD_ROW_CITY} &nbsp; {PRD_ROW_ADMIN_EDIT}</p>
 		<p class="text">{PRD_ROW_SHORTTEXT}</p>
 		<p class="type"><a href="{PRD_ROW_CATURL}">{PRD_ROW_CATTITLE}</a></p>

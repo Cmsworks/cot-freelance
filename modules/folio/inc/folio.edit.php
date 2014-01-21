@@ -88,7 +88,7 @@ if ($a == 'update')
 
 	if (!cot_error_found())
 	{
-		cot_folio_update($id, $ritem);
+		cot_folio_update($id, $ritem, $usr);
 
 		switch ($ritem['item_state'])
 		{
@@ -130,13 +130,6 @@ if ($a == 'update')
 				}
 				break;
 		}
-		
-		/* === Hook === */
-		foreach (cot_getextplugins('folio.edit.update.done') as $pl)
-		{
-			include $pl;
-		}
-		/* ===== */
 
 		cot_redirect($r_url);
 	}

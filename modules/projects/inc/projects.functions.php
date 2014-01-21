@@ -469,7 +469,7 @@ function cot_projects_add(&$ritem, $auth = array())
 	}
 	
 	if(!$cfg['projects']['preview']){
-		$ritem['item_state'] = (!$cfg['projects']['prevalidate']) ? 0 : 2;
+		$ritem['item_state'] = (!$cfg['projects']['prevalidate'] || $auth['isadmin']) ? 0 : 2;
 	}
 	else
 	{
@@ -625,7 +625,7 @@ function cot_projects_update($id, &$ritem, $auth = array())
 	}
 	
 	if(!$cfg['projects']['preview']){
-		$ritem['item_state'] = (!$cfg['projects']['prevalidate']) ? 0 : 2;
+		$ritem['item_state'] = (!$cfg['projects']['prevalidate'] || $auth['isadmin']) ? 0 : 2;
 	}
 	else
 	{

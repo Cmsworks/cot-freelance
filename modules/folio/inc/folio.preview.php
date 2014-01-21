@@ -40,7 +40,7 @@ if ($a == 'save')
 	cot_check_xg();
 
 	$ritem = array();
-	if($cfg['folio']['prevalidate']){
+	if($cfg['folio']['prevalidate'] && !$usr['isadmin']){
 		$ritem['item_state'] = 2;
 		
 		$r_url = (empty($item['item_alias'])) ? 

@@ -86,7 +86,7 @@ if ($a == 'update')
 
 	if (!cot_error_found())
 	{
-		cot_projects_update($id, $ritem);
+		cot_projects_update($id, $ritem, $usr);
 
 		switch ($ritem['item_state'])
 		{
