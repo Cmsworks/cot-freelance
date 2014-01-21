@@ -92,6 +92,13 @@ if ($a == 'add')
 				break;
 		}
 		
+		/* === Hook === */
+		foreach (cot_getextplugins('folio.add.add.done') as $pl)
+		{
+			include $pl;
+		}
+		/* ===== */
+		
 		cot_redirect($r_url);
 		exit;
 	}

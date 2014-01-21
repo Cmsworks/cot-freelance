@@ -39,12 +39,12 @@ if ($a == 'save')
 {
 	cot_check_xg();
 
-	$prd = array();
+	$ritem = array();
 	if($cfg['folio']['prevalidate']){
-		$prd['item_state'] = 2;
+		$ritem['item_state'] = 2;
 		
-		$r_url = (empty($ritem['item_alias'])) ? 
-			cot_url('folio', 'c='.$ritem['item_cat'].'&id='.$id, '', true) : cot_url('folio', 'c='.$ritem['item_cat'].'&al='.$ritem['item_alias'], '', true);
+		$r_url = (empty($item['item_alias'])) ? 
+			cot_url('folio', 'c='.$item['item_cat'].'&id='.$id, '', true) : cot_url('folio', 'c='.$item['item_cat'].'&al='.$item['item_alias'], '', true);
 		
 		if (!$usr['isadmin'])
 		{
@@ -58,7 +58,7 @@ if ($a == 'save')
 		}
 	}
 	else{
-		$prd['item_state'] = 0;
+		$ritem['item_state'] = 0;
 		
 		$r_url = (empty($item['item_alias'])) ? 
 			cot_url('folio', 'c='.$item['item_cat'].'&id='.$id, '', true) : cot_url('folio', 'c='.$item['item_cat'].'&al='.$item['item_alias'], '', true);	
@@ -74,9 +74,16 @@ if ($a == 'save')
 			cot_mail($item['user_email'], $L['folio_added_mail_subj'], $rbody);
 		}
 	}
-	$db->update($db_folio, $prd, "item_id=" . (int)$id);
+	$db->update($db_folio, $ritem, "item_id=" . (int)$id);
 
 	cot_folio_sync($item['item_cat']);
+	
+	/* === Hook === */
+	foreach (cot_getextplugins('folio.preview.done') as $pl)
+	{
+		include $pl;
+	}
+	/* ===== */
 	
 	cot_redirect($r_url);
 	exit;

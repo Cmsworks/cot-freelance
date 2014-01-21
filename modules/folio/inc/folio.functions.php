@@ -461,7 +461,7 @@ function cot_folio_add(&$ritem, $auth = array())
 	}
 	
 	if(!$cfg['folio']['preview']){
-		$ritem['item_state'] = (!$cfg['folio']['prevalidate']) ? 0 : 2;
+	$ritem['item_state'] = (!$cfg['folio']['prevalidate'] || $auth['isadmin']) ? 0 : 2;
 	}
 	else
 	{
@@ -509,13 +509,6 @@ function cot_folio_add(&$ritem, $auth = array())
 		}
 		while ($duplicate && !$cfg['plugin']['autoalias2']['prepend_id']);
 	}
-
-	/* === Hook === */
-	foreach (cot_getextplugins('folio.add.add.done') as $pl)
-	{
-		include $pl;
-	}
-	/* ===== */
 
 	cot_shield_update(30, "r product");
 	cot_log("Add product #".$id, 'adm');
@@ -617,7 +610,7 @@ function cot_folio_update($id, &$ritem, $auth = array())
 	}
 	
 	if(!$cfg['folio']['preview']){
-		$ritem['item_state'] = (!$cfg['folio']['prevalidate']) ? 0 : 2;
+		$ritem['item_state'] = (!$cfg['folio']['prevalidate'] || $auth['isadmin']) ? 0 : 2;
 	}
 	else
 	{
@@ -633,13 +626,6 @@ function cot_folio_update($id, &$ritem, $auth = array())
 	cot_folio_sync($ritem['item_cat']);
 	
 	cot_extrafield_movefiles();
-
-	/* === Hook === */
-	foreach (cot_getextplugins('folio.edit.update.done') as $pl)
-	{
-		include $pl;
-	}
-	/* ===== */
 
 	return true;
 }

@@ -130,6 +130,14 @@ if ($a == 'update')
 				}
 				break;
 		}
+		
+		/* === Hook === */
+		foreach (cot_getextplugins('folio.edit.update.done') as $pl)
+		{
+			include $pl;
+		}
+		/* ===== */
+
 		cot_redirect($r_url);
 	}
 	else

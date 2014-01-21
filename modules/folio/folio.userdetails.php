@@ -106,7 +106,7 @@ $t1->parse("MAIN");
 
 $t->assign(array(
 	"USERS_DETAILS_FOLIO_COUNT" => $folio_count,
-	"USERS_DETAILS_FOLIO_URL" => cot_url('users', 'm=details&id=' . $urr['user_id'] . '&u=' . $urr['user_name'] . '&tab=folio'),
+	"USERS_DETAILS_FOLIO_URL" => cot_url('users', 'm=details&id=' . $urr['user_id'] . '&u=' . $urr['user_name'] . '&tab=portfolio'),
 ));
 
 $t->assign('PORTFOLIO', $t1->text("MAIN"));

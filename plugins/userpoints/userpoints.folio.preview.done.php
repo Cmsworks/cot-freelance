@@ -2,7 +2,7 @@
 
 /**
  * [BEGIN_COT_EXT]
- * Hooks=folio.add.add.done
+ * Hooks=folio.preview.done
  * [END_COT_EXT]
  */
 /**
@@ -20,9 +20,9 @@ require_once cot_incfile('userpoints', 'plug');
 
 if($ritem['item_state'] == 0)
 {
-	cot_setuserpoints($cfg['plugin']['userpoints']['portfolioaddtocat'], 'portfolioaddtocat', $ritem['item_userid'], $id);
+	cot_setuserpoints($cfg['plugin']['userpoints']['portfolioaddtocat'], 'portfolioaddtocat', $item['item_userid'], $id);
 }
 else
 {
-	cot_setuserpoints(-$cfg['plugin']['userpoints']['portfolioaddtocat'], 'portfoliodeltocat', $ritem['item_userid'], $id);
+	cot_setuserpoints(-$cfg['plugin']['userpoints']['portfolioaddtocat'], 'portfoliodeltocat', $item['item_userid'], $id);
 }
