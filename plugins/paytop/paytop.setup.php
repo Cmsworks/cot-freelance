@@ -5,7 +5,7 @@
  * Name=PayTop
  * Category=Payments
  * Description=Услуга размещения на главной
- * Version=1.0.2
+ * Version=1.0.3
  * Date=
  * Author=CMSWorks Team
  * Copyright=Copyright (c) CMSWorks.ru, littledev.ru
@@ -19,7 +19,7 @@
  * [END_COT_EXT]
  * 
  * [BEGIN_COT_EXT_CONFIG]
- * paytopareas=01:textarea::top|Главная|500:Format settings area|name|cost
+ * paytopareas=01:textarea::top|Главная|500|2592000|5:Format settings area|name|cost|period|count
  * [END_COT_EXT_CONFIG]
  */
 
@@ -27,7 +27,7 @@
  * PayTop Plugin
  *
  * @package paytop
- * @version 1.0.2
+ * @version 1.0.3
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru, littledev.ru
  * @license BSD

@@ -4,7 +4,7 @@
  * PayTop plugin
  *
  * @package paytop
- * @version 1.0.2
+ * @version 1.0.3
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru, littledev.ru
  * @license BSD
@@ -33,12 +33,18 @@ function cot_cfg_paytop()
 		$lines[0] = trim($lines[0]);
 		$lines[1] = trim($lines[1]);
 		$lines[2] = (float)trim($lines[2]);
+		$lines[3] = (int)trim($lines[3]);
+		$lines[4] = (int)trim($lines[4]);
 		
 		if (!empty($lines[0]) && $lines[2] > 0)
 		{
+			$lines[3] = (!empty($lines[3])) ? $lines[3] : 2592000;
+			$lines[4] = (!empty($lines[4])) ? $lines[4] : 4;
+			
 			$paytopset[$lines[0]]['name'] = $lines[1];
 			$paytopset[$lines[0]]['cost'] = $lines[2];
-
+			$paytopset[$lines[0]]['period'] = $lines[3];
+			$paytopset[$lines[0]]['count'] = $lines[4];
 		}
 	}
 	return $paytopset;
@@ -50,12 +56,16 @@ function cot_get_paytop ($area='', $count=0, $order = "s.service_id DESC")
 	
 	$pt_cfg = cot_cfg_paytop();
 	
+	if($count == 0)
+	{
+		$count = $pt_cfg[$area]['count'];
+	}
+	
 	if (empty($area) && !isset($pt_cfg[$area]['cost']))
 	{
 		return false;
 	}
 	
-	$count = (int)$count > 0 ? $count : $cfg['maxrowsperpage'];
 	$t1 = new XTemplate(cot_tplfile(array('paytop', 'list', $area), 'plug'));
 	
 	$paytops = $db->query("SELECT * FROM $db_payments_services as s

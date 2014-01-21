@@ -10,10 +10,12 @@ function changeareas()
 		var area_id = $(this).find('.area_id').val();		
 		var area_name = $(this).find('.area_name').val();		
 		var area_cost = $(this).find('.area_cost').val();		
+		var area_period = $(this).find('.area_period option:selected').val();		
+		var area_count = $(this).find('.area_count').val();		
 
 		if (area_id > '' && area_name > '' && area_cost > 0)
 		{
-			areastext += area_id + '|' + area_name + '|' + area_cost;
+			areastext += area_id + '|' + area_name + '|' + area_cost + '|' + area_period + '|' + area_count;
 			if (i + 1 < num) areastext +=  '\r\n';
 		}
 	});

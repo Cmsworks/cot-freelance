@@ -19,17 +19,17 @@ if ($a == 'add')
 {
 	$username = cot_import('username', 'P', 'TXT', 100, TRUE);
 	$area = cot_import('area', 'P', 'ALP');
-	$months = cot_import('months', 'P', 'INT');
+	$times = cot_import('times', 'P', 'INT');
 	$urr_id = $db->query("SELECT user_id FROM $db_users WHERE user_name='" . $username . "'")->fetchColumn();
 
 	cot_check(empty($username), 'paytop_error_username');
 	cot_check(empty($urr_id), 'paytop_error_userempty');
-	cot_check(empty($months), 'paytop_error_monthsempty');
+	cot_check(empty($times), 'paytop_error_timesempty');
 	cot_check(empty($area), 'paytop_error_areaempty');
 
 	if (!cot_error_found())
 	{
-		cot_payments_userservice('paytop.' . $area, $urr_id, $months * 30 * 60 * 60 * 24);
+		cot_payments_userservice('paytop.' . $area, $urr_id, $times * $pt_cfg[$area]['period']);
 
 		/* === Hook === */
 		foreach (cot_getextplugins('paytop.done') as $pl)
@@ -80,10 +80,35 @@ foreach ($pt_cfg as $area => $opt)
 	$areas_title[] = $opt['name'];
 }
 
+switch($pt_cfg[$area]['period'])
+{
+	case 2592000:
+		$period = range(1, 12);
+		$period_name = $L['paytop_month'];
+	break;
+	case 604800:
+		$period = range(1, 48);
+		$period_name = $L['paytop_week'];
+	break;
+	case 86400:
+		$period = range(1, 100);
+		$period_name = $L['paytop_day'];
+	break;
+	case 3600:
+		$period = range(1, 100);
+		$period_name = $L['paytop_hour'];
+	break;
+	
+	default:
+		$period = range(1, 12);
+		$period_name = $L['paytop_month'];
+	break;
+}
+
 $t->assign(array(
 	'TOP_FORM_ACTION_URL' => cot_url('admin', 'm=other&p=paytop&a=add'),
-	'TOP_FORM_PERIOD' => cot_selectbox($months, 'months', array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
-									array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12), false),
+	'TOP_FORM_PERIOD' => cot_selectbox($months, 'times', $period, $period, false),
+	'TOP_FORM_PERIOD_NAME' => $period_name,
 	'TOP_FORM_AREA' => cot_selectbox('', 'area', $areas_val, $areas_title, false),
 ));
 

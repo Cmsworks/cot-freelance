@@ -18,9 +18,9 @@
 	{FILE "{PHP.cfg.themes_dir}/{PHP.cfg.defaulttheme}/warnings.tpl"}
 	<form action="{TOP_FORM_ACTION_URL}" method="POST">
 		{PHP.L.Username}: <input type="text" name="username" value="" /> 
-		{PHP.L.paytop_area}: {TOP_FORM_AREA}
-		{TOP_FORM_PERIOD} {PHP.L.paytop_month}
-		<button>{PHP.L.Add}</button>
+		{PHP.L.paytop_area}: {TOP_FORM_AREA} 
+		{PHP.L.paytop_period} {TOP_FORM_PERIOD} {TOP_FORM_PERIOD_NAME}
+		<button class="btn">{PHP.L.Add}</button>
 	</form>
 
 </div>
