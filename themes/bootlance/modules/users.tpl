@@ -15,6 +15,7 @@
 		
 			<div class="well">
 				<form action="{SEARCH_ACTION_URL}" method="get">
+					<input type="hidden" name="e" value="{PHP.e}" />
 					<input type="hidden" name="group" value="{PHP.group}" />
 					<input type="hidden" name="cat" value="{PHP.cat}" />
 					<p>{PHP.L.Location}: {SEARCH_LOCATION}</p>
