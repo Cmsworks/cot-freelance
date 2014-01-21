@@ -557,11 +557,6 @@ function cot_projects_delete($id, $ritem = array())
 		}
 	}
 
-	if ($ritem['item_state'] == 0)
-	{
-		cot_projects_sync($ritem['item_cat']);
-	}
-
 	foreach ($cot_extrafields[$db_projects] as $exfld)
 	{
 		cot_extrafield_unlinkfiles($ritem['item_' . $exfld['field_name']], $exfld);
@@ -570,6 +565,8 @@ function cot_projects_delete($id, $ritem = array())
 	$db->delete($db_projects, "item_id = ?", $id);
 	cot_log("Deleted project #" . $id, 'adm');
 
+	cot_projects_sync($ritem['item_cat']);
+	
 	/* === Hook === */
 	foreach (cot_getextplugins('projects.edit.delete.done') as $pl)
 	{

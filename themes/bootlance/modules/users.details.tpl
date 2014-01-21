@@ -24,10 +24,18 @@
 		<div class="tabbable">
 			<ul class="nav nav-tabs">
 				<li<!-- IF !{PHP.tab} --> class="active"<!-- ENDIF -->><a href="{USERS_DETAILS_DETAILSLINK}#tab_info" data-toggle="tab">{PHP.L.Info}</a></li>
+				<!-- IF {PHP.cot_modules.folio} -->
 				<li<!-- IF {PHP.tab} == 'portfolio' --> class="active"<!-- ENDIF -->><a href="{USERS_DETAILS_FOLIO_URL}#tab_portfolio" data-toggle="tab">{PHP.L.folio} {USERS_DETAILS_FOLIO_COUNT}</a></li>
+				<!-- ENDIF -->
+				<!-- IF {PHP.cot_modules.market} -->
 				<li<!-- IF {PHP.tab} == 'market' --> class="active"<!-- ENDIF -->><a href="{USERS_DETAILS_MARKET_URL}#tab_market" data-toggle="tab">{PHP.L.market} {USERS_DETAILS_MARKET_COUNT}</a></li>
+				<!-- ENDIF -->
+				<!-- IF {PHP.cot_modules.projects} -->
 				<li<!-- IF {PHP.tab} == 'projects' --> class="active"<!-- ENDIF -->><a href="{USERS_DETAILS_PROJECTS_URL}#tab_projects" data-toggle="tab">{PHP.L.projects_projects} {USERS_DETAILS_PROJECTS_COUNT}</a></li>
+				<!-- ENDIF -->
+				<!-- IF {PHP.cot_plugins_active.reviews} -->
 				<li<!-- IF {PHP.tab} == 'reviews' --> class="active"<!-- ENDIF -->><a href="{USERS_DETAILS_REVIEWS_URL}#tab_reviews" data-toggle="tab">{PHP.L.review_reviews} {USERS_DETAILS_REVIEWS_COUNT}</a></li>
+				<!-- ENDIF -->
 			</ul>
 		</div>
 		<div class="tab-content">

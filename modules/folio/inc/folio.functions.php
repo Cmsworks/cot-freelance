@@ -549,11 +549,6 @@ function cot_folio_delete($id, $ritem = array())
 		}
 	}
 
-	if ($ritem['item_state'] == 0)
-	{
-		cot_folio_sync($ritem['item_cat']);
-	}
-
 	foreach ($cot_extrafields[$db_folio] as $exfld)
 	{
 		cot_extrafield_unlinkfiles($ritem['item_' . $exfld['field_name']], $exfld);
@@ -562,6 +557,8 @@ function cot_folio_delete($id, $ritem = array())
 	$db->delete($db_folio, "item_id = ?", $id);
 	cot_log("Deleted product #" . $id, 'adm');
 
+	cot_folio_sync($ritem['item_cat']);
+	
 	/* === Hook === */
 	foreach (cot_getextplugins('folio.edit.delete.done') as $pl)
 	{
