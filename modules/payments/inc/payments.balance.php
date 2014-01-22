@@ -29,7 +29,7 @@ $t->assign(array(
 	'BALANCE_SUMM' => cot_payments_getuserbalance($usr['id']),
 	'BALANCE_BILLING_URL' => cot_url('payments', 'm=balance&n=billing'),
 	'BALANCE_HISTORY_URL' => cot_url('payments', 'm=balance&n=history'),
-	'BALANCE_PAYOUT_URL' => cot_url('payments', 'm=balance&n=payout'),
+	'BALANCE_PAYOUT_URL' => cot_url('payments', 'm=balance&n=payouts'),
 	'BALANCE_TRANSFER_URL' => cot_url('payments', 'm=balance&n=transfer'),
 ));
 
@@ -62,19 +62,23 @@ if ($n == 'billing')
 	$t->parse('MAIN.BILLINGFORM');
 }
 
-if ($n == 'payout')
+if ($n == 'payouts')
 {
-	if ($a == 'add')
+	cot_block($cfg['payments']['payouts_enabled']);
+	
+	if ($a == 'send')
 	{
 
 		$summ = cot_import('summ', 'P', 'NUM');
 		$details = cot_import('details', 'P', 'TXT');
 		
+		$total = $summ + $summ*$cfg['payments']['payouttax']/100;
+		
 		$ubalance = cot_payments_getuserbalance($usr['id']);
 			
 		cot_check(empty($details), 'payments_balance_payout_error_details');
 		cot_check(empty($summ), 'payments_balance_payout_error_summ');
-		cot_check($summ > $ubalance, 'payments_balance_payout_error_balance');	
+		cot_check($total > $ubalance, 'payments_balance_payout_error_balance');	
 
 		if(!cot_error_found())
 		{
@@ -89,7 +93,7 @@ if ($n == 'payout')
 				$payinfo['pay_userid'] = $usr['id'];
 				$payinfo['pay_area'] = 'payout';
 				$payinfo['pay_code'] = $oid;
-				$payinfo['pay_summ'] = $summ;
+				$payinfo['pay_summ'] = $total;
 				$payinfo['pay_cdate'] = $sys['now'];
 				$payinfo['pay_pdate'] = $sys['now'];
 				$payinfo['pay_adate'] = $sys['now'];
@@ -99,50 +103,61 @@ if ($n == 'payout')
 				$db->insert($db_payments, $payinfo);
 				$pid = $db->lastInsertId();
 
-				cot_payments_updateuserbalance($usr['id'], -$summ, $pid);
+				cot_payments_updateuserbalance($usr['id'], -$total, $pid);
 			}
 			cot_redirect(cot_url('payments', 'm=balance&n=history', '', true));
 		}
-		cot_redirect(cot_url('payments', 'm=balance&n=payout', '', true));
+		cot_redirect(cot_url('payments', 'm=balance&n=payouts&a=add', '', true));
 	}
 	
-	$payouts = $db->query("SELECT * FROM $db_payments_outs AS o
-		LEFT JOIN $db_payments AS p ON p.pay_code=o.out_id AND p.pay_area='payout'
-		WHERE out_userid=" . $usr['id'] . "
-		ORDER BY pay_cdate ASC")->fetchAll();
-	if(count($payouts) > 0)
+	if($a != 'add')
 	{
-		foreach ($payouts as $payout)
+		$payouts = $db->query("SELECT * FROM $db_payments_outs AS o
+			LEFT JOIN $db_payments AS p ON p.pay_code=o.out_id AND p.pay_area='payout'
+			WHERE out_userid=" . $usr['id'] . "
+			ORDER BY pay_cdate DESC")->fetchAll();
+		if(count($payouts) > 0)
 		{
-			$t->assign(array(
-				'PAYOUT_ROW_ID' => $payout['out_id'],
-				'PAYOUT_ROW_SUMM' => $payout['out_summ'],
-				'PAYOUT_ROW_CDATE' => $payout['pay_cdate'],
-				'PAYOUT_ROW_DATE' => $payout['out_date'],
-			));
-			$t->parse('MAIN.PAYOUTFORM.PAYOUTS.PAYOUT_ROW');
+			foreach ($payouts as $payout)
+			{
+				$t->assign(array(
+					'PAYOUT_ROW_ID' => $payout['out_id'],
+					'PAYOUT_ROW_SUMM' => $payout['out_summ'],
+					'PAYOUT_ROW_CDATE' => $payout['pay_cdate'],
+					'PAYOUT_ROW_DATE' => $payout['out_date'],
+				));
+				$t->parse('MAIN.PAYOUTS.PAYOUT_ROW');
+			}
+			$t->parse('MAIN.PAYOUTS');
 		}
-		$t->parse('MAIN.PAYOUTFORM.PAYOUTS');
 	}
-	
-	cot_display_messages($t, 'MAIN.PAYOUTFORM');
+	else
+	{
+		cot_display_messages($t, 'MAIN.PAYOUTFORM');
 
-	$t->assign(array(
-		'PAYOUT_FORM_ACTION_URL' => cot_url('payments', 'm=balance&n=payout&a=add'),
-		'PAYOUT_FORM_SUMM' => (!empty($rsumm)) ? $rsumm : $summ,
-		'PAYOUT_FORM_DETAILS' => $details,
-	));
-	$t->parse('MAIN.PAYOUTFORM');
+		$t->assign(array(
+			'PAYOUT_FORM_ACTION_URL' => cot_url('payments', 'm=balance&n=payouts&a=send'),
+			'PAYOUT_FORM_SUMM' => cot_inputbox('text', 'summ', $summ),
+			'PAYOUT_FORM_TAX' => $summ*$cfg['payments']['payouttax']/100,
+			'PAYOUT_FORM_TOTAL' => (!empty($total)) ? $total : 0,
+			'PAYOUT_FORM_DETAILS' => $details,
+		));
+		$t->parse('MAIN.PAYOUTFORM');
+	}
 }
 
 if ($n == 'transfer')
 {
+	cot_block($cfg['payments']['transfers_enabled']);
+	
 	if ($a == 'add')
 	{
 
 		$summ = cot_import('summ', 'P', 'NUM');
 		$username = cot_import('username', 'P', 'TXT', 100, TRUE);
 		$comment = cot_import('comment', 'P', 'TXT');
+		
+		$total = $summ + $summ*$cfg['payments']['transfertax']/100;
 		
 		$ubalance = cot_payments_getuserbalance($usr['id']);
 		
@@ -151,14 +166,14 @@ if ($n == 'transfer')
 		cot_check(empty($user), 'payments_balance_transfer_error_username');
 		cot_check(empty($comment), 'payments_balance_transfer_error_comment');
 		cot_check(empty($summ), 'payments_balance_transfer_error_summ');
-		cot_check($summ > $ubalance, 'payments_balance_transfer_error_balance');	
+		cot_check($total > $ubalance, 'payments_balance_transfer_error_balance');	
 
 		if(!cot_error_found())
 		{
 			$payinfo['pay_userid'] = $usr['id'];
 			$payinfo['pay_area'] = 'transfer';
 			$payinfo['pay_code'] = $user['user_id'];
-			$payinfo['pay_summ'] = $summ;
+			$payinfo['pay_summ'] = $total;
 			$payinfo['pay_cdate'] = $sys['now'];
 			$payinfo['pay_pdate'] = $sys['now'];
 			$payinfo['pay_adate'] = $sys['now'];
@@ -167,7 +182,7 @@ if ($n == 'transfer')
 
 			$db->insert($db_payments, $payinfo);
 			$pid = $db->lastInsertId();
-			cot_payments_updateuserbalance($usr['id'], -$summ, $pid);
+			cot_payments_updateuserbalance($usr['id'], -$total, $pid);
 			
 			$payinfo['pay_userid'] = $user['user_id'];
 			$payinfo['pay_area'] = 'balance';
@@ -191,7 +206,9 @@ if ($n == 'transfer')
 
 	$t->assign(array(
 		'TRANSFER_FORM_ACTION_URL' => cot_url('payments', 'm=balance&n=transfer&a=add'),
-		'TRANSFER_FORM_SUMM' => (!empty($rsumm)) ? $rsumm : $summ,
+		'TRANSFER_FORM_SUMM' => cot_inputbox('text', 'summ', $summ),
+		'TRANSFER_FORM_TAX' => $summ*$cfg['payments']['transfertax']/100,
+		'TRANSFER_FORM_TOTAL' => (!empty($total)) ? $total : 0,
 		'TRANSFER_FORM_COMMENT' => $comment,
 		'TRANSFER_FORM_USERNAME' => $username,
 	));

@@ -2,14 +2,14 @@
 
 <h2>{PHP.L.payments_history}</h2>	
 
-<div class="quick-actions">
-	<a href="{PHP|cot_url('admin', 'm=payments')}" class="quick-action icon archive">{PHP.L.payments_allusers}</a>
-	<a href="{PHP|cot_url('admin', 'm=payments&p=payouts')}" class="quick-action icon archive">{PHP.L.payments_payout}</a>
-</div>
+<ul class="quick-actions nav nav-tabs">
+	<li<!-- IF !{PHP.p} --> class="active"<!-- ENDIF -->><a href="{PHP|cot_url('admin', 'm=payments')}" class="quick-action icon archive">{PHP.L.payments_allusers}</a></li>
+	<li<!-- IF {PHP.p} == 'payouts' --> class="active"<!-- ENDIF -->><a href="{PHP|cot_url('admin', 'm=payments&p=payouts')}" class="quick-action icon archive">{PHP.L.payments_payout}</a></li>
+</ul>
 
 <!-- BEGIN: PAYMENTS -->
 
-<div class="block button-toolbar">
+<div class="block button-toolbar well">
 	<!-- IF {PHP.cfg.payments.balance_enabled} -->
 	<p><b>{PHP.L.payments_siteinvoices}:</b> {PHP.L.payments_debet}: {INBALANCE} {PHP.cfg.payments.valuta} | {PHP.L.payments_credit}: {OUTBALANCE} {PHP.cfg.payments.valuta} | {PHP.L.payments_balance}: {BALANCE} {PHP.cfg.payments.valuta}</p>
 	<!-- ENDIF -->
@@ -17,7 +17,7 @@
 </div>
 
 <div class="block">
-	<table class="cells">
+	<table class="table">
 	<thead>
 	<tr>
 		<th class="coltop">#</th>
@@ -48,16 +48,13 @@
 	</tbody>
 	</table>
 	
-	<div class="action_bar valid">
-		<div class="pagination"><ul>{PAGENAV_PAGES}</ul></div>
-	</div>	
-	
+	<div class="pagination"><ul>{PAGENAV_PAGES}</ul></div>	
 </div>
 	
 <!-- END: PAYMENTS -->
 
 <!-- BEGIN: PAYOUTS -->
-<table class="cells">
+<table class="table">
 <thead>
 	<tr>
 		<th class="span2">{PHP.L.User}</th>

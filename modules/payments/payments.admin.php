@@ -49,7 +49,7 @@ if($p == 'payouts')
 	$payouts = $db->query("SELECT * FROM $db_payments_outs AS o
 		LEFT JOIN $db_users AS u ON u.user_id=o.out_userid
 		WHERE 1
-		ORDER BY o.out_id DESC")->fetchAll();
+		ORDER BY o.out_id ASC")->fetchAll();
 
 	foreach($payouts as $payout){
 		$t->assign(array(

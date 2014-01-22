@@ -19,7 +19,11 @@
  * [BEGIN_COT_EXT_CONFIG]
  * balance_enabled=01:radio::1:Включить внутренние счета
  * valuta=02:string::руб.:Название валюты сайта
- * clearpaymentsdays=03:string::0:Очищать базу от неоплаченных платежек через (дней)
+ * transfers_enabled=03:radio::1:Включить переводы между пользователями
+ * transfertax=04:string::0:Комиссия за переводы между пользователями
+ * payouts_enabled=05:radio::1:Включить заявки на вывод со счета
+ * payouttax=06:string::0:Комиссия за вывод со счета
+ * clearpaymentsdays=07:string::0:Очищать базу от неоплаченных платежек через (дней)
  * [END_COT_EXT_CONFIG]
  */
 
