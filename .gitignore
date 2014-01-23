@@ -49,7 +49,6 @@ sef-urls.nginx.conf
 /plugins/i18n/
 /plugins/ipsearch/
 /plugins/markitup/
-/plugins/mavatars/
 /plugins/mcaptcha/
 /plugins/news/
 /plugins/ratings/
