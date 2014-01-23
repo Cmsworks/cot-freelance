@@ -65,6 +65,5 @@ sef-urls.nginx.conf
 /plugins/abs_urls/
 /plugins/hybridauth/
 /plugins/subcat/
-/plugins/mavatars/
 /plugins/pagecattree/
 /plugins/fancybox/
