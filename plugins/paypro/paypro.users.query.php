@@ -3,6 +3,7 @@
 /**
  * [BEGIN_COT_EXT]
  * Hooks=users.query
+ * Order=1
  * [END_COT_EXT]
  */
 /**
