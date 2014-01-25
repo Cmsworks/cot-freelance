@@ -56,7 +56,6 @@
 		<div class="navbar navbar-inverse navbar-fixed-top">
 			<div class="navbar-inner">
 				<div class="container">
-					<div class="nav-collapse collapse">
 						<ul class="nav pull-right">
 							<!-- BEGIN: GUEST -->
 							<li><a href="{PHP|cot_url('login')}" data-toggle="modal" onClick="$('#AuthModal').modal(); return false;">{PHP.L.Login}</a></li>
@@ -102,7 +101,6 @@
 							<li>{HEADER_USER_LOGINOUT}</li>
 							<!-- END: USER -->
 						</ul>
-					</div>
 				</div>
 			</div>
 		</div>
