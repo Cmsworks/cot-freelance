@@ -15,12 +15,13 @@
 		
 			<div class="well">
 				<form action="{SEARCH_ACTION_URL}" method="get">
-					<input type="hidden" name="e" value="{PHP.e}" />
+					<input type="hidden" name="f" value="search" />
+					<input type="hidden" name="e" value="users" />
 					<input type="hidden" name="group" value="{PHP.group}" />
 					<input type="hidden" name="cat" value="{PHP.cat}" />
 					<p>{PHP.L.Location}: {SEARCH_LOCATION}</p>
 					<div class="row">
-						<div class="span7"><input type="text" name="y" value="{PHP.y}" class="schstring"/></div>
+						<div class="span7"><input type="text" name="sq" value="{PHP.sq}" class="schstring"/></div>
 						<div class="span1"><button type="submit" class="btn btn-success">{PHP.L.Submit}</button></div>
 					</div>
 				</form>
