@@ -102,7 +102,7 @@ if(is_array($projects_types)){
 			"PTYPE_ROW_URL" => cot_url('projects', 'c=' . $c . '&type=' . $i),
 			"PTYPE_ROW_ACT" => ($type == $i) ? 'act' : ''
 		));
-		$t->parse("MAIN.SEARCH.PTYPES.PTYPES_ROWS");
+		$t->parse("MAIN.PTYPES.PTYPES_ROWS");
 	}
 }
 
