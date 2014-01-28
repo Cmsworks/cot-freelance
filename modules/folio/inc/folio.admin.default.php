@@ -119,7 +119,7 @@ $t->assign(array(
 	"SEARCH_ACTION_URL" => cot_url('admin', "m=folio&c=".$c, '', true),
 	"SEARCH_SQ" => cot_inputbox('text', 'sq', $sq, 'class="schstring"'),
 	"SEARCH_STATE" => cot_radiobox($state, 'state', array(0, 1, 2), array('опубликованные', 'скрытые', 'на проверке')),
-	"SEARCH_CAT" => cot_market_selectcat($c, 'c'),
+	"SEARCH_CAT" => cot_folio_selectcat($c, 'c'),
 	"SEARCH_SORTER" => cot_selectbox($sort, "sort", array('', 'costasc', 'costdesc'), array($L['folio_mostrelevant'], $L['folio_costasc'], $L['folio_costdesc']), false),
 	'PAGENAV_PAGES' => $pagenav['main'],
 	'PAGENAV_PREV' => $pagenav['prev'],
