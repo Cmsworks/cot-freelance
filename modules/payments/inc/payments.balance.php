@@ -128,8 +128,8 @@ if ($n == 'payouts')
 				));
 				$t->parse('MAIN.PAYOUTS.PAYOUT_ROW');
 			}
-			$t->parse('MAIN.PAYOUTS');
 		}
+		$t->parse('MAIN.PAYOUTS');
 	}
 	else
 	{
