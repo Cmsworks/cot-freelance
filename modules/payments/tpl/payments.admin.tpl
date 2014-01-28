@@ -4,7 +4,7 @@
 
 <ul class="quick-actions nav nav-tabs">
 	<li<!-- IF !{PHP.p} --> class="active"<!-- ENDIF -->><a href="{PHP|cot_url('admin', 'm=payments')}" class="quick-action icon archive">{PHP.L.payments_allusers}</a></li>
-	<li<!-- IF {PHP.p} == 'payouts' --> class="active"<!-- ENDIF -->><a href="{PHP|cot_url('admin', 'm=payments&p=payouts')}" class="quick-action icon archive">{PHP.L.payments_payout}</a></li>
+	<li<!-- IF {PHP.p} == 'payouts' --> class="active"<!-- ENDIF -->><a href="{PHP|cot_url('admin', 'm=payments&p=payouts')}" class="quick-action icon archive">{PHP.L.payments_payouts}</a></li>
 </ul>
 
 <!-- BEGIN: PAYMENTS -->
