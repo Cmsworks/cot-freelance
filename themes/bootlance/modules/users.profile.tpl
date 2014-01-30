@@ -77,15 +77,17 @@
 						<td>{PHP.L.Language}:</td>
 						<td>{USERS_PROFILE_LANG}</td>
 					</tr>
-					<tr class="hidden">
-						<td>{PHP.L.Country}:</td>
-						<td>{USERS_PROFILE_COUNTRY}</td>
-					</tr>
-					</tr>
+					<!-- IF {PHP.cot_plugins_active.locationselector} -->
 					<tr>
-						<td>{PHP.L.Location}:</td>
+						<td>{PHP.L.Country}:</td>
 						<td>{USERS_PROFILE_LOCATION}</td>
 					</tr>
+					<!-- ELSE -->
+					<tr>
+						<td>{PHP.L.Country}:</td>
+						<td>{USERS_PROFILE_LOCATION}</td>
+					</tr>
+					<!-- ENDIF -->
 					<tr>
 						<td>{PHP.L.Timezone}:</td>
 						<td>{USERS_PROFILE_TIMEZONE}</td>

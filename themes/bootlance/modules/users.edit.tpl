@@ -24,10 +24,17 @@
 						<td>{PHP.L.Groupsmembership}:</td>
 						<td>{PHP.L.Maingroup}:<br />&nbsp;{PHP.out.img_down}<br />{USERS_EDIT_GROUPS}</td>
 					</tr>
+					<!-- IF {PHP.cot_plugins_active.locationselector} -->
+					<tr>
+						<td>{PHP.L.Country}:</td>
+						<td>{USERS_EDIT_LOCATION}</td>
+					</tr>
+					<!-- ELSE -->
 					<tr>
 						<td>{PHP.L.Country}:</td>
 						<td>{USERS_EDIT_COUNTRY}</td>
 					</tr>
+					<!-- ENDIF -->
 					<tr>
 						<td>{PHP.L.Timezone}:</td>
 						<td>{USERS_EDIT_TIMEZONE}</td>

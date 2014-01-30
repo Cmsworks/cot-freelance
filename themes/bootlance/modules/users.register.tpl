@@ -15,6 +15,17 @@
 					<td class="width30">{PHP.L.Username}:</td>
 					<td class="width70">{USERS_REGISTER_USER} *</td>
 				</tr>
+				<!-- IF {PHP.cot_plugins_active.locationselector} -->
+				<tr>
+					<td>{PHP.L.Country}:</td>
+					<td>{USERS_REGISTER_LOCATION}</td>
+				</tr>
+				<!-- ELSE -->
+				<tr>
+					<td>{PHP.L.Country}:</td>
+					<td>{USERS_REGISTER_COUNTRY}</td>
+				</tr>
+				<!-- ENDIF -->
 				<tr>
 					<td>{PHP.L.users_validemail}:</td>
 					<td>

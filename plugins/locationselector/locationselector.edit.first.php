@@ -22,5 +22,6 @@ if (function_exists('cot_import_location'))
 	$ruser['user_country'] = $location['country'];
 	$ruser['user_region'] = $location['region'];
 	$ruser['user_city'] = $location['city'];
+	$_POST['rcountry'] = $ruser['user_country'];
 	$_POST['rusercountry'] = $ruser['user_country'];
 }
