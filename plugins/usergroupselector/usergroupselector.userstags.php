@@ -16,4 +16,9 @@
  *  */
 defined('COT_CODE') or die('Wrong URL.');
 
+if(empty($user_data['user_usergroup'])) $user_data['user_usergroup'] = $user_data['user_maingrp'];
+
 $temp_array['USERSELECTED_GROUP'] = $user_data['user_usergroup'];
+$temp_array['USERSELECTED_GROUP_NAME'] = $cot_groups[$user_data['user_usergroup']]['name'];
+$temp_array['USERSELECTED_GROUP_TITLE'] = $cot_groups[$user_data['user_usergroup']]['title'];
+$temp_array['USERSELECTED_GROUP_URL'] = cot_url('users', 'group='.$cot_groups[$user_data['user_usergroup']]['alias']);
