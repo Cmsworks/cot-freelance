@@ -18,11 +18,14 @@ defined('COT_CODE') or die('Wrong URL.');
 
 require_once cot_incfile('userpoints', 'plug');
 
-if($ritem['item_state'] == 0)
+if(!$cfg['folio']['preview'] && !$cfg['folio']['prevalidate'])
 {
-	cot_setuserpoints($cfg['plugin']['userpoints']['portfolioaddtocat'], 'portfolioaddtocat', $ritem['item_userid'], $id);
-}
-else
-{
-	cot_setuserpoints(-$cfg['plugin']['userpoints']['portfolioaddtocat'], 'portfoliodeltocat', $ritem['item_userid'], $id);
+	if($ritem['item_state'] == 0)
+	{
+		cot_setuserpoints($cfg['plugin']['userpoints']['portfolioaddtocat'], 'portfolioaddtocat', $ritem['item_userid'], $id);
+	}
+	else
+	{
+		cot_setuserpoints(-$cfg['plugin']['userpoints']['portfolioaddtocat'], 'portfoliodeltocat', $ritem['item_userid'], $id);
+	}
 }
