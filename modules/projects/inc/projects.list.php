@@ -16,6 +16,7 @@ cot_block($usr['auth_read']);
 $type = cot_import('type', 'G', 'INT');
 $sort = cot_import('sort', 'G', 'ALP');
 $c = cot_import('c', 'G', 'ALP');
+$forpro = cot_import('forpro', 'G', 'INT');
 $realized = cot_import('realized', 'G', 'INT');
 $sq = cot_import('sq', 'G', 'TXT');
 
@@ -110,6 +111,7 @@ $t->assign(array(
 	"PTYPE_ALL_URL" => cot_url('projects', 'c=' . $c),
 	"PTYPE_ALL_ACT" => (empty($type) && empty($realized)) ? true : false,
 	"REALIZED_URL" => cot_url('projects', 'c=' . $c . '&realized=1'),
+	"FORPRO_URL" => cot_url('projects', 'c=' . $c . '&type=' . $type . '&forpro=1'),
 	"REALIZED_ACT" => (!empty($realized)) ? true : false,
 ));
 

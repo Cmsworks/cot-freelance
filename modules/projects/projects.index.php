@@ -39,6 +39,7 @@ if(is_array($projects_types)){
 $t_pr->assign(array(
 	'PTYPE_ALL_URL' => cot_url('projects', ''),
 	'REALIZED_URL' => cot_url('projects', 'realized=1'),
+	"FORPRO_URL" => cot_url('projects', 'forpro=1'),
 ));
 
 $t_pr->parse("SEARCH.PTYPES");

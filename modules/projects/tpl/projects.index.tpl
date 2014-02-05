@@ -5,6 +5,9 @@
 		<!-- BEGIN: PTYPES_ROWS -->
 		<li<!-- IF {PTYPE_ROW_ACT} --> class="active"<!-- ENDIF -->><a href="{PTYPE_ROW_URL}">{PTYPE_ROW_TITLE}</a></li>
 		<!-- END: PTYPES_ROWS -->
+		<!-- IF {PHP.cot_plugins_active.paypro} -->
+		<li><a href="{FORPRO_URL}"><span class="label label-important">{PHP.L.paypro_forpro}</span></a></li>
+		<!-- ENDIF -->
 		<!-- IF {PHP.usr.auth_write} -->
 		<li class="pull-right"><noindex><a rel="nofollow" class="btn btn-success" href="{PHP|cot_url('projects', 'm=add')}" title="{PHP.L.projects_add_to_catalog}">{PHP.L.projects_add_to_catalog}</a></noindex></li>
 		<!-- ENDIF -->
