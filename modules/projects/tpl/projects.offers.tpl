@@ -20,6 +20,14 @@
 </div>
 <!-- ENDIF -->
 
+<!-- BEGIN: PROJECTFORPRO -->
+<div class="alert alert-warning">{PHP.L.paypro_warning_onlyforpro}</div>
+<!-- END: PROJECTFORPRO -->
+
+<!-- BEGIN: OFFERSLIMITEMPTY -->
+<div class="alert alert-warning">{PHP.L.paypro_warning_offerslimit_empty}</div>
+<!-- END: OFFERSLIMITEMPTY -->
+
 <div id="offers">	
 	<h4>{PHP.L.offers_offers} ({ALLOFFERS_COUNT})</h4><br/>
 	<!-- BEGIN: ROWS -->

@@ -9,8 +9,7 @@ defined('COT_CODE') or die('Wrong URL.');
 
 require_once cot_incfile('paypro', 'plug');
 
-$upro = $usr['profile']['user_pro'];
-if (!$upro)
+if (!cot_getuserpro() && $item['item_userid'] != $usr['id'] && !$usr['isadmin'])
 {
 	if ($cfg['plugin']['paypro']['offerslimit'] > 0)
 	{
@@ -21,5 +20,10 @@ if (!$upro)
 			$t_o->parse("MAIN.OFFERSLIMITEMPTY");
 		}
 	}
+	
+	if($item['item_forpro'])
+	{
+		$addoffer_enabled = false;
+		$t_o->parse("MAIN.PROJECTFORPRO");
+	}
 }
-?>

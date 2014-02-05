@@ -54,6 +54,12 @@
 			</form>
 		</div>
 
+		<!-- IF {PHP.cot_plugins_active.paypro} -->
+			<!-- IF !{PHP|cot_getuserpro()} AND {PHP.cfg.plugin.paypro.projectslimit} > 0 AND {PHP.cfg.plugin.paypro.projectslimit} <= {PHP.usr.id|cot_getcountprjofuser($this)} -->
+			<div class="alert alert-warning">{PHP.L.paypro_warning_projectslimit_empty}</div>
+			<!-- ENDIF -->
+		<!-- ENDIF -->
+		
 		<div id="listprojects">
 			<!-- BEGIN: PRJ_ROWS -->
 			<div class="media<!-- IF {PRJ_ROW_ISBOLD} --> well prjbold<!-- ENDIF --><!-- IF {PRJ_ROW_ISTOP} --> well prjtop<!-- ENDIF -->">

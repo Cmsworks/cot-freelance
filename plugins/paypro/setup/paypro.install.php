@@ -11,12 +11,14 @@
 
 defined('COT_CODE') or die('Wrong URL');
 
-global $db_users;
+global $db_users, $db_projects;
 
 // Add field if missing
 if (!$db->fieldExists($db_users, "user_pro"))
 {
 	$dbres = $db->query("ALTER TABLE `$db_users` ADD COLUMN `user_pro` int(10) NOT NULL");
 }
+
+cot_extrafield_add($db_projects, 'forpro', 'checkbox', $R['input_checkbox'],'','','','', '','');
 
 ?>

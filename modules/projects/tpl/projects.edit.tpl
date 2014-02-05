@@ -48,6 +48,15 @@
 				<td>{PRJEDIT_FORM_MAVATAR}</td>
 			</tr>
 			<!-- ENDIF -->
+			<!-- ENDIF -->
+			<!-- IF {PHP.cot_plugins_active.paypro} -->
+			<tr>
+				<td>{PHP.L.paypro_forpro}:</td>
+				<td>
+					{PRJEDIT_FORM_FORPRO}
+				</td>
+			</tr>
+			<!-- ENDIF -->
 			<!-- IF {PHP.usr.isadmin} -->
 			<tr>
 				<td>{PHP.L.Delete}</td>

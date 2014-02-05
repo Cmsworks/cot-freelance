@@ -30,6 +30,13 @@
 	</div>
 	<div class="span9">
 		{PROJECTS_SEARCH}
+		
+		<!-- IF {PHP.cot_plugins_active.paypro} -->
+			<!-- IF !{PHP|cot_getuserpro()} AND {PHP.cfg.plugin.paypro.projectslimit} > 0 AND {PHP.cfg.plugin.paypro.projectslimit} <= {PHP.usr.id|cot_getcountprjofuser($this)} -->
+			<div class="alert alert-warning">{PHP.L.paypro_warning_projectslimit_empty}</div>
+			<!-- ENDIF -->
+		<!-- ENDIF -->
+		
 		{PROJECTS}
 	</div>
 </div>

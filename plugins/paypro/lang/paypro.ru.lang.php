@@ -16,6 +16,9 @@ defined('COT_CODE') or die('Wrong URL.');
  */
 $L['cfg_cost'] = array('Стоимость в месяц', '');
 $L['cfg_offerslimit'] = array('Лимит ответов на проекты для обычных пользователей', '');
+$L['cfg_projectslimit'] = array('Лимит проектов для обычных пользователей', '');
+
+$L['paypro_forpro'] = 'Только для PRO';
 
 $L['paypro_buypro_title'] = 'Покупка PRO';
 $L['paypro_buypro_paydesc'] = 'Покупка PRO';
@@ -30,7 +33,9 @@ $L['paypro_header_expire'] = 'PRO действует до';
 $L['paypro_header_expire_short'] = 'PRO до';
 $L['paypro_header_extend'] = 'Продлить услугу';
 
-$L['paypro_warning_offerslimit_empty'] = 'Вы больше не можете оставлять предложения по проектам.';
+$L['paypro_warning_projectslimit_empty'] = 'Вы больше не можете публиковать проекты. Максимальное число проектов для публикации составляет: '.$cfg['plugin']['paypro']['projectslimit'].' в сутки. Чтобы снять это ограничение, воспользуйтесь услугой PRO-аккаунт.';
+$L['paypro_warning_offerslimit_empty'] = 'Вы больше не можете оставлять предложения по проектам. Максимальное число откликов на проекты составляет: '.$cfg['plugin']['paypro']['offerslimit'].' в сутки. Чтобы снять это ограничение, воспользуйтесь услугой PRO-аккаунт.';
+$L['paypro_warning_onlyforpro'] = 'Вы не можете оставлять предложения по данному проекту, так как он доступен только для пользователей с PRO-аккаунтом. Чтобы снять это ограничение, воспользуйтесь услугой PRO-аккаунт.';
 
 $L['paypro_error_username'] = 'Не указан логин пользователя';
 $L['paypro_error_userempty'] = 'Такого пользователя не существует';

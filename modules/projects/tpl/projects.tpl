@@ -1,9 +1,15 @@
 <!-- BEGIN: MAIN -->
 
 <div class="breadcrumb">{PRJ_TITLE}</div>
+
 <!-- IF {PRJ_REALIZED} -->
 <div class="pull-right label label-info margintop10">{PHP.L.projects_isrealized}</div>
 <!-- ENDIF -->
+
+<!-- IF {PHP.cot_plugins_active.paypro} AND {PRJ_FORPRO} -->
+<div class="pull-right margintop10"><span class="label label-important">{PHP.L.paypro_forpro}</span></div>
+<!-- ENDIF -->
+
 <h1 class="tboxHD">
 	{PRJ_SHORTTITLE}
 </h1>

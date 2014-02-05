@@ -50,6 +50,14 @@
 				</td>
 			</tr>
 			<!-- ENDIF -->
+			<!-- IF {PHP.cot_plugins_active.paypro} -->
+			<tr>
+				<td>{PHP.L.paypro_forpro}:</td>
+				<td>
+					{PRJADD_FORM_FORPRO}
+				</td>
+			</tr>
+			<!-- ENDIF -->
 			<tr>
 				<td></td>
 				<td>

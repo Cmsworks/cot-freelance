@@ -5,7 +5,7 @@
  * Name=PayPro
  * Category=Payments
  * Description=Услуга PRO
- * Version=1.0.3
+ * Version=1.2.1
  * Date=
  * Author=CMSWorks Team
  * Copyright=Copyright (c) CMSWorks.ru, littledev.ru
@@ -20,7 +20,8 @@
  * 
  * [BEGIN_COT_EXT_CONFIG]
  * cost=01:string::500:Стоимость в месяц
- * offerslimit=02:string::0:Лимит ответов на проекты для обычных пользователей
+ * projectslimit=02:string::0:Лимит проектов для обычных пользователей
+ * offerslimit=03:string::0:Лимит ответов на проекты для обычных пользователей
  * [END_COT_EXT_CONFIG]
  */
 
@@ -28,7 +29,7 @@
  * PayPro Plugin
  *
  * @package paypro
- * @version 1.0.3
+ * @version 1.2.1
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru, littledev.ru
  * @license BSD
