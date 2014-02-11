@@ -22,7 +22,7 @@
 					<p>{PHP.L.Location}: {SEARCH_LOCATION}</p>
 					<div class="row">
 						<div class="span7"><input type="text" name="sq" value="{PHP.sq}" class="schstring"/></div>
-						<div class="span1"><button type="submit" class="btn btn-success">{PHP.L.Submit}</button></div>
+						<div class="span1"><button type="submit" class="btn btn-success">{PHP.L.Search}</button></div>
 					</div>
 				</form>
 			</div>
