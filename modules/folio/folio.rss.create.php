@@ -41,14 +41,14 @@ if ($m == "folio")
 
 		$sqllist = $db->query("SELECT p.*, u.* FROM $db_folio AS p
 				LEFT JOIN $db_users AS u ON p.item_userid = u.user_id
-			WHERE item_state=0 AND item_store=".$pr_store." AND item_cat IN ('".implode("','", $catsub)."') 
+			WHERE item_state=0 AND item_cat IN ('".implode("','", $catsub)."') 
 			ORDER BY item_date DESC LIMIT ".$cfg['rss']['rss_maxitems']);
 	}
 	else
 	{
 		$sqllist = $db->query("SELECT p.*, u.* FROM $db_folio AS p
 				LEFT JOIN $db_users AS u ON p.item_userid = u.user_id
-			WHERE item_state=0 AND item_store=".$pr_store."
+			WHERE item_state=0 
 			ORDER BY item_date DESC LIMIT ".$cfg['rss']['rss_maxitems']);
 	}
 	$i = 0;
