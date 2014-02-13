@@ -28,7 +28,7 @@
 				<li class="pull-right"><a href="{PHP.sys.xk|cot_url('login', 'out=1&x=$this')}"><i class="icon icon-off"></i></a></li>
 				<li class="pull-right"><a href="{PHP|cot_url('index')}" title="{PHP.cfg.maintitle} {PHP.cfg.separator} {PHP.cfg.subtitle}"><i class="icon icon-home"></i></a></li>
 			</ul>
-			<div class="logo"><img src="themes/{PHP.theme}/img/logo.png"/></div>
+			<div class="logo"><a href="{PHP|cot_url('admin')}"><img src="themes/{PHP.theme}/img/logo.png"/></a></div>
 			<ul class="nav nav-tabs">
 				<li class="<!-- IF !{PHP.m} -->active<!-- ENDIF -->"><a href="{PHP|cot_url('admin')}" title="{PHP.L.Administration}">{PHP.L.Home}</a></li>
 				<li class="<!-- IF {PHP.m} == 'config' -->active<!-- ENDIF -->"><a href="{PHP|cot_url('admin', 'm=config')}" title="{PHP.L.Configuration}">{PHP.L.Configuration}</a></li>

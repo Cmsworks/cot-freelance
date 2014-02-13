@@ -19,7 +19,7 @@
 <!-- END: ADMIN_CACHE_MEMORY -->
 		<div class="block">
 			<h3>{PHP.L.Database}</h3>
-			<table class="table">
+			<table class="cells table table-bordered table-striped">
 				<thead>
 				<tr>
 					<th class="coltop width20">{PHP.L.Item}</th>

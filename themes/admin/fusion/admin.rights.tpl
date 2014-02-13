@@ -3,7 +3,7 @@
 		{FILE "{PHP.cfg.themes_dir}/admin/{PHP.cfg.admintheme}/warnings.tpl"}
 		<form name="saverights" id="saverights" action="{ADMIN_RIGHTS_FORM_URL}" method="post" class="ajax">
 			<!-- IF {PHP.g} > 5 -->
-			<table class="table">
+			<table class="cells table">
 				<tr>
 					<td><input type="checkbox" class="checkbox" name="ncopyrightsconf" />{PHP.L.adm_copyrightsfrom}: {ADMIN_RIGHTS_SELECTBOX_GROUPS} &nbsp; <input type="submit" class="submit" value="{PHP.L.Update}" /></td>
 				</tr>
@@ -11,13 +11,13 @@
 			<!-- ENDIF -->
 <!-- BEGIN: RIGHTS_SECTION -->
 			<h3>{RIGHTS_SECTION_TITLE}:</h3>
-			<table class="table">
+			<table class="cells table table-bordered table-striped">
 				<tr>
-					<td class="coltop width5" rowspan="2"></td>
-					<td class="coltop width25" rowspan="2">{PHP.L.Section}</td>
-					<td class="coltop width40" colspan="{ADMIN_RIGHTS_ADV_COLUMNS}">{PHP.L.Rights}</td>
-					<td class="coltop width15" rowspan="2">{PHP.L.adm_rightspergroup}</td>
-					<td class="coltop width15" rowspan="2">{PHP.L.adm_setby}</td>
+					<th class="coltop span1" rowspan="2"></th>
+					<th class="coltop span3" rowspan="2">{PHP.L.Section}</th>
+					<th class="coltop span4" colspan="{ADMIN_RIGHTS_ADV_COLUMNS}">{PHP.L.Rights}</th>
+					<th class="coltop span4" rowspan="2">{PHP.L.adm_rightspergroup}</th>
+					<th class="coltop span3" rowspan="2">{PHP.L.adm_setby}</th>
 				</tr>
 				<tr>
 					<td class="coltop">{PHP.R.admin_icon_auth_r}</td>
@@ -63,7 +63,7 @@
 <!-- END: RIGHTS_SECTION -->
 			<div style="text-align:center">
 				<a href="{ADMIN_RIGHTS_ADVANCED_URL}">{PHP.L.More}</a><br /><br />
-				<input type="submit" class="submit" value="{PHP.L.Update}" />
+				<input type="submit" class="submit btn btn-success" value="{PHP.L.Update}" />
 			</div>
 		</form>
 <!-- END: MAIN -->

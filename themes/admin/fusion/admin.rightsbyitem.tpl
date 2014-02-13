@@ -3,13 +3,13 @@
 		{FILE "{PHP.cfg.themes_dir}/admin/{PHP.cfg.admintheme}/warnings.tpl"}
 		<div class="block">
 			<form name="saverightsbyitem" id="saverightsbyitem" action="{ADMIN_RIGHTSBYITEM_FORM_URL}" method="post" class="ajax">
-				<table class="table">
+				<table class="cells table table-bordered table-striped">
 					<tr>
-						<td class="coltop width5" rowspan="2"></td>
-						<td class="coltop width25" rowspan="2">{PHP.L.Groups}</td>
-						<td class="coltop width40" colspan="{ADMIN_RIGHTSBYITEM_ADV_COLUMNS}">{PHP.L.Rights}</td>
-						<td class="coltop width15" rowspan="2">{PHP.L.Open}</td>
-						<td class="coltop width15" rowspan="2">{PHP.L.adm_setby}</td>
+						<th class="coltop span1" rowspan="2"></th>
+						<th class="coltop span3" rowspan="2">{PHP.L.Section}</th>
+						<th class="coltop span4" colspan="{ADMIN_RIGHTSBYITEM_ADV_COLUMNS}">{PHP.L.Rights}</th>
+						<th class="coltop span4" rowspan="2">{PHP.L.adm_rightspergroup}</th>
+						<th class="coltop span3" rowspan="2">{PHP.L.adm_setby}</th>
 					</tr>
 					<tr>
 						<td class="coltop">{PHP.R.admin_icon_auth_r}</td>
@@ -45,7 +45,7 @@
 					</tr>
 					<tr>
 						<td class="valid" colspan="{ADMIN_RIGHTSBYITEM_4ADV_COLUMNS}">
-							<input type="submit" class="submit" value="{PHP.L.Update}" />
+							<input type="submit" class="submit btn btn-success" value="{PHP.L.Update}" />
 						</td>
 					</tr>
 				</table>

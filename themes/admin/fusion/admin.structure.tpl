@@ -3,12 +3,17 @@
 <div class="row">
 	<!-- BEGIN: ADMIN_STRUCTURE_EXT -->
 	<div class="span3">
-		<!-- IF {ADMIN_STRUCTURE_EXT_ICO} --> 
-		<img src="{ADMIN_STRUCTURE_EXT_ICO}"/>
-		<!-- ELSE -->
-		<img src="{PHP.cfg.system_dir}/admin/img/plugins32.png"/>
-		<!-- ENDIF -->	
-		<a href="{ADMIN_STRUCTURE_EXT_URL}">{ADMIN_STRUCTURE_EXT_NAME}</a>
+		<div class="thumbnail">
+			<a href="{ADMIN_STRUCTURE_EXT_URL}">
+				<!-- IF {ADMIN_STRUCTURE_EXT_ICO} --> 
+				<img src="{ADMIN_STRUCTURE_EXT_ICO}" style="height: 32px!important;"/>
+				<!-- ELSE -->
+				<img src="{PHP.cfg.system_dir}/admin/img/plugins32.png" style="height: 32px!important;"/>
+				<!-- ENDIF -->	
+				{ADMIN_STRUCTURE_EXT_NAME}
+			</a>
+		</div>
+		</br>
 	</div>
 	<!-- END: ADMIN_STRUCTURE_EXT -->
 	<!-- BEGIN: ADMIN_STRUCTURE_EMPTY -->
@@ -31,10 +36,10 @@
 		<!-- BEGIN: OPTIONS -->
 		<div class="block">
 			<form name="savestructure" id="savestructure" action="{ADMIN_STRUCTURE_UPDATE_FORM_URL}" method="post" enctype="multipart/form-data">
-			<table class="table">
+			<table class="cells table table-bordered table-striped">
 				<tr>
-					<td class="width20">{PHP.L.Path}:</td>
-					<td class="width80">{ADMIN_STRUCTURE_PATH}</td>
+					<th class="width20">{PHP.L.Path}:</th>
+					<th class="width80">{ADMIN_STRUCTURE_PATH}</th>
 				</tr>
 				<tr>
 					<td>{PHP.L.Code}:</td>
@@ -74,7 +79,7 @@
 				<h2>{PHP.L.Configuration}</h2>{CONFIG_HIDDEN}
 				{ADMIN_CONFIG_EDIT_CUSTOM}
 
-				<table class="table">
+				<table class="cells table">
 					<tr>
 						<td class="coltop width35">{PHP.L.Parameter}</td>
 						<td class="coltop width60">{PHP.L.Value}</td>
@@ -107,9 +112,9 @@
 				</table>
 
 <!-- END: CONFIG -->
-			<table class="table">
+			<table class="cells table">
 				<tr>
-					<td class="valid" colspan="2"><input type="submit" class="submit" value="{PHP.L.Update}" /></td>
+					<td class="valid" colspan="2"><input type="submit" class="submit btn btn-success" value="{PHP.L.Update}" /></td>
 				</tr>
 			</table>
 			</form>
@@ -120,14 +125,14 @@
 		<div class="block">
 			<h3>{PHP.L.editdeleteentries}:</h3>
 			<form name="savestructure" id="savestructure" action="{ADMIN_STRUCTURE_UPDATE_FORM_URL}" method="post" class="ajax" enctype="multipart/form-data" >
-			<table class="table">
+			<table class="cells table table-bordered table-striped">
 				<tr>
-					<td class="coltop width15">{PHP.L.Path}</td>
-					<td class="coltop width10">{PHP.L.Code}</td>
-					<td class="coltop width20">{PHP.L.Title}</td>
-					<td class="coltop width5">{PHP.L.TPL}</td>
-					<td class="coltop width5">{PHP.L.Pages}</td>
-					<td class="coltop width35">{PHP.L.Action}</td>
+					<th class="coltop width15">{PHP.L.Path}</th>
+					<th class="coltop width10">{PHP.L.Code}</th>
+					<th class="coltop width20">{PHP.L.Title}</th>
+					<th class="coltop width5">{PHP.L.TPL}</th>
+					<th class="coltop width5">{PHP.L.Pages}</th>
+					<th class="coltop width35">{PHP.L.Action}</th>
 				</tr>
 				<!-- BEGIN: ROW -->
 				<tr>
@@ -144,7 +149,7 @@
 				</tr>
 				<!-- END: ROW -->
 				<tr>
-					<td class="valid" colspan="8"><input type="submit" class="submit" value="{PHP.L.Update}" /></td>
+					<td class="valid" colspan="8"><input type="submit" class="submit btn btn-success" value="{PHP.L.Update}" /></td>
 				</tr>
 			</table>
 			</form>
@@ -156,10 +161,10 @@
 		<div class="block">
 			<h3>{PHP.L.Add}:</h3>
 			<form name="addstructure" id="addstructure" action="{ADMIN_STRUCTURE_URL_FORM_ADD}" method="post" class="ajax" enctype="multipart/form-data">
-			<table class="table info">
+			<table class="cells table table-bordered table-striped">
 				<tr>
-					<td class="width20">{PHP.L.Path}:</td>
-					<td class="width80">{ADMIN_STRUCTURE_PATH} {PHP.L.adm_required}</td>
+					<th class="width20">{PHP.L.Path}:</th>
+					<th class="width80">{ADMIN_STRUCTURE_PATH} {PHP.L.adm_required}</th>
 				</tr>
 				<tr>
 					<td>{PHP.L.Code}:</td>
@@ -189,7 +194,7 @@
 				<!-- END: EXTRAFLD -->
 				<tr>
 					<td class="valid" colspan="2">
-						<input type="submit" class="submit" value="{PHP.L.Add}" />
+						<input type="submit" class="submit btn btn-success" value="{PHP.L.Add}" />
 					</td>
 				</tr>
 			</table>

@@ -6,7 +6,7 @@
 				<a href="{ADMIN_DISKCACHE_URL_PURGE}" class="ajax btn large btn">{PHP.L.adm_purgeall}</a>
 		</div>
 		<div class="block">
-			<table class="table">
+			<table class="cells table table-bordered table-striped">
 				<thead>
 				<tr>
 					<th class="coltop width25">{PHP.L.Item}</th>

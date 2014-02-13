@@ -1,9 +1,9 @@
 <!-- BEGIN: MAIN -->
 	<h2>{PHP.L.Core}</h2>
 	<div class="block">
-		<table class="table">
+		<table class="cells table table-bordered table-striped">
 			<tr>
-				<td class="coltop width10"></td>
+				<td class="coltop width10 span1"></td>
 				<td class="coltop width90">{PHP.L.Part} {PHP.L.adm_clicktoedit}</td>
 			</tr>
 			<tr>
@@ -47,10 +47,10 @@
 <!-- BEGIN: SECTION -->
 	<h2>{ADMIN_OTHER_SECTION}</h2>
 	<div class="block">
-		<table class="table">
+		<table class="cells table table-bordered table-striped">
 <!-- BEGIN: ROW -->
 			<tr>
-				<td class="centerall width10">
+				<td class="centerall width10 span1">
 					<!-- IF {ADMIN_OTHER_EXT_ICO} --> 
 					<img src="{ADMIN_OTHER_EXT_ICO}"/>
 					<!-- ELSE -->

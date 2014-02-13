@@ -13,7 +13,7 @@
 <!-- END: GROUP_SELECT_OPTION -->
 				</select>
 			</form>
-			<table class="table">
+			<table class="cells table table-bordered table-striped">
 				<thead>
 				<tr>
 					<th class="coltop width5">#</th>
@@ -37,5 +37,6 @@
 <!-- END: LOG_ROW -->
 				</tbody>
 			</table>
-			<p class="paging">{ADMIN_LOG_PAGINATION_PREV} {ADMIN_LOG_PAGNAV} {ADMIN_LOG_PAGINATION_NEXT}<span>{PHP.L.Total}: {ADMIN_LOG_TOTALITEMS}, {PHP.L.Onpage}: {ADMIN_LOG_ON_PAGE}</span></p>
+			<div class="pagination"><ul>{ADMIN_LOG_PAGINATION_PREV} {ADMIN_LOG_PAGNAV} {ADMIN_LOG_PAGINATION_NEXT}</ul></div>
+			<p>{PHP.L.Total}: {ADMIN_LOG_TOTALITEMS}, {PHP.L.Onpage}: {ADMIN_LOG_ON_PAGE}</p>
 <!-- END: MAIN -->

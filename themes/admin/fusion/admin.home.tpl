@@ -25,7 +25,7 @@
 	<div class="span8">
 		<div class="block">
 			<h3>Cotonti</h3>
-			<table class="table">
+			<table class="cells table table-bordered table-striped">
 				<tr>
 					<td class="width80">{PHP.L.Version}</td>
 					<td class="textcenter width20">{ADMIN_HOME_VERSION}</td>

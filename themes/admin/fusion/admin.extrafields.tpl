@@ -3,7 +3,7 @@
 		{FILE "{PHP.cfg.themes_dir}/admin/{PHP.cfg.admintheme}/warnings.tpl"}
 <!-- BEGIN: TABLELIST -->
 <div class="block">
-	<table class="table">
+	<table class="cells table table-bordered table-striped">
 		<!-- BEGIN: ROW -->
 		<tr>
 			<td><a href="{ADMIN_EXTRAFIELDS_ROW_TABLEURL}">{ADMIN_EXTRAFIELDS_ROW_TABLENAME}</a></td>
@@ -120,13 +120,13 @@
 <!-- BEGIN: TABLE -->
 <div class="block">
 	<form action="{ADMIN_EXTRAFIELDS_URL_FORM_EDIT}" method="post">
-		<table class="table">
+		<table class="cells table table-bordered table-striped">
 			<tr>
-				<td class="coltop"></td>
-				<td class="coltop">{PHP.L.extf_Name}</td>
-				<td class="coltop">{PHP.L.extf_Type}</td>
-				<td class="coltop">{PHP.L.adm_extrafield_params}</td>
-				<td class="coltop"></td>
+				<th class="coltop"></th>
+				<th class="coltop">{PHP.L.extf_Name}</th>
+				<th class="coltop">{PHP.L.extf_Type}</th>
+				<th class="coltop">{PHP.L.adm_extrafield_params}</th>
+				<th class="coltop"></th>
 			</tr>
 			<!-- BEGIN: EXTRAFIELDS_ROW -->
 			<tr id="ex{ADMIN_EXTRAFIELDS_ROW_ID}">
@@ -144,7 +144,7 @@
 						{ADMIN_EXTRAFIELDS_ROW_SELECT}
 					<p class="small">{PHP.L.adm_extrafield_parse}</p>
 						{ADMIN_EXTRAFIELDS_ROW_PARSE}
-					<p class="small">{ADMIN_EXTRAFIELDS_ROW_REQUIRED}{PHP.L.adm_extrafield_required}</p>
+					<p class="small"><label class="checkbox">{ADMIN_EXTRAFIELDS_ROW_REQUIRED}{PHP.L.adm_extrafield_required}</label></p>
 
 				</td>
 				<td class="{ADMIN_EXTRAFIELDS_ROW_ODDEVEN}">
@@ -162,7 +162,7 @@
 			<!-- END: EXTRAFIELDS_ROW -->
 			<tr>
 				<td class="valid" colspan="5">
-					<input type="submit" value="{PHP.L.Update}" onclick="location.href='{ADMIN_EXTRAFIELDS_ROW_FORM_URL}'"  class="confirm" />
+					<input type="submit" value="{PHP.L.Update}" onclick="location.href='{ADMIN_EXTRAFIELDS_ROW_FORM_URL}'"  class="confirm btn btn-success" />
 				</td>
 			</tr>
 		</table>
@@ -173,11 +173,11 @@
 <div class="block">
 	<h3>{PHP.L.adm_extrafield_new}:</h3>
 	<form action="{ADMIN_EXTRAFIELDS_URL_FORM_ADD}" method="post">
-		<table class="table info">
+		<table class="cells table info table-bordered table-striped">
 			<tr>
-				<td class="coltop width30">{PHP.L.extf_Name}</td>
-				<td class="coltop width20">{PHP.L.extf_Type}</td>
-				<td class="coltop width40">{PHP.L.adm_extrafield_params}</td>
+				<th class="coltop width30">{PHP.L.extf_Name}</th>
+				<th class="coltop width20">{PHP.L.extf_Type}</th>
+				<th class="coltop width40">{PHP.L.adm_extrafield_params}</th>
 			</tr>
 			<tr id="exnew">
 				<td>
@@ -191,7 +191,7 @@
 							{ADMIN_EXTRAFIELDS_SELECT}
 					<p class="small">{PHP.L.adm_extrafield_parse}</p>
 						{ADMIN_EXTRAFIELDS_PARSE}
-					<p class="small">{ADMIN_EXTRAFIELDS_REQUIRED}{PHP.L.adm_extrafield_required}</p>
+						<p class="small"><label class="checkbox">{ADMIN_EXTRAFIELDS_REQUIRED}{PHP.L.adm_extrafield_required}</label></p>
 				</td>
 				<td>
 							{ADMIN_EXTRAFIELDS_PARAMS}
@@ -204,7 +204,7 @@
 			<tr>
 				<td class="valid" colspan="3">
 					<p class="small"><input type="checkbox" name="field_noalter" /> {PHP.L.adm_extrafield_noalter}</p>
-					<input type="submit" class="confirm" value="{PHP.L.Add}" />
+					<input type="submit" class="confirm btn btn-success" value="{PHP.L.Add}" />
 				</td>
 			</tr>
 		</table>

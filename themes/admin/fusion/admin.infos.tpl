@@ -1,6 +1,6 @@
 <!-- BEGIN: MAIN -->
 	<h2>Info</h2>
-	<table class="table">
+	<table class="cells table table-bordered table-striped">
 		<tr>
 			<td class="width60">{PHP.L.adm_phpver}</td>
 			<td class="textcenter width40">{ADMIN_INFOS_PHPVER}</td>
