@@ -70,7 +70,7 @@ function cot_get_paytop ($area='', $count=0, $order = "s.service_id DESC")
 	
 	$paytops = $db->query("SELECT * FROM $db_payments_services as s
 		LEFT JOIN $db_users AS u ON u.user_id=s.service_userid
-		WHERE s.service_area='paytop.".$db->prep($area)."' AND service_expire > " . $sys['now'] . " ORDER BY $order LIMIT " . $count)->fetchAll();
+		WHERE u.user_id>0 AND s.service_area='paytop.".$db->prep($area)."' AND service_expire > " . $sys['now'] . " ORDER BY $order LIMIT " . $count)->fetchAll();
 
 	foreach ($paytops as $tur)
 	{
