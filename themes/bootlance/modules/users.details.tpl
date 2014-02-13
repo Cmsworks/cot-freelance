@@ -23,7 +23,7 @@
 		</div>
 		<div class="tabbable">
 			<ul class="nav nav-tabs">
-				<li<!-- IF !{PHP.tab} --> class="active"<!-- ENDIF -->><a href="{USERS_DETAILS_DETAILSLINK}#tab_info" data-toggle="tab">{PHP.L.Info}</a></li>
+				<li<!-- IF !{PHP.tab} --> class="active"<!-- ENDIF -->><a href="{USERS_DETAILS_DETAILSLINK}#tab_info" data-toggle="tab">{PHP.L.Main}</a></li>
 				<!-- IF {PHP.cot_modules.folio} -->
 				<li<!-- IF {PHP.tab} == 'portfolio' --> class="active"<!-- ENDIF -->><a href="{USERS_DETAILS_FOLIO_URL}#tab_portfolio" data-toggle="tab">{PHP.L.folio} {USERS_DETAILS_FOLIO_COUNT}</a></li>
 				<!-- ENDIF -->
