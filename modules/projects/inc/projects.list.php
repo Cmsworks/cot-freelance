@@ -158,6 +158,7 @@ $t->assign(array(
 	"CATALOG" => cot_build_structure_projects_tree('', array($c)),
 	"BREADCRUMBS" => $catpath,
 	"CATTITLE" => (!empty($c)) ? $structure['projects'][$c]['title'] : '',
+	"CATDESC" => (!empty($c)) ? $structure['projects'][$c]['desc'] : '',
 ));
 
 $sqllist_rowset = $sqllist->fetchAll();

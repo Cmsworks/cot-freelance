@@ -121,6 +121,7 @@ $t->assign(array(
 	"CATALOG" => cot_build_structure_folio_tree('', array($c), 0),
 	"BREADCRUMBS" => $catpath,
 	"CATTITLE" => (!empty($c)) ? $structure['folio'][$c]['title'] : '',
+	"CATDESC" => (!empty($c)) ? $structure['folio'][$c]['desc'] : '',
 ));
 
 $sqllist_rowset = $sqllist->fetchAll();

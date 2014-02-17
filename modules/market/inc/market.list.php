@@ -122,6 +122,7 @@ $t->assign(array(
 	"CATALOG" => cot_build_structure_market_tree('', array($c), 0),
 	"BREADCRUMBS" => $catpath,
 	"CATTITLE" => (!empty($c)) ? $structure['market'][$c]['title'] : '',
+	"CATDESC" => (!empty($c)) ? $structure['market'][$c]['desc'] : '',
 ));
 
 $sqllist_rowset = $sqllist->fetchAll();

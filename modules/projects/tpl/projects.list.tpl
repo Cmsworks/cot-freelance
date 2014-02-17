@@ -7,6 +7,9 @@
 	{PHP.L.projects}
 <!-- ENDIF -->
 </h1>
+<!-- IF {CATDESC} -->
+<div class="well">{CATDESC}</div>
+<!-- ENDIF -->
 <div class="row">
 	<div class="span3">
 		<!-- IF {CATALOG} --><div class="well well-small">{CATALOG}</div><!-- ENDIF -->
