@@ -13,6 +13,9 @@ defined('COT_CODE') or die('Wrong URL');
 
 global $db_users, $db_projects;
 
+require_once cot_incfile('projects', 'module');
+require_once cot_incfile('extrafields');
+
 // Add field if missing
 if (!$db->fieldExists($db_users, "user_pro"))
 {
