@@ -90,7 +90,7 @@ switch($sort)
 }
 $list_url_path = array('c' => $c, 'type'=> $type, 'sort' => $sort, 'sq' => $sq);
 
-$mskin = cot_tplfile(array('projects', 'list', $structure['projects'][$item['item_cat']]['tpl']));
+$mskin = cot_tplfile(array('projects', 'list', $structure['projects'][$c]['tpl']));
 
 $t = new XTemplate($mskin);
 
