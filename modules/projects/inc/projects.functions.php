@@ -90,7 +90,7 @@ function cot_projects_auth($cat = null)
 
 function cot_build_structure_projects_tree($parent = '', $selected = array(), $level = 0)
 {
-	global $structure, $cfg, $db, $sys;
+	global $structure, $cfg, $db, $sys, $type;
 	global $i18n_notmain, $i18n_locale, $i18n_write, $i18n_admin, $i18n_read, $db_i18n_pages;
 	if (empty($parent))
 	{
@@ -126,7 +126,7 @@ function cot_build_structure_projects_tree($parent = '', $selected = array(), $l
 			"ROW_DESC" => $structure['projects'][$row]['desc'],
 			"ROW_COUNT" => $structure['projects'][$row]['count'],
 			"ROW_ICON" => $structure['projects'][$row]['icon'],
-			"ROW_HREF" => cot_url("projects", "c=" . $row),
+			"ROW_HREF" => cot_url("projects", "c=" . $row . "&type=" . $type),
 			"ROW_SELECTED" => in_array($row, $selected) ? 1 : 0,
 			"ROW_SUBCAT" => cot_build_structure_projects_tree($row, $selected, $level + 1),
 			"ROW_LEVEL" => $level,
