@@ -159,6 +159,7 @@ $t->assign(array(
 	"BREADCRUMBS" => $catpath,
 	"CATTITLE" => (!empty($c)) ? $structure['projects'][$c]['title'] : '',
 	"CATDESC" => (!empty($c)) ? $structure['projects'][$c]['desc'] : '',
+	"SUBMITNEWPROJECT_URL" => cot_url('projects', 'm=add&c='.$c.'&type='.$type)
 ));
 
 $sqllist_rowset = $sqllist->fetchAll();
