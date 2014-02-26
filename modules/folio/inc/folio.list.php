@@ -60,6 +60,17 @@ if (!empty($sq))
 	$where['search'] = "(item_title LIKE '".$db->prep($sqlsearch)."' OR item_text LIKE '".$db->prep($sqlsearch)."')";
 }
 
+// Extra fields
+foreach ($cot_extrafields[$db_folio] as $exfld)
+{
+	$shfld[$exfld['field_name']] = cot_import_extrafields($exfld['field_name'], $exfld, 'G', $shfld[$exfld['field_name']]);
+	
+	if(!empty($ritem['item_'.$exfld['field_name']]))
+	{
+		$where[$exfld['field_name']] = "item_".$exfld['field_name']."='".$shfld[$exfld['field_name']]."'";
+	}
+}
+
 switch($sort)
 {
 	case 'costasc':
@@ -123,6 +134,21 @@ $t->assign(array(
 	"CATTITLE" => (!empty($c)) ? $structure['folio'][$c]['title'] : '',
 	"CATDESC" => (!empty($c)) ? $structure['folio'][$c]['desc'] : '',
 ));
+
+foreach($cot_extrafields[$db_folio] as $exfld)
+{
+	$uname = strtoupper($exfld['field_name']);
+	$exfld_val = cot_build_extrafields($exfld['field_name'], $exfld, $shfld[$exfld['field_name']]);
+	$exfld_title = isset($L['projects_'.$exfld['field_name'].'_title']) ?  $L['projects_'.$exfld['field_name'].'_title'] : $exfld['field_description'];
+	$t->assign(array(
+		'SEARCH_'.$uname => $exfld_val,
+		'SEARCH_'.$uname.'_TITLE' => $exfld_title,
+	));
+}
+
+/* === Hook === */
+$extp = cot_getextplugins('folio.list.search.tags');
+/* ===== */
 
 $sqllist_rowset = $sqllist->fetchAll();
 $sqllist_idset = array();

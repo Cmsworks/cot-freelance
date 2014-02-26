@@ -51,6 +51,17 @@ $t_pr->assign(array(
 	"SEARCH_SORTER" => cot_selectbox($sort, "sort", array('', 'costasc', 'costdesc'), array($L['projects_mostrelevant'], $L['projects_costasc'], $L['projects_costdesc']), false),
 ));
 
+foreach($cot_extrafields[$db_projects] as $exfld)
+{
+	$uname = strtoupper($exfld['field_name']);
+	$exfld_val = cot_build_extrafields($exfld['field_name'], $exfld, '');
+	$exfld_title = isset($L['projects_'.$exfld['field_name'].'_title']) ?  $L['projects_'.$exfld['field_name'].'_title'] : $exfld['field_description'];
+	$t_pr->assign(array(
+		'SEARCH_'.$uname => $exfld_val,
+		'SEARCH_'.$uname.'_TITLE' => $exfld_title,
+	));
+}
+
 /* === Hook === */
 foreach (cot_getextplugins('projects.index.searchtags') as $pl)
 {
