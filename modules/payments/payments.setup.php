@@ -4,7 +4,7 @@
  * Code=payments
  * Name=Payments
  * Description=Платежный модуль
- * Version=1.1.5
+ * Version=1.1.6
  * Date=
  * Author=CMSWorks Team
  * Copyright=Copyright (c) CMSWorks.ru, littledev.ru
@@ -21,9 +21,10 @@
  * valuta=02:string::руб.:Название валюты сайта
  * transfers_enabled=03:radio::1:Включить переводы между пользователями
  * transfertax=04:string::0:Комиссия за переводы между пользователями
- * payouts_enabled=05:radio::1:Включить заявки на вывод со счета
- * payouttax=06:string::0:Комиссия за вывод со счета
- * clearpaymentsdays=07:string::0:Очищать базу от неоплаченных платежек через (дней)
+ * transfertaxfromrecipient=05:radio::0:Удерживать комиссию с получателя перевода
+ * payouts_enabled=06:radio::1:Включить заявки на вывод со счета
+ * payouttax=07:string::0:Комиссия за вывод со счета
+ * clearpaymentsdays=08:string::0:Очищать базу от неоплаченных платежек через (дней)
  * [END_COT_EXT_CONFIG]
  */
 
@@ -31,7 +32,7 @@
  * Payments module
  *
  * @package payments
- * @version 1.1.5
+ * @version 1.1.6
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru
  * @license BSD

@@ -36,6 +36,11 @@ if ($balancepays = cot_payments_getallpays('balance', 'paid'))
 	{
 		if (cot_payments_updatestatus($pay['pay_id'], 'done'))
 		{
+			$urr = $db->query("SELECT * FROM $db_users WHERE user_id=".$pay['pay_userid'])->fetch();
+			
+			$subject = $L['payments_balance_billing_admin_subject'];
+			$body = sprintf($L['payments_balance_billing_admin_body'], $urr['user_name'], $pay['pay_summ'].' '.$cfg['payments']['valuta'], $pay['pay_id'], cot_date('d.m.Y в H:i', $pay['pay_pdate']));
+			cot_mail($cfg['adminemail'], $subject, $body);
 
 			if (!empty($pay['pay_code']))
 			{

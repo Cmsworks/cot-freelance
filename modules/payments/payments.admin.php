@@ -49,7 +49,7 @@ if($p == 'payouts')
 	$payouts = $db->query("SELECT * FROM $db_payments_outs AS o
 		LEFT JOIN $db_users AS u ON u.user_id=o.out_userid
 		WHERE 1
-		ORDER BY o.out_id ASC")->fetchAll();
+		ORDER BY o.out_id DESC")->fetchAll();
 
 	foreach($payouts as $payout){
 		$t->assign(array(
@@ -88,7 +88,7 @@ else
 	$pays = $db->query("SELECT * FROM $db_payments AS p
 		LEFT JOIN $db_users AS u ON u.user_id=p.pay_userid
 		$where 
-		ORDER BY pay_pdate ASC LIMIT $d, " . $cfg['maxrowsperpage'])->fetchAll();
+		ORDER BY pay_pdate DESC, pay_id DESC LIMIT $d, " . $cfg['maxrowsperpage'])->fetchAll();
 
 	$totalitems = $db->query("SELECT COUNT(*) FROM $db_payments $where")->fetchColumn();
 

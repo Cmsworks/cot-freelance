@@ -2,10 +2,12 @@
 
 <h2>{PHP.L.payments_history}</h2>	
 
-<ul class="quick-actions nav nav-tabs">
-	<li<!-- IF !{PHP.p} --> class="active"<!-- ENDIF -->><a href="{PHP|cot_url('admin', 'm=payments')}" class="quick-action icon archive">{PHP.L.payments_allusers}</a></li>
-	<li<!-- IF {PHP.p} == 'payouts' --> class="active"<!-- ENDIF -->><a href="{PHP|cot_url('admin', 'm=payments&p=payouts')}" class="quick-action icon archive">{PHP.L.payments_payouts}</a></li>
-</ul>
+<div class="block button-toolbar well">
+	<div class="pull-right">
+		<a href="{PHP|cot_url('admin', 'm=payments')}" class="button btn<!-- IF !{PHP.p} --> btn-success special<!-- ENDIF -->">{PHP.L.payments_allusers}</a>
+		<a href="{PHP|cot_url('admin', 'm=payments&p=payouts')}" class="button btn<!-- IF {PHP.p} == 'payouts' --> btn-success special<!-- ENDIF -->">{PHP.L.payments_payouts}</a>
+	</div>
+</div>
 
 <!-- BEGIN: PAYMENTS -->
 
@@ -17,7 +19,7 @@
 </div>
 
 <div class="block">
-	<table class="table">
+	<table class="cells table table-bordered table-striped">
 	<thead>
 	<tr>
 		<th class="coltop">#</th>
@@ -48,13 +50,13 @@
 	</tbody>
 	</table>
 	
-	<div class="pagination"><ul>{PAGENAV_PAGES}</ul></div>	
+	<div class="pagination"><ul>{PAGENAV_PREV}{PAGENAV_PAGES}{PAGENAV_NEXT}</ul></div>	
 </div>
 	
 <!-- END: PAYMENTS -->
 
 <!-- BEGIN: PAYOUTS -->
-<table class="table">
+<table class="cells table table-bordered table-striped">
 <thead>
 	<tr>
 		<th class="span2">{PHP.L.User}</th>

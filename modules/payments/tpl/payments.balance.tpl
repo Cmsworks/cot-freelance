@@ -116,14 +116,34 @@
 					<td class="width30">{PHP.L.payments_balance_transfer_summ}:</td>
 					<td>{TRANSFER_FORM_SUMM} {PHP.cfg.payments.valuta}</td>
 				</tr>
-				<!-- IF {PHP.cfg.payments.transfertax} > 0 -->
+				<!-- IF {PHP.cfg.payments.transfertax} > 0 AND !{PHP.cfg.payments.transfertaxfromrecipient} -->
 				<tr>
 					<td class="width30">{PHP.L.payments_balance_transfer_tax} ({PHP.cfg.payments.transfertax}%):</td>
 					<td><span id="transfer_tax">{TRANSFER_FORM_TAX}</span> {PHP.cfg.payments.valuta}</td>
 				</tr>
 				<tr>
 					<td class="width30">{PHP.L.payments_balance_transfer_total}:</td>
-					<td><span id="transfer_total">{TRANSFER_FORM_TOTAL}</span> {PHP.cfg.payments.valuta}</td>
+					<td>
+						<span id="transfer_total">{TRANSFER_FORM_TOTAL}</span> {PHP.cfg.payments.valuta}
+					
+						<script>
+							$().ready(function() {
+								$('#transferform').bind('change click keyup', function (){
+									var summ = parseFloat($("input[name='summ']").val());
+									var tax = parseFloat({PHP.cfg.payments.transfertax});
+
+									if(isNaN(summ)) summ = 0;
+
+									var taxsumm = summ*tax/100;
+									var totalsumm = summ + taxsumm;
+
+									$('#transfer_tax').html(taxsumm);
+									$('#transfer_total').html(totalsumm);
+								});
+							});
+						</script>
+						
+					</td>
 				</tr>
 				<!-- ENDIF -->
 				<tr>
@@ -132,25 +152,6 @@
 				</tr>
 			</table>
 		</form>
-				
-		<!-- IF {PHP.cfg.payments.transfertax} > 0 -->		
-		<script>
-			$().ready(function() {
-				$('#transferform').bind('change click keyup', function (){
-					var summ = parseFloat($("input[name='summ']").val());
-					var tax = parseFloat({PHP.cfg.payments.transfertax});
-					
-					if(isNaN(summ)) summ = 0;
-					
-					var taxsumm = summ*tax/100;
-					var totalsumm = summ + taxsumm;
-
-					$('#transfer_tax').html(taxsumm);
-					$('#transfer_total').html(totalsumm);
-				});
-			});
-		</script>
-		<!-- ENDIF -->
 		
 		<!-- END: TRANSFERFORM -->
 		
