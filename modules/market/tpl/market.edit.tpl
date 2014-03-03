@@ -35,6 +35,12 @@
 				<td align="right">{PHP.L.market_price}:</td>
 				<td>{PRDEDIT_FORM_COST} {PHP.cfg.payments.valuta}</td>
 			</tr>
+			<!-- IF {PHP.cot_plugins_active.marketorders} -->
+			<tr>
+				<td align="right">{PHP.L.marketorders_file}:</td>
+				<td>{PRDEDIT_FORM_FILE}</td>
+			</tr>
+			<!-- ENDIF -->
 			<tr>
 				<td align="right">{PHP.L.Image}:</td>
 				<td>{PRDEDIT_FORM_MAVATAR}</td>
