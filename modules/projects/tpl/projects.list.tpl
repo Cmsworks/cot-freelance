@@ -35,6 +35,7 @@
 			<form action="{SEARCH_ACTION_URL}" method="get">
 				<input type="hidden" name="e" value="projects" />
 				<input type="hidden" name="type" value="{PHP.type}" />
+				<input type="hidden" name="l" value="{PHP.lang}" />
 				<table width="100%" cellpadding="5" cellspacing="0">
 					<tr>
 						<td width="100">{PHP.L.Search}:</td>

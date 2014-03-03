@@ -27,6 +27,7 @@
 				<input type="hidden" name="c" value="{PHP.c}" />
 				<input type="hidden" name="type" value="{PHP.type}" />
 				<input type="hidden" name="e" value="folio" />
+				<input type="hidden" name="l" value="{PHP.lang}" />
 				<table width="100%" cellpadding="5" cellspacing="0">
 					<tr>
 						<td width="100">{PHP.L.Search}:</td>

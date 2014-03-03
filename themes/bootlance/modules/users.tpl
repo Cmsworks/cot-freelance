@@ -19,6 +19,7 @@
 					<input type="hidden" name="e" value="users" />
 					<input type="hidden" name="group" value="{PHP.group}" />
 					<input type="hidden" name="cat" value="{PHP.cat}" />
+					<input type="hidden" name="l" value="{PHP.lang}" />
 					<p>{PHP.L.Location}: {SEARCH_LOCATION}</p>
 					<div class="row">
 						<div class="span7"><input type="text" name="sq" value="{PHP.sq}" class="schstring"/></div>
