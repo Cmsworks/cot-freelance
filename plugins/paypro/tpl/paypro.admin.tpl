@@ -6,7 +6,7 @@
 		<tr>
 			<td><a href="{PRO_ROW_USER_DETAILSLINK}">{PRO_ROW_USER_NAME}</a></td>
 			<td>{PRO_ROW_EXPIRE|cot_date('d.m.Y', $this)}</td>
-			<td><a href="{PRO_ROW_USER_ID|cot_url('admin', 'm=other&p=proadm_custom&a=delete&id='$this)}">{PHP.L.Delete}</a></td>
+			<td><a href="{PRO_ROW_USER_ID|cot_url('admin', 'm=other&p=paypro&a=delete&id='$this)}">{PHP.L.Delete}</a></td>
 		</tr>
 		<!-- END: PRO_ROW -->
 	</table>
