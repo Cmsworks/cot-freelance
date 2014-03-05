@@ -67,7 +67,7 @@ foreach ($cot_extrafields[$db_folio] as $exfld)
 	
 	if(!empty($shfld[$exfld['field_name']]))
 	{
-		$where[$exfld['field_name']] = "item_".$exfld['field_name']."='".$shfld[$exfld['field_name']]."'";
+		$where[$exfld['field_name']] = "item_".$exfld['field_name']." LIKE '%".$shfld[$exfld['field_name']]."%'";
 	}
 }
 
