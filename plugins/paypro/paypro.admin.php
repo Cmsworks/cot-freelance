@@ -33,7 +33,7 @@ if ($a == 'add')
 
 if ($a == 'delete')
 {
-	$db->update($db_users, "user_pro=0", "user_id=?", array($id));
+	$db->update($db_users, array("user_pro" => 0), "user_id=?", array($id));
 	cot_redirect(cot_url('admin', 'm=other&p=paypro', '', true));
 }
 
