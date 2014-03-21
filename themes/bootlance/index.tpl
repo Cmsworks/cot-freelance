@@ -3,7 +3,7 @@
 <div class="row">
 	<div class="span12">
 		<!-- IF {PHP.cot_plugins_active.paytop} -->
-		{PHP|cot_get_paytop ('top', 4)}
+		{PHP|cot_get_paytop ('top')}
 		<!-- ENDIF -->	
 	</div>
 </div>

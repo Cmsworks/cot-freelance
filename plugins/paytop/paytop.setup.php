@@ -19,7 +19,7 @@
  * [END_COT_EXT]
  * 
  * [BEGIN_COT_EXT_CONFIG]
- * paytopareas=01:textarea::top|Главная|500|2592000|5:Format settings area|name|cost|period|count
+ * paytopareas=01:textarea::top|Главная|500|2592000|4:Format settings area|name|cost|period|count
  * [END_COT_EXT_CONFIG]
  */
 
