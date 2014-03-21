@@ -65,7 +65,8 @@ if ($a == 'addoffer')
 	if (!cot_error_found())
 	{
 		$db->insert($db_projects_offers, $ins_item);
-
+		$offerid = $db->lastInsertId();
+		
 		if (!$usr['isadmin'])
 		{
 			$urlparams = empty($item['item_alias']) ?
@@ -85,6 +86,13 @@ if ($a == 'addoffer')
 
 		$offerscount = $db->query("SELECT COUNT(*) FROM $db_projects_offers WHERE item_pid=" . (int)$id . "")->fetchColumn();
 		$db->update($db_projects, array("item_offerscount" => (int)$offerscount), "item_id=" . (int)$id);
+
+		/* === Hook === */
+		foreach (cot_getextplugins('projects.offers.add.done') as $pl)
+		{
+			include $pl;
+		}
+		/* ===== */
 
 		cot_redirect(cot_url('projects', 'm=show&id=' . $id, '', true));
 		exit;

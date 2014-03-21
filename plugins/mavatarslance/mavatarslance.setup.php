@@ -5,7 +5,7 @@
  * Code=mavatarslance
  * Name=MAvatars for freelance2 package
  * Description=Adding files for cotonti modules
- * Version=1.2.1
+ * Version=1.2.2
  * Date=08-aug-2013
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru, littledev.ru
@@ -26,7 +26,7 @@
 /**
  * MAVATAR for Cotonti CMF
  *
- * @version 1.2.1
+ * @version 1.2.2
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru, littledev.ru
  */
