@@ -196,13 +196,13 @@ if ($a == 'refuse' && !empty($userid))
 			array('c' => $item['item_cat'], 'al' => $item['item_alias']);
 		
 		$rsubject = cot_rc($L['project_refuse_header'], array('prtitle' => $item['item_title']));
-		$rbody = sprintf($L['project_refuse_body'], 
-			$item['user_name'],
-			$urr['user_name'],
-			$item['item_title'],	
-			$cfg['maintitle'],	
-			COT_ABSOLUTE_URL . cot_url('projects', $urlparams, '', true)
-		);
+		$rbody = cot_rc($L['project_refuse_body'], array(
+			'user_name' => $item['user_name'],
+			'offeruser_name' => $urr['user_name'],
+			'prj_name' => $item['item_title'],	
+			'sitename' => $cfg['maintitle'],	
+			'link' => COT_ABSOLUTE_URL . cot_url('projects', $urlparams, '', true)
+		));
 		cot_mail($urr['user_email'], $rsubject, $rbody);
 
 		/* === Hook === */
