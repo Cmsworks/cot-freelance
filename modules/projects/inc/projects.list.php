@@ -124,6 +124,7 @@ $t->assign(array(
 	"REALIZED_URL" => cot_url('projects', 'c=' . $c . '&realized=1'),
 	"FORPRO_URL" => cot_url('projects', 'c=' . $c . '&type=' . $type . '&forpro=1'),
 	"REALIZED_ACT" => (!empty($realized)) ? true : false,
+	"SUBMITNEWPROJECT_URL" => cot_url('projects', 'm=add&c='.$c.'&type='.$type)
 ));
 
 $t->parse("MAIN.PTYPES");
