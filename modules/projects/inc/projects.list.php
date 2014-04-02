@@ -139,10 +139,10 @@ foreach (cot_getextplugins('projects.list.query') as $pl)
 $where = ($where) ? 'WHERE ' . implode(' AND ', $where) : '';
 $order = ($order) ? 'ORDER BY ' . implode(', ', $order) : '';
 
-$totalitems = $db->query("SELECT COUNT(*) FROM $db_projects 
+$totalitems = $db->query("SELECT COUNT(*) FROM $db_projects AS p $join_condition
 	" . $where . "")->fetchColumn();
 
-$sqllist = $db->query("SELECT * FROM $db_projects AS p
+$sqllist = $db->query("SELECT * FROM $db_projects AS p $join_condition
 	LEFT JOIN $db_users AS u ON u.user_id=p.item_userid
 	" . $where . "
 	" . $order . "

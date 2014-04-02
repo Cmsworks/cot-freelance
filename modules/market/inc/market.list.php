@@ -101,10 +101,10 @@ foreach (cot_getextplugins('market.list.query') as $pl)
 $where = ($where) ? 'WHERE ' . implode(' AND ', $where) : '';
 $order = ($order) ? 'ORDER BY ' . implode(', ', $order) : '';
 
-$totalitems = $db->query("SELECT COUNT(*) FROM $db_market 
+$totalitems = $db->query("SELECT COUNT(*) FROM $db_market AS m $join_condition 
 	" . $where . "")->fetchColumn();
 
-$sqllist = $db->query("SELECT * FROM $db_market AS m 
+$sqllist = $db->query("SELECT * FROM $db_market AS m $join_condition
 	LEFT JOIN $db_users AS u ON u.user_id=m.item_userid 
 	" . $where . "
 	" . $order . "
