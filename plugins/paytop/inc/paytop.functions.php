@@ -75,6 +75,9 @@ function cot_get_paytop ($area='', $count=0, $order = "s.service_id DESC")
 	foreach ($paytops as $tur)
 	{
 		$t1->assign(cot_generate_usertags($tur, 'TOP_ROW_'));
+		$t1->assign(array(
+			'TOP_ROW_EXPIRE' => $tur['service_expire'],
+		));
 		$t1->parse('MAIN.TOP_ROW');
 	}
 
