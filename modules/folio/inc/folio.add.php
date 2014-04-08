@@ -134,6 +134,7 @@ cot_display_messages($t);
 $t->assign(array(
 	"PRDADD_FORM_SEND" => cot_url('folio', 'm=add&c='.$c.'&a=add'),
 	"PRDADD_FORM_CAT" => cot_selectbox_structure('folio', $ritem['item_cat'], 'rcat'),
+	"PRDADD_FORM_CATTITLE" => (!empty($c)) ? $structure['folio'][$c]['title'] : '',
 	"PRDADD_FORM_TITLE" => cot_inputbox('text', 'rtitle', $ritem['item_title'], 'size="56"'),
 	"PRDADD_FORM_TEXT" => cot_textarea('rtext', $ritem['item_text'], 10, 60, 'id="formtext"', 'input_textarea_editor'),
 	"PRDADD_FORM_COST" => cot_inputbox('text', 'rcost', $ritem['item_cost'], 'size="10"'),

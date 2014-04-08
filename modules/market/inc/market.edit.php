@@ -240,6 +240,7 @@ $t->assign(array(
 	"PRDEDIT_FORM_SEND" => cot_url('market', "m=edit&a=update&id=" . $item['item_id'] . "&r=" . $r),
 	"PRDEDIT_FORM_ID" => $item['item_id'],
 	"PRDEDIT_FORM_CAT" => cot_selectbox_structure('market', $item['item_cat'], 'rcat'),
+	"PRDEDIT_FORM_CATTITLE" => $structure['market'][$item['item_cat']]['title'],
 	"PRDEDIT_FORM_TITLE" => cot_inputbox('text', 'rtitle', $item['item_title'], 'size="56"'),
 	"PRDEDIT_FORM_TEXT" => cot_textarea('rtext', $item['item_text'], 10, 60, 'id="formtext"', 'input_textarea_editor'),
 	"PRDEDIT_FORM_COST" => cot_inputbox('text', 'rcost', $item['item_cost'], 'size="10"'),
