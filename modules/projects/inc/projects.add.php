@@ -120,8 +120,9 @@ if ($a == 'add')
 	}
 	else
 	{
-		$c = ($c != $ritem['page_cat']) ? $ritem['item_cat'] : $c;
-		cot_redirect(cot_url('projects', 'm=add&c='.$c, '', true));
+		$c = ($c != $ritem['item_cat']) ? $ritem['item_cat'] : $c;
+		$type = ($type != $ritem['item_type']) ? $ritem['item_type'] : $c;
+		cot_redirect(cot_url('projects', 'm=add&c='.$c.'&type='.$type, '', true));
 	}
 }
 
@@ -155,7 +156,7 @@ $t = new XTemplate($mskin);
 cot_display_messages($t);
 
 $t->assign(array(
-	"PRJADD_FORM_SEND" => cot_url('projects', 'm=add&a=add'),
+	"PRJADD_FORM_SEND" => cot_url('projects', 'm=add&c='.$c.'&type='.$type.'&a=add'),
 	"PRJADD_FORM_CAT" => cot_selectbox_structure('projects', $ritem['item_cat'], 'rcat'),
 	"PRJADD_FORM_TYPE" => (is_array($projects_types)) ? cot_selectbox(($ritem['item_type']) ? $ritem['item_type'] : $cfg['projects']['default_type'], 'rtype', array_keys($projects_types), array_values($projects_types)) : 'empty',
 	"PRJADD_FORM_TITLE" => cot_inputbox('text', 'rtitle', $ritem['item_title'], 'size="56"'),

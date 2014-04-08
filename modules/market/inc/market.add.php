@@ -97,7 +97,7 @@ if ($a == 'add')
 	}
 	else
 	{
-		$c = ($c != $ritem['page_cat']) ? $ritem['item_cat'] : $c;
+		$c = ($c != $ritem['item_cat']) ? $ritem['item_cat'] : $c;
 		cot_redirect(cot_url('market', 'm=add&c='.$c, '', true));
 	}
 }
@@ -132,7 +132,7 @@ $t = new XTemplate($mskin);
 cot_display_messages($t);
 
 $t->assign(array(
-	"PRDADD_FORM_SEND" => cot_url('market', 'm=add&a=add'),
+	"PRDADD_FORM_SEND" => cot_url('market', 'm=add&c='.$c.'&a=add'),
 	"PRDADD_FORM_CAT" => cot_selectbox_structure('market', $ritem['item_cat'], 'rcat'),
 	"PRDADD_FORM_TITLE" => cot_inputbox('text', 'rtitle', $ritem['item_title'], 'size="56"'),
 	"PRDADD_FORM_TEXT" => cot_textarea('rtext', $ritem['item_text'], 10, 60, 'id="formtext"', 'input_textarea_editor'),
