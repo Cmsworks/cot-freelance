@@ -87,7 +87,7 @@ function cot_folio_auth($cat = null)
 
 
 
-function cot_build_structure_folio_tree($parent = '', $selected = array(), $level = 0)
+function cot_build_structure_folio_tree($parent = '', $selected = array(), $level = 0, $template = '')
 {
 	global $structure, $cfg, $db, $sys;
 	global $i18n_notmain, $i18n_locale, $i18n_write, $i18n_admin, $i18n_read, $db_i18n_pages;
@@ -109,7 +109,7 @@ function cot_build_structure_folio_tree($parent = '', $selected = array(), $leve
 		$children = cot_structure_children('folio', $parent, false, false);
 	}
 	//cot_print($children, $parent);
-	$t1 = new XTemplate(cot_tplfile(array('folio', 'tree'), 'module'));
+	$t1 = new XTemplate(cot_tplfile(array('folio', 'tree', $template), 'module'));
 
 	if (count($children) == 0)
 	{

@@ -89,7 +89,7 @@ function cot_market_auth($cat = null)
 
 
 
-function cot_build_structure_market_tree($parent = '', $selected = array(), $level = 0)
+function cot_build_structure_market_tree($parent = '', $selected = array(), $level = 0, $template = '')
 {
 	global $structure, $cfg, $db, $sys;
 	global $i18n_notmain, $i18n_locale, $i18n_write, $i18n_admin, $i18n_read, $db_i18n_pages;
@@ -111,7 +111,7 @@ function cot_build_structure_market_tree($parent = '', $selected = array(), $lev
 		$children = cot_structure_children('market', $parent, false, false);
 	}
 	//cot_print($children, $parent);
-	$t1 = new XTemplate(cot_tplfile(array('market', 'tree'), 'module'));
+	$t1 = new XTemplate(cot_tplfile(array('market', 'tree', $template), 'module'));
 
 	if (count($children) == 0)
 	{

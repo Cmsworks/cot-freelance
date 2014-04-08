@@ -160,7 +160,7 @@ function cot_usercategories_treecheck($selected = array(), $name = 'ruc_cattree'
 	return $t->text('CAT_TREE_CHECK');
 }
 
-function cot_usercategories_tree($selected = array(), $level = '')
+function cot_usercategories_tree($selected = array(), $level = '', $template = '')
 {
 	global $R, $cot_usercategories, $gm, $group;
 
@@ -175,7 +175,7 @@ function cot_usercategories_tree($selected = array(), $level = '')
 		return false;
 	}
 	
-	$t = new XTemplate(cot_tplfile(array('usercategories', 'cattree'), 'plug'));
+	$t = new XTemplate(cot_tplfile(array('usercategories', 'cattree', $template), 'plug'));
 	foreach ($getlevel as $cat)
 	{
 		$t->assign(array(
@@ -191,7 +191,7 @@ function cot_usercategories_tree($selected = array(), $level = '')
 	return $t->text('CAT_TREE');
 }
 
-function cot_usercategories_lighttree($selected = array(), $level = '', $full = false)
+function cot_usercategories_lighttree($selected = array(), $level = '', $full = false, $template = '')
 {
 	global $R, $cot_usercategories, $cot_groups, $gm, $urr;
 	if (!is_array($selected))
@@ -218,7 +218,7 @@ function cot_usercategories_lighttree($selected = array(), $level = '', $full = 
 
 	$count = 0;
 	
-	$t = new XTemplate(cot_tplfile(array('usercategories', 'cattree'), 'plug'));
+	$t = new XTemplate(cot_tplfile(array('usercategories', 'cattree', $template), 'plug'));
 
 	if(!empty($urr['user_maingrp']))
 	{

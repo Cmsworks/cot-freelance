@@ -88,7 +88,7 @@ function cot_projects_auth($cat = null)
 }
 
 
-function cot_build_structure_projects_tree($parent = '', $selected = array(), $level = 0)
+function cot_build_structure_projects_tree($parent = '', $selected = array(), $level = 0, $template = '')
 {
 	global $structure, $cfg, $db, $sys, $type;
 	global $i18n_notmain, $i18n_locale, $i18n_write, $i18n_admin, $i18n_read, $db_i18n_pages;
@@ -110,7 +110,7 @@ function cot_build_structure_projects_tree($parent = '', $selected = array(), $l
 		$children = cot_structure_children('projects', $parent, false, false);
 	}
 
-	$t1 = new XTemplate(cot_tplfile(array('projects', 'tree'), 'module'));
+	$t1 = new XTemplate(cot_tplfile(array('projects', 'tree', $template), 'module'));
 
 	if (count($children) == 0)
 	{
