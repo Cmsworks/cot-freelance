@@ -1,5 +1,5 @@
 <!-- BEGIN: MAIN -->
-<ul class="nav nav-list">
+<ul<!-- IF {ROW_LEVEL} == 0 --> class="nav nav-list"<!-- ENDIF -->>
 	<!-- IF {ROW_LEVEL} == 0 -->
 	<li><a href="{PHP|cot_url('folio')}">{PHP.L.All}</a></li>		
 	<!-- ENDIF -->
