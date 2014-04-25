@@ -10,7 +10,8 @@
 				<!-- IF {REVIEW_ROW_AREA} == 'projects' -->
 				<p class="small">{PHP.L.review_reviewforproject}: <a href="{REVIEW_ROW_PRJ_URL}">{REVIEW_ROW_PRJ_SHORTTITLE}</a></p>
 				<!-- ENDIF -->
-				<div class="txt">{REVIEW_ROW_TEXT}</div>
+				<p>{REVIEW_ROW_TEXT}</p>
+				<p class="small">{REVIEW_ROW_DATE|date('d.m.Y H:i', $this)}</p>
 				<!-- IF {REVIEW_ROW_DELETE_URL} --><div class="edit"><a href="{REVIEW_ROW_DELETE_URL}">{PHP.L.Delete}</a></div><!-- ENDIF -->
 				<!-- IF {PHP.usr.id} > 0 AND {PHP.usr.id} == {REVIEW_ROW_OWNERID} --><div class="edit"><a onClick="$('#ReviewEditModal{REVIEW_ROW_ID}').modal(); return false;" href="{REVIEW_ROW_EDIT_URL}">{PHP.L.Edit}</a></div><!-- ENDIF -->
 			</div>

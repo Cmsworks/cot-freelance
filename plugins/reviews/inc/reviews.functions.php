@@ -121,6 +121,7 @@ function cot_reviews_list($userid, $area, $code='', $name='', $params='', $tail=
 				'REVIEW_ROW_SCORE' => ($item['item_score'] > 0) ? '+' . $item['item_score'] : $item['item_score'],
 				'REVIEW_ROW_AREA' => $item['item_area'],
 				'REVIEW_ROW_CODE' => $item['item_code'],
+				'REVIEW_ROW_DATE' => $item['item_date'],
 				'REVIEW_ROW_DELETE_URL' => ($usr['isadmin']) ? cot_url('plug', 'r=reviews&a=delete&area='.$area.'&code='.$code.'&itemid=' . $item['item_id'] . '&redirect='.$redirect) : '',
 			));
 

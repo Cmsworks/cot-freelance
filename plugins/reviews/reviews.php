@@ -54,7 +54,7 @@ if ($a == 'add')
 	$ritem['item_text'] = cot_import('rtext', 'P', 'TXT');
 	$ritem['item_score'] = cot_import('rscore', 'P', 'INT');
 	$ritem['item_userid'] = (int)$usr['id']; 
-	$ritem['item_date'] = (int)$sys['now_offset']; 
+	$ritem['item_date'] = (int)$sys['now']; 
 	
 	$ritem['item_area'] = $area;
 	$ritem['item_code'] = (!empty($code)) ? $code : cot_import('code', 'P', 'TXT');
