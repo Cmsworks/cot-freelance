@@ -28,3 +28,6 @@ $L['review_empty_text'] = 'Отзыв не может быть пустым';
 $L['review_empty_score'] = 'Укажите оценку';
 $L['review_add_review'] = 'Добавить отзыв';
 $L['review_edit_review'] = 'Редактировать отзыв';
+
+$L['review_score_values'] = array(1, -1);
+$L['review_score_titles'] = array('Положительный', 'Негативный');

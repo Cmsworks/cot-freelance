@@ -104,7 +104,7 @@ function cot_reviews_list($userid, $area, $code='', $name='', $params='', $tail=
 					'REVIEW_FORM_ID' => $item['item_id'],
 					'REVIEW_FORM_SEND' => cot_url('plug', 'r=reviews&a=update&area='.$area.'&code='.$code.'&touser='.$userid.'&redirect='.$redirect.'&itemid=' . $item['item_id']),
 					'REVIEW_FORM_TEXT' => cot_textarea('rtext', $item['item_text'], 5, 50),
-					'REVIEW_FORM_SCORE' => cot_radiobox($item['item_score'], 'rscore', array(-1, 1), array(-1, 1)),
+					'REVIEW_FORM_SCORE' => cot_radiobox($item['item_score'], 'rscore', $L['review_score_values'], $L['review_score_titles']),
 					'REVIEW_FORM_USERID' => $item['item_userid'],
 					'REVIEW_FORM_DELETE_URL' => cot_url('plug', 'r=reviews&a=delete&area='.$area.'&code='.$code.'&touser='.$userid.'&redirect='.$redirect.'&itemid=' . $item['item_id']),
 				));
@@ -195,7 +195,7 @@ function cot_reviews_list($userid, $area, $code='', $name='', $params='', $tail=
 			$t1->assign(array(
 				'REVIEW_FORM_SEND' => cot_url('plug', 'r=reviews&a=add&area='.$area.'&touser='.$userid.'&redirect='.$redirect),
 				'REVIEW_FORM_TEXT' => cot_textarea('rtext', $ritem['item_text'], 5, 50),
-				'REVIEW_FORM_SCORE' => cot_radiobox($ritem['item_score'], 'rscore', array(-1, 1), array(-1, 1)),
+				'REVIEW_FORM_SCORE' => cot_radiobox($ritem['item_score'], 'rscore', $L['review_score_values'], $L['review_score_titles']),
 				'REVIEW_FORM_PROJECTS' => ($cfg['plugin']['reviews']['checkprojects'] && cot_module_active('projects') && $bothprj_count > 0) ? cot_selectbox($pid, 'code', $prj_ids, $prj_titles, false) : '',
 				'REVIEW_FORM_ACTION' => 'ADD',
 			));
