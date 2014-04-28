@@ -14,6 +14,8 @@ defined('COT_CODE') or die('Wrong URL.');
 list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('payments', 'any', 'RWA');
 cot_block($usr['auth_write']);
 
+require_once cot_incfile('forms');
+
 $n = cot_import('n', 'G', 'ALP');
 $pid = cot_import('pid', 'G', 'INT');
 $rsumm = cot_import('rsumm', 'G', 'NUM');
