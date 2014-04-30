@@ -40,7 +40,7 @@ if (!empty($c))
 }
 else
 {
-	$out['subtitle'] = $L['projects'];
+	$out['subtitle'] = (!empty($cfg['projects']['cat___default']['metatitle'])) ? $cfg['projects']['cat___default']['metatitle'] : $L['projects'];
 	$out['desc'] = $cfg['projects']['cat___default']['metadesc'];
 	$out['keywords'] = $cfg['projects']['cat___default']['keywords'];
 }

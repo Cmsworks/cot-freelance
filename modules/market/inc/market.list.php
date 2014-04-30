@@ -36,7 +36,7 @@ if (!empty($c))
 }
 else
 {
-	$out['subtitle'] = $L['market'];
+	$out['subtitle'] = (!empty($cfg['market']['cat___default']['metatitle'])) ? $cfg['market']['cat___default']['metatitle'] : $L['market'];
 	$out['desc'] = $cfg['market']['cat___default']['metadesc'];
 	$out['keywords'] = $cfg['market']['cat___default']['keywords'];
 }

@@ -36,7 +36,7 @@ if (!empty($c))
 }
 else
 {
-	$out['subtitle'] = $L['folio'];
+	$out['subtitle'] = (!empty($cfg['folio']['cat___default']['metatitle'])) ? $cfg['folio']['cat___default']['metatitle'] : $L['folio'];
 	$out['desc'] = $cfg['folio']['cat___default']['metadesc'];
 	$out['keywords'] = $cfg['folio']['cat___default']['keywords'];
 }
