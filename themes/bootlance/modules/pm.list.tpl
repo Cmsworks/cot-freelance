@@ -15,7 +15,7 @@
 					<table class="table">
 						<thead>
 							<tr>
-								<th class="width5">
+								<th class="width10">
 									<!-- IF {PHP.cfg.jquery} --><input class="checkbox" type="checkbox" value="{PHP.themelang.pm.Selectall}/{PHP.themelang.pm.Unselectall}" onclick="$('.checkbox').attr('checked', this.checked);" /><!-- ENDIF -->
 								</th>
 								<th class="width5">{PHP.L.Status}</th>
