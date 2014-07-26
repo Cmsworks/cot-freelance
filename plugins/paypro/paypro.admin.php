@@ -40,6 +40,7 @@ if ($a == 'delete')
 $prousers = $db->query("SELECT * FROM $db_users AS u WHERE user_maingrp>3 ORDER BY user_pro DESC, user_name ASC")->fetchAll();
 foreach ($prousers as $urr)
 {
+	if($id == $urr['user_id']) $username = $urr['user_name'];
 	if($urr['user_pro'] > 0)
 	{
 		$t->assign(cot_generate_usertags($urr, 'PRO_ROW_USER_'));
@@ -61,7 +62,7 @@ if(is_array($otherusers))
 		'PRO_FORM_ACTION_URL' => cot_url('admin', 'm=other&p=paypro&a=add'),
 		'PRO_FORM_PERIOD' => cot_selectbox($months, 'months', array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
 										array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12), false),
-		'PRO_FORM_SELECTUSER' => cot_selectbox('', 'username', $otherusers)
+		'PRO_FORM_SELECTUSER' => cot_selectbox($username, 'username', $otherusers)
 	));
 }
 
