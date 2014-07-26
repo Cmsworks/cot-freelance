@@ -15,9 +15,9 @@
 <div class="block">	
 	<h3>{PHP.L.paypro_addproacc}:</h3>
 	{FILE "{PHP.cfg.themes_dir}/{PHP.cfg.defaulttheme}/warnings.tpl"}
-	<form action="{PRO_FORM_ACTION_URL}" method="POST">
-		{PHP.L.Username}: <input type="text" name="username" value="" /> {PRO_FORM_PERIOD} {PHP.L.paypro_month}
-		<button>{PHP.L.Add}</button>
+	<form action="{PRO_FORM_ACTION_URL}" method="POST" class="form-horizontal">
+		{PHP.L.Username}: {PRO_FORM_SELECTUSER} {PRO_FORM_PERIOD} {PHP.L.paypro_month}
+		<button class="btn btn-success">{PHP.L.Add}</button>
 	</form>
 </div>
 

@@ -37,25 +37,33 @@ if ($a == 'delete')
 	cot_redirect(cot_url('admin', 'm=other&p=paypro', '', true));
 }
 
-$prousers = $db->query("SELECT * FROM $db_users AS u WHERE user_pro>0")->fetchAll();
+$prousers = $db->query("SELECT * FROM $db_users AS u WHERE user_maingrp>3 ORDER BY user_pro DESC, user_name ASC")->fetchAll();
 foreach ($prousers as $urr)
 {
-	$t->assign(cot_generate_usertags($urr, 'PRO_ROW_USER_'));
-	$t->assign(array(
-		'PRO_ROW_EXPIRE' => $urr['user_pro'],
-	));
-	$t->parse('MAIN.PRO_ROW');
+	if($urr['user_pro'] > 0)
+	{
+		$t->assign(cot_generate_usertags($urr, 'PRO_ROW_USER_'));
+		$t->assign(array(
+			'PRO_ROW_EXPIRE' => $urr['user_pro'],
+		));
+		$t->parse('MAIN.PRO_ROW');
+	}else
+	{
+		$otherusers[] = $urr['user_name'];
+	}
 }
 
 cot_display_messages($t);
 
-
-$t->assign(array(
-	'PRO_FORM_ACTION_URL' => cot_url('admin', 'm=other&p=paypro&a=add'),
-	'PRO_FORM_PERIOD' => cot_selectbox($months, 'months', array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
-									array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12), false),
-));
+if(is_array($otherusers))
+{
+	$t->assign(array(
+		'PRO_FORM_ACTION_URL' => cot_url('admin', 'm=other&p=paypro&a=add'),
+		'PRO_FORM_PERIOD' => cot_selectbox($months, 'months', array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
+										array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12), false),
+		'PRO_FORM_SELECTUSER' => cot_selectbox('', 'username', $otherusers)
+	));
+}
 
 $t->parse('MAIN');
 $adminmain = $t->text('MAIN');
-?>
