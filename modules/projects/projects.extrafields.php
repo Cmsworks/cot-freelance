@@ -31,3 +31,12 @@ $extra_whitelist[$db_projects] = array(
 		'projects.edit.tpl' => '{PRJEDIT_FORM_XXXXX}, {PRJEDIT_FORM_XXXXX_TITLE}',
 	)
 );
+$extra_whitelist[$db_projects_offers] = array(
+	'name' => $db_projects,
+	'caption' => $L['Module'].' Offers',
+	'type' => 'module',
+	'code' => 'offers',
+	'tags' => array(
+		'projects.offers.tpl' => '{OFFER_ROW_XXXXX}, {OFFER_FORM_XXXXX}',
+	)
+);
