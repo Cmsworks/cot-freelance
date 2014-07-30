@@ -28,6 +28,7 @@ $db_projects_offers = (isset($db_projects_offers)) ? $db_projects_offers : $db_x
 $db_projects_posts = (isset($db_projects_posts)) ? $db_projects_posts : $db_x . 'projects_posts';
 
 $cot_extrafields[$db_projects] = (!empty($cot_extrafields[$db_projects])) ? $cot_extrafields[$db_projects] : array();
+$cot_extrafields[$db_projects_offers] = (!empty($cot_extrafields[$db_projects_offers])) ? $cot_extrafields[$db_projects_offers] : array();
 
 $structure['projects'] = (is_array($structure['projects'])) ? $structure['projects'] : array();
 
