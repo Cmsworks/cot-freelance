@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS `cot_market` (
   `item_id` int(10) unsigned NOT NULL auto_increment,
   `item_userid` int(11) NOT NULL,
   `item_date` int(11) NOT NULL,
+  `item_update` int(11) NOT NULL,
   `item_parser` VARCHAR(64) NOT NULL DEFAULT '',
   `item_cat` varchar(255) collate utf8_unicode_ci NOT NULL,
   `item_title` varchar(255) collate utf8_unicode_ci NOT NULL,

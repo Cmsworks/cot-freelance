@@ -393,6 +393,10 @@ function cot_market_import($source = 'POST', $ritem = array(), $auth = array())
 	{
 		$ritem['item_date'] = (int)$sys['now'];
 	}
+	else
+	{
+		$ritem['item_update'] = (int)$sys['now'];
+	}
 	
 	if ($auth['isadmin'] && isset($ritem['item_userid']))
 	{

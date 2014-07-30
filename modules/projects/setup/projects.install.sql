@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS `cot_projects` (
   `item_realized` tinyint(4) NOT NULL,
   `item_userid` int(11) NOT NULL,
   `item_date` int(11) NOT NULL,
+  `item_update` int(11) NOT NULL,
   `item_parser` VARCHAR(64) NOT NULL DEFAULT '',
   `item_cat` varchar(255) collate utf8_unicode_ci NOT NULL,
   `item_type` int(11) NOT NULL,
