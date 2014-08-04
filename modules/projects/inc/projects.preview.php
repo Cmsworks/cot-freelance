@@ -38,6 +38,13 @@ if ($a == 'save')
 {
 	cot_check_xg();
 
+	/* === Hook === */
+	foreach (cot_getextplugins('projects.preview.save.first') as $pl)
+	{
+		include $pl;
+	}
+	/* ===== */
+	
 	$prj = array();
 	if($cfg['projects']['prevalidate'] && !$usr['isadmin']){
 		$prj['item_state'] = 2;
@@ -76,6 +83,13 @@ if ($a == 'save')
 	$db->update($db_projects, $prj, "item_id=" . (int)$id);
 
 	cot_projects_sync($item['item_cat']);
+	
+	/* === Hook === */
+	foreach (cot_getextplugins('projects.preview.save.done') as $pl)
+	{
+		include $pl;
+	}
+	/* ===== */
 	
 	cot_redirect($r_url);
 	exit;
