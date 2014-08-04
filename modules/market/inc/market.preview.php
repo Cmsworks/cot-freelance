@@ -39,6 +39,13 @@ if ($a == 'save')
 {
 	cot_check_xg();
 
+	/* === Hook === */
+	foreach (cot_getextplugins('market.preview.save.first') as $pl)
+	{
+		include $pl;
+	}
+	/* ===== */
+	
 	$ritem = array();
 	if($cfg['market']['prevalidate'] && !$usr['isadmin']){
 		$ritem['item_state'] = 2;
@@ -77,6 +84,13 @@ if ($a == 'save')
 	$db->update($db_market, $ritem, "item_id=" . (int)$id);
 
 	cot_market_sync($item['item_cat']);
+	
+	/* === Hook === */
+	foreach (cot_getextplugins('market.preview.save.done') as $pl)
+	{
+		include $pl;
+	}
+	/* ===== */
 	
 	cot_redirect($r_url);
 	exit;
