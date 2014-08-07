@@ -291,6 +291,7 @@ $sql_performer = $db->query("SELECT * FROM $db_projects_offers AS o
 	WHERE item_pid=" . $id . " AND item_choise='performer'");
 if ($performer = $sql_performer->fetch())
 {
+	$t->assign(cot_generate_usertags($performer, 'PRJ_PERFORMER_'));
 	$t_o->assign(cot_generate_usertags($performer, 'PERFORMER_'));
 	$t_o->assign(array(
 		"PERFORMER_USERID" => $performer['item_userid'],
