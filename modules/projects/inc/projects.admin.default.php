@@ -33,6 +33,13 @@ foreach (cot_getextplugins('projects.admin.list.first') as $pl)
 if ($a == 'validate')
 {
 
+	/* === Hook === */
+    foreach (cot_getextplugins('projects.admin.validate.first') as $pl)
+    {
+        include $pl;
+    }
+    /* ===== */
+	
 	$sql = $db->query("SELECT * FROM $db_projects AS p LEFT JOIN $db_users AS u ON u.user_id=p.item_userid WHERE item_id='$id' LIMIT 1");
 	cot_die($sql->rowCount() == 0);
 	$item = $sql->fetch();
@@ -49,6 +56,13 @@ if ($a == 'validate')
 	));
 	cot_mail($item['user_email'], $L['project_added_mail_subj'], $rbody);
 
+	/* === Hook === */
+    foreach (cot_getextplugins('projects.admin.validate.done') as $pl)
+    {
+        include $pl;
+    }
+    /* ===== */
+	
 	cot_redirect(cot_url('admin', 'm=projects&p=default'));
 }
 

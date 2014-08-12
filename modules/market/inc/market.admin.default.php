@@ -35,6 +35,13 @@ foreach (cot_getextplugins('market.admin.list.first') as $pl)
 if ($a == 'validate')
 {
 
+	/* === Hook === */
+    foreach (cot_getextplugins('market.admin.validate.first') as $pl)
+    {
+        include $pl;
+    }
+    /* ===== */
+	
 	$sql = $db->query("SELECT * FROM $db_market AS m LEFT JOIN $db_users AS u ON u.user_id=m.item_userid WHERE item_id='$id' LIMIT 1");
 	cot_die($sql->rowCount() == 0);
 	$item = $sql->fetch();
@@ -52,7 +59,7 @@ if ($a == 'validate')
 	cot_mail($item['user_email'], $L['market_added_mail_subj'], $rbody);
 
 	/* === Hook === */
-	foreach (cot_getextplugins('market.admin.validate') as $pl)
+	foreach (cot_getextplugins('market.admin.validate.done') as $pl)
 	{
 		include $pl;
 	}

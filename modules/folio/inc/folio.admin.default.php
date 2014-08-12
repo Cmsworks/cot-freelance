@@ -33,6 +33,13 @@ foreach (cot_getextplugins('folio.admin.list.first') as $pl)
 if ($a == 'validate')
 {
 
+	/* === Hook === */
+    foreach (cot_getextplugins('folio.admin.validate.first') as $pl)
+    {
+        include $pl;
+    }
+    /* ===== */
+	
 	$sql = $db->query("SELECT * FROM $db_folio AS f LEFT JOIN $db_users AS u ON u.user_id=f.item_userid WHERE item_id='$id' LIMIT 1");
 	cot_die($sql->rowCount() == 0);
 	$item = $sql->fetch();
@@ -50,7 +57,7 @@ if ($a == 'validate')
 	cot_mail($item['user_email'], $L['folio_added_mail_subj'], $rbody);
 
 	/* === Hook === */
-	foreach (cot_getextplugins('folio.admin.validate') as $pl)
+	foreach (cot_getextplugins('folio.admin.validate.done') as $pl)
 	{
 		include $pl;
 	}

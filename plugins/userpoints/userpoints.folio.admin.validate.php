@@ -2,14 +2,14 @@
 
 /**
  * [BEGIN_COT_EXT]
- * Hooks=folio.admin.validate
+ * Hooks=folio.admin.validate.done
  * [END_COT_EXT]
  */
 /**
  * UserPoints plugin
  *
  * @package userpoints
- * @version 2.0.0
+ * @version 2.0.4
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru, littledev.ru
  * @license BSD
