@@ -548,7 +548,7 @@ function cot_projects_add(&$ritem, $auth = array())
  */
 function cot_projects_delete($id, $ritem = array())
 {
-	global $db, $db_projects, $db_structure, $cache, $cfg, $cot_extrafields, $structure, $L;
+	global $db, $db_projects, $db_projects_offers, $db_projects_posts, $cot_extrafields;
 	if (!is_numeric($id) || $id <= 0)
 	{
 		return false;
@@ -569,6 +569,8 @@ function cot_projects_delete($id, $ritem = array())
 	}
 
 	$db->delete($db_projects, "item_id = ?", $id);
+	$db->delete($db_projects_offers, "item_pid = ?", $id);
+	$db->delete($db_projects_posts, "post_pid = ?", $id);
 	cot_log("Deleted project #" . $id, 'adm');
 
 	cot_projects_sync($ritem['item_cat']);
