@@ -14,7 +14,7 @@ defined('COT_CODE') or die('Wrong URL.');
 /**
  * Plugin Config
  */
-$L['cfg_webmoney_wmr'] = array('Webmoney WMR-кошелек');
+$L['cfg_webmoney_purse'] = array('Webmoney кошелек');
 $L['cfg_webmoney_wmid'] = array('Webmoney WMID');
 $L['cfg_webmoney_skey'] = array('Webmoney Sekret key');
 $L['cfg_webmoney_mode'] = array('Тестовый режим');

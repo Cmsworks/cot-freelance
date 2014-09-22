@@ -9,7 +9,7 @@
  * Webmoney billing Plugin
  *
  * @package wmbilling
- * @version 1.0
+ * @version 1.1.0
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru
  * @license BSD
@@ -72,31 +72,14 @@ else
 				$md5sum = strtoupper(md5($chkstring));
 				$hash_check = ($_POST['LMI_HASH'] == $md5sum);
 			}
+			elseif ($cfg['plugin']['wmbilling']['webmoney_hashmethod'] == 'SHA256')
+			{
+				$sha256sum = strtoupper(hash('sha256', $chkstring));
+				$hash_check = ($_POST['LMI_HASH'] == $sha256sum);
+			}
 			elseif ($cfg['plugin']['wmbilling']['webmoney_hashmethod'] == 'SIGN')
 			{
-				$PlanStr = $cfg['plugin']['wmbilling']['webmoney_wmid'] . '967909998006' . $chkstring . $_POST['LMI_HASH'];
-				error_log("PlanStr: $PlanStr");
-				$SignStr = wm_GetSign($PlanStr);
-				error_log("SignStr: $SignStr");
-
-				if (strlen($SignStr) < 132)
-				{
-					echo "ERR: Error: WMSigner response: " . $SignStr;
-				};
-
-				$req = "/asp/classicauth.asp?WMID=" . $cfg['plugin']['wmbilling']['webmoney_wmid'] . "&CWMID=967909998006&CPS=" . urlencode($chkstring) .
-						"&CSS=" . $_POST['LMI_HASH'] . "&SS=$SignStr";
-				error_log("URL: $req");
-				$resp = wm_HttpsReq($req);
-
-				if ($resp == 'Yes')
-				{
-					$hash_check = TRUE;
-				}
-				else
-				{
-					echo "ERR: w3s.webmoney.ru response: " . $resp;
-				};
+				// not done yet!!!
 			}
 			else
 			{
