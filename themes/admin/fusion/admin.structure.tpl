@@ -26,10 +26,10 @@
 		<h2>{PHP.L.Structure}</h2>
 		{FILE "{PHP.cfg.themes_dir}/admin/{PHP.cfg.admintheme}/warnings.tpl"}
 		<div class="block btn-toolbar">
-				<a href="{ADMIN_STRUCTURE_URL_EXTRAFIELDS}" class="btn">{PHP.L.adm_extrafields}</a>
-				<a href="{ADMIN_PAGE_STRUCTURE_RESYNCALL}" class="ajax btn special" title="{PHP.L.adm_tpl_resyncalltitle}">{PHP.L.Resync}</a>
+				<a href="{ADMIN_STRUCTURE_URL_EXTRAFIELDS}" class="btn btn-default">{PHP.L.adm_extrafields}</a>
+				<a href="{ADMIN_PAGE_STRUCTURE_RESYNCALL}" class="ajax btn btn-default special" title="{PHP.L.adm_tpl_resyncalltitle}">{PHP.L.Resync}</a>
 				<!-- IF {ADMIN_STRUCTURE_I18N_URL} -->
-				<a href="{ADMIN_STRUCTURE_I18N_URL}" class="btn">{PHP.L.i18n_structure}</a>
+				<a href="{ADMIN_STRUCTURE_I18N_URL}" class="btn btn-default">{PHP.L.i18n_structure}</a>
 				<!-- ENDIF -->
 		</div>
 
@@ -101,7 +101,7 @@
 							<div class="adminconfigmore">{ADMIN_CONFIG_ROW_CONFIG_MORE}</div>
 						</td>
 						<td class="centerall">
-							<a href="{ADMIN_CONFIG_ROW_CONFIG_MORE_URL}" class="ajax btn">
+							<a href="{ADMIN_CONFIG_ROW_CONFIG_MORE_URL}" class="ajax btn btn-default">
 								{PHP.L.Reset}
 							</a>
 						</td>
@@ -143,8 +143,8 @@
 					<td class="centerall {ADMIN_STRUCTURE_ODDEVEN}">{ADMIN_STRUCTURE_COUNT}</td>
 					<td class="action {ADMIN_STRUCTURE_ODDEVEN}">
 						<a title="{PHP.L.Options}" href="{ADMIN_STRUCTURE_OPTIONS_URL}" class="ajax btn">{PHP.L.short_config}</a>
-						<!-- IF {ADMIN_STRUCTURE_RIGHTS_URL} --><a title="{PHP.L.Rights}" href="{ADMIN_STRUCTURE_RIGHTS_URL}" class="btn">{PHP.L.short_rights}</a><!-- ENDIF -->
-						<!-- IF {PHP.dozvil} --><a title="{PHP.L.Delete}" href="{ADMIN_STRUCTURE_UPDATE_DEL_URL}" class="btn">{PHP.L.short_delete}</a><!-- ENDIF -->
+						<!-- IF {ADMIN_STRUCTURE_RIGHTS_URL} --><a title="{PHP.L.Rights}" href="{ADMIN_STRUCTURE_RIGHTS_URL}" class="btn btn-default">{PHP.L.short_rights}</a><!-- ENDIF -->
+						<!-- IF {PHP.dozvil} --><a title="{PHP.L.Delete}" href="{ADMIN_STRUCTURE_UPDATE_DEL_URL}" class="btn btn-default">{PHP.L.short_delete}</a><!-- ENDIF -->
 						<a href="{ADMIN_STRUCTURE_JUMPTO_URL}" title="{PHP.L.Pages}" class="btn special">{PHP.L.short_open}</a> </td>
 				</tr>
 				<!-- END: ROW -->

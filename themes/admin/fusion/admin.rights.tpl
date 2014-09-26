@@ -55,7 +55,7 @@
 						<!-- ENDIF -->
 					</td>
 <!-- END: RIGHTS_ROW_ITEMS -->
-					<td class="centerall"><a title="{PHP.L.Rights}" href="{ADMIN_RIGHTS_ROW_RIGHTSBYITEM}" class="btn">{PHP.L.Rights}</a><a title="{PHP.L.Rights}" href="{ADMIN_RIGHTS_ROW_LINK}" class="btn special">{PHP.L.Open}</a></td>
+					<td class="centerall"><a title="{PHP.L.Rights}" href="{ADMIN_RIGHTS_ROW_RIGHTSBYITEM}" class="btn btn-default">{PHP.L.Rights}</a><a title="{PHP.L.Rights}" href="{ADMIN_RIGHTS_ROW_LINK}" class="btn special">{PHP.L.Open}</a></td>
 					<td class="textcenter">{ADMIN_RIGHTS_ROW_USER}{ADMIN_RIGHTS_ROW_PRESERVE}</td>
 				</tr>
 <!-- END: RIGHTS_ROW -->

@@ -184,8 +184,8 @@
 <!-- BEGIN: HOOKS -->
 <div class="btn-toolbar">
   <div class="btn-group">
-    <a class="btn" href="{PHP|cot_url('admin', 'm=extensions')}"><i class="icon-list"></i> {PHP.L.ShowAlphabetical}</a>
-    <a class="btn" href="{PHP|cot_url('admin', 'm=extensions&sort=cat')}"><i class="icon-th"></i> {PHP.L.ShowCategories}</a>
+    <a class="btn btn-default" href="{PHP|cot_url('admin', 'm=extensions')}"><i class="icon-list"></i> {PHP.L.ShowAlphabetical}</a>
+    <a class="btn btn-default" href="{PHP|cot_url('admin', 'm=extensions&sort=cat')}"><i class="icon-th"></i> {PHP.L.ShowCategories}</a>
     <a class="btn active" href="{PHP|cot_url('admin', 'm=extensions&a=hooks')}"><i class="icon-leaf"></i> {PHP.L.ShowParts}</a>
   </div>
 </div>

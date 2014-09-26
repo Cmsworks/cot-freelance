@@ -3,8 +3,8 @@
 		{FILE "{PHP.cfg.themes_dir}/admin/{PHP.cfg.admintheme}/warnings.tpl"}
 
 		<div class="block btn-toolbar">
-			<a title="{PHP.L.Configuration}" href="{ADMIN_USERS_URL}" class="btn">{PHP.L.Configuration}</a>
-			<a href="{ADMIN_USERS_EXTRAFIELDS_URL}" class="btn">{PHP.L.adm_extrafields}</a>
+			<a title="{PHP.L.Configuration}" href="{ADMIN_USERS_URL}" class="btn btn-default">{PHP.L.Configuration}</a>
+			<a href="{ADMIN_USERS_EXTRAFIELDS_URL}" class="btn btn-default">{PHP.L.adm_extrafields}</a>
 		</div>
 
 <!-- BEGIN: ADMIN_USERS_DEFAULT -->
@@ -31,9 +31,9 @@
 					<td class="centerall">{ADMIN_USERS_ROW_GRP_DISABLED}</td>
 					<td class="centerall action">
 						<!-- IF !{ADMIN_USERS_ROW_GRP_SKIPRIGHTS} -->
-						<a title="{PHP.L.Rights}" href="{ADMIN_USERS_ROW_GRP_RIGHTS_URL}" class="btn">{PHP.L.short_rights}</a>
+						<a title="{PHP.L.Rights}" href="{ADMIN_USERS_ROW_GRP_RIGHTS_URL}" class="btn btn-default">{PHP.L.short_rights}</a>
 						<!-- ENDIF -->
-						<a title="{PHP.L.Edit}" href="{ADMIN_USERS_ROW_GRP_TITLE_URL}" class="btn">{PHP.L.Edit}</a>
+						<a title="{PHP.L.Edit}" href="{ADMIN_USERS_ROW_GRP_TITLE_URL}" class="btn btn-default">{PHP.L.Edit}</a>
 					</td>
 				</tr>
 <!-- END: USERS_ROW -->
@@ -100,7 +100,7 @@
 					<td>{ADMIN_USERS_NGRP_MAINTENANCE}</td>
 				</tr>
 				<tr>
-					<td class="valid" colspan="2"><input type="submit" class="btn" value="{PHP.L.Add}" /></td>
+					<td class="valid" colspan="2"><input type="submit" class="btn btn-default" value="{PHP.L.Add}" /></td>
 				</tr>
 			</table>
 			</form>
@@ -169,7 +169,7 @@
 					<!-- IF !{ADMIN_USERS_EDITFORM_SKIPRIGHTS} -->
 					<tr>
 						<td>{PHP.L.Rights}:</td>
-						<td><a href="{ADMIN_USERS_EDITFORM_RIGHT_URL}" class="btn">{PHP.L.Rights}</a></td>
+						<td><a href="{ADMIN_USERS_EDITFORM_RIGHT_URL}" class="btn btn-default">{PHP.L.Rights}</a></td>
 					</tr>
 					<!-- ENDIF -->
 <!-- IF {PHP.g} > 5 -->
