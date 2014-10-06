@@ -253,7 +253,7 @@ if ($a == 'addpost')
 			
 			$rsubject = cot_rc($L['project_added_offer_header'], array('prtitle' => $item['item_title']));
 			$rbody = cot_rc($L['project_added_offer_body'], array(
-				'user_name' => $item['user_name'],
+				'user_name' => $offer['user_name'],
 				'offeruser_name' => $usr['profile']['user_name'],
 				'prj_name' => $item['item_title'],	
 				'sitename' => $cfg['maintitle'],
