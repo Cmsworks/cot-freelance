@@ -252,6 +252,8 @@ function cot_generate_projecttags($item_data, $tag_prefix = '', $textlength = 0,
 			'COUNT' => $item_data['item_count'],
 			'DATE' => cot_date('datetime_medium', $item_data['item_date']),
 			'DATE_STAMP' => $item_data['item_date'],
+			'UPDATE' => cot_date('datetime_medium', $item_data['item_update']),
+			'UPDATE_STAMP' => $item_data['item_update'],
 			'SHOW_URL' => $item_data['item_pageurl'],
 			'USER_IS_ADMIN' => ($admin_rights || $usr['id'] == $item_data['item_userid']),
 		);
