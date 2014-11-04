@@ -5,7 +5,6 @@
 /*.ico
 /*.txt
 /*.png
-!/datas/users/index.html
 .DS_Store
 .htaccess
 sef-urls.htaccess
