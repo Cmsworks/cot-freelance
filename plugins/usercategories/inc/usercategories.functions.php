@@ -182,7 +182,7 @@ function cot_usercategories_tree($selected = array(), $level = '', $template = '
 			'OPTION' => $cot_usercategories[$cat]['title'],
 			'SELECTED' => in_array($cat, $selected) ? 'active' : '',
 			'HREF' => cot_url("users", "gm=" . $gm . "&cat=" . $cat."&group=".$group),
-			'SUBLEVEL' => cot_usercategories_tree($selected, $cat)
+			'SUBLEVEL' => cot_usercategories_tree($selected, $cat, $template)
 		));
 		$t->parse('CAT_TREE.ROW');
 		
