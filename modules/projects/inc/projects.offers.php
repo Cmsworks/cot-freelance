@@ -125,7 +125,9 @@ if ($a == 'setperformer' && !empty($userid))
 	// Выбор исполнителя
 	if ($usr['id'] == $item['item_userid'] && (int)$userid > 0 && !cot_error_found())
 	{
-		$db->update($db_projects_offers, array("item_choise" => 'performer', "item_choise_date" => (int)$sys['now_offset']), "item_pid=" . (int)$id . " AND item_userid=" . (int)$userid);
+		if($db->update($db_projects_offers, array("item_choise" => 'performer', "item_choise_date" => (int)$sys['now_offset']), "item_pid=" . (int)$id . " AND item_userid=" . (int)$userid)){
+			$db->update($db_projects, array("item_performer" => $userid), "item_id=" . (int)$id);
+		}
 		
 		$urlparams = empty($item['item_alias']) ?
 			array('c' => $item['item_cat'], 'id' => $item['item_id']) :
@@ -286,16 +288,9 @@ if ($a == 'addpost')
 
 $t_o = new XTemplate(cot_tplfile(array('projects', 'offers', $structure['projects'][$item['item_cat']]['tpl'])));
 // Вычисление выбранного исполнителя по проекту
-$sql_performer = $db->query("SELECT * FROM $db_projects_offers AS o
-	LEFT JOIN $db_users AS u ON u.user_id=o.item_userid
-	WHERE item_pid=" . $id . " AND item_choise='performer'");
-if ($performer = $sql_performer->fetch())
+if ($item['item_performer'])
 {
-	$t->assign(cot_generate_usertags($performer, 'PRJ_PERFORMER_'));
-	$t_o->assign(cot_generate_usertags($performer, 'PERFORMER_'));
-	$t_o->assign(array(
-		"PERFORMER_USERID" => $performer['item_userid'],
-	));
+	$t_o->assign(cot_generate_usertags($item['item_performer'], 'PRJ_PERFORMER_'));
 }
 
 $where = array();

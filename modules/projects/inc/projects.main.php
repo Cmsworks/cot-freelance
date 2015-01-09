@@ -85,6 +85,11 @@ $t = new XTemplate($mskin);
 $t->assign(cot_generate_usertags($item, 'PRJ_OWNER_'));
 $t->assign(cot_generate_projecttags($item, 'PRJ_', $cfg['projects']['shorttextlen'], $usr['isadmin'], $cfg['homebreadcrumb']));
 
+if ($item['item_performer'] > 0)
+{
+	$t->assign(cot_generate_usertags($item['item_performer'], 'PRJ_PERFORMER_'));
+}
+
 require_once cot_incfile('projects', 'module', 'offers');
 
 /* === Hook === */

@@ -1,19 +1,19 @@
 <!-- BEGIN: MAIN -->
 
-<!-- IF {PERFORMER_USERID} > 0 -->
+<!-- IF {PRJ_PERFORMER_ID} > 0 -->
 <h4>{PHP.L.offers_vibran_ispolnitel}</h4>
 <div class="well well-small">
 	<div class="row">
 		<div class="span1">
-			{PERFORMER_AVATAR}
+			{PRJ_PERFORMER_AVATAR}
 		</div>
 		<div class="span10">
-			<p class="owner">{PERFORMER_NAME}</p>
+			<p class="owner">{PRJ_PERFORMER_NAME}</p>
 			<p>
-				<!-- IF {PERFORMER_ISPRO} -->
+				<!-- IF {PRJ_PERFORMER_ISPRO} -->
 				<span class="label label-important">PRO</span> 
 				<!-- ENDIF -->
-				<span class="label label-info">{PERFORMER_USERPOINTS}</span>
+				<span class="label label-info">{PRJ_PERFORMER_USERPOINTS}</span>
 			</p>		
 		</div>
 	</div>

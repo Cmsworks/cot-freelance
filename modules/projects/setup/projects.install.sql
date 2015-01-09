@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS `cot_projects` (
   `item_state` tinyint(2) NOT NULL,
   `item_realized` tinyint(4) NOT NULL,
   `item_userid` int(11) NOT NULL,
+  `item_performer` int(11) NOT NULL,
   `item_date` int(11) NOT NULL,
   `item_update` int(11) NOT NULL,
   `item_parser` VARCHAR(64) NOT NULL DEFAULT '',
