@@ -65,7 +65,7 @@ if (empty($m))
 }
 elseif ($m == 'success')
 {
-	$plugin_body = $L['wmbilling_error_incorrect']; // А стоит ТАК делать???
+	$plugin_body = $L['wmbilling_error_incorrect'];
 
 	if (isset($_GET['LMI_PAYMENT_NO']) && preg_match('/^\d+$/', $_GET['LMI_PAYMENT_NO']) == 1)
 	{
@@ -73,6 +73,7 @@ elseif ($m == 'success')
 		if ($pinfo['pay_status'] == 'done')
 		{
 			$plugin_body = $L['wmbilling_error_done'];
+			$redirect = $pinfo['pay_redirect'];
 		}
 		elseif ($pinfo['pay_status'] == 'paid')
 		{
@@ -83,6 +84,14 @@ elseif ($m == 'success')
 		"WEBMONEY_TITLE" => $L['wmbilling_error_title'],
 		"WEBMONEY_ERROR" => $plugin_body
 	));
+	
+	if($redirect){
+		$t->assign(array(
+			"WEBMONEY_REDIRECT_TEXT" => sprintf($L['wmbilling_redirect_text'], array($redirect)),
+			"WEBMONEY_REDIRECT_URL" => $redirect,
+		));
+	}
+	
 	$t->parse("MAIN.ERROR");
 }
 elseif ($m == 'fail')

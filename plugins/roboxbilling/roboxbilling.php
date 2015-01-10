@@ -88,6 +88,7 @@ elseif ($m == 'success')
 			if ($pinfo['pay_status'] == 'done')
 			{
 				$plugin_body = $L['roboxbilling_error_done'];
+				$redirect = $pinfo['pay_redirect'];
 			}
 			elseif ($pinfo['pay_status'] == 'paid')
 			{
@@ -100,6 +101,13 @@ elseif ($m == 'success')
 		"ROBOX_TITLE" => $L['roboxbilling_error_title'],
 		"ROBOX_ERROR" => $plugin_body
 	));
+	
+	if($redirect){
+		$t->assign(array(
+			"ROBOX_REDIRECT_TEXT" => sprintf($L['roboxbilling_redirect_text'], array($redirect)),
+			"ROBOX_REDIRECT_URL" => $redirect,
+		));
+	}
 	$t->parse("MAIN.ERROR");
 }
 elseif ($m == 'fail')

@@ -34,4 +34,4 @@ $L['ikassabilling_error_wait'] = 'Payment is pending. Please wait.';
 $L['ikassabilling_error_canceled'] = 'Transfer canceled payment system. Please try again. If the problem persists, contact your site administrator.';
 $L['ikassabilling_error_fail'] = 'Payment is not made! Please try again. If the problem persists, contact your site administrator.';
 
-?>
+$L['ikassabilling_redirect_text'] = 'Now will redirect to the page of the paid services. If it does not, click <a href="%1$s">here</a>.';

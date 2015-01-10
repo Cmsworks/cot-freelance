@@ -32,5 +32,4 @@ $L['wmbilling_error_otkaz'] = 'Failure to pay.';
 $L['wmbilling_error_title'] = 'Result of the operation of payment';
 $L['wmbilling_error_fail'] = 'Payment is not made! Please try again. If the problem persists, contact your site administrator';
 
-
-?>
+$L['wmbilling_redirect_text'] = 'Now will redirect to the page of the paid services. If it does not, click <a href="%1$s">here</a>.';

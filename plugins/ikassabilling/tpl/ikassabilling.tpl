@@ -17,6 +17,19 @@
 <!-- BEGIN: ERROR -->
 	<h4>{IKASSA_TITLE}</h4>
 	{IKASSA_ERROR}
+	
+	<!-- IF {IKASSA_REDIRECT_URL} -->
+	<br/>
+	<p class="small">{IKASSA_REDIRECT_TEXT}</p>
+	<script>
+		$(function(){
+			setTimeout(function () {
+				location.href='{IKASSA_REDIRECT_URL}';
+			}, 5000);
+		});
+	</script>
+	<!-- ENDIF -->
+	
 <!-- END: ERROR -->
 
 

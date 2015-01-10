@@ -18,9 +18,13 @@ $L['cfg_balance_enabled'] = array('Turn on internal billings');
 $L['cfg_valuta'] = array('Valuta');
 $L['cfg_transfers_enabled'] = array('Enable transfers between users');
 $L['cfg_transfertax'] = array('Charges for transfers between users', '%');
+$L['cfg_transfermin'] = array('The minimum amount for transfer', $cfg['payments']['valuta']);
+$L['cfg_transfermax'] = array('The maximum amount for transfer', $cfg['payments']['valuta']);
 $L['cfg_transfertaxfromrecipient'] = array('Charge a commission to the recipient');
 $L['cfg_payouts_enabled'] = array('Enable requests of payout');
 $L['cfg_payouttax'] = array('Commission for payout', '%');
+$L['cfg_payoutmin'] = array('The minimum amount for payout', $cfg['payments']['valuta']);
+$L['cfg_payoutmax'] = array('The maximum amount for payout', $cfg['payments']['valuta']);
 $L['cfg_clearpaymentsdays'] = array('Clean the base of unpaid bills after', 'дней');
 
 $L['payments_mybalance'] = 'My balance';
@@ -39,6 +43,7 @@ $L['payments_balance_payout_total'] = "Amount to be deducted";
 $L['payments_balance_payout_details'] = 'Details';
 $L['payments_balance_payout_error_details'] = 'Details is empty';
 $L['payments_balance_payout_error_balance'] = 'A very large amount';
+$L['payments_balance_payout_error_min'] = 'Amount shall not be less than %1$s %2$s';
 
 $L['payments_balance_billing_error_summ'] = 'Amount empty';
 $L['payments_balance_billing_desc'] = 'Account funding';

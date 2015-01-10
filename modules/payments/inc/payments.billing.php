@@ -40,7 +40,12 @@ if ($pinfo = cot_payments_payinfo($pid))
 			if (cot_payments_updatestatus($pid, 'paid'))
 			{
 				cot_payments_updateuserbalance($usr['id'], -$pinfo['pay_summ'], $pid);
-				cot_redirect(cot_url('index'));
+				if(!empty($pinfo['pay_redirect'])){
+					$pinfo['pay_redirect'] = $pinfo['pay_redirect'].'&'.cot_xg();
+					cot_redirect($pinfo['pay_redirect']);
+				}else{ 
+					cot_redirect(cot_url('index'));
+				}
 			}
 		}
 		else

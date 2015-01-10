@@ -17,6 +17,19 @@
 <!-- BEGIN: ERROR -->
 	<h4>{WEBMONEY_TITLE}</h4>
 	{WEBMONEY_ERROR}
+	
+	
+	<!-- IF {WEBMONEY_REDIRECT_URL} -->
+	<br/>
+	<p class="small">{WEBMONEY_REDIRECT_TEXT}</p>
+	<script>
+		$(function(){
+			setTimeout(function () {
+				location.href='{WEBMONEY_REDIRECT_URL}';
+			}, 5000);
+		});
+	</script>
+	<!-- ENDIF -->
 <!-- END: ERROR -->
 
 

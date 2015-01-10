@@ -48,10 +48,25 @@ if (empty($m))
 }
 elseif ($m == 'success')
 {
+	if (!empty($pid) && $pinfo = cot_payments_payinfo($pid))
+	{
+		if(!empty($pinfo['pay_code']) && $prinfo = cot_payments_payinfo($pinfo['pay_code'])){
+			$redirect = $prinfo['pay_redirect'];
+		}
+	}
+	
 	$t->assign(array(
 		"BILLING_TITLE" => $L['nullbilling_error_title'],
 		"BILLING_ERROR" => $L['nullbilling_error_done']
 	));
+	
+	if($redirect){
+		$t->assign(array(
+			"BILLING_REDIRECT_TEXT" => sprintf($L['nullbilling_redirect_text'], array($redirect)),
+			"BILLING_REDIRECT_URL" => $redirect,
+		));
+	}
+	
 	$t->parse("MAIN.ERROR");
 }
 elseif ($m == 'fail')

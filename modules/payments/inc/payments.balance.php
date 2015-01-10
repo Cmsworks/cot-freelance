@@ -81,6 +81,8 @@ if ($n == 'payouts')
 		cot_check(empty($details), 'payments_balance_payout_error_details');
 		cot_check(empty($summ), 'payments_balance_payout_error_summ');
 		cot_check($total > $ubalance, 'payments_balance_payout_error_balance');	
+		cot_check($cfg['payments']['payoutmin'] > 0 && $summ < $cfg['payments']['payoutmin'], sprintf($L['payments_balance_payout_error_min'], $cfg['payments']['payoutmin'], $cfg['payments']['valuta']));	
+		cot_check($cfg['payments']['payoutmax'] > 0 && $summ > $cfg['payments']['payoutmax'], sprintf($L['payments_balance_payout_error_max'], $cfg['payments']['payoutmax'], $cfg['payments']['valuta']));	
 
 		if(!cot_error_found())
 		{
@@ -185,6 +187,8 @@ if ($n == 'transfer')
 		cot_check(empty($comment), 'payments_balance_transfer_error_comment');
 		cot_check(empty($summ), 'payments_balance_transfer_error_summ');
 		cot_check($sendersumm > $ubalance, 'payments_balance_transfer_error_balance');	
+		cot_check($cfg['payments']['transfermin'] > 0 && $summ < $cfg['payments']['transfermin'], sprintf($L['payments_balance_transfer_error_min'], $cfg['payments']['transfermin'], $cfg['payments']['valuta']));	
+		cot_check($cfg['payments']['transfermax'] > 0 && $summ > $cfg['payments']['transfermax'], sprintf($L['payments_balance_transfer_error_max'], $cfg['payments']['transfermax'], $cfg['payments']['valuta']));
 
 		if(!cot_error_found())
 		{

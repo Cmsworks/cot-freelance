@@ -71,6 +71,7 @@ elseif ($m == 'success')
 		if ($pinfo['pay_status'] == 'done')
 		{
 			$plugin_body = $L['ikassabilling_error_done'];
+			$redirect = $pinfo['pay_redirect'];
 		}
 		elseif ($pinfo['pay_status'] == 'paid')
 		{
@@ -106,6 +107,14 @@ elseif ($m == 'success')
 		"IKASSA_TITLE" => $L['ikassabilling_error_title'],
 		"IKASSA_ERROR" => $plugin_body
 	));
+	
+	if($redirect){
+		$t->assign(array(
+			"IKASSA_REDIRECT_TEXT" => sprintf($L['ikassabilling_redirect_text'], array($redirect)),
+			"IKASSA_REDIRECT_URL" => $redirect,
+		));
+	}
+	
 	$t->parse("MAIN.ERROR");
 }
 elseif ($m == 'fail')
