@@ -196,7 +196,9 @@ if ($a == 'refuse' && !empty($userid))
 	// Отказать исполнителю
 	if ($usr['id'] == $item['item_userid'] && (int)$userid > 0 && !cot_error_found())
 	{
-		$db->update($db_projects_offers, array('item_choise' => 'refuse', 'item_choise_date' => (int)$sys['now_offset']), "item_pid=" . $id . " AND item_userid=" . (int)$userid . "");
+		if($db->update($db_projects_offers, array('item_choise' => 'refuse', 'item_choise_date' => (int)$sys['now_offset']), "item_pid=" . $id . " AND item_userid=" . (int)$userid . "")){
+			$db->update($db_projects, array("item_performer" => 0), "item_id=" . (int)$id);
+		}
 
 		$urlparams = empty($item['item_alias']) ?
 			array('c' => $item['item_cat'], 'id' => $item['item_id']) :
