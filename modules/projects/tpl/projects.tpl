@@ -62,7 +62,7 @@
 				{PRJ_ADMIN_EDIT} &nbsp; 
 				<!-- IF {PRJ_STATE} != 2 -->
 					<a href="{PRJ_HIDEPROJECT_URL}">{PRJ_HIDEPROJECT_TITLE}</a>	&nbsp; 
-					<!-- IF {PHP.performer.item_userid} -->
+					<!-- IF {PRJ_PERFORMER} -->
 					<a href="{PRJ_REALIZEDPROJECT_URL}">{PRJ_REALIZEDPROJECT_TITLE}</a>					
 					<!-- ENDIF -->
 				<!-- ENDIF -->
