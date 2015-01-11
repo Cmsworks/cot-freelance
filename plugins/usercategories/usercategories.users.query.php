@@ -28,7 +28,12 @@ if (!empty($cat))
 	$out['meta_keywords'] = (!empty($cot_usercategories[$cat]['mkey'])) ? $cot_usercategories[$cat]['mkey'] : '';
 
 	$catsub = cot_usercategories_children($cat);
-	$join_condition .= " JOIN $db_usercategories_users AS flu ON (u.user_id=flu.ucat_userid AND ucat_cat IN ('" . implode("','", $catsub) . "'))";
-	
+	$sql = $db->query("SELECT ucat_userid FROM $db_usercategories_users WHERE ucat_cat IN ('" . implode("','", $catsub) . "')");
+	while ($sqlcatuser = $sql->fetch()){
+		$catusers[] = $sqlcatuser['ucat_userid'];
+	}
+	if(is_array($catusers)){
+		$where['cat'] = "user_id IN (" . implode(",", $catusers) . ")";
+	}
 	$users_url_path['cat'] =  $cat;
 }
