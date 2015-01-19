@@ -34,6 +34,7 @@ if ($a == 'buy')
 		$options['time'] = $months * 30 * 24 * 60 * 60;
 		$options['desc'] = (!empty($id)) ? $L['paypro_giftpro_paydesc'] . $user['user_name'] : $L['paypro_buypro_paydesc'];
 		$options['code'] = (!empty($id) && $usr['id'] != $id) ? $id : $usr['id'];
+		$options['redirect'] = $cfg['mainurl'].'/'.cot_url('payments');
 		
 		cot_payments_create_order('pro', $summ, $options);
 	}

@@ -28,6 +28,7 @@ if ($a == 'buy' && !empty($id))
 		$options['time'] = $days * 24 * 60 * 60;
 		$options['code'] = $id;
 		$options['desc'] = $L['payprjbold_buy_paydesc'];
+		$options['redirect'] = $cfg['mainurl'].'/'.cot_url('payments');
 
 		cot_payments_create_order('prj.bold', $summ, $options);
 	}
