@@ -62,7 +62,7 @@ elseif ($m == 'success')
 	
 	if($redirect){
 		$t->assign(array(
-			"BILLING_REDIRECT_TEXT" => sprintf($L['nullbilling_redirect_text'], array($redirect)),
+			"BILLING_REDIRECT_TEXT" => sprintf($L['nullbilling_redirect_text'], $redirect),
 			"BILLING_REDIRECT_URL" => $redirect,
 		));
 	}

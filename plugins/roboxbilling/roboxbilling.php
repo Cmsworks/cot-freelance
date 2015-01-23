@@ -104,7 +104,7 @@ elseif ($m == 'success')
 	
 	if($redirect){
 		$t->assign(array(
-			"ROBOX_REDIRECT_TEXT" => sprintf($L['roboxbilling_redirect_text'], array($redirect)),
+			"ROBOX_REDIRECT_TEXT" => sprintf($L['roboxbilling_redirect_text'], $redirect),
 			"ROBOX_REDIRECT_URL" => $redirect,
 		));
 	}

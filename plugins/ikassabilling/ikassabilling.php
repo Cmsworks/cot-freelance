@@ -110,7 +110,7 @@ elseif ($m == 'success')
 	
 	if($redirect){
 		$t->assign(array(
-			"IKASSA_REDIRECT_TEXT" => sprintf($L['ikassabilling_redirect_text'], array($redirect)),
+			"IKASSA_REDIRECT_TEXT" => sprintf($L['ikassabilling_redirect_text'], $redirect),
 			"IKASSA_REDIRECT_URL" => $redirect,
 		));
 	}

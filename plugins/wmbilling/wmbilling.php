@@ -87,7 +87,7 @@ elseif ($m == 'success')
 	
 	if($redirect){
 		$t->assign(array(
-			"WEBMONEY_REDIRECT_TEXT" => sprintf($L['wmbilling_redirect_text'], array($redirect)),
+			"WEBMONEY_REDIRECT_TEXT" => sprintf($L['wmbilling_redirect_text'], $redirect),
 			"WEBMONEY_REDIRECT_URL" => $redirect,
 		));
 	}
