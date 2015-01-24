@@ -29,7 +29,10 @@ if ($a == 'buy')
 
 		$options['desc'] = $L['paytop_buytop_paydesc'].' ('.$pt_cfg[$area]['name'].')';
 		$options['time'] = (!empty($pt_cfg[$area]['period'])) ? $pt_cfg[$area]['period'] : 2592000;
-		$options['redirect'] = $cfg['mainurl'].'/'.cot_url('payments');
+		
+		if ($db->fieldExists($db_payments, "pay_redirect")){
+			$options['redirect'] = $cfg['mainurl'].'/'.cot_url('payments');
+		}
 		
 		cot_payments_create_order('paytop.'.$area, $pt_cfg[$area]['cost'], $options);
 	}
