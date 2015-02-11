@@ -100,7 +100,7 @@ if ($cfg['projects']['prjsearch'] && ($tab == 'projects' || empty($tab)) && cot_
 	foreach($sqllist_rowset as $row)
 	{
 		$url_cat = cot_url('projects', 'c='.$row['item_cat']);
-		$url_prj = empty($row['item_alias']) ? cot_url('projects', 'c='.$row['item_cat'].'&id='.$row['item_id'].'&highlight='.$hl) : cot_url('prj', 'c='.$row['item_cat'].'&al='.$row['item_alias'].'&highlight='.$hl);
+		$url_prj = empty($row['item_alias']) ? cot_url('projects', 'c='.$row['item_cat'].'&id='.$row['item_id'].'&highlight='.$hl) : cot_url('projects', 'c='.$row['item_cat'].'&al='.$row['item_alias'].'&highlight='.$hl);
 		$t->assign(cot_generate_projecttags($row, 'PLUGIN_PROJECTSRES_'));
 		$t->assign(array(
 			'PLUGIN_PROJECTSRES_CATEGORY' => cot_rc_link($url_cat, $structure['projects'][$row['item_cat']]['tpath']),
