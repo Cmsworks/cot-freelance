@@ -101,16 +101,16 @@ if ($cfg['folio']['foliosearch'] && ($tab == 'folio' || empty($tab)) && cot_modu
 	{
 		$url_cat = cot_url('folio', 'c='.$row['item_cat']);
 		$url_folio = empty($row['item_alias']) ? cot_url('folio', 'c='.$row['item_cat'].'&id='.$row['item_id'].'&highlight='.$hl) : cot_url('folio', 'c='.$row['item_cat'].'&al='.$row['item_alias'].'&highlight='.$hl);
-		$t->assign(cot_generate_projecttags($row, 'PLUGIN_MARKETRES_'));
+		$t->assign(cot_generate_foliotags($row, 'PLUGIN_FOLIORES_'));
 		$t->assign(array(
-			'PLUGIN_MARKETRES_CATEGORY' => cot_rc_link($url_cat, $structure['folio'][$row['item_cat']]['tpath']),
-			'PLUGIN_MARKETRES_CATEGORY_URL' => $url_cat,
-			'PLUGIN_MARKETRES_TITLE' => cot_rc_link($url_folio, htmlspecialchars($row['item_title'])),
-			'PLUGIN_MARKETRES_TEXT' => cot_clear_mark($row['item_text'], $words),
-			'PLUGIN_MARKETRES_TIME' => cot_date('datetime_medium', $row['item_date']),
-			'PLUGIN_MARKETRES_TIMESTAMP' => $row['item_date'],
-			'PLUGIN_MARKETRES_ODDEVEN' => cot_build_oddeven($jj),
-			'PLUGIN_MARKETRES_NUM' => $jj
+			'PLUGIN_FOLIORES_CATEGORY' => cot_rc_link($url_cat, $structure['folio'][$row['item_cat']]['tpath']),
+			'PLUGIN_FOLIORES_CATEGORY_URL' => $url_cat,
+			'PLUGIN_FOLIORES_TITLE' => cot_rc_link($url_folio, htmlspecialchars($row['item_title'])),
+			'PLUGIN_FOLIORES_TEXT' => cot_clear_mark($row['item_text'], $words),
+			'PLUGIN_FOLIORES_TIME' => cot_date('datetime_medium', $row['item_date']),
+			'PLUGIN_FOLIORES_TIMESTAMP' => $row['item_date'],
+			'PLUGIN_FOLIORES_ODDEVEN' => cot_build_oddeven($jj),
+			'PLUGIN_FOLIORES_NUM' => $jj
 		));
 		/* === Hook - Part 2 === */
 		foreach ($extp as $pl)
@@ -118,12 +118,12 @@ if ($cfg['folio']['foliosearch'] && ($tab == 'folio' || empty($tab)) && cot_modu
 			include $pl;
 		}
 		/* ===== */
-		$t->parse('MAIN.RESULTS.MARKET.ITEM');
+		$t->parse('MAIN.RESULTS.FOLIO.ITEM');
 		$jj++;
 	}
 	if ($jj > 0)
 	{
-		$t->parse('MAIN.RESULTS.MARKET');
+		$t->parse('MAIN.RESULTS.FOLIO');
 	}
 	unset($where_and, $where_or, $where);
 }
