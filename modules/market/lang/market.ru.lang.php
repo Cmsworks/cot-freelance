@@ -45,7 +45,7 @@ $L['market_edit_product'] = 'Редактировать товар';
 $L['market_add_product_title'] = 'Добавление товара в магазин';
 $L['market_edit_product_title'] = 'Редактирование товара из магазина';
 
-$L['market_hidden'] = 'Товар не опубликова';
+$L['market_hidden'] = 'Товар не опубликован';
 $L['market_location'] = 'Местоположение';
 $L['market_price'] = 'Цена';
 $L['market_image_limit'] = 'Разрешенные форматы JPEG, GIF, JPG, PNG. Максимальный размер 1Мб.';
