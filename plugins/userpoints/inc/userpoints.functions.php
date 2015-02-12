@@ -52,11 +52,11 @@ function cot_setuserpoints($points, $type, $userid, $itemid = 0)
 	}
 }
 
-function cot_get_topusers ($maingrp, $count, $sqlsearch='')
+function cot_get_topusers ($maingrp, $count, $sqlsearch='', $tpl='index')
 {
 	global $L, $cfg, $db, $db_users;
 
-	$t1 = new XTemplate(cot_tplfile(array('userpoints', 'index'), 'plug'));
+	$t1 = new XTemplate(cot_tplfile(array('userpoints', $tpl), 'plug'));
 	
 	$sqlsearch = !empty($sqlsearch) ? " AND " . $sqlsearch : '';
 	
