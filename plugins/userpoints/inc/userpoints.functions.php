@@ -52,7 +52,7 @@ function cot_setuserpoints($points, $type, $userid, $itemid = 0)
 	}
 }
 
-function cot_get_topusers ($maingrp, $count, $tpl='index' $sqlsearch='')
+function cot_get_topusers ($maingrp, $count, $sqlsearch='', $tpl='index')
 {
 	global $L, $cfg, $db, $db_users;
 
