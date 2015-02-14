@@ -57,6 +57,6 @@ if ($cfg['plugin']['tagslance']['projects'])
 		$t->assign(array(
 			'PRJ_ROW_NO_TAGS' => $L['tags_Tag_cloud_none']
 		));
-		$t->parse('MAIN.PRJ_ROWS.PRJ_NO_TAGS');
+		$t->parse('MAIN.PRJ_ROWS.PRJ_ROW_NO_TAGS');
 	}
 }

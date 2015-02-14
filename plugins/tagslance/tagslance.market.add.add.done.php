@@ -29,7 +29,7 @@ if ($cfg['plugin']['tagslance']['market'] && cot_auth('plug', 'tags', 'W'))
 	$cnt = 0;
 	foreach ($tags as $tag)
 	{
-		cot_tag($tag, $item_id, 'market', $tags_extra);
+		cot_tag($tag, $id, 'market', $tags_extra);
 		$cnt++;
 		if ($cfg['plugin']['tags']['limit'] > 0 && $cnt == $cfg['plugin']['tags']['limit'])
 		{

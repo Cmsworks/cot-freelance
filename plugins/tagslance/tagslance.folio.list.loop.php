@@ -58,6 +58,6 @@ if ($cfg['plugin']['tagslance']['folio'])
 		$t->assign(array(
 			'PRD_ROW_NO_TAGS' => $L['tags_Tag_cloud_none']
 		));
-		$t->parse('MAIN.PRD_ROWS.PRD_NO_TAGS');
+		$t->parse('MAIN.PRD_ROWS.PRD_ROW_NO_TAGS');
 	}
 }
