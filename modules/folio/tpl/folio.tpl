@@ -31,7 +31,7 @@
 			<p class="location">{PRD_COUNTRY} {PRD_REGION} {PRD_CITY}</p>
 			<p class="text">{PRD_TEXT}</p>
 			
-			<!-- IF {PHP.cot_plugins_active.tags} AND {PHP.cot_plugins_active.tagslance} -->
+			<!-- IF {PHP.cot_plugins_active.tags} AND {PHP.cot_plugins_active.tagslance} AND {PHP.cfg.plugin.tagslance.folio} -->
 			<p>{PHP.L.Tags}: 
 				<!-- BEGIN: PRD_TAGS_ROW --><!-- IF {PHP.tag_i} > 0 -->, <!-- ENDIF --><a href="{PRD_TAGS_ROW_URL}" title="{PRD_TAGS_ROW_TAG}" rel="nofollow">{PRD_TAGS_ROW_TAG}</a><!-- END: PRD_TAGS_ROW -->
 				<!-- BEGIN: PRD_NO_TAGS -->{PRD_NO_TAGS}<!-- END: PRD_NO_TAGS -->
