@@ -20,6 +20,12 @@
 <div class="row">
 	<div class="span3">
 		<!-- IF {CATALOG} --><div class="well well-small">{CATALOG}</div><!-- ENDIF -->
+		
+		<!-- IF {PHP.cot_plugins_active.tags} AND {PHP.cot_plugins_active.tagslance} -->
+		<div class="mboxHD">{PHP.L.Tags}</div>
+		{PRD_TAG_CLOUD}
+		<!-- ENDIF -->
+		
 	</div>
 	<div class="span9">
 		<div class="well">	
@@ -65,6 +71,14 @@
 				<p class="owner">{PRD_ROW_OWNER_NAME} <span class="date">[{PRD_ROW_DATE}]</span> &nbsp;{PRD_ROW_COUNTRY} {PRD_ROW_REGION} {PRD_ROW_CITY} &nbsp; {PRD_ROW_EDIT_URL}</p>
 				<p class="text">{PRD_ROW_SHORTTEXT}</p>
 				<p class="type"><a href="{PRD_ROW_CATURL}">{PRD_ROW_CATTITLE}</a></p>
+				
+				<!-- IF {PHP.cot_plugins_active.tags} AND {PHP.cot_plugins_active.tagslance} -->
+				<p class="small">{PHP.L.Tags}: 
+					<!-- BEGIN: PRD_ROW_TAGS_ROW --><!-- IF {PHP.tag_i} > 0 -->, <!-- ENDIF --><a href="{PRD_ROW_TAGS_ROW_URL}" title="{PRD_ROW_TAGS_ROW_TAG}" rel="nofollow">{PRD_ROW_TAGS_ROW_TAG}</a><!-- END: PRD_ROW_TAGS_ROW -->
+					<!-- BEGIN: PRD_ROW_NO_TAGS -->{PRJ_ROW_NO_TAGS}<!-- END: PRD_ROW_NO_TAGS -->
+				</p>
+				<!-- ENDIF -->
+				
 			</div>
 			<!-- END: PRD_ROWS -->
 		</div>

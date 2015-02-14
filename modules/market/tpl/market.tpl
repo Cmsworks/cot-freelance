@@ -30,6 +30,14 @@
 			<p class="date">[{PRD_DATE}]</p>
 			<p class="location">{PRD_COUNTRY} {PRD_REGION} {PRD_CITY}</p>
 			<p class="text">{PRD_TEXT}</p>
+			
+			<!-- IF {PHP.cot_plugins_active.tags} AND {PHP.cot_plugins_active.tagslance} -->
+			<p>{PHP.L.Tags}: 
+				<!-- BEGIN: PRD_TAGS_ROW --><!-- IF {PHP.tag_i} > 0 -->, <!-- ENDIF --><a href="{PRD_TAGS_ROW_URL}" title="{PRD_TAGS_ROW_TAG}" rel="nofollow">{PRD_TAGS_ROW_TAG}</a><!-- END: PRD_TAGS_ROW -->
+				<!-- BEGIN: PRD_NO_TAGS -->{PRD_NO_TAGS}<!-- END: PRD_NO_TAGS -->
+			</p>
+			<!-- ENDIF -->
+			
 			<!-- IF {PRD_COST} > 0 AND {PRD_STATE} == 0 -->
 				<p>&nbsp;</p>
 				<!-- IF {PHP.cot_plugins_active.marketorders} AND {PHP|cot_auth('plug', 'marketorders', 'R')} -->
