@@ -68,7 +68,7 @@ if ($m == "folio")
 		$items[$i]['link'] = COT_ABSOLUTE_URL . $row['item_pageurl'];
 		$items[$i]['pubDate'] = cot_date('r', $row['item_date']);
 		$items[$i]['description'] = cot_parse($row['item_text']);
-		$items[$i]['fields'] = cot_generate_projecttags($row);
+		$items[$i]['fields'] = cot_generate_foliotags($row);
 
 		$i++;
 	}
