@@ -63,7 +63,7 @@ if ($cfg['projects']['prjsitemap'])
 	/* ===== */
 
 	$sitemap_where = count($sitemap_where) > 0 ? 'WHERE ' . join(' AND ', $sitemap_where) : '';
-	$res = $db->query("SELECT p.item_id, p.item_cat $sitemap_join_columns
+	$res = $db->query("SELECT p.item_id, p.item_alias, p.item_cat $sitemap_join_columns
 		FROM $db_projects AS p $sitemap_join_tables
 		$sitemap_where
 		ORDER BY p.item_cat, p.item_id");
@@ -71,7 +71,11 @@ if ($cfg['projects']['prjsitemap'])
 	{
 		if (!$auth_cache[$row['item_cat']]) continue;
 		$urlp = array('c' => $row['item_cat']);
-		$urlp['id'] = $row['item_id'];
+		if(!empty($row['item_alias'])){
+			$urlp['al'] = $row['item_alias'];
+		}else{
+			$urlp['id'] = $row['item_id'];
+		}
 		sitemap_parse($t, $items, array(
 			'url'  => cot_url('projects', $urlp),
 			'date' => $row['item_date'],

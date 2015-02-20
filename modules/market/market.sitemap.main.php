@@ -63,15 +63,19 @@ if ($cfg['market']['marketsitemap'])
 	/* ===== */
 
 	$sitemap_where = count($sitemap_where) > 0 ? 'WHERE ' . join(' AND ', $sitemap_where) : '';
-	$res = $db->query("SELECT f.item_id, f.item_cat $sitemap_join_columns
-		FROM $db_market AS f $sitemap_join_tables
+	$res = $db->query("SELECT m.item_id, m.item_alias, m.item_cat $sitemap_join_columns
+		FROM $db_market AS m $sitemap_join_tables
 		$sitemap_where
-		ORDER BY f.item_cat, f.item_id");
+		ORDER BY m.item_cat, m.item_id");
 	foreach ($res->fetchAll() as $row)
 	{
 		if (!$auth_cache[$row['item_cat']]) continue;
 		$urlp = array('c' => $row['item_cat']);
-		$urlp['id'] = $row['item_id'];
+		if(!empty($row['item_alias'])){
+			$urlp['al'] = $row['item_alias'];
+		}else{
+			$urlp['id'] = $row['item_id'];
+		}
 		sitemap_parse($t, $items, array(
 			'url'  => cot_url('market', $urlp),
 			'date' => $row['item_date'],
