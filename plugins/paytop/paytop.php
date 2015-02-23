@@ -31,7 +31,7 @@ if ($a == 'buy')
 		$options['time'] = (!empty($pt_cfg[$area]['period'])) ? $pt_cfg[$area]['period'] : 2592000;
 		
 		if ($db->fieldExists($db_payments, "pay_redirect")){
-			$options['redirect'] = $cfg['mainurl'].'/'.cot_url('payments', 'm=balance');
+			$options['redirect'] = $cfg['mainurl'].'/'.cot_url('payments', 'm=balance', '', true);
 		}
 		
 		cot_payments_create_order('paytop.'.$area, $pt_cfg[$area]['cost'], $options);

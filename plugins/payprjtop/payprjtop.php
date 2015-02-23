@@ -30,7 +30,7 @@ if ($a == 'buy' && !empty($id))
 		$options['desc'] = $L['payprjtop_buy_paydesc'];
 		
 		if ($db->fieldExists($db_payments, "pay_redirect")){
-			$options['redirect'] = $cfg['mainurl'].'/'.cot_url('payments', 'm=balance');
+			$options['redirect'] = $cfg['mainurl'].'/'.cot_url('payments', 'm=balance', '', true);
 		}
 		
 		cot_payments_create_order('prj.top', $summ, $options);
