@@ -489,9 +489,9 @@ class mavatar
 	function upload($input_name = 'mavatar_file')
 	{
 
-		global $db, $db_mavatars;
+		global $db, $db_mavatars, $cfg;
 		
-		if (!$cfg['plugin']['mavatars']['turnajax']) {
+		if ($cfg['plugin']['mavatars']['turnajax']) {
 			return false;
 		} 
 		
