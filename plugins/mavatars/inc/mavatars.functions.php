@@ -490,6 +490,11 @@ class mavatar
 	{
 
 		global $db, $db_mavatars;
+		
+		if (!$cfg['plugin']['mavatars']['turnajax']) {
+			return false;
+		} 
+		
 		$order = count($this->mavatars);
 		$files_array = array();
 		if (is_array($_FILES[$input_name]['name']))
