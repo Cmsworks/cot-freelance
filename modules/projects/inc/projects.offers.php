@@ -379,7 +379,8 @@ while ($offers = $sql->fetch())
 
 	$t_o->assign(cot_generate_usertags($offers, 'OFFER_ROW_OWNER_'));
 	$t_o->assign(array(
-		"OFFER_ROW_DATE" => date('d.m.Y H:i', $offers['item_date']),
+		"OFFER_ROW_DATE" => cot_date('d.m.Y H:i', $offers['item_date']),
+		"OFFER_ROW_DATE_STAMP" => $offers['item_date'],
 		"OFFER_ROW_TEXT" => cot_parse($offers['item_text']),
 		"OFFER_ROW_COSTMIN" => number_format($offers['item_cost_min'], '0', '.', ' '),
 		"OFFER_ROW_COSTMAX" => number_format($offers['item_cost_max'], '0', '.', ' '),
