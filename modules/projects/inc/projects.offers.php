@@ -413,7 +413,8 @@ while ($offers = $sql->fetch())
 			$t_o->assign(cot_generate_usertags($posts, 'POST_ROW_OWNER_'));
 			$t_o->assign(array(
 				"POST_ROW_TEXT" => cot_parse($posts['post_text']),
-				"POST_ROW_DATE" => date('d.m.y H:i', $posts['post_date']),
+				"POST_ROW_DATE" => cot_date('d.m.y H:i', $posts['post_date']),
+				"POST_ROW_DATE_STAMP" => $posts['post_date'],
 			));
 
 			$t_o->parse("MAIN.ROWS.POSTS.POSTS_ROWS");
