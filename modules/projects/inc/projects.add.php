@@ -81,7 +81,7 @@ if ($a == 'add')
 				{
 					$rbody = cot_rc($L['project_added_mail_body'], array(
 						'user_name' => $usr['profile']['user_name'],
-						'prj_name' => $item['item_title'],
+						'prj_name' => $ritem['item_title'],
 						'sitename' => $cfg['maintitle'],
 						'link' => COT_ABSOLUTE_URL . cot_url('projects', 'id=' . $id, '', true)
 					));
@@ -101,7 +101,7 @@ if ($a == 'add')
 				{
 					$rbody = cot_rc($L['project_senttovalidation_mail_body'], array( 
 						'user_name' => $usr['profile']['user_name'],
-						'prj_name' => $item['item_title'],
+						'prj_name' => $ritem['item_title'],
 						'sitename' => $cfg['maintitle'],
 						'link' => COT_ABSOLUTE_URL . $r_url
 					));
