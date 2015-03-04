@@ -15,6 +15,7 @@ defined('COT_CODE') or die('Wrong URL.');
 // Plugin configuration
 
 $L['cfg_countriesfilter'] = array('Show country', 'codes separated by commas, blank - no filter countries');
+$L['cfg_topcountries'] = array('Show country on the top', 'codes separated by commas');
 
 $L['ls_addcountry'] = 'Add country';
 $L['ls_countries'] = 'Countries';

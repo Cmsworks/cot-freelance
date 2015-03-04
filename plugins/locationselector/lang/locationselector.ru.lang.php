@@ -15,6 +15,7 @@ defined('COT_CODE') or die('Wrong URL.');
 // Plugin configuration
 
 $L['cfg_countriesfilter'] = array('Отображать страны', 'Коды через запятую, пустое значение - без фильтра стран');
+$L['cfg_topcountries'] = array('Отображать страны в начале списка', 'Коды через запятую');
 
 $L['ls_addcountry'] = 'Добавить страну';
 $L['ls_countries'] = 'Страны';

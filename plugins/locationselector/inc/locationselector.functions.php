@@ -67,9 +67,11 @@ function cot_load_location()
 
 function cot_getcountries($countriesfilter = array())
 {
-	global $cot_countries;
+	global $cot_countries, $cfg;
 
 	$countries = array();
+	$topcountries = ($cfg['plugin']['locationselector']['topcountries']) ? explode(',', $cfg['plugin']['locationselector']['topcountries']) : '';
+	
 	foreach ($cot_countries as $code => $name)
 	{
 		if ((count($countriesfilter) > 0 && in_array($code, $countriesfilter)) || count($countriesfilter) == 0)
@@ -77,7 +79,29 @@ function cot_getcountries($countriesfilter = array())
 			$countries[$code] = $name;
 		}
 	}
-	asort($countries);
+
+	if(is_array($topcountries)){
+		
+		$countries_top = array();
+		$countries_other = array();
+		
+		foreach ($topcountries as $code){
+			$countries_top[$code] = $countries[$code];
+		}
+		
+		foreach ($countries as $code => $name){
+			if (!in_array($code, $topcountries))
+			{
+				$countries_other[$code] = $name;
+			}
+		}
+		
+		asort($countries_other);
+		$countries = array_merge($countries_top, $countries_other);
+	}else{
+		asort($countries);
+	}
+	
 	return $countries;
 }
 
@@ -177,32 +201,36 @@ function cot_select_location($name, $country = '', $region = 0, $city = 0, $user
 	}
 	
 	$countries = cot_getcountries($countriesfilter);
-	$countries = array(0 => $L['select_country']) + $countries;
-	$country_selectbox = cot_selectbox($country, $name . '[country]', array_keys($countries), array_values($countries), 
-		false, $disabled . 'class="locselectcountry" id="locselectcountry"');
-	$country_selectbox .= (count($countriesfilter) == 1) ? cot_inputbox('hidden', $name . '[country]', $country) : '';
+	if($countries){
+		$countries = array(0 => $L['select_country']) + $countries;
+		$country_selectbox = cot_selectbox($country, $name . '[country]', array_keys($countries), array_values($countries), 
+			false, $disabled . 'class="locselectcountry" id="locselectcountry"');
+		$country_selectbox .= (count($countriesfilter) == 1) ? cot_inputbox('hidden', $name . '[country]', $country) : '';
 
-	$region = ($country == '' || count($countries) < 2) ? 0 : $region;
-	$regions = (!empty($country)) ? cot_getregions($country) : array();
-	$regions = array(0 => $L['select_region']) + $regions;
-	$disabled = (empty($country) || count($regions) < 2) ? 'disabled="disabled" ' : '';
-	$region_selectbox = cot_selectbox($region, $name . '[region]', array_keys($regions), array_values($regions), 
-		false, $disabled . 'class="locselectregion" id="locselectregion"');
-	
-	$city = ($region == 0 || count($regions) < 2) ? 0 : $city;
-	$cities = (!empty($region)) ? cot_getcities($region) : array();
-	$cities = array(0 => $L['select_city']) + $cities;
-	$disabled = (empty($region) || count($cities) < 2) ? 'disabled="disabled" ' : '';
-	$city_selectbox = cot_selectbox($city, $name . '[city]', array_keys($cities), array_values($cities), 
-		false, $disabled . 'class="locselectcity" id="locselectcity"');	
+		$region = ($country == '' || count($countries) < 2) ? 0 : $region;
+		$regions = (!empty($country)) ? cot_getregions($country) : array();
+		$regions = array(0 => $L['select_region']) + $regions;
+		$disabled = (empty($country) || count($regions) < 2) ? 'disabled="disabled" ' : '';
+		$region_selectbox = cot_selectbox($region, $name . '[region]', array_keys($regions), array_values($regions), 
+			false, $disabled . 'class="locselectregion" id="locselectregion"');
 
-	$result = cot_rc('input_location' , array(
-		'country' => $country_selectbox,
-		'region' => $region_selectbox,
-		'city' => $city_selectbox
-	));
-	
-	return $result;
+		$city = ($region == 0 || count($regions) < 2) ? 0 : $city;
+		$cities = (!empty($region)) ? cot_getcities($region) : array();
+		$cities = array(0 => $L['select_city']) + $cities;
+		$disabled = (empty($region) || count($cities) < 2) ? 'disabled="disabled" ' : '';
+		$city_selectbox = cot_selectbox($city, $name . '[city]', array_keys($cities), array_values($cities), 
+			false, $disabled . 'class="locselectcity" id="locselectcity"');	
+
+		$result = cot_rc('input_location' , array(
+			'country' => $country_selectbox,
+			'region' => $region_selectbox,
+			'city' => $city_selectbox
+		));
+
+		return $result;
+	}else{
+		return false;
+	}
 }
 
 /**
