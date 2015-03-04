@@ -117,7 +117,7 @@ $L['offers_empty_text'] = 'Offer text is empty';
 $L['offers_add_msg'] = 'Send a message';
 $L['offers_posts_title'] = 'Posts';
 
-$L['project_added_offer_header'] = "New msg of your project";
+$L['project_added_offer_header'] = 'New msg of project «{$prtitle}»';
 $L['project_added_offer_header2'] = 'New msg of project "{$prtitle}"';
 $L['project_added_offer_body'] = 'Hi, {$user_name}. '."\n\n".'.{$offeruser_name} sent a message of your project "{$prj_name}".'."\n\n".'{$link}';
 

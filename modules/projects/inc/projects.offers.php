@@ -72,22 +72,19 @@ if ($a == 'addoffer')
 		$db->insert($db_projects_offers, $roffer);
 		$offerid = $db->lastInsertId();
 		
-		if (!$usr['isadmin'])
-		{
-			$urlparams = empty($item['item_alias']) ?
-				array('c' => $item['item_cat'], 'id' => $item['item_id']) :
-				array('c' => $item['item_cat'], 'al' => $item['item_alias']);
-			
-			$rsubject = cot_rc($L['project_added_offer_header'], array('prtitle' => $item['item_title']));
-			$rbody = cot_rc($L['project_added_offer_body'], array(
-				'user_name' => $item['user_name'],
-				'offeruser_name' => $usr['profile']['user_name'],
-				'prj_name' => $item['item_title'],	
-				'sitename' => $cfg['maintitle'],
-				'link' => COT_ABSOLUTE_URL . cot_url('projects', $urlparams, '', true)
-			));
-			cot_mail ($item['user_email'], $rsubject, $rbody);
-		}
+		$urlparams = empty($item['item_alias']) ?
+			array('c' => $item['item_cat'], 'id' => $item['item_id']) :
+			array('c' => $item['item_cat'], 'al' => $item['item_alias']);
+
+		$rsubject = cot_rc($L['project_added_offer_header'], array('prtitle' => $item['item_title']));
+		$rbody = cot_rc($L['project_added_offer_body'], array(
+			'user_name' => $item['user_name'],
+			'offeruser_name' => $usr['profile']['user_name'],
+			'prj_name' => $item['item_title'],	
+			'sitename' => $cfg['maintitle'],
+			'link' => COT_ABSOLUTE_URL . cot_url('projects', $urlparams, '', true)
+		));
+		cot_mail ($item['user_email'], $rsubject, $rbody);
 
 		$offerscount = $db->query("SELECT COUNT(*) FROM $db_projects_offers WHERE item_pid=" . (int)$id . "")->fetchColumn();
 		$db->update($db_projects, array("item_offerscount" => (int)$offerscount), "item_id=" . (int)$id);
