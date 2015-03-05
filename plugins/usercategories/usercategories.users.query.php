@@ -34,6 +34,8 @@ if (!empty($cat))
 	}
 	if(is_array($catusers)){
 		$where['cat'] = "user_id IN (" . implode(",", $catusers) . ")";
+	}else{
+		$where['cat'] = "user_id=0";
 	}
 	$users_url_path['cat'] =  $cat;
 }
