@@ -59,7 +59,7 @@ if ($a == 'addoffer')
 	}
 	
 	/* === Hook === */
-	foreach (cot_getextplugins('projects.offers.add.error') as $pl)
+	foreach (cot_getextplugins('projects.offers.add.import') as $pl)
 	{
 		include $pl;
 	}
@@ -67,6 +67,13 @@ if ($a == 'addoffer')
 	
 	cot_check(empty($roffer['item_text']), $L['offers_empty_text']);
 
+	/* === Hook === */
+	foreach (cot_getextplugins('projects.offers.add.error') as $pl)
+	{
+		include $pl;
+	}
+	/* ===== */
+	
 	if (!cot_error_found())
 	{
 		$db->insert($db_projects_offers, $roffer);
