@@ -16,8 +16,8 @@ require_once cot_langfile('usercategories', 'plug');
 
 function cot_usercategories_treecheck($chosen, $name, $parent = '', $template = '', $userrights = 'W', $level = 0)
 {
-	global $structure, $cfg, $db, $sys, $type, $gm, $group;
-	global $i18n_notmain, $i18n_locale, $i18n_write, $i18n_admin, $i18n_read, $db_i18n_pages;
+	global $structure, $cfg, $gm, $group;
+	global $i18n_notmain, $i18n_locale, $i18n_read;
 	
 	if(empty($structure['usercategories'])){
 		return false;
@@ -37,17 +37,17 @@ function cot_usercategories_treecheck($chosen, $name, $parent = '', $template = 
 		$children = cot_structure_children('usercategories', $parent, false, false);
 	}
 
-	$t1 = new XTemplate(cot_tplfile(array('usercategories', 'catcheck', $template), 'plug'));
-
 	if (count($children) == 0){
 		return false;
 	}
-	
+
+	$t1 = new XTemplate(cot_tplfile(array('usercategories', 'catcheck', $template), 'plug'));
+
 	$level++;
-	
 	foreach ($children as $row)
 	{
 		if(cot_auth('usercategories', $row, $userrights)){
+			$subcats = cot_structure_children('usercategories', $row, false, false);
 			$cattitle = htmlspecialchars($structure['usercategories'][$row]['title']);
 			if ($i18n_enabled && $i18n_notmain){
 				$x_i18n = cot_i18n_get_cat($row, $i18n_locale);
@@ -59,8 +59,20 @@ function cot_usercategories_treecheck($chosen, $name, $parent = '', $template = 
 			$t1->assign(array(
 				"CAT_ROW_CAT" => $row,
 				"CAT_ROW_CHECKBOX" => (is_array($chosen) && in_array($row, $chosen) || !is_array($chosen) && $row == $chosen) ? cot_checkbox($row, $name, $cattitle, '', $row) : cot_checkbox('', $name, $cattitle, '', $row),
-				"CAT_ROW_SUBCAT" => cot_usercategories_treecheck($chosen, $name, $row, $template, $userrights, $level),
+				"CAT_ROW_SUBCAT" => (count($subcats) > 0) ? cot_usercategories_treecheck($chosen, $name, $row, $template, $userrights, $level) : '',
 			));
+			
+			if ($i18n_enabled && $i18n_notmain){
+				$x_i18n = cot_i18n_get_cat($row, $i18n_locale);
+				if ($x_i18n){
+					$urlparams = (!$cfg['plugin']['i18n']['omitmain'] || $i18n_locale != $cfg['defaultlang']) ? "gm=" . $gm . "&cat=" . $row. "&group=" . $group . "&l=" . $i18n_locale : "gm=" . $gm . "&cat=" . $row. "&group=" . $group;
+					$t1->assign(array(
+						'CAT_ROW_URL' => cot_url('users', $urlparams),
+						'CAT_ROW_TITLE' => $x_i18n['title'],
+						'CAT_ROW_DESC' => $x_i18n['desc'],
+					));
+				}
+			}
 			$t1->parse("MAIN.CAT_ROW");
 
 			if($parent){
@@ -80,8 +92,8 @@ function cot_usercategories_treecheck($chosen, $name, $parent = '', $template = 
 
 function cot_usercategories_tree($chosen = '', $parent = '', $template = '', $level = 0)
 {
-	global $structure, $cfg, $db, $sys, $type, $gm, $group;
-	global $i18n_notmain, $i18n_locale, $i18n_write, $i18n_admin, $i18n_read, $db_i18n_pages;
+	global $structure, $cfg, $gm, $group;
+	global $i18n_notmain, $i18n_locale, $i18n_read;
 	
 	if(empty($structure['usercategories'])){
 		return false;
@@ -101,18 +113,18 @@ function cot_usercategories_tree($chosen = '', $parent = '', $template = '', $le
 		$children = cot_structure_children('usercategories', $parent, false, false);
 	}
 
-	$t1 = new XTemplate(cot_tplfile(array('usercategories', 'cattree', $template), 'plug'));
-
 	if (count($children) == 0){
 		return false;
 	}
+
+	$t1 = new XTemplate(cot_tplfile(array('usercategories', 'cattree', $template), 'plug'));
 	
 	$level++;
-	
 	$jj = 0;
 	foreach ($children as $row)
 	{
 		$jj++;
+		$subcats = cot_structure_children('usercategories', $row, false, false);
 		$t1->assign(array(
 			"CAT_ROW_CAT" => $row,
 			"CAT_ROW_TITLE" => htmlspecialchars($structure['usercategories'][$row]['title']),
@@ -121,7 +133,7 @@ function cot_usercategories_tree($chosen = '', $parent = '', $template = '', $le
 			"CAT_ROW_ICON" => $structure['usercategories'][$row]['icon'],
 			"CAT_ROW_URL" => cot_url("users", "gm=" . $gm . "&cat=" . $row . "&group=" . $group),
 			"CAT_ROW_SELECTED" => (is_array($chosen) && in_array($row, $chosen) || !is_array($chosen) && $row == $chosen) ? 1 : 0,
-			"CAT_ROW_SUBCAT" => cot_usercategories_tree($chosen, $row, $template, $level),
+			"CAT_ROW_SUBCAT" => (count($subcats) > 0) ? cot_usercategories_tree($chosen, $row, $template, $level) : '',
 			"CAT_ROW_ODDEVEN" => cot_build_oddeven($jj),
 			"CAT_ROW_JJ" => $jj
 		));

@@ -17,5 +17,3 @@
 defined('COT_CODE') or die('Wrong URL.');
 
 require_once cot_incfile('usercategories', 'plug');
-
-$temp_array['CATS'] = ($user_data['user_cats']) ? cot_usercategories_tree(explode(',', $user_data['user_cats']), '', 'list') : '';

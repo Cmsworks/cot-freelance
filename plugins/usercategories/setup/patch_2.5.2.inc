@@ -36,11 +36,12 @@ while($urr = $sql->fetch()){
 		foreach ($ucats as $ucat){
 			$rusercats[] = $ucat['ucat_cat'];
 		}
+		if(is_array($rusercats)){
+			$ruser['user_cats'] = implode(',', $rusercats);
+			$db->update($db_users, $ruser, "user_id=".$urr['user_id']);
+		}
 	}
-	if(is_array($rusercats)){
-		$ruser['user_cats'] = implode(',', $rusercats);
-		$db->update($db_users, $ruser, "user_id=".$urr['user_id']);
-	}
+	unset($rusercats);
 }
 
 $db->query("DROP TABLE IF EXISTS $db_usercategories");
