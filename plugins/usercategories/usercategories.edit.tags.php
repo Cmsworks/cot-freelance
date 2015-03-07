@@ -29,14 +29,8 @@ elseif ($m == 'profile')
 }
 if ($prfx != 'USERS_REGISTER_')
 {
-	$cats = $db->query("SELECT ucat_cat FROM $db_usercategories_users WHERE ucat_userid=" . (int) $urr['user_id'])->fetchAll();
-	$cats = (is_array($cats)) ? $cats : array();
-	$ruc_cattree = array();
-	foreach ($cats as $key => $cat)
-	{
-		$ruc_cattree[] = $cat['ucat_cat'];
-	}
+	$cats = explode(',', $urr['user_cats']);
 }
 $t->assign(array(
-	$prfx . 'CAT' => cot_usercategories_treecheck($ruc_cattree, 'ruc_cattree')
+	$prfx . 'CAT' => cot_usercategories_treecheck($cats, 'rcats[]')
 ));

@@ -1,14 +1,14 @@
-<!-- BEGIN: CAT_TREE -->
-<ul class="nav nav-list">
-	<!-- BEGIN: ROW -->
-	<li class="{SELECTED}"><a href="{HREF}">{OPTION}</a>{SUBLEVEL}</li>
-	<!-- END: ROW -->
+<!-- BEGIN: MAIN -->
+<ul<!-- IF {CAT_LEVEL} == 1 --> id="ucats_tree" class="nav nav-list"<!-- ENDIF -->>
+	<!-- IF {CAT_LEVEL} == 1 -->
+	<li><a href="{CAT_URL}">{PHP.L.All}</a></li>		
+	<!-- ENDIF -->
+	<!-- BEGIN: CAT_ROW -->
+	<li<!-- IF {CAT_ROW_SELECTED} --> class="active"<!-- ENDIF -->><a href="{CAT_ROW_URL}">{CAT_ROW_TITLE} ({CAT_ROW_COUNT})</a>
+		<!-- IF {CAT_ROW_SUBCAT} -->
+		{CAT_ROW_SUBCAT}
+		<!-- ENDIF -->
+	</li>
+	<!-- END: CAT_ROW -->
 </ul>
-<!-- END: CAT_TREE -->
-<!-- BEGIN: CAT_TREE_CHECK -->
-<ul class="nav nav-list">
-	<!-- BEGIN: ROW -->
-	<li>{OPTION}{SUBLEVEL}</li>
-	<!-- END: ROW -->
-</ul>
-<!-- END: CAT_TREE_CHECK -->
+<!-- END: MAIN -->

@@ -1,6 +1,6 @@
 /**
- * Completely removes foliostore data
+ * Completely removes usercategories data
  */
 
-DROP TABLE IF EXISTS `cot_usercategories`;
-DROP TABLE IF EXISTS `cot_usercategories_users`;
+DELETE FROM `cot_structure` WHERE structure_area = 'users';
+DELETE FROM `cot_auth` WHERE auth_code = 'users' AND auth_option != 'a';

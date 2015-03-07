@@ -23,17 +23,8 @@ $cat = cot_import('cat', 'G', 'ALP');
 
 if (!empty($cat))
 {
-	$out['subtitle'] = ($cot_usercategories[$cat]['mtitle']) ? $cot_usercategories[$cat]['mtitle'] : $cot_usercategories[$cat]['title'];
-	$out['meta_desc'] = (!empty($cot_usercategories[$cat]['mdesc'])) ? $cot_usercategories[$cat]['mdesc'] : '';
-	$out['meta_keywords'] = (!empty($cot_usercategories[$cat]['mkey'])) ? $cot_usercategories[$cat]['mkey'] : '';
-
-	$catsub = cot_usercategories_children($cat);
-	$sql = $db->query("SELECT ucat_userid FROM $db_usercategories_users WHERE ucat_cat IN ('" . implode("','", $catsub) . "')");
-	while ($sqlcatuser = $sql->fetch()){
-		$catusers[] = $sqlcatuser['ucat_userid'];
-	}
-	if(is_array($catusers)){
-		$where['cat'] = "user_id IN (" . implode(",", $catusers) . ")";
+	if(!empty($cat)){
+		$where['cat'] = "user_cats LIKE '%".$db->prep($cat)."%'";
 	}else{
 		$where['cat'] = "user_id=0";
 	}

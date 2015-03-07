@@ -11,6 +11,3 @@
 defined('COT_CODE') or die('Wrong URL.');
 
 
-$L['usercategories_cat_editor'] = 'Редактор категорий фрилансеров';
-$L['usercategories_in_cat'] = 'Категории';
-

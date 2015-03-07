@@ -3,7 +3,7 @@
  * Installation handler
  *
  * @package usercategories
- * @version 2.1.0
+ * @version 2.5.2
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru, littledev.ru
  * @license BSD
@@ -11,45 +11,25 @@
 
 defined('COT_CODE') or die('Wrong URL');
 
+global $db_users;
+
 require_once cot_incfile('usercategories', 'plug');
+require_once cot_incfile('extrafields');
+require_once cot_incfile('structure');
 
-global $db_freelancers_cat, $db_freelancers_users;
+// Add field if missing
+if (!$db->fieldExists($db_users, "user_cats"))
+{
+	$dbres = $db->query("ALTER TABLE `$db_users` ADD COLUMN `user_cats` TEXT collate utf8_unicode_ci NOT NULL");
+}
 
-if(cot_plugin_active('freelancers'))
-{
-	require_once cot_incfile('freelancers', 'plug');
-	
-	$sql = $db->query("SELECT * FROM $db_freelancers_cat WHERE 1");
-	while($row = $sql->fetch())
-	{
-		unset($row['cat_id']);
-		$db->insert($db_usercategories, $row);
-	}
-	
-	$sql = $db->query("SELECT * FROM $db_freelancers_users WHERE 1");
-	while($row = $sql->fetch())
-	{
-		$row['ucat_userid'] = $row['item_userid'];
-		$row['ucat_cat'] = $row['item_cat'];
-		unset($row['item_userid']);
-		unset($row['item_cat']);
-		$db->insert($db_usercategories_users, $row);
-	}
-}
-else
-{
-	$db->query("INSERT INTO $db_usercategories 
-		(`cat_code`, `cat_path`, `cat_title`, `cat_desc`) 
-		VALUES
-		('programming', '001', 'Программирование', ''),
-		('management', '002', 'Менеджмент', ''),
-		('marketing', '003', 'Маркетинг и реклама', ''),
-		('design', '004', 'Дизайн', ''),
-		('seo', '005', 'Оптимизация (SEO)', ''),
-		('texts', '006', 'Тексты', ''),
-		('photo', '007', 'Фотография', ''),
-		('gamedev', '008', 'Разработка игр', ''),
-		('consulting', '009', 'Консалтинг', ''),
-		('construction', '010', 'Строительство', '');
-	");
-}
+cot_structure_add('usercategories', array('structure_area' => 'usercategories', 'structure_code' => 'programming', 'structure_title' => 'Программирование', 'structure_path' => '001'));
+cot_structure_add('usercategories', array('structure_area' => 'usercategories', 'structure_code' => 'management', 'structure_title' => 'Менеджмент', 'structure_path' => '002'));
+cot_structure_add('usercategories', array('structure_area' => 'usercategories', 'structure_code' => 'marketing', 'structure_title' => 'Маркетинг и реклама', 'structure_path' => '003'));
+cot_structure_add('usercategories', array('structure_area' => 'usercategories', 'structure_code' => 'design', 'structure_title' => 'Дизайн', 'structure_path' => '004'));
+cot_structure_add('usercategories', array('structure_area' => 'usercategories', 'structure_code' => 'seo', 'structure_title' => 'Оптимизация (SEO)', 'structure_path' => '005'));
+cot_structure_add('usercategories', array('structure_area' => 'usercategories', 'structure_code' => 'texts', 'structure_title' => 'Тексты', 'structure_path' => '006'));
+cot_structure_add('usercategories', array('structure_area' => 'usercategories', 'structure_code' => 'photo', 'structure_title' => 'Фотография', 'structure_path' => '007'));
+cot_structure_add('usercategories', array('structure_area' => 'usercategories', 'structure_code' => 'gamedev', 'structure_title' => 'Разработка игр', 'structure_path' => '008'));
+cot_structure_add('usercategories', array('structure_area' => 'usercategories', 'structure_code' => 'consulting', 'structure_title' => 'Консалтинг', 'structure_path' => '009'));
+cot_structure_add('usercategories', array('structure_area' => 'usercategories', 'structure_code' => 'construction', 'structure_title' => 'Строительство', 'structure_path' => '010'));

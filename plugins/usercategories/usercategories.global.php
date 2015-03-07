@@ -16,10 +16,3 @@
  */
 defined('COT_CODE') or die('Wrong URL.');
 
-require_once cot_incfile('usercategories', 'plug');
-
-if (!$cot_usercategories)
-{
-	$cot_usercategories = cot_usercategories_load();
-	$cache && $cache->db->store('cot_fcat', $cot_usercategories, COT_DEFAULT_REALM, 3600);
-}

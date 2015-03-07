@@ -19,7 +19,7 @@ defined('COT_CODE') or die('Wrong URL.');
 require_once cot_incfile('usercategories', 'plug');
 
 $t->assign(array(
-	'USERCATEGORIES_CATALOG' => cot_usercategories_tree(array($cat)),
-	'CATTITLE' => (!empty($cat)) ? $cot_usercategories[$cat]['title'] : '',
-	'CATDESC' => (!empty($cat)) ? $cot_usercategories[$cat]['desc'] : ''
+	'USERCATEGORIES_CATALOG' => cot_usercategories_tree($cat),
+	'CATTITLE' => (!empty($cat)) ? $structure['usercategories'][$cat]['title'] : '',
+	'CATDESC' => (!empty($cat)) ? $structure['usercategories'][$cat]['desc'] : ''
 ));

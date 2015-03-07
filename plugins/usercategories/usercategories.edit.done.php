@@ -28,17 +28,8 @@ elseif ($m == 'register')
 	$r_id = $userid;
 }
 
-if (isset($_POST['ruc_cattree']))
-{
-	
-	$db->delete($db_usercategories_users, 'ucat_userid=' . (int) $r_id);
-
-	$ruc_cattree = cot_import('ruc_cattree', 'P', 'ARR');
-	foreach ($ruc_cattree as $key => $val)
-	{
-		if ($val)
-		{
-			$db->insert($db_usercategories_users, array('ucat_userid' => (int) $r_id, 'ucat_cat' => $key));
-		}
-	}
+$rcats = cot_import('rcats', 'P', 'ARR');
+if(is_array($rcats)){
+	$ucats = array_filter($rcats);
+	$db->update($db_users, array('user_cats' => implode(',', $ucats)), "user_id=".$r_id);
 }

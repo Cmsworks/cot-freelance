@@ -10,10 +10,3 @@
  */
 
 defined('COT_CODE') or die('Wrong URL.');
-
-/**
- * Module Config
- */
-
-$L['usercategories_cat_editor'] = 'User categories';
-$L['usercategories_in_cat'] = 'Categories';
