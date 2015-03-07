@@ -14,7 +14,7 @@ list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('folio',
 cot_block($usr['auth_read']);
 
 $sort = cot_import('sort', 'G', 'ALP');
-$c = cot_import('c', 'G', 'TXT');
+$c = cot_import('c', 'G', 'ALP');
 $sq = cot_import('sq', 'G', 'TXT');
 
 $maxrowsperpage = ($cfg['folio']['cat_' . $c]['maxrowsperpage']) ? $cfg['folio']['cat_' . $c]['maxrowsperpage'] : $cfg['folio']['cat___default']['maxrowsperpage'];
@@ -121,7 +121,7 @@ if(!empty($c))
 $catpath = cot_breadcrumbs($catpatharray, $cfg['homebreadcrumb'], true);
 
 $t->assign(array(
-	"SEARCH_ACTION_URL" => cot_url('folio', "c=" . $c, '', true),
+	"SEARCH_ACTION_URL" => cot_url('folio', '', '', true),
 	"SEARCH_SQ" => cot_inputbox('text', 'sq', $sq, 'class="schstring"'),
 	"SEARCH_CAT" => cot_folio_selectcat($c, 'c'),
 	"SEARCH_SORTER" => cot_selectbox($sort, "sort", array('', 'costasc', 'costdesc'), array($L['folio_mostrelevant'], $L['folio_costasc'], $L['folio_costdesc']), false),
