@@ -384,7 +384,8 @@ function cot_market_import($source = 'POST', $ritem = array(), $auth = array())
 	}
 
 	$ritem['item_cat'] = cot_import('rcat', $source, 'TXT');
-	$ritem['item_title'] = cot_import('rtitle', $source, 'TXT');
+	$ritem['item_title'] = cot_import('rtitle', $source, 'TXT');	
+	$ritem['item_alias'] = cot_import('ralias', $source, 'TXT');
 	$ritem['item_text'] = cot_import('rtext', $source, 'HTM');
 	$ritem['item_cost'] = cot_import('rcost', $source, 'TXT');
 	$ritem['item_parser'] = cot_import('rparser', $source, 'ALP');
@@ -435,6 +436,7 @@ function cot_market_validate($ritem)
 		cot_error('msg602_body', 'rcat');
 	}
 	cot_check(mb_strlen($ritem['item_title']) < 2, 'market_empty_title', 'rtitle');
+	cot_check(!empty($ritem['item_alias']) && preg_match('`[+/?%#&]`', $ritem['item_alias']), 'market_aliascharacters', 'ralias');
 
 	$allowemptytext = isset($cfg['market']['cat_' . $ritem['item_cat']]['allowemptytext']) ?
 							$cfg['market']['cat_' . $ritem['item_cat']]['allowemptytext'] : $cfg['market']['cat___default']['allowemptytext'];
@@ -472,6 +474,14 @@ function cot_market_add(&$ritem, $auth = array())
 		$ritem['item_state'] = 1;
 	}
 
+	if (!empty($ritem['item_alias']))
+	{
+		$prd_count = $db->query("SELECT COUNT(*) FROM $db_market WHERE item_alias = ?", $ritem['item_alias'])->fetchColumn();
+		if ($prd_count > 0)
+		{
+			$ritem['item_alias'] = $ritem['item_alias'].rand(1000, 9999);
+		}
+	}
 	/* === Hook === */
 	foreach (cot_getextplugins('market.add.add.query') as $pl)
 	{
@@ -492,28 +502,6 @@ function cot_market_add(&$ritem, $auth = array())
 	
 	cot_market_sync($ritem['item_cat']);
 	
-	if (cot_plugin_active('autoalias2'))
-	{
-		require_once cot_incfile('autoalias2', 'plug');
-
-		$duplicate = false;
-		do
-		{
-			$ritem['item_alias'] = autoalias2_convert($ritem['item_title'], $id, $duplicate);
-			if (!$cfg['plugin']['autoalias2']['prepend_id']
-				&& $db->query("SELECT COUNT(*) FROM $db_market WHERE item_alias = '".$ritem['item_alias']."' AND item_id != $id")->fetchColumn() > 0)
-			{
-				$duplicate = true;
-			}
-			else
-			{
-				$db->update($db_market, array('item_alias' => $ritem['item_alias']), "item_id = $id");
-				$duplicate = false;
-			}
-		}
-		while ($duplicate && !$cfg['plugin']['autoalias2']['prepend_id']);
-	}
-
 	/* === Hook === */
 	foreach (cot_getextplugins('market.add.add.done') as $pl)
 	{
@@ -593,32 +581,16 @@ function cot_market_update($id, &$ritem, $auth = array())
 		$auth = cot_market_auth($ritem['item_cat']);
 	}
 
-	$item = $db->query("SELECT * FROM $db_market WHERE item_id = ?", $id)->fetch();
-	
-	if (cot_plugin_active('autoalias2') && empty($item['item_alias']))
+	if (!empty($ritem['item_alias']))
 	{
-		require_once cot_incfile('autoalias2', 'plug');
-
-		$duplicate = false;
-		do
+		$prd_count = $db->query("SELECT COUNT(*) FROM $db_market WHERE item_alias = ? AND item_id != ?", array($ritem['item_alias'], $id))->fetchColumn();
+		if ($prd_count > 0)
 		{
-			$ritem['item_alias'] = autoalias2_convert($ritem['item_title'], $id, $duplicate);
-			if (!$cfg['plugin']['autoalias2']['prepend_id']
-				&& $db->query("SELECT COUNT(*) FROM $db_market WHERE item_alias = '".$ritem['item_alias']."' AND item_id != $id")->fetchColumn() > 0)
-			{
-				$duplicate = true;
-			}
-			else
-			{
-				$duplicate = false;
-			}
+			$ritem['item_alias'] = $ritem['item_alias'].rand(1000, 9999);
 		}
-		while ($duplicate && !$cfg['plugin']['autoalias2']['prepend_id']);
 	}
-	else
-	{
-		$ritem['item_alias'] = $item['item_alias']; 
-	}
+
+	$item = $db->query("SELECT * FROM $db_market WHERE item_id = ?", $id)->fetch();	
 	
 	if(!$cfg['market']['preview']){
 		$ritem['item_state'] = (!$cfg['market']['prevalidate'] || $auth['isadmin']) ? 0 : 2;

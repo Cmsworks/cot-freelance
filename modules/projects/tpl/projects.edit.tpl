@@ -24,6 +24,10 @@
 				<td>{PHP.L.Title}:</td>
 				<td>{PRJEDIT_FORM_TITLE}</td>
 			</tr>
+			<tr>
+				<td>{PHP.L.Alias}:</td>
+				<td>{PRJEDIT_FORM_ALIAS}</td>
+			</tr>
 			<tr<!-- IF !{PHP.usr.isadmin} --> class="hidden"<!-- ENDIF -->>
 				<td align="right">{PHP.L.Parser}:</td>
 				<td>{PRJEDIT_FORM_PARSER}</td>

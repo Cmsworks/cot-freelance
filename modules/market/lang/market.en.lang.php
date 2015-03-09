@@ -49,6 +49,7 @@ $L['market_hidden'] = 'Product is not active';
 $L['market_location'] = 'Location';
 $L['market_price'] = 'Price';
 $L['market_image_limit'] = 'Allow formats jpeg, gif, jpg and png. Maximum size of 1MB. ';
+$L['market_aliascharacters'] = 'Characters \'+\', \'/\', \'?\', \'%\', \'#\', \'&\' are not allowed in aliases';
 
 $L['market_costasc'] = 'Price Ascending';
 $L['market_costdesc'] = 'Price descending';

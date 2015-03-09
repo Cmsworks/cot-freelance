@@ -50,6 +50,7 @@ $L['projects_hidden'] = 'Project is not active';
 $L['projects_success_projects'] = 'Successful projects';
 $L['projects_next'] = 'Next';
 $L['projects_reputation'] = 'Reputation';
+$L['projects_aliascharacters'] = 'Characters \'+\', \'/\', \'?\', \'%\', \'#\', \'&\' are not allowed in aliases';
 
 $L['projects_status_published'] = 'Published';
 $L['projects_status_moderated'] = 'Moderated';

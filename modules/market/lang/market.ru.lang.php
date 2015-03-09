@@ -49,6 +49,7 @@ $L['market_hidden'] = 'Товар не опубликован';
 $L['market_location'] = 'Местоположение';
 $L['market_price'] = 'Цена';
 $L['market_image_limit'] = 'Разрешенные форматы JPEG, GIF, JPG, PNG. Максимальный размер 1Мб.';
+$L['market_aliascharacters'] = 'Недопустимо использование символов \'+\', \'/\', \'?\', \'%\', \'#\', \'&\' в алиасах';
 
 $L['market_costasc'] = 'Цена по возрастанию';
 $L['market_costdesc'] = 'Цена по убыванию';

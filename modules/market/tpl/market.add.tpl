@@ -14,6 +14,10 @@
 				<td>{PRDADD_FORM_TITLE}</td>
 			</tr>
 			<tr>
+				<td align="right">{PHP.L.Alias}:</td>
+				<td>{PRDADD_FORM_ALIAS}</td>
+			</tr>
+			<tr>
 				<td align="right">{PHP.L.market_location}:</td>
 				<td>{PRDADD_FORM_LOCATION}</td>
 			</tr>

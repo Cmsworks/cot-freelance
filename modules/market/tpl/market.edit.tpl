@@ -12,7 +12,11 @@
 			<tr>
 				<td align="right">{PHP.L.Title}:</td>
 				<td>{PRDEDIT_FORM_TITLE}</td>
-			</tr>			
+			</tr>	
+			<tr>
+				<td align="right">{PHP.L.Alias}:</td>
+				<td>{PRDEDIT_FORM_ALIAS}</td>
+			</tr>		
 			<tr>
 				<td align="right">{PHP.L.market_location}:</td>
 				<td>{PRDEDIT_FORM_LOCATION}</td>

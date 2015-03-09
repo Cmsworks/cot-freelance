@@ -286,6 +286,7 @@ $t->assign(array(
 	"PRJEDIT_FORM_TYPETITLE" => (is_array($projects_types) && !empty($item['item_type'])) ? $projects_types[$item['item_type']] : '',
 	"PRJEDIT_FORM_TYPE" => (is_array($projects_types)) ? cot_selectbox(($item['item_type']) ? $item['item_type'] : $cfg['projects']['default_type'], 'rtype', array_keys($projects_types), array_values($projects_types)) : 'empty',
 	"PRJEDIT_FORM_TITLE" => cot_inputbox('text', 'rtitle', $item['item_title'], 'size="56"'),
+	"PRJEDIT_FORM_ALIAS" => cot_inputbox('text', 'ralias', $item['item_alias'], array('size' => '32', 'maxlength' => '255')),
 	"PRJEDIT_FORM_TEXT" => cot_textarea('rtext', $item['item_text'], 10, 60, 'id="formtext"', 'input_textarea_editor'),
 	"PRJEDIT_FORM_COST" => cot_inputbox('text', 'rcost', $item['item_cost'], 'size="10"'),
 	"PRJEDIT_FORM_STATE" => $item['item_state'],

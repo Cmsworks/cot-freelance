@@ -45,7 +45,7 @@ $L['folio_hidden'] = 'Work is not active';
 $L['folio_location'] = 'Location';
 $L['folio_price'] = 'Price';
 $L['folio_image_limit'] = 'Allow formats jpeg, gif, jpg and png. Maximum size of 1MB. ';
-
+$L['folio_aliascharacters'] = 'Characters \'+\', \'/\', \'?\', \'%\', \'#\', \'&\' are not allowed in aliases';
 $L['folio_costasc'] = 'Price Ascending';
 $L['folio_costdesc'] = 'Price descending';
 $L['folio_mostrelevant'] = 'The most urgent';
