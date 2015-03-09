@@ -174,3 +174,41 @@ function cot_usercategories_tree($chosen = '', $parent = '', $template = '', $le
 	$t1->parse("MAIN");
 	return $t1->text("MAIN");
 }
+
+/**
+ * Select users cat for search from
+ * 
+ * @global array $structure
+ * @param type $check
+ * @param type $name
+ * @param type $subcat
+ * @param type $hideprivate
+ * @param type $is_module
+ * @return type
+ */
+function cot_usercategories_selectcat($check, $name, $subcat = '', $hideprivate = true)
+{
+	global $structure;
+
+	$structure['usercategories'] = (is_array($structure['usercategories'])) ? $structure['usercategories'] : array();
+
+	$result_array = array();
+	foreach ($structure['usercategories'] as $i => $x)
+	{
+		$display = ($hideprivate) ? cot_auth('usercategories', $i, 'R') : true;
+		if ($display && !empty($subcat) && isset($structure['usercategories'][$subcat]))
+		{
+			$mtch = $structure['usercategories'][$subcat]['path'].".";
+			$mtchlen = mb_strlen($mtch);
+			$display = (mb_substr($x['path'], 0, $mtchlen) == $mtch || $i === $subcat);
+		}
+
+		if ((!$is_module || cot_auth('usercategories', $i, 'R')) && $i!='all' && $display)
+		{
+			$result_array[$i] = $x['tpath'];
+		}
+	}
+	$result = cot_selectbox($check, $name, array_keys($result_array), array_values($result_array), true);
+
+	return($result);
+}
