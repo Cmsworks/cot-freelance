@@ -20,7 +20,7 @@ require_once cot_langfile('autoalias2', 'plug');
 
 $t = new XTemplate(cot_tplfile('autoalias2lance.admin', 'plug', true));
 
-$adminsubtitle = $L['AutoAlias'];
+$adminsubtitle = $L['AutoAlias2lance'];
 
 if ($a == 'create')
 {	
