@@ -15,6 +15,43 @@ defined('COT_CODE') or die('Wrong URL');
 require_once cot_langfile('usercategories', 'plug');
 
 /**
+ * Recalculates users category counters
+ *
+ * @param string $cat Cat code
+ * @return int
+ * @global CotDB $db
+ */
+function cot_usercategories_sync($cat)
+{
+	global $db, $db_structure, $db_users;
+	$sql = $db->query("SELECT COUNT(*) FROM $db_users
+		WHERE user_cats LIKE '%" . $db->prep($cat) . "%'");
+	return (int)$sql->fetchColumn();
+}
+
+/**
+ * Update users category code
+ *
+ * @param string $oldcat Old Cat code
+ * @param string $newcat New Cat code
+ * @return bool
+ * @global CotDB $db
+ */
+function cot_usercategories_updatecat($oldcat, $newcat)
+{
+	global $db, $db_structure, $db_users;
+	
+	$sql = $db->query("SELECT * FROM $db_users WHERE user_cats LIKE '%" . $db->prep($oldcat) . "%'");
+	while($item = $sql->fetch()){
+		$cats = explode(',', $item['user_cats']);
+		$oldcatkey = array_search($oldcat, $cats);
+		$cats[$oldcatkey] = $newcat;
+		
+		$db->update($db_users, array("user_cats" => implode(',', $cats)), "user_id=" . $item['user_id']);
+	}
+}
+
+/**
  * Show categories with checkboxes
  * 
  * @global array $structure
