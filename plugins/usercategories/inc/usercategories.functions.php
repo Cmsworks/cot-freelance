@@ -14,6 +14,24 @@ defined('COT_CODE') or die('Wrong URL');
 
 require_once cot_langfile('usercategories', 'plug');
 
+/**
+ * Show categories with checkboxes
+ * 
+ * @global array $structure
+ * @global type $cfg
+ * @global type $gm
+ * @global type $group
+ * @global type $i18n_notmain
+ * @global type $i18n_locale
+ * @global type $i18n_read
+ * @param type $chosen
+ * @param type $name
+ * @param type $parent
+ * @param type $template
+ * @param type $userrights
+ * @param type $level
+ * @return boolean
+ */
 function cot_usercategories_treecheck($chosen, $name, $parent = '', $template = '', $userrights = 'W', $level = 0)
 {
 	global $structure, $cfg, $gm, $group;
@@ -176,6 +194,42 @@ function cot_usercategories_tree($chosen = '', $parent = '', $template = '', $le
 }
 
 /**
+ * Show user categories
+ * 
+ * @global array $structure
+ * @param type $cats
+ * @param type $template
+ * @return type
+ */
+
+function cot_usercategories_catlist($cats, $template = ''){
+	
+	global $structure;
+	
+	$t1 = new XTemplate(cot_tplfile(array('usercategories', 'catlist', $template), 'plug'));
+	
+	if(!is_array($cats)){
+		$cats = explode(',', $cats);
+	}
+
+	foreach ($cats as $cat){
+		if($structure['usercategories'][$cat]['title']){
+			$t1->assign(array(
+				"CAT_ROW_CAT" => $cat,
+				"CAT_ROW_TITLE" => htmlspecialchars($structure['usercategories'][$cat]['title']),
+				"CAT_ROW_DESC" => $structure['usercategories'][$cat]['desc'],
+				"CAT_ROW_COUNT" => $structure['usercategories'][$cat]['count'],
+				"CAT_ROW_ICON" => $structure['usercategories'][$cat]['icon'],
+			));
+			$t1->parse("MAIN.CAT_ROW");
+		}
+	}
+	
+	$t1->parse("MAIN");
+	return $t1->text("MAIN");
+}
+
+/**
  * Select users cat for search from
  * 
  * @global array $structure
@@ -183,7 +237,6 @@ function cot_usercategories_tree($chosen = '', $parent = '', $template = '', $le
  * @param type $name
  * @param type $subcat
  * @param type $hideprivate
- * @param type $is_module
  * @return type
  */
 function cot_usercategories_selectcat($check, $name, $subcat = '', $hideprivate = true)
