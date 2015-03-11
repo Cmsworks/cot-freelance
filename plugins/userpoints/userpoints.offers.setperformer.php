@@ -2,7 +2,7 @@
 
 /**
  * [BEGIN_COT_EXT]
- * Hooks=offers.setperformer
+ * Hooks=projects.offers.setperformer
  * [END_COT_EXT]
  */
 /**

@@ -2,7 +2,7 @@
 
 /**
  * [BEGIN_COT_EXT]
- * Hooks=offers.refuse
+ * Hooks=projects.offers.refuse
  * [END_COT_EXT]
  */
 
