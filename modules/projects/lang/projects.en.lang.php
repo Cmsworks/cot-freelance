@@ -119,8 +119,10 @@ $L['offers_add_msg'] = 'Send a message';
 $L['offers_posts_title'] = 'Posts';
 
 $L['project_added_offer_header'] = 'New msg of project «{$prtitle}»';
-$L['project_added_offer_header2'] = 'New msg of project "{$prtitle}"';
-$L['project_added_offer_body'] = 'Hi, {$user_name}. '."\n\n".'.{$offeruser_name} sent a message of your project "{$prj_name}".'."\n\n".'{$link}';
+$L['project_added_offer_body'] = 'Hi, {$user_name}. '."\n\n".'.{$offeruser_name} sent offer for your project "{$prj_name}".'."\n\n".'{$link}';
+
+$L['project_added_post_header'] = 'New msg of project "{$prtitle}"';
+$L['project_added_post_body'] = 'Hi, {$user_name}. '."\n\n".'.{$postuser_name} sent message for your project "{$prj_name}".'."\n\n".'{$link}';
 
 $L['project_setperformer_header'] = 'You have been selected for the project "{$prtitle}"';
 $L['project_setperformer_body'] = 'Hi, {$offeruser_name}. '."\n\n".'You have chosen contractor for the project "{$prj_name}".'."\n\n".'{$link}';

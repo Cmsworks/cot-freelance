@@ -238,8 +238,9 @@ if ($a == 'addpost')
 	$offer_post['post_date'] = (int)$sys['now'];
 	$offer_post['post_text'] = cot_import('posttext', 'P', 'TXT');
 
-	$offer = $db->query("SELECT * FROM $db_projects_offers AS o LEFT JOIN $db_users AS u ON u.user_id=o.item_userid
-			WHERE item_id=" . $offer_post['post_oid'] . " LIMIT 1")->fetch();
+	$offer = $db->query("SELECT * FROM $db_projects_offers AS o 
+		LEFT JOIN $db_users AS u ON u.user_id=o.item_userid
+		WHERE item_id=" . $offer_post['post_oid'] . " LIMIT 1")->fetch();
 	
 	/* === Hook === */
 	foreach (cot_getextplugins('projects.offers.addpost.error') as $pl)
@@ -259,10 +260,10 @@ if ($a == 'addpost')
 				array('c' => $item['item_cat'], 'id' => $item['item_id']) :
 				array('c' => $item['item_cat'], 'al' => $item['item_alias']);
 			
-			$rsubject = cot_rc($L['project_added_offer_header'], array('prtitle' => $item['item_title']));
-			$rbody = cot_rc($L['project_added_offer_body'], array(
-				'user_name' => $offer['user_name'],
-				'offeruser_name' => $usr['profile']['user_name'],
+			$rsubject = cot_rc($L['project_added_post_header'], array('prtitle' => $item['item_title']));
+			$rbody = cot_rc($L['project_added_post_body'], array(
+				'user_name' => $item['user_name'],
+				'postuser_name' => $usr['profile']['user_name'],
 				'prj_name' => $item['item_title'],	
 				'sitename' => $cfg['maintitle'],
 				'link' => COT_ABSOLUTE_URL . cot_url('projects', $urlparams, '', true)
@@ -275,10 +276,10 @@ if ($a == 'addpost')
 				array('c' => $item['item_cat'], 'id' => $item['item_id']) :
 				array('c' => $item['item_cat'], 'al' => $item['item_alias']);
 
-			$rsubject = cot_rc($L['project_added_offer_header2'], array('prtitle' => $item['item_title']));
-			$rbody = cot_rc($L['project_added_offer_body'], array(
-				'user_name' => $item['user_name'],
-				'offeruser_name' => $usr['profile']['user_name'],
+			$rsubject = cot_rc($L['project_added_post_header'], array('prtitle' => $item['item_title']));
+			$rbody = cot_rc($L['project_added_post_body'], array(
+				'user_name' => $offer['user_name'],
+				'postuser_name' => $usr['profile']['user_name'],
 				'prj_name' => $item['item_title'],	
 				'sitename' => $cfg['maintitle'],
 				'link' => COT_ABSOLUTE_URL . cot_url('projects', $urlparams, '', true)

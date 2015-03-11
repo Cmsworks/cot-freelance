@@ -119,8 +119,10 @@ $L['offers_add_msg'] = 'Написать сообщение';
 $L['offers_posts_title'] = 'Переписка по заказу';
 
 $L['project_added_offer_header'] = 'Новое предложение по проекту «{$prtitle}»';
-$L['project_added_offer_header2'] = 'Новое сообщение по проекту «{$prtitle}»';
-$L['project_added_offer_body'] = 'Здравствуйте, {$user_name}. '."\n\n".'Пользователь {$offeruser_name} оставил вам сообщение по проекту «{$prj_name}».'."\n\n".'{$link}';
+$L['project_added_offer_body'] = 'Здравствуйте, {$user_name}. '."\n\n".'Пользователь {$offeruser_name} оставил вам предложение по проекту «{$prj_name}».'."\n\n".'{$link}';
+
+$L['project_added_post_header'] = 'Новое сообщение по проекту «{$prtitle}»';
+$L['project_added_post_body'] = 'Здравствуйте, {$user_name}. '."\n\n".'Пользователь {$postuser_name} оставил вам сообщение по проекту «{$prj_name}».'."\n\n".'{$link}';
 
 $L['project_setperformer_header'] = 'Вас выбрали по проекту «{$prtitle}»';
 $L['project_setperformer_body'] = 'Здравствуйте, {$offeruser_name}. '."\n\n".'Вас выбрали исполнителем по проекту «{$prj_name}».'."\n\n".'{$link}';
