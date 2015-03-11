@@ -87,7 +87,7 @@ switch($sort)
 }
 $list_url_path = array('c' => $c, 'sort' => $sort, 'sq' => $sq);
 
-$mskin = cot_tplfile(array('folio', 'list', $structure['folio'][$item['item_cat']]['tpl']));
+$mskin = cot_tplfile(array('folio', 'list', $structure['folio'][$c]['tpl']));
 $t = new XTemplate($mskin);
 
 /* === Hook === */

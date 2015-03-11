@@ -14,7 +14,7 @@ list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('market'
 cot_block($usr['auth_read']);
 
 $sort = cot_import('sort', 'G', 'ALP');
-$c = cot_import('c', 'G', 'TXT');
+$c = cot_import('c', 'G', 'ALP');
 $sq = cot_import('sq', 'G', 'TXT');
 
 $maxrowsperpage = ($cfg['market']['cat_' . $c]['maxrowsperpage']) ? $cfg['market']['cat_' . $c]['maxrowsperpage'] : $cfg['market']['cat___default']['maxrowsperpage'];
@@ -88,7 +88,7 @@ switch($sort)
 
 $list_url_path = array('c' => $c, 'sort' => $sort, 'sq' => $sq);
 
-$mskin = cot_tplfile(array('market', 'list', $structure['market'][$item['item_cat']]['tpl']));
+$mskin = cot_tplfile(array('market', 'list', $structure['market'][$c]['tpl']));
 $t = new XTemplate($mskin);
 
 /* === Hook === */
