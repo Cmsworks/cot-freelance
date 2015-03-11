@@ -1,17 +1,10 @@
 ##Фриланс-биржа на Cotonti Siena##
 
-Copyright 2014 CMSWorks Team (CMSWorks.ru)
+Copyright 2015 CMSWorks Team (CMSWorks.ru)
 
 Информация о сборке: http://cmsworks.ru/apps/freelance2
 
 Форум техподдержки: http://cmsworks.ru/forums/apps/freelance2
-
-
-##Разработчики##
-
-  Булат Юсупов support@cmsworks.ru (CMSWorks.ru)
-  
-  Павел Микулик esclkm@gmail.com (littledev.ru)
 
 
 ##Порядок установки##
