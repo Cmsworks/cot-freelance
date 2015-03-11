@@ -98,7 +98,7 @@ function cot_reviews_list($userid, $area, $code='', $name='', $params='', $tail=
 
 		while ($item = $sql->fetch())
 		{
-			if ($usr['id'] == $item['item_userid'])
+			if ($usr['id'] == $item['item_userid'] || $usr['isadmin'])
 			{
 				$t1->assign(array(
 					'REVIEW_FORM_ID' => $item['item_id'],
@@ -122,7 +122,7 @@ function cot_reviews_list($userid, $area, $code='', $name='', $params='', $tail=
 				'REVIEW_ROW_AREA' => $item['item_area'],
 				'REVIEW_ROW_CODE' => $item['item_code'],
 				'REVIEW_ROW_DATE' => $item['item_date'],
-				'REVIEW_ROW_DELETE_URL' => ($usr['isadmin']) ? cot_url('plug', 'r=reviews&a=delete&area='.$area.'&code='.$code.'&itemid=' . $item['item_id'] . '&redirect='.$redirect) : '',
+				'REVIEW_ROW_DELETE_URL' => ($usr['id'] == $item['item_userid'] || $usr['isadmin']) ? cot_url('plug', 'r=reviews&a=delete&area='.$area.'&code='.$code.'&itemid=' . $item['item_id'] . '&redirect='.$redirect) : '',
 			));
 
 			if($item['item_area'] == 'projects' && !empty($item['item_code']))

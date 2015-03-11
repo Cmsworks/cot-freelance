@@ -110,14 +110,14 @@ elseif ($a == 'update')
 elseif ($a == 'delete')
 {
 
-	$sql1 = $db->query("SELECT * FROM $db_reviews as r
+	$sql = $db->query("SELECT * FROM $db_reviews as r
 		LEFT JOIN $db_users as u ON u.user_id=r.item_touserid WHERE item_id='$itemid' LIMIT 1");
-	cot_die($sql1->rowCount() == 0);
-	$item = $sql1->fetch();
+	cot_die($sql->rowCount() == 0);
+	$item = $sql->fetch();
 
-	cot_block($usr['isadmin']);
+	cot_block($usr['id'] == $item['item_userid'] || $usr['isadmin']);
 
-	$sql = $db->delete($db_reviews, "item_id='$itemid'");
+	$db->delete($db_reviews, "item_id='$itemid'");
 
 	/* === Hook === */
 	foreach (cot_getextplugins('reviews.edit.delete.done') as $pl)
