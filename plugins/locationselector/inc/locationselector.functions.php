@@ -204,7 +204,7 @@ function cot_select_location($name, $country = '', $region = 0, $city = 0, $user
 	if($countries){
 		$countries = array(0 => $L['select_country']) + $countries;
 		$country_selectbox = cot_selectbox($country, $name . '[country]', array_keys($countries), array_values($countries), 
-			false, $disabled . 'class="locselectcountry" id="locselectcountry"');
+			false, $disabled . 'class="locselectcountry form-control" id="locselectcountry"');
 		$country_selectbox .= (count($countriesfilter) == 1) ? cot_inputbox('hidden', $name . '[country]', $country) : '';
 
 		$region = ($country == '' || count($countries) < 2) ? 0 : $region;
@@ -212,14 +212,14 @@ function cot_select_location($name, $country = '', $region = 0, $city = 0, $user
 		$regions = array(0 => $L['select_region']) + $regions;
 		$disabled = (empty($country) || count($regions) < 2) ? 'disabled="disabled" ' : '';
 		$region_selectbox = cot_selectbox($region, $name . '[region]', array_keys($regions), array_values($regions), 
-			false, $disabled . 'class="locselectregion" id="locselectregion"');
+			false, $disabled . 'class="locselectregion form-control" id="locselectregion"');
 
 		$city = ($region == 0 || count($regions) < 2) ? 0 : $city;
 		$cities = (!empty($region)) ? cot_getcities($region) : array();
 		$cities = array(0 => $L['select_city']) + $cities;
 		$disabled = (empty($region) || count($cities) < 2) ? 'disabled="disabled" ' : '';
 		$city_selectbox = cot_selectbox($city, $name . '[city]', array_keys($cities), array_values($cities), 
-			false, $disabled . 'class="locselectcity" id="locselectcity"');	
+			false, $disabled . 'class="locselectcity form-control" id="locselectcity"');	
 
 		$result = cot_rc('input_location' , array(
 			'country' => $country_selectbox,
