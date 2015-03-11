@@ -8,7 +8,7 @@
 		<br/>
 		<!-- ENDIF -->
 		<br/>
-		{USERS_DETAILS_CATS}
+		{USERS_DETAILS_CATS|cot_usercategories_tree($this, '', 'list')}
 		<!-- IF {PHP.usr.id} == {PHP.urr.user_id} -->
 		<br/>
 		<a href="{PHP|cot_url('users', 'm=profile')}" class="btn btn-info btn-block">{PHP.L.Edit}</a>

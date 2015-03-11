@@ -15,5 +15,3 @@
  * @license BSD
  */
 defined('COT_CODE') or die('Wrong URL.');
-
-$t->assign('USERS_DETAILS_CATS', ($urr['user_cats']) ? cot_usercategories_tree(explode(',', $urr['user_cats']), '', 'list') : '');
