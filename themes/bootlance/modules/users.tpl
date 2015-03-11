@@ -25,10 +25,12 @@
 							<td width="100">{PHP.L.Search}:</td>
 							<td><input type="text" name="sq" value="{PHP.sq}" class="schstring"/></td>
 						</tr>
+						<!-- IF {PHP.cot_plugins_active.locationselector} -->
 						<tr>
 							<td >{PHP.L.Location}:</td>
 							<td>{SEARCH_LOCATION}</td>
 						</tr>
+						<!-- ENDIF -->
 						<tr>
 							<td >{PHP.L.Category}:</td>
 							<td>{SEARCH_CAT}</td>
