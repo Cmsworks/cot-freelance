@@ -2,20 +2,22 @@
 
 /**
  * [BEGIN_COT_EXT]
- * Hooks=admin.structure.add.first
+ * Hooks=input
  * [END_COT_EXT]
  */
 /**
  * User Categories plugin
  *
  * @package usercategories
- * @version 2.5.3
+ * @version 2.5.4
  * @author CMSWorks Team
- * @copyright Copyright (c) CMSWorks.ru, littledev.ru
+ * @copyright Copyright (c) CMSWorks.ru
  * @license BSD
  */
 defined('COT_CODE') or die('Wrong URL');
 
-if($n == 'usercategories'){
-	$is_module = true;
-}
+$cot_modules['usercategories'] = array(
+	'code' => 'usercategories',
+	'title' => 'User Categories',
+	'version' => '2.5.4'
+);
