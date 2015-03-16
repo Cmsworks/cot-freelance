@@ -97,7 +97,6 @@ if ($a == 'add')
 	}
 	else
 	{
-		$c = ($c != $ritem['item_cat']) ? $ritem['item_cat'] : $c;
 		cot_redirect(cot_url('folio', 'm=add&c='.$c, '', true));
 	}
 }

@@ -120,8 +120,6 @@ if ($a == 'add')
 	}
 	else
 	{
-		$c = ($c != $ritem['item_cat']) ? $ritem['item_cat'] : $c;
-		$type = ($type != $ritem['item_type']) ? $ritem['item_type'] : $c;
 		cot_redirect(cot_url('projects', 'm=add&c='.$c.'&type='.$type, '', true));
 	}
 }
