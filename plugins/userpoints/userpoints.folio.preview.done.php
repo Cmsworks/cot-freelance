@@ -22,10 +22,3 @@ if($ritem['item_state'] == 0)
 {
 	cot_setuserpoints($cfg['plugin']['userpoints']['portfolioaddtocat'], 'portfolioaddtocat', $item['item_userid'], $id);
 }
-else
-{
-	$points = $db->query("SELECT SUM(item_point) FROM $db_userpoints WHERE item_type='portfolioaddtocat' AND item_itemid=".$id)->fetchColumn();
-	if($points > 0){
-		cot_setuserpoints(-$cfg['plugin']['userpoints']['portfolioaddtocat'], 'portfoliodeltocat', $item['item_userid'], $id);
-	}
-}
