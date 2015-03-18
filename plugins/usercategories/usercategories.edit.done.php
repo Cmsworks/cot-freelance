@@ -15,21 +15,3 @@
  * @license BSD
  */
 defined('COT_CODE') or die('Wrong URL.');
-
-require_once cot_incfile('usercategories', 'plug');
-
-$r_id = $usr['id'];
-if ($m == 'edit')
-{
-	$r_id = $id;
-}
-elseif ($m == 'register')
-{
-	$r_id = $userid;
-}
-
-$rcats = cot_import('rcats', 'P', 'ARR');
-if(is_array($rcats)){
-	$ucats = array_filter($rcats);
-	$db->update($db_users, array('user_cats' => implode(',', $ucats)), "user_id=".$r_id);
-}
