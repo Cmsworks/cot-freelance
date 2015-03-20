@@ -72,5 +72,5 @@ if ($m == "projects")
 
 		$i++;
 	}
-	$sql->closeCursor();
+	$sqllist->closeCursor();
 }

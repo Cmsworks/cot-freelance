@@ -72,5 +72,5 @@ if ($m == "market")
 
 		$i++;
 	}
-	$sql->closeCursor();
+	$sqllist->closeCursor();
 }
