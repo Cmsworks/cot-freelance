@@ -14,6 +14,28 @@ defined('COT_CODE') or die('Wrong URL');
 
 require_once cot_langfile('usercategories', 'plug');
 
+// Global variables
+function cot_cfg_usercategories()
+{
+	global $cfg;
+	
+	$tpaset = str_replace("\r\n", "\n", $cfg['plugin']['usercategories']['catslimit']);
+	$tpaset = explode("\n", $tpaset);
+	$paytopset = array();
+	foreach ($tpaset as $lineset)
+	{
+		$lines = explode("|", $lineset);
+		$lines[0] = trim($lines[0]);
+		$lines[1] = trim($lines[1]);
+		
+		if ($lines[0] > 0 && $lines[1] > 0)
+		{	
+			$catslimit[$lines[0]] = $lines[1];
+		}
+	}
+	return $catslimit;
+}
+
 /**
  * Recalculates users category counters
  *
@@ -76,6 +98,10 @@ function cot_usercategories_treecheck($chosen, $name, $parent = '', $template = 
 	
 	if(empty($structure['usercategories'])){
 		return false;
+	}
+	
+	if(!is_array($chosen)){
+		$chosen = explode(',', $chosen);
 	}
 	
 	if (empty($parent)){
@@ -152,6 +178,10 @@ function cot_usercategories_tree($chosen = '', $parent = '', $template = '', $le
 	
 	if(empty($structure['usercategories'])){
 		return false;
+	}
+	
+	if(!is_array($chosen)){
+		$chosen = explode(',', $chosen);
 	}
 	
 	if (empty($parent)){

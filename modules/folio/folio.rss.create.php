@@ -72,5 +72,5 @@ if ($m == "folio")
 
 		$i++;
 	}
-	$sql->closeCursor();
+	$sqllist->closeCursor();
 }

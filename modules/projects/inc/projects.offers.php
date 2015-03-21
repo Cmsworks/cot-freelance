@@ -411,7 +411,7 @@ while ($offers = $sql->fetch())
 	if ($usr['id'] == $offers['item_userid'] || $usr['id'] == $item['item_userid'] || $usr['isadmin'])
 	{
 		$sql_prjposts = $db->query("SELECT * FROM $db_projects_posts as p LEFT JOIN $db_users as u ON u.user_id=p.post_userid
-			WHERE post_pid=" . $id . " AND post_oid=" . $offers['item_id'] . "");
+			WHERE post_pid=" . $id . " AND post_oid=" . $offers['item_id'] . " ORDER BY post_date ASC");
 
 		while ($posts = $sql_prjposts->fetch())
 		{

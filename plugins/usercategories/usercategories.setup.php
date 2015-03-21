@@ -6,7 +6,7 @@
  * Name=User Categories
  * Category=community-social
  * Description=Add custom categories for users
- * Version=2.5.3
+ * Version=2.5.5
  * Date=28.09.2013
  * Author=CMSWorks Team
  * Copyright=Copyright (c) CMSWorks.ru, littledev.ru
@@ -17,13 +17,14 @@
  * [END_COT_EXT]
  * 
  * [BEGIN_COT_EXT_CONFIG]
+ * catslimit=01:textarea:::Лимит категорий для выбора
  * [END_COT_EXT_CONFIG]
  */
 /**
  * User Categories plugin
  *
  * @package usercategories
- * @version 2.5.3
+ * @version 2.5.5
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru, littledev.ru
  * @license BSD

@@ -22,7 +22,3 @@ if($ritem['item_state'] == 0)
 {
 	cot_setuserpoints($cfg['plugin']['userpoints']['portfolioaddtocat'], 'portfolioaddtocat', $item['item_userid'], $id);
 }
-else
-{
-	cot_setuserpoints(-$cfg['plugin']['userpoints']['portfolioaddtocat'], 'portfoliodeltocat', $item['item_userid'], $id);
-}
