@@ -66,3 +66,7 @@ sef-urls.nginx.conf
 /plugins/subcat/
 /plugins/pagecattree/
 /plugins/fancybox/
+/plugins/deniedregister/
+/plugins/filterforuser/
+/plugins/guestprojects/
+/plugins/prjformanywhere/

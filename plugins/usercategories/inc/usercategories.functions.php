@@ -91,10 +91,14 @@ function cot_usercategories_updatecat($oldcat, $newcat)
  * @param type $level
  * @return boolean
  */
-function cot_usercategories_treecheck($chosen, $name, $parent = '', $template = '', $userrights = 'W', $level = 0)
+function cot_usercategories_treecheck($chosen, $name, $parent = '', $template = '', $userrights = 'W', $level = 0, $commaseparated = 0)
 {
 	global $structure, $cfg, $gm, $group;
 	global $i18n_notmain, $i18n_locale, $i18n_read;
+
+	if ($commaseparated) {
+		$chosen = explode(',', $chosen);
+	}
 	
 	if(empty($structure['usercategories'])){
 		return false;
