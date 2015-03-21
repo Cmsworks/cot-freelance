@@ -100,6 +100,10 @@ function cot_usercategories_treecheck($chosen, $name, $parent = '', $template = 
 		return false;
 	}
 	
+	if(!is_array($chosen)){
+		$chosen = explode(',', $chosen);
+	}
+	
 	if (empty($parent)){
 		$i18n_enabled = $i18n_read;
 		$children = array();
@@ -174,6 +178,10 @@ function cot_usercategories_tree($chosen = '', $parent = '', $template = '', $le
 	
 	if(empty($structure['usercategories'])){
 		return false;
+	}
+	
+	if(!is_array($chosen)){
+		$chosen = explode(',', $chosen);
 	}
 	
 	if (empty($parent)){
