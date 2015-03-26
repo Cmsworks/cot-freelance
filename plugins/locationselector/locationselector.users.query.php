@@ -33,3 +33,5 @@ if (function_exists('cot_getlocation'))
 (!empty($location['country'])) && $where['user_country'] = "user_country='" . $location['country']."'";
 ((int) $location['region'] > 0) && $where['user_region'] = "user_region=" . (int) $location['region'];
 ((int) $location['city'] > 0) && $where['user_city'] = "user_city=" . (int) $location['city'];
+
+$users_url_path['slocation'] = $location;
