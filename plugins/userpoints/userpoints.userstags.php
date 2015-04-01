@@ -16,5 +16,6 @@
  */
 defined('COT_CODE') or die('Wrong URL.');
 
-$temp_array['USERPOINTS'] = number_format($user_data['user_userpoints'], '1', '.', ' ');
-?>
+if(is_array($user_data)){
+	$temp_array['USERPOINTS'] = number_format($user_data['user_userpoints'], '1', '.', ' ');
+}
