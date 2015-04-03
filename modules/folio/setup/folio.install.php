@@ -69,56 +69,20 @@ if(cot_module_active('foliostore'))
 }
 else
 {
-	$db->query("INSERT INTO $db_structure 
-		(`structure_area`, `structure_code`, `structure_path`, `structure_tpl`, `structure_title`, `structure_desc`, `structure_icon`, `structure_locked`, `structure_count`) 
-		VALUES
-		('folio', 'soft', '001', '', 'Программы', '', '', 0, 0),
-		('folio', 'sites', '002', '', 'Сайты', '', '', 0, 0),
-		('folio', 'design', '003', '', 'Дизайн', '', '', 0, 0),
-		('folio', 'logos', '004', '', 'Логотипы', '', '', 0, 0),
-		('folio', 'photos', '005', '', 'Фотографии', '', '', 0, 0),
-		('folio', 'hm', '006', '', 'Hand-made', '', '', 0, 0);
-	");
+	require_once cot_incfile('structure');
 	
-	$db->query("INSERT INTO $db_auth (`auth_groupid`, `auth_code`, `auth_option`,
-		`auth_rights`, `auth_rights_lock`, `auth_setbyuserid`) VALUES
-		(1, 'folio', 'soft',	1,		0,	1),
-		(2, 'folio', 'soft',	1,		254,	1),
-		(3, 'folio', 'soft',	0,		255,	1),
-		(4, 'folio', 'soft',	7,		0,		1),
-		(5, 'folio', 'soft',	255,	255,	1),
-		(6, 'folio', 'soft',	135,	0,		1),
-		(1, 'folio', 'sites',	1,		0,	1),
-		(2, 'folio', 'sites',	1,		254,	1),
-		(3, 'folio', 'sites',	0,		255,	1),
-		(4, 'folio', 'sites',	7,		0,		1),
-		(5, 'folio', 'sites',	255,	255,	1),
-		(6, 'folio', 'sites',	135,	0,		1),
-		(1, 'folio', 'design',		1,		0,	1),
-		(2, 'folio', 'design',		1,		254,	1),
-		(3, 'folio', 'design',		0,		255,	1),
-		(4, 'folio', 'design',		7,		0,		1),
-		(5, 'folio', 'design',		255,	255,	1),
-		(6, 'folio', 'design',		135,	0,		1),
-		(1, 'folio', 'logos',		1,		0,	1),
-		(2, 'folio', 'logos',		1,		254,	1),
-		(3, 'folio', 'logos',		0,		255,	1),
-		(4, 'folio', 'logos',		7,		0,		1),
-		(5, 'folio', 'logos',		255,	255,	1),
-		(6, 'folio', 'logos',		135,	0,		1),
-		(1, 'folio', 'photo',		1,		0,	1),
-		(2, 'folio', 'photo',		1,		254,	1),
-		(3, 'folio', 'photo',		0,		255,	1),
-		(4, 'folio', 'photo',		7,		0,		1),
-		(5, 'folio', 'photo',		255,	255,	1),
-		(6, 'folio', 'photo',		135,	0,		1),
-		(1, 'folio', 'hm',		1,		0,	1),
-		(2, 'folio', 'hm',		1,		254,	1),
-		(3, 'folio', 'hm',		0,		255,	1),
-		(4, 'folio', 'hm',		7,		0,		1),
-		(5, 'folio', 'hm',		255,	255,	1),
-		(6, 'folio', 'hm',		135,	0,		1);
-	");
+	cot_structure_add('folio', array('structure_area' => 'folio', 'structure_code' => 'programming', 'structure_title' => 'Программирование', 'structure_path' => '001'));
+	cot_structure_add('folio', array('structure_area' => 'folio', 'structure_code' => 'management', 'structure_title' => 'Менеджмент', 'structure_path' => '002'));
+	cot_structure_add('folio', array('structure_area' => 'folio', 'structure_code' => 'folioing', 'structure_title' => 'Маркетинг и реклама', 'structure_path' => '003'));
+	cot_structure_add('folio', array('structure_area' => 'folio', 'structure_code' => 'design', 'structure_title' => 'Дизайн', 'structure_path' => '004'));
+	cot_structure_add('folio', array('structure_area' => 'folio', 'structure_code' => 'seo', 'structure_title' => 'Оптимизация (SEO)', 'structure_path' => '005'));
+	cot_structure_add('folio', array('structure_area' => 'folio', 'structure_code' => 'texts', 'structure_title' => 'Тексты', 'structure_path' => '006'));
+	cot_structure_add('folio', array('structure_area' => 'folio', 'structure_code' => 'photo', 'structure_title' => 'Фотография', 'structure_path' => '007'));
+	cot_structure_add('folio', array('structure_area' => 'folio', 'structure_code' => 'gamedev', 'structure_title' => 'Разработка игр', 'structure_path' => '008'));
+	cot_structure_add('folio', array('structure_area' => 'folio', 'structure_code' => 'consulting', 'structure_title' => 'Консалтинг', 'structure_path' => '009'));
+	cot_structure_add('folio', array('structure_area' => 'folio', 'structure_code' => 'construction', 'structure_title' => 'Строительство', 'structure_path' => '010'));
+	
+	$db->update($db_auth, array('auth_rights' => 1), "auth_code='folio' AND auth_groupid=7");
 }
 
 

@@ -60,57 +60,18 @@ if(cot_module_active('foliostore'))
 }
 else
 {
-	$db->query("INSERT INTO $db_structure 
-		(`structure_area`, `structure_code`, `structure_path`, `structure_tpl`, `structure_title`, `structure_desc`, `structure_icon`, `structure_locked`, `structure_count`) 
-		VALUES
-		('market', 'soft', '001', '', 'Программы', '', '', 0, 0),
-		('market', 'sites', '002', '', 'Сайты', '', '', 0, 0),
-		('market', 'design', '003', '', 'Дизайн', '', '', 0, 0),
-		('market', 'logos', '004', '', 'Логотипы', '', '', 0, 0),
-		('market', 'photos', '005', '', 'Фотографии', '', '', 0, 0),
-		('market', 'hm', '006', '', 'Hand-made', '', '', 0, 0);
-	");
+	require_once cot_incfile('structure');
 	
-	
-	$db->query("INSERT INTO $db_auth (`auth_groupid`, `auth_code`, `auth_option`,
-		`auth_rights`, `auth_rights_lock`, `auth_setbyuserid`) VALUES
-		(1, 'market', 'soft',	1,		0,	1),
-		(2, 'market', 'soft',	1,		254,	1),
-		(3, 'market', 'soft',	0,		255,	1),
-		(4, 'market', 'soft',	7,		0,		1),
-		(5, 'market', 'soft',	255,	255,	1),
-		(6, 'market', 'soft',	135,	0,		1),
-		(1, 'market', 'sites',	1,		0,	1),
-		(2, 'market', 'sites',	1,		254,	1),
-		(3, 'market', 'sites',	0,		255,	1),
-		(4, 'market', 'sites',	7,		0,		1),
-		(5, 'market', 'sites',	255,	255,	1),
-		(6, 'market', 'sites',	135,	0,		1),
-		(1, 'market', 'design',		1,		0,	1),
-		(2, 'market', 'design',		1,		254,	1),
-		(3, 'market', 'design',		0,		255,	1),
-		(4, 'market', 'design',		7,		0,		1),
-		(5, 'market', 'design',		255,	255,	1),
-		(6, 'market', 'design',		135,	0,		1),
-		(1, 'market', 'logos',		1,		0,	1),
-		(2, 'market', 'logos',		1,		254,	1),
-		(3, 'market', 'logos',		0,		255,	1),
-		(4, 'market', 'logos',		7,		0,		1),
-		(5, 'market', 'logos',		255,	255,	1),
-		(6, 'market', 'logos',		135,	0,		1),
-		(1, 'market', 'photo',		1,		0,	1),
-		(2, 'market', 'photo',		1,		254,	1),
-		(3, 'market', 'photo',		0,		255,	1),
-		(4, 'market', 'photo',		7,		0,		1),
-		(5, 'market', 'photo',		255,	255,	1),
-		(6, 'market', 'photo',		135,	0,		1),
-		(1, 'market', 'hm',		1,		0,	1),
-		(2, 'market', 'hm',		1,		254,	1),
-		(3, 'market', 'hm',		0,		255,	1),
-		(4, 'market', 'hm',		7,		0,		1),
-		(5, 'market', 'hm',		255,	255,	1),
-		(6, 'market', 'hm',		135,	0,		1);
-	");
+	cot_structure_add('market', array('structure_area' => 'market', 'structure_code' => 'programming', 'structure_title' => 'Программирование', 'structure_path' => '001'));
+	cot_structure_add('market', array('structure_area' => 'market', 'structure_code' => 'management', 'structure_title' => 'Менеджмент', 'structure_path' => '002'));
+	cot_structure_add('market', array('structure_area' => 'market', 'structure_code' => 'marketing', 'structure_title' => 'Маркетинг и реклама', 'structure_path' => '003'));
+	cot_structure_add('market', array('structure_area' => 'market', 'structure_code' => 'design', 'structure_title' => 'Дизайн', 'structure_path' => '004'));
+	cot_structure_add('market', array('structure_area' => 'market', 'structure_code' => 'seo', 'structure_title' => 'Оптимизация (SEO)', 'structure_path' => '005'));
+	cot_structure_add('market', array('structure_area' => 'market', 'structure_code' => 'texts', 'structure_title' => 'Тексты', 'structure_path' => '006'));
+	cot_structure_add('market', array('structure_area' => 'market', 'structure_code' => 'photo', 'structure_title' => 'Фотография', 'structure_path' => '007'));
+	cot_structure_add('market', array('structure_area' => 'market', 'structure_code' => 'gamedev', 'structure_title' => 'Разработка игр', 'structure_path' => '008'));
+	cot_structure_add('market', array('structure_area' => 'market', 'structure_code' => 'consulting', 'structure_title' => 'Консалтинг', 'structure_path' => '009'));
+	cot_structure_add('market', array('structure_area' => 'market', 'structure_code' => 'construction', 'structure_title' => 'Строительство', 'structure_path' => '010'));
 }
 
 ?>
