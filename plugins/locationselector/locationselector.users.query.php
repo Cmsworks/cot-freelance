@@ -18,20 +18,12 @@
 defined('COT_CODE') or die('Wrong URL.');
 
 $c = cot_import('c', 'G', 'TXT');
-if (function_exists('cot_import_location'))
-{
-	$location = cot_import_location('slocation', 'G');
-}
-if (function_exists('cot_getlocation'))
-{
-	$location_info = cot_getlocation($location['country'], $location['region'], $location['city']);
-	$out['subtitle'] .= (!empty($location_info['country'])) ? ' - ' . $location_info['country'] : '';
-	$out['subtitle'] .= (!empty($location_info['region'])) ? ' - ' . $location_info['region'] : '';
-	$out['subtitle'] .= (!empty($location_info['city'])) ? ' - ' . $location_info['city'] : '';
-}
+$location = cot_import_location('slocation', 'G');
 
-(!empty($location['country'])) && $where['user_country'] = "user_country='" . $location['country']."'";
-((int) $location['region'] > 0) && $where['user_region'] = "user_region=" . (int) $location['region'];
-((int) $location['city'] > 0) && $where['user_city'] = "user_city=" . (int) $location['city'];
+if(!empty($location)){
+	(!empty($location['country'])) && $where['user_country'] = "user_country='" . $location['country']."'";
+	((int) $location['region'] > 0) && $where['user_region'] = "user_region=" . (int) $location['region'];
+	((int) $location['city'] > 0) && $where['user_city'] = "user_city=" . (int) $location['city'];
 
-$users_url_path['slocation'] = $location;
+	$users_url_path['slocation'] = $location;
+}
