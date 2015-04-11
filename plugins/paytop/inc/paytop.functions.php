@@ -68,20 +68,32 @@ function cot_get_paytop ($area='', $count=0, $order = "s.service_id DESC")
 	
 	$t1 = new XTemplate(cot_tplfile(array('paytop', 'list', $area), 'plug'));
 	
+	$paytopcount = $db->query("SELECT COUNT(*) FROM $db_payments_services as s
+		LEFT JOIN $db_users AS u ON u.user_id=s.service_userid
+		WHERE u.user_id>0 AND s.service_area='paytop.".$db->prep($area)."' AND service_expire > " . $sys['now'])->fetchColumn();
+	
 	$paytops = $db->query("SELECT * FROM $db_payments_services as s
 		LEFT JOIN $db_users AS u ON u.user_id=s.service_userid
 		WHERE u.user_id>0 AND s.service_area='paytop.".$db->prep($area)."' AND service_expire > " . $sys['now'] . " ORDER BY $order LIMIT " . $count)->fetchAll();
 
+	$jj = 0;
+	
 	foreach ($paytops as $tur)
 	{
+		$jj++;
+		
 		$t1->assign(cot_generate_usertags($tur, 'TOP_ROW_'));
 		$t1->assign(array(
+			'TOP_ROW_JJ' => $jj,
 			'TOP_ROW_EXPIRE' => $tur['service_expire'],
 		));
 		$t1->parse('MAIN.TOP_ROW');
 	}
 
-	$t1->assign('PAYTOP_BUY_URL', cot_url('plug', 'e=paytop&area='.$area));
+	$t1->assign(array(
+		'PAYTOP_BUY_URL', cot_url('plug', 'e=paytop&area='.$area),
+		'PAYTOP_COUNT' => $paytopcount
+	));
 
 	$t1->parse('MAIN');
 	return $t1->text('MAIN');
