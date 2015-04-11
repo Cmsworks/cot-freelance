@@ -1,5 +1,5 @@
 <!-- BEGIN: MAIN -->
-	<h4><!-- IF {PHP.usr.id} == {PHP.urr.user_id} AND {RPD_ADDPRD_SHOWBUTTON} --><div class="pull-right"><a href="{PRD_ADDPRD_URL}" class="btn btn-success">{PHP.L.market_add_product}</a></div><!-- ENDIF -->{PHP.L.market}</h4>
+	<h4><!-- IF {PHP.usr.id} == {PHP.urr.user_id} AND {ADDPRD_SHOWBUTTON} --><div class="pull-right"><a href="{PRD_ADDPRD_URL}" class="btn btn-success">{PHP.L.market_add_product}</a></div><!-- ENDIF -->{PHP.L.market}</h4>
 	<div class="row">
 	<!-- BEGIN: PRD_ROWS -->
 		<div class="span3 pull-left">

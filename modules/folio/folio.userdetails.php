@@ -26,8 +26,8 @@ list($pg, $d, $durl) = cot_import_pagenav('dfolio', $cfg['folio']['cat___default
 
 $t1 = new XTemplate(cot_tplfile(array('folio','userdetails'), 'module'));
 $t1->assign(array(
-	"PRD_ADDPRD_URL" => cot_url('folio', 'm=add'),
-	"RPD_ADDPRD_SHOWBUTTON" => ($usr['auth_write']) ? true : false
+	"ADDPRD_URL" => cot_url('folio', 'm=add'),
+	"ADDPRD_SHOWBUTTON" => ($usr['auth_write']) ? true : false
 ));
 
 $where = array();

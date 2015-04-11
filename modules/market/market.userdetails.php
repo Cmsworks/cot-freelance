@@ -27,8 +27,8 @@ list($pg, $d, $durl) = cot_import_pagenav('dmarket', $cfg['market']['cat___defau
 //маркет вкладка
 $t1 = new XTemplate(cot_tplfile(array('market','userdetails'), 'module'));
 $t1->assign(array(
-	"PRD_ADDPRD_URL" => cot_url('market', 'm=add'),
-	"RPD_ADDPRD_SHOWBUTTON" => ($usr['auth_write']) ? true : false
+	"ADDPRD_URL" => cot_url('market', 'm=add'),
+	"ADDPRD_SHOWBUTTON" => ($usr['auth_write']) ? true : false
 ));
 
 $where = array();

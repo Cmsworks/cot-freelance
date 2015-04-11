@@ -27,8 +27,8 @@ list($pg, $d, $durl) = cot_import_pagenav('dprj', $cfg['projects']['cat___defaul
 //маркет вкладка
 $t1 = new XTemplate(cot_tplfile(array('projects','userdetails'), 'module'));
 $t1->assign(array(
-	"PRD_ADDPRJ_URL" => cot_url('projects', 'm=add'),
-	"RPD_ADDPRJ_SHOWBUTTON" => ($usr['auth_write']) ? true : false
+	"ADDPRJ_URL" => cot_url('projects', 'm=add'),
+	"ADDPRJ_SHOWBUTTON" => ($usr['auth_write']) ? true : false
 ));
 
 $where = array();
