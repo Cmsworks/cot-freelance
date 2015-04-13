@@ -91,7 +91,7 @@ function cot_get_paytop ($area='', $count=0, $order = "s.service_id DESC")
 	}
 
 	$t1->assign(array(
-		'PAYTOP_BUY_URL', cot_url('plug', 'e=paytop&area='.$area),
+		'PAYTOP_BUY_URL' => cot_url('plug', 'e=paytop&area='.$area),
 		'PAYTOP_COUNT' => $paytopcount
 	));
 
