@@ -75,7 +75,7 @@
 				<!-- IF {PHP.cot_plugins_active.tags} AND {PHP.cot_plugins_active.tagslance} AND {PHP.cfg.plugin.tagslance.market} -->
 				<p class="small">{PHP.L.Tags}: 
 					<!-- BEGIN: PRD_ROW_TAGS_ROW --><!-- IF {PHP.tag_i} > 0 -->, <!-- ENDIF --><a href="{PRD_ROW_TAGS_ROW_URL}" title="{PRD_ROW_TAGS_ROW_TAG}" rel="nofollow">{PRD_ROW_TAGS_ROW_TAG}</a><!-- END: PRD_ROW_TAGS_ROW -->
-					<!-- BEGIN: PRD_ROW_NO_TAGS -->{PRJ_ROW_NO_TAGS}<!-- END: PRD_ROW_NO_TAGS -->
+					<!-- BEGIN: PRD_ROW_NO_TAGS -->{PRD_ROW_NO_TAGS}<!-- END: PRD_ROW_NO_TAGS -->
 				</p>
 				<!-- ENDIF -->
 				
