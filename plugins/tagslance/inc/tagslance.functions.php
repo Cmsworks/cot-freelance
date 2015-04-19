@@ -13,6 +13,7 @@
 defined('COT_CODE') or die('Wrong URL');
 
 require_once cot_langfile('tagslance', 'plug');
+require_once cot_incfile('tags', 'plug');
 
 /**
  * Search by tag in folio
@@ -79,7 +80,7 @@ function cot_tag_search_folio($query)
 	{
 		foreach ($sql->fetchAll() as $row)
 		{
-			$tags = cot_tag_list($row['item_id']);
+			$tags = cot_tag_list($row['item_id'],'folio');
 			$tag_list = '';
 			$tag_i = 0;
 			foreach ($tags as $tag)
@@ -192,7 +193,7 @@ function cot_tag_search_market($query)
 	{
 		foreach ($sql->fetchAll() as $row)
 		{
-			$tags = cot_tag_list($row['item_id']);
+			$tags = cot_tag_list($row['item_id'],'market');
 			$tag_list = '';
 			$tag_i = 0;
 			foreach ($tags as $tag)
@@ -304,7 +305,7 @@ function cot_tag_search_projects($query)
 	{
 		foreach ($sql->fetchAll() as $row)
 		{
-			$tags = cot_tag_list($row['item_id']);
+			$tags = cot_tag_list($row['item_id'],'projects');
 			$tag_list = '';
 			$tag_i = 0;
 			foreach ($tags as $tag)
