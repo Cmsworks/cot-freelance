@@ -13,7 +13,6 @@
 defined('COT_CODE') or die('Wrong URL');
 
 require_once cot_langfile('tagslance', 'plug');
-require_once cot_incfile('tags', 'plug');
 
 /**
  * Search by tag in folio
