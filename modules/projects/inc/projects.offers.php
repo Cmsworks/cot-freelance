@@ -358,6 +358,7 @@ $t_o->assign(array(
 
 /* === Hook === */
 $extp = cot_getextplugins('projects.offers.loop');
+$extp1 = cot_getextplugins('projects.offers.posts.loop');
 /* ===== */
 
 while ($offers = $sql->fetch())
@@ -421,7 +422,12 @@ while ($offers = $sql->fetch())
 				"POST_ROW_DATE" => cot_date('d.m.y H:i', $posts['post_date']),
 				"POST_ROW_DATE_STAMP" => $posts['post_date'],
 			));
-
+			/* === Hook - Part2 : Include === */
+			foreach ($extp1 as $pl)
+			{
+				include $pl;
+			}
+			/* ===== */	
 			$t_o->parse("MAIN.ROWS.POSTS.POSTS_ROWS");
 		}
 
