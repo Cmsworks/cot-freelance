@@ -26,6 +26,8 @@ $L['cfg_foliositemap_prio'] = array('Приоритет в Sitemap');
 $L['cfg_description'] = array('Description');
 $L['cfg_foliosearch'] = array('Включить в общий поиск');
 
+$L['info_desc'] = 'Портфолио пользователей';
+
 $L['folio_select_cat'] = "Выберите раздел";
 $L['folio_empty_title'] = "Название не может быть пустым";
 $L['folio_empty_text'] = "Описание не может быть пустым";

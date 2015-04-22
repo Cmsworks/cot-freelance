@@ -29,6 +29,8 @@ $L['cfg_warranty'] = array('Гарантийный срок (дней)');
 $L['cfg_tax'] = array('Комиссия за продажи (%)');
 $L['cfg_ordersperpage'] = array('Число заказов на странице');
 
+$L['info_desc'] = 'Ветрина товаров и услуг';
+
 $L['market_select_cat'] = "Выберите раздел";
 $L['market_empty_title'] = "Название не может быть пустым";
 $L['market_empty_text'] = "Описание не может быть пустым";

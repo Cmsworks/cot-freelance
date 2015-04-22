@@ -30,6 +30,8 @@ $L['cfg_prjsearch'] = array('Включить в общий поиск');
 $L['cfg_license'] = array('Лицензионный ключ');
 $L['cfg_default_type'] = array('Тип проекта по-умолчанию');
 
+$L['info_desc'] = 'Модуль публикации проектов';
+
 $L['projects_select_cat'] = "Выберите категорию";
 $L['projects_empty_title'] = "Не указано название проекта";
 $L['projects_empty_text'] = "Описание проекта не может быть пустым";

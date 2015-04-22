@@ -27,6 +27,8 @@ $L['cfg_payoutmin'] = array('The minimum amount for payout', $cfg['payments']['v
 $L['cfg_payoutmax'] = array('The maximum amount for payout', $cfg['payments']['valuta']);
 $L['cfg_clearpaymentsdays'] = array('Clean the base of unpaid bills after', 'дней');
 
+$L['info_desc'] = 'Payment module';
+
 $L['payments_mybalance'] = 'My balance';
 $L['payments_balance'] = 'Balance';
 $L['payments_paytobalance'] = 'To deposit';

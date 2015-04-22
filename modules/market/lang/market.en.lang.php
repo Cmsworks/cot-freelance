@@ -29,6 +29,8 @@ $L['cfg_warranty'] = array('Warranty period (days)');
 $L['cfg_tax'] = array('Selling commission (%)');
 $L['cfg_ordersperpage'] = array('Orders per page');
 
+$L['info_desc'] = 'Online market';
+
 $L['market_select_cat'] = "Select Section";
 $L['market_empty_title'] = "The title can not be empty";
 $L['market_empty_text'] = "Text is empty";

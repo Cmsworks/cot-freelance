@@ -28,7 +28,7 @@
 		</table>
 		<div class="action_bar valid">
 			<p class="paging">{PAGENAV_PAGES} </p>
-			<input type="submit" class="submit" value="{PHP.L.Update}" />
+			<input type="submit" class="submit btn btn-success" value="{PHP.L.Update}" />
 		</div>	
 	</form>
 </div>
@@ -47,7 +47,7 @@
 			</tr>
 		</table>
 		<div class="action_bar valid">
-			<input type="submit" class="submit" value="{PHP.L.Add}" />
+			<input type="submit" class="submit btn btn-success" value="{PHP.L.Add}" />
 		</div>	
 	</form>
 </div>

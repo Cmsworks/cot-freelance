@@ -17,6 +17,8 @@ defined('COT_CODE') or die('Wrong URL.');
 $L['cfg_cost'] = array('Cost', '');
 $L['cfg_limit'] = array('Limit for simle users', '');
 
+$L['info_desc'] = 'PayTop manager';
+
 $L['paytop_admin_config_area'] = 'Area';
 $L['paytop_admin_config_name'] = 'Name';
 $L['paytop_admin_config_cost'] = 'Cost';

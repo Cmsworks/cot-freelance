@@ -22,23 +22,34 @@
 <body>
 	
 <div id="wrapper">
-	<div class="jumbotron">
-		<div class="container">
-			<ul class="nav nav-pills">
-				<li class="pull-right"><a href="{PHP.sys.xk|cot_url('login', 'out=1&x=$this')}"><i class="icon icon-off"></i></a></li>
-				<li class="pull-right"><a href="{PHP|cot_url('index')}" title="{PHP.cfg.maintitle} {PHP.cfg.separator} {PHP.cfg.subtitle}"><i class="icon icon-home"></i></a></li>
-			</ul>
-			<div class="logo"><a href="{PHP|cot_url('admin')}"><img src="themes/{PHP.theme}/img/logo.png"/></a></div>
-			<ul class="nav nav-tabs">
-				<li class="<!-- IF !{PHP.m} -->active<!-- ENDIF -->"><a href="{PHP|cot_url('admin')}" title="{PHP.L.Administration}">{PHP.L.Home}</a></li>
-				<li class="<!-- IF {PHP.m} == 'config' -->active<!-- ENDIF -->"><a href="{PHP|cot_url('admin', 'm=config')}" title="{PHP.L.Configuration}">{PHP.L.Configuration}</a></li>
-				<li class="<!-- IF {PHP.m} == 'structure' -->active<!-- ENDIF -->"><a href="{PHP|cot_url('admin', 'm=structure')}" title="{PHP.L.Structure}">{PHP.L.Structure}</a></li>
-				<li class="<!-- IF {PHP.m} == 'extensions' -->active<!-- ENDIF -->"><a href="{PHP|cot_url('admin', 'm=extensions')}" title="{PHP.L.Extensions}">{PHP.L.Extensions}</a></li>
-				<li class="<!-- IF {PHP.m} == 'users' -->active<!-- ENDIF -->"><a href="{PHP|cot_url('admin', 'm=users')}" title="{PHP.L.Users}">{PHP.L.Users}</a></li>
-				<li class="<!-- IF {PHP.m} == 'other' -->active<!-- ENDIF -->"><a href="{PHP|cot_url('admin', 'm=other')}" title="{PHP.L.Other}">{PHP.L.Other}</a></li>
-			</ul>
+	
+	<div class="navbar navbar-inverse navbar-static-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="brand" href="{PHP|cot_url('admin')}">{PHP.cfg.maintitle}</a>
+				<div class="nav-collapse collapse">
+					<p class="navbar-text pull-right">
+						<a class="navbar-link" href="{PHP|cot_url('index')}" title="{PHP.cfg.maintitle} {PHP.cfg.separator} {PHP.cfg.subtitle}">{PHP.L.Website}</a> | 
+						<a class="navbar-link" href="{PHP.sys.xk|cot_url('login', 'out=1&x=$this')}">{PHP.L.Logout}</a>
+					</p>
+					<ul class="nav">
+						<li class="<!-- IF !{PHP.m} -->active<!-- ENDIF -->"><a href="{PHP|cot_url('admin')}" title="{PHP.L.Administration}">{PHP.L.Home}</a></li>
+						<li class="<!-- IF {PHP.m} == 'config' -->active<!-- ENDIF -->"><a href="{PHP|cot_url('admin', 'm=config')}" title="{PHP.L.Configuration}">{PHP.L.Configuration}</a></li>
+						<li class="<!-- IF {PHP.m} == 'structure' -->active<!-- ENDIF -->"><a href="{PHP|cot_url('admin', 'm=structure')}" title="{PHP.L.Structure}">{PHP.L.Structure}</a></li>
+						<li class="<!-- IF {PHP.m} == 'extensions' -->active<!-- ENDIF -->"><a href="{PHP|cot_url('admin', 'm=extensions')}" title="{PHP.L.Extensions}">{PHP.L.Extensions}</a></li>
+						<li class="<!-- IF {PHP.m} == 'users' -->active<!-- ENDIF -->"><a href="{PHP|cot_url('admin', 'm=users')}" title="{PHP.L.Users}">{PHP.L.Users}</a></li>
+						<li class="<!-- IF {PHP.m} == 'other' -->active<!-- ENDIF -->"><a href="{PHP|cot_url('admin', 'm=other')}" title="{PHP.L.Other}">{PHP.L.Other}</a></li>
+					</ul>
+				</div>
+			</div>
 		</div>
-	</div>
-	<div id="main" class="content container">
+    </div>
+	
+	<div class="container">
 		
 <!-- END: HEADER -->

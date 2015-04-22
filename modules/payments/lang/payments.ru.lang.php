@@ -27,6 +27,8 @@ $L['cfg_payoutmin'] = array('Минимальная сумма для вывод
 $L['cfg_payoutmax'] = array('Максимальная сумма для вывода со счета', $cfg['payments']['valuta']);
 $L['cfg_clearpaymentsdays'] = array('Очищать базу от неоплаченных платежек через', 'дней');
 
+$L['info_desc'] = 'Платежный модуль';
+
 $L['payments_mybalance'] = 'Мой счет';
 $L['payments_balance'] = 'На счету';
 $L['payments_paytobalance'] = 'Пополнить счет';

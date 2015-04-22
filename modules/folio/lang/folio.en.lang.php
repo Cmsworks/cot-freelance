@@ -26,6 +26,8 @@ $L['cfg_foliositemap_prio'] = array('Priority on Sitemap');
 $L['cfg_description'] = array('Description');
 $L['cfg_foliosearch'] = array('Enable search');
 
+$L['info_desc'] = 'Portfolio';
+
 $L['folio_select_cat'] = "Select Section";
 $L['folio_empty_title'] = "The title can not be empty";
 $L['folio_empty_text'] = "Text is empty";

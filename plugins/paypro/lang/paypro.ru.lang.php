@@ -18,6 +18,8 @@ $L['cfg_cost'] = array('Стоимость в месяц', '');
 $L['cfg_offerslimit'] = array('Лимит ответов на проекты для обычных пользователей', '');
 $L['cfg_projectslimit'] = array('Лимит проектов для обычных пользователей', '');
 
+$L['info_desc'] = 'Pro-аккаунты';
+
 $L['paypro_forpro'] = 'Только для PRO';
 
 $L['paypro_buypro_title'] = 'Покупка PRO';

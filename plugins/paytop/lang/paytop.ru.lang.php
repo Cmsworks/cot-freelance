@@ -17,6 +17,8 @@ defined('COT_CODE') or die('Wrong URL.');
 $L['cfg_cost'] = array('Стоимость размещения', '');
 $L['cfg_limit'] = array('Лимит на вывод пользователей на платном месте', '');
 
+$L['info_desc'] = 'Рекламные места для пользователей';
+
 $L['paytop_admin_config_area'] = 'Рекламный блок';
 $L['paytop_admin_config_name'] = 'Название';
 $L['paytop_admin_config_cost'] = 'Стоимость за период';

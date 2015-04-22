@@ -17,6 +17,8 @@ defined('COT_CODE') or die('Wrong URL.');
 $L['cfg_countriesfilter'] = array('Show country', 'codes separated by commas, blank - no filter countries');
 $L['cfg_topcountries'] = array('Show country on the top', 'codes separated by commas');
 
+$L['info_desc'] = 'Location manager';
+
 $L['ls_addcountry'] = 'Add country';
 $L['ls_countries'] = 'Countries';
 $L['ls_nocountries'] = 'The list of countries is empty';

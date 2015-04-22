@@ -30,6 +30,8 @@ $L['cfg_prjsearch'] = array('Enable search');
 $L['cfg_license'] = array('License key');
 $L['cfg_default_type'] = array('Default projects type');
 
+$L['info_desc'] = 'Module publishing projects';
+
 $L['projects_select_cat'] = "Select the category of project";
 $L['projects_empty_title'] = "Title is empty";
 $L['projects_empty_text'] = "Text of project is empty";

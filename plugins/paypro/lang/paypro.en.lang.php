@@ -18,6 +18,8 @@ $L['cfg_cost'] = array('Cosr per month', '');
 $L['cfg_offerslimit'] = array('Offers limit count for simple users', '');
 $L['cfg_projectslimit'] = array('Projects limit count for simple users', '');
 
+$L['info_desc'] = 'Pro-accounts';
+
 $L['paypro_forpro'] = 'Only for PRO';
 
 $L['paypro_buypro_title'] = 'Buy Pro-account';

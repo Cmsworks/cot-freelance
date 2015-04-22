@@ -17,6 +17,8 @@ defined('COT_CODE') or die('Wrong URL.');
 $L['cfg_countriesfilter'] = array('Отображать страны', 'Коды через запятую, пустое значение - без фильтра стран');
 $L['cfg_topcountries'] = array('Отображать страны в начале списка', 'Коды через запятую');
 
+$L['info_desc'] = 'Менеджер стран, регионов и городов';
+
 $L['ls_addcountry'] = 'Добавить страну';
 $L['ls_countries'] = 'Страны';
 $L['ls_nocountries'] = 'Список стран пуст';

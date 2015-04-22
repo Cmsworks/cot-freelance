@@ -10,8 +10,6 @@ body	{
 #main 				{ padding-bottom: 100px; }
 #footer				{ border-top: #DEDEE6 solid 1px; padding: 10px 0; height: 40px; margin-top: -61px; font-size: 12px; }
 
-.logo { padding: 20px 0 20px 0; font-size: 30px; }
-
 input	{ width: inherit!important; }
 textarea	{ width: 99%; min-height: 100px; }
 ul { margin: 0; padding: 0; }
@@ -52,28 +50,4 @@ table tbody + tbody {
   border-top: 2px solid #dddddd;
 }
 
-.jumbotron {
-	padding: 0;
-	background: #DEDEE6;
-	margin-bottom: 20px;
-}
-.jumbotron .nav {
-	padding-bottom: 0px;
-	margin-bottom: 0px;
-}
-.jumbotron h1 {
-  font-size: 30px;
-  font-weight: bold;
-  letter-spacing: -1px;
-  line-height: 1;
-}
-.jumbotron p {
-  font-size: 24px;
-  font-weight: 300;
-  line-height: 1.25;
-  margin-bottom: 30px;
-}
-
-.jumbotron a {
-	color: #000000;
-}
+.follow { list-style:  none; }

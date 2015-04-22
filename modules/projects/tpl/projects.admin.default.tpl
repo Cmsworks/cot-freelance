@@ -72,19 +72,20 @@
 			<td>{PRJ_ROW_TYPE}</td>
 			<td>{PRJ_ROW_CATTITLE}</td>
 			<td>
-				<a href="{PRJ_ROW_EDIT_URL}" class="button" target="blank">{PHP.L.Edit}</a>
+				<a href="{PRJ_ROW_EDIT_URL}" class="button btn" target="blank">{PHP.L.Edit}</a>
 				<!-- IF {PRJ_ROW_STATE} == 2 -->
-				<a href="{PRJ_ROW_VALIDATE_URL}" class="button">{PHP.L.Validate}</a>
+				<a href="{PRJ_ROW_VALIDATE_URL}" class="button btn">{PHP.L.Validate}</a>
 				<!-- ENDIF -->
-				<a href="{PRJ_ROW_DELETE_URL}" class="button">{PHP.L.Delete}</a>
+				<a href="{PRJ_ROW_DELETE_URL}" class="button btn">{PHP.L.Delete}</a>
 			</td>
 		</tr>
 		<!-- END: PRJ_ROWS -->
 		</tbody>
 	</table>
 	<div class="action_bar valid">
-		<p class="paging">{PAGENAV_PAGES} </p>
-		<p>&nbsp </p>
+		<div class="pagination">
+			<ul>{PAGENAV_PAGES}</ul>
+		</div>
 	</div>	
 </div>
 
