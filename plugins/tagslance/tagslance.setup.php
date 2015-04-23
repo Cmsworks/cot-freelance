@@ -7,7 +7,7 @@
  * Name=Tagslance
  * Category=navigation-structure
  * Description=tagslance
- * Version=1.0.0
+ * Version=1.0.1
  * Date=2013-11-09
  * Author=CMSWorks Team
  * Auth_guests=R
@@ -32,7 +32,7 @@
  * plugin tagslance for Cotonti Siena
  * 
  * @package tagslance
- * @version 1.0.0
+ * @version 1.0.1
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru, littledev.ru
  * @license BSD

@@ -120,15 +120,26 @@ foreach($sqllist_rowset as $item)
 	$sqllist_idset[$item['item_id']] = $item['item_alias'];
 }
 
+/* === Hook === */
+$extp = cot_getextplugins('projects.index.loop');
+/* ===== */
+
 foreach($sqllist_rowset as $item)
 {
 	$jj++;
 	$t_pr->assign(cot_generate_usertags($item, 'PRJ_ROW_OWNER_'));
 	$t_pr->assign(cot_generate_projecttags($item, 'PRJ_ROW_', $cfg['projects']['shorttextlen'], $usr['isadmin'], $cfg['homebreadcrumb']));
-	
 	$t_pr->assign(array(
 		"PRJ_ROW_ODDEVEN" => cot_build_oddeven($jj),
 	));
+	
+	/* === Hook - Part2 : Include === */
+	foreach ($extp as $pl)
+	{
+		include $pl;
+	}
+	/* ===== */
+	
 	$t_pr->parse("PROJECTS.PRJ_ROWS");
 }
 
