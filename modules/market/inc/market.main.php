@@ -60,7 +60,7 @@ $title_params = array(
 );
 $out['subtitle'] = cot_title($cfg['market']['title_market'], $title_params);
 
-$out['desc'] = (!empty($item['item_metadesc'])) ? $item['item_metadesc'] : cot_cutstring(strip_tags($item['item_text']), 250);
+$out['desc'] = (!empty($item['item_metadesc'])) ? $item['item_metadesc'] : cot_cutstring(strip_tags(cot_parse($item['item_text'], $cfg['market']['markup'], $item['item_parser'])), 160);
 $out['meta_keywords'] = (!empty($item['item_keywords'])) ? $item['item_keywords'] : $structure['market'][$item['item_cat']]['keywords'];
 
 $mskin = cot_tplfile(array('market', $structure['market'][$item['item_cat']]['tpl']));
