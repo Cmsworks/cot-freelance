@@ -35,6 +35,9 @@
 			<!-- IF !{PHP|cot_getuserpro()} AND {PHP.cfg.plugin.paypro.projectslimit} > 0 AND {PHP.cfg.plugin.paypro.projectslimit} <= {PHP.usr.id|cot_getcountprjofuser($this)} -->
 			<div class="alert alert-warning">{PHP.L.paypro_warning_projectslimit_empty}</div>
 			<!-- ENDIF -->
+			<!-- IF !{PHP|cot_getuserpro()} AND {PHP.cfg.plugin.paypro.offerslimit} > 0 AND {PHP.cfg.plugin.paypro.offerslimit} <= {PHP.usr.id|cot_getcountoffersofuser($this)} -->
+			<div class="alert alert-warning">{PHP.L.paypro_warning_offerslimit_empty}</div>
+			<!-- ENDIF -->
 		<!-- ENDIF -->
 		
 		{PROJECTS}
