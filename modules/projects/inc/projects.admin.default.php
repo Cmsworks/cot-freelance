@@ -23,6 +23,8 @@ $ajax = empty($ajax) ? 0 : (int)$ajax;
 
 $sq = cot_import('sq', 'G', 'TXT');
 
+$mass_act = cot_import('prj_action', 'P', 'TXT');
+$prj_arr = cot_import('prj_arr', 'P', 'ARR');
 /* === Hook === */
 foreach (cot_getextplugins('projects.admin.list.first') as $pl)
 {
@@ -70,6 +72,59 @@ if ($a == 'delete')
 {
 
 	cot_projects_delete($id);
+}
+
+if(count($prj_arr)>0 && in_array($mass_act,array('delete','validate'))){
+		switch ($mass_act) {
+			case 'delete':
+				foreach ($prj_arr as $prj_id) {
+					cot_projects_delete($prj_id);
+				}		
+				cot_redirect(cot_url('admin', 'm=projects&p=default','',true));
+				break;
+			case 'validate':
+						/* === Hook === */
+						$extpl = cot_getextplugins('projects.admin.multiple.validate.first');
+						$extpl1 = cot_getextplugins('projects.admin.multiple.validate.done');
+						/* ===== */
+
+						foreach ($prj_arr as $prj_id) {									
+							 		/* === Hook: Part 1 === */
+							 	    foreach ($extpl as $pl)
+							 	    {
+							 	        include $pl;
+							 	    }
+							 	    /* ===== */							 		
+							 		$sql = $db->query("SELECT * FROM $db_projects AS p LEFT JOIN $db_users AS u ON u.user_id=p.item_userid WHERE item_id='$prj_id' LIMIT 1");
+							 		cot_die($sql->rowCount() == 0);
+							 		$item = $sql->fetch();
+
+							 		$db->update($db_projects, array('item_state' => 0), "item_id=?", array($prj_id));
+
+							 		cot_projects_sync($item['item_cat']);
+
+							 		$rbody = cot_rc($L['project_added_mail_body'], array(
+							 			'user_name' => $item['user_name'],
+							 			'prj_name' => $item['item_title'],
+							 			'sitename' => $cfg['maintitle'],
+							 			'link' => COT_ABSOLUTE_URL.cot_url('projects', 'id='.$prj_id, '', true)
+							 		));
+							 		cot_mail($item['user_email'], $L['project_added_mail_subj'], $rbody);
+
+							 		/* === Hook: Part 2 === */
+							 	    foreach ($extpl1 as $pl)
+							 	    {
+							 	        include $pl;
+							 	    }
+							 	    /* ===== */
+					 	    }
+					 	cot_redirect(cot_url('admin', 'm=projects&p=default','',true));		
+				break;
+			
+			default:
+				cot_redirect(cot_url('admin', 'm=projects&p=default','',true));
+				break;
+		}
 }
 
 $t = new XTemplate(cot_tplfile('projects.admin.default', 'module'));

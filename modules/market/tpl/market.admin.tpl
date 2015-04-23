@@ -36,6 +36,7 @@
 	</form>
 </div>
 
+<form action="{PHP|cot_url('admin','m=market'),'',true}" id="prd_form" method="POST">
 <div id="listmarket">
 	<!-- BEGIN: PRD_ROWS -->
 	<div class="media">
@@ -45,6 +46,7 @@
 		</div>
 		<!-- ENDIF -->
 		<h4><!-- IF {PRD_ROW_COST} > 0 --><div class="cost pull-right">{PRD_ROW_COST} {PHP.cfg.payments.valuta}</div><!-- ENDIF --><a href="{PRD_ROW_URL}">{PRD_ROW_SHORTTITLE}</a></h4>
+		<label><input type="checkbox" name="prd_arr[]" value="{PRD_ROW_ID}">Отметить</label>
 		<p class="owner">{PRD_ROW_OWNER_NAME} <span class="date">[{PRD_ROW_DATE}]</span> &nbsp;{PRD_ROW_COUNTRY} {PRD_ROW_REGION} {PRD_ROW_CITY} &nbsp; {PRD_ROW_ADMIN_EDIT}</p>
 		<div class="pull-right">
 			<!-- IF {PRD_ROW_STATE} == 2 -->
@@ -57,11 +59,24 @@
 	</div>
 		<!-- END: PRD_ROWS -->
 </div>	
+<hr>
+<div class="row">
+	<div class="span3">
+		<select name="prd_action" id="prd_action">
+			<option value="0">---</option>
+			<option value="delete">{PHP.L.Delete}</option>
+			<option value="validate">{PHP.L.Validate}</option>
+		</select>		
+	</div>
+	<div class="span9">
+		<button type="submit" class="btn btn-default">{PHP.L.Confirm}</button>
+	</div>
+</div>
 
 <!-- IF {PAGENAV_COUNT} > 0 -->	
 <div class="pagination"><ul>{PAGENAV_PAGES}</ul></div>
 <!-- ELSE -->
 <div class="alert">{PHP.L.market_notfound}</div>
 <!-- ENDIF -->
-
+</form>	
 <!-- END: MAIN -->

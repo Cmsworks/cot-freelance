@@ -47,6 +47,7 @@
 	</form>
 </div>
 
+<form action="{PHP|cot_url('admin','m=projects'),'',true}" id="prj_form" method="POST">
 <div class="block" id="listprojects">
 	<table class="table">
 		<thead>
@@ -64,7 +65,7 @@
 		<tbody>
 		<!-- BEGIN: PRJ_ROWS -->
 		<tr class="prjitem">
-			<td>{PRJ_ROW_DATE}</td>
+			<td><label><input type="checkbox" name="prj_arr[]" value="{PRJ_ROW_ID}">{PRJ_ROW_DATE}</label></td>
 			<td><a href="{PRJ_ROW_URL}" target="_blank">{PRJ_ROW_SHORTTITLE}</a></td>
 			<td><!-- IF {PRJ_ROW_COST} > 0 --><div class="cost">{PRJ_ROW_COST} {PHP.cfg.payments.valuta}</div><!-- ENDIF --></td>
 			<td>{PRJ_ROW_OWNER_NAME}</td>
@@ -80,13 +81,26 @@
 			</td>
 		</tr>
 		<!-- END: PRJ_ROWS -->
+		<tr class="prjitem">
+				<td colspan="2">
+					<select name="prj_action" id="prj_action">
+						<option value="0">---</option>
+						<option value="delete">{PHP.L.Delete}</option>
+						<option value="validate">{PHP.L.Validate}</option>
+					</select>
+				</td>
+				<td colspan="6">
+					<button type="submit" class="btn btn-default">{PHP.L.Confirm}</button>
+				</td>		
+			</tr>
 		</tbody>
 	</table>
 	<div class="action_bar valid">
 		<div class="pagination">
 			<ul>{PAGENAV_PAGES}</ul>
 		</div>
-	</div>	
+	</div>
+	</form>		
 </div>
 
 

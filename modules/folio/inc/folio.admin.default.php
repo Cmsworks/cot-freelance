@@ -23,6 +23,8 @@ $ajax = empty($ajax) ? 0 : (int)$ajax;
 
 $sq = cot_import('sq', 'G', 'TXT');
 
+$mass_act = cot_import('prd_action', 'P', 'TXT');
+$prd_arr = cot_import('prd_arr', 'P', 'ARR');
 /* === Hook === */
 foreach (cot_getextplugins('folio.admin.list.first') as $pl)
 {
@@ -30,15 +32,19 @@ foreach (cot_getextplugins('folio.admin.list.first') as $pl)
 }
 /* ===== */
 
+/* === Hook === */
+$extpl = cot_getextplugins('folio.admin.validate.first');
+$extpl1 = cot_getextplugins('folio.admin.validate.done');
+/* ===== */
 if ($a == 'validate')
 {
 
-	/* === Hook === */
-    foreach (cot_getextplugins('folio.admin.validate.first') as $pl)
-    {
-        include $pl;
-    }
-    /* ===== */
+	/* === Hook: Part 1 === */
+	foreach ($extpl as $pl)
+	{
+	    include $pl;
+	}
+	/* ===== */	
 	
 	$sql = $db->query("SELECT * FROM $db_folio AS f LEFT JOIN $db_users AS u ON u.user_id=f.item_userid WHERE item_id='$id' LIMIT 1");
 	cot_die($sql->rowCount() == 0);
@@ -56,10 +62,10 @@ if ($a == 'validate')
 	));
 	cot_mail($item['user_email'], $L['folio_added_mail_subj'], $rbody);
 
-	/* === Hook === */
-	foreach (cot_getextplugins('folio.admin.validate.done') as $pl)
+	/* === Hook: Part 2 === */
+	foreach ($extpl1 as $pl)
 	{
-		include $pl;
+	    include $pl;
 	}
 	/* ===== */
 
@@ -69,6 +75,53 @@ if ($a == 'validate')
 if ($a == 'delete')
 {
 	cot_folio_delete($id);
+}
+if(count($prd_arr)>0 && in_array($mass_act,array('delete','validate'))){
+		switch ($mass_act) {
+			case 'delete':
+				foreach ($prd_arr as $prd_id) {
+					cot_folio_delete($prd_id);
+				}		
+				cot_redirect(cot_url('admin', 'm=folio&p=default','',true));
+				break;
+			case 'validate':
+						foreach ($prd_arr as $prd_id) {									
+							 		/* === Hook: Part 1 === */
+							 	    foreach ($extpl as $pl)
+							 	    {
+							 	        include $pl;
+							 	    }
+							 	    /* ===== */							 		
+									 $sql = $db->query("SELECT * FROM $db_folio AS f LEFT JOIN $db_users AS u ON u.user_id=f.item_userid WHERE item_id='$prd_id' LIMIT 1");
+									 cot_die($sql->rowCount() == 0);
+									 $item = $sql->fetch();
+
+									 $db->update($db_folio, array('item_state' => 0), "item_id=?", array($prd_id));
+
+									 cot_folio_sync($item['item_cat']);
+
+									 $rbody = cot_rc($L['folio_added_mail_body'], array(
+									 	'user_name' => $item['user_name'],
+									 	'prd_name' => $item['item_title'],
+									 	'sitename' => $cfg['maintitle'],
+									 	'link' => COT_ABSOLUTE_URL.cot_url('folio', 'id='.$prd_id, '', true)
+									 ));
+									 cot_mail($item['user_email'], $L['folio_added_mail_subj'], $rbody);
+							 
+							 		/* === Hook: Part 2 === */
+							 	    foreach ($extpl1 as $pl)
+							 	    {
+							 	        include $pl;
+							 	    }
+							 	    /* ===== */
+					 	    }
+					 	cot_redirect(cot_url('admin', 'm=folio&p=default','',true));		
+				break;
+			
+			default:
+				cot_redirect(cot_url('admin', 'm=folio&p=default','',true));
+				break;
+		}
 }
 
 $t = new XTemplate(cot_tplfile('folio.admin.default', 'module'));

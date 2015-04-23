@@ -22,6 +22,9 @@ $ajax = empty($ajax) ? 0 : (int)$ajax;
 
 $sq = cot_import('sq', 'G', 'TXT');
 
+$mass_act = cot_import('prd_action', 'P', 'TXT');
+$prd_arr = cot_import('prd_arr', 'P', 'ARR');
+
 $maxrowsperpage = ($cfg['market']['cat_' . $c]['maxrowsperpage']) ? $cfg['market']['cat_' . $c]['maxrowsperpage'] : $cfg['market']['cat___default']['maxrowsperpage'];
 list($pn, $d, $d_url) = cot_import_pagenav('d', $maxrowsperpage);
 
@@ -31,12 +34,16 @@ foreach (cot_getextplugins('market.admin.list.first') as $pl)
 	include $pl;
 }
 /* ===== */
+/* === Hook === */
+ $extpl = cot_getextplugins('market.admin.validate.first');
+ $extpl1  = cot_getextplugins('market.admin.validate.done');
+/* ===== */
 
 if ($a == 'validate')
 {
 
-	/* === Hook === */
-    foreach (cot_getextplugins('market.admin.validate.first') as $pl)
+	/* === Hook: Part 1 === */
+    foreach ($extpl as $pl)
     {
         include $pl;
     }
@@ -58,8 +65,8 @@ if ($a == 'validate')
 	));
 	cot_mail($item['user_email'], $L['market_added_mail_subj'], $rbody);
 
-	/* === Hook === */
-	foreach (cot_getextplugins('market.admin.validate.done') as $pl)
+	/* === Hook: Part 2 === */
+	foreach ($extpl1 as $pl)
 	{
 		include $pl;
 	}
@@ -71,6 +78,52 @@ if ($a == 'validate')
 if ($a == 'delete')
 {
 	cot_market_delete($id);
+}
+if(count($prd_arr)>0 && in_array($mass_act,array('delete','validate'))){
+		switch ($mass_act) {
+			case 'delete':
+				foreach ($prd_arr as $prd_id) {
+					cot_market_delete($prd_id);
+				}		
+				cot_redirect(cot_url('admin', 'm=market&p=default','',true));
+				break;
+			case 'validate':
+						foreach ($prd_arr as $prd_id) {									
+						 			/* === Hook: Part 1 === */
+						 		    foreach ($extpl as $pl)
+						 		    {
+						 		        include $pl;
+						 		    }
+						 		    /* ===== */						 		
+									$sql = $db->query("SELECT * FROM $db_market AS m LEFT JOIN $db_users AS u ON u.user_id=m.item_userid WHERE item_id='$prd_id' LIMIT 1");
+									cot_die($sql->rowCount() == 0);
+									$item = $sql->fetch();
+
+									$db->update($db_market, array('item_state' => 0), "item_id=?", array($prd_id));
+
+									cot_market_sync($item['item_cat']);
+
+									$rbody = cot_rc($L['market_added_mail_body'], array(
+										'user_name' => $item['user_name'],
+										'prd_name' => $item['item_title'],
+										'sitename' => $cfg['maintitle'],
+										'link' => COT_ABSOLUTE_URL.cot_url('market', 'id='.$prd_id, '', true)
+									));
+									cot_mail($item['user_email'], $L['market_added_mail_subj'], $rbody);
+							 		/* === Hook: Part 2 === */
+							 	    foreach ($extpl1 as $pl)
+							 	    {
+							 	        include $pl;
+							 	    }
+							 	    /* ===== */
+					 	    }
+					 	cot_redirect(cot_url('admin', 'm=market&p=default','',true));		
+				break;
+			
+			default:
+				cot_redirect(cot_url('admin', 'm=market&p=default','',true));
+				break;
+		}
 }
 
 $t = new XTemplate(cot_tplfile('market.admin.default', 'module'));
