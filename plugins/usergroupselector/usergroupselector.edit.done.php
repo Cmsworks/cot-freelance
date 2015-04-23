@@ -30,6 +30,7 @@ if(!empty($cfg['plugin']['usergroupselector']['groups']))
 		$r_id = $userid;
 	}
 	if (in_array($m, array('profile', 'edit'))
+		&& ($cfg['plugin']['usergroupselector']['allowchange'] || $usr['isadmin'])
 		&& $ruser['user_usergroup'] != $urr['user_maingrp'] 
 		&& $ruser['user_usergroup'] != COT_GROUP_SUPERADMINS
 		&& $ruser['user_usergroup'] != COT_GROUP_MODERATORS
