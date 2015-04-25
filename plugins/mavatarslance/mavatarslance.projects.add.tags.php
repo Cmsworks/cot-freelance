@@ -36,5 +36,5 @@ if (cot_plugin_active('mavatars') && $cfg['plugin']['mavatarslance']['projects']
 	}
 	$mavatar = new mavatar('projects', $category, $code);
 
-	$t->assign('PRJ'.$mavpr.'_FORM_MAVATAR', $mavatar->generate_upload_form());
+	$t->assign('PRJ'.$mavpr.'_FORM_MAVATAR', $mavatar->upload_form());
 }

@@ -24,5 +24,5 @@ if (cot_plugin_active('mavatars') && $cfg['plugin']['mavatarslance']['projects']
 	
 	$mavatar = new mavatar('projectoffers', $id, 'new');
 	
-	$t_o->assign('OFFER_FORM_MAVATAR', $mavatar->generate_upload_form());
+	$t_o->assign('OFFER_FORM_MAVATAR', $mavatar->upload_form());
 }
