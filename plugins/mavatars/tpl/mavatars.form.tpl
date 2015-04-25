@@ -1,12 +1,31 @@
 <!-- BEGIN: MAIN -->
 <div class="mavatar_uploadform">
-	<div class="uploadedfiles">
+	<div class="uploadedfiles rows">
 	<!-- BEGIN: FILES -->	
 		<!-- BEGIN: ROW -->
-		<div class="uploadedfile">{ENABLED}#{FILEORDER} <a href="{FILE}">{FILEORIGNAME}.{FILEEXT}</a> {PHP.L.Desc}{FILEDESC}{FILENEW}</div>
+		<div class="uploadedfile col-md-3 marginbottom10">	
+
+			<div class="img text-center">
+				<a href="{MAVATAR.FILE}" target="_blank"  class="fancybox" rel="gallery1"><img src="{MAVATAR|cot_mav_thumb($this, 255, 191, auto)}" alt="{MAVATAR.FILENAME}.{MAVATAR.FILEEXT}" title="{MAVATAR.FILENAME}.{MAVATAR.FILEEXT}" class="img-thumbnail" /></a>
+			</div>
+			<div class="des">
+				<div class="inp">{FILEDESCTEXT|cot_rc_modify('$this', 'class="form-control"')}{FILENEW}</div> 
+			</div>			
+			<div class="order input-group">
+				<span class="input-group-addon">
+		        	Порядок
+		    	</span>
+		    	{FILEORDER|cot_rc_modify('$this', 'class="form-control"')}
+				<span class="input-group-addon">
+		        	 Доступна {ENABLED}
+		    	</span>		    	
+			</div>			
+
+		</div>
 		<!-- END: ROW -->	
 	<!-- END: FILES -->
 	</div>
+	<div class="clearfix"></div>
 
 	<!-- BEGIN: UPLOAD -->
 	{PHP.L.mavatar_form_addfiles}
@@ -16,17 +35,56 @@
 	<!-- END: UPLOAD -->
 	
 	<!-- BEGIN: AJAXUPLOAD -->
+
+ 
+	<script>
+		window.FileAPI = {
+			  debug: false // debug mode
+			, staticPath: '{PHP.cfg.plugins_dir}/mavatars/lib/FileAPI/' // path to *.swf
+		};
+	</script>	
 	
-	<script type="text/javascript" src="{PHP.cfg.plugins_dir}/mavatars/js/mavatars.js"></script>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$('head').append('<link href="{PHP.cfg.plugins_dir}/mavatars/css/mavatars.css" type="text/css" rel="stylesheet" />');
-			$(".mavatar_uploadform").mavatarsUpload({ url:'{FILEUPLOAD_URL}', 
-				btnText:'{PHP.L.mavatar_form_addfiles}'
+	<script src="{PHP.cfg.plugins_dir}/mavatars/lib/FileAPI/FileAPI.min.js"></script>
+	<script src="{PHP.cfg.plugins_dir}/mavatars/lib/FileAPI/FileAPI.exif.js"></script>
+	<script src="{PHP.cfg.plugins_dir}/mavatars/lib/jquery.fileapi.min.js"></script>
+	
+	<div id="uploader">
+		<div class="js-fileapi-wrapper">
+			<input type="file"  tabindex="-1" hidefocus="true" id="mavatar_file" name="mavatar_file[]" />
+		</div>
+		<div data-fileapi="active.show" class="progress">
+			<div data-fileapi="progress" class="progress__bar"></div>
+		</div>
+	</div>
+	<script>
+		jQuery(function ($){
+			$('#uploader').fileapi({
+				url: '{FILEUPLOAD_URL}',
+				autoUpload: true,
+			//	accept: 'image/*',
+				multiple: true,
+				maxSize: FileAPI.MB*10, // max file size
+				imageTransform: {
+					// resize by max side
+					maxWidth: 1200,
+					maxHeight: 1200
+				},
+				onFileComplete: function (evt, uiEvt){
+					var file = uiEvt.file;
+					var data = uiEvt.result;
+					if (data == 1 || data.success == 1) {
+					//	uploadobj.remove();
+						var decoded = $('<textarea/>').html(data.form).val();
+							$('.uploadedfiles').append(decoded);
+						}
+					else {
+						$(this).prepend(alertmessage.replace(/\%text\%/g, data.error));
+					}
+				}
 			});
 		});
 	</script>
-	<div><input type="file" value="" id="mavatar_file" name="mavatar_file"></div>
+	
 	<!-- END: AJAXUPLOAD -->
 	
 	<!-- BEGIN: CURLUPLOAD -->

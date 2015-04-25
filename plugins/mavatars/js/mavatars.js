@@ -76,9 +76,11 @@
 						fileinput.parent('form').bind('submit', function() {
 							fileuploadcontainer.html('');
 							UploadFile();
+							fileinput.replaceWith(fileinput.val('').clone(true));
 						});
 					}
 				}
+				
 			});
 		
 		/*	uploadedfiles.find('.uploadedfile').find("input[type=checkbox]").click(function() {

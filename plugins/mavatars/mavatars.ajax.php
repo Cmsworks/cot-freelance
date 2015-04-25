@@ -18,8 +18,9 @@
 defined('COT_CODE') or die('Wrong URL');
 
 $m = cot_import('m', 'G', 'TXT');
+
 // Mode choice
-if (!in_array($m, array()))
+if (!in_array($m, array('thumb')))
 {
 	$m = 'upload';
 }

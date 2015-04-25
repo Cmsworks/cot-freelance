@@ -5,10 +5,10 @@
  * Code=mavatars
  * Name=MAvatars
  * Description=Adding files for cotonti modules
- * Version=1.2
- * Date=08-aug-2013
- * Author=esclkm littledev.ru, Antonio Graber
- * Copyright=(c)esclkm, Antonio Graber 
+ * Version=2.2
+ * Date=08-jan-2015
+ * Author=esclkm littledev.ru
+ * Copyright=(c)esclkm
  * Notes=
  * Auth_guests=R
  * Lock_guests=W12345A
@@ -20,7 +20,7 @@
  * [BEGIN_COT_EXT_CONFIG]
  * items=01:select:0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16:8:Attachments per post (max.)
  * set=99:textarea::||datas/mavatars|datas/mavatars|0||:Format settings cat|path|thumb path|reqiured|ext|mazfilesize
- * turnajax=02:radio::0:
+ * turnajax=02:radio::1:
  * turncurl=03:radio::0:
  * filecheck=04:radio::1:
  * separator_viewer=90:separator:0:0:Viewer config
