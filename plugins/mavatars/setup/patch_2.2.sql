@@ -1,0 +1,1 @@
+ALTER TABLE `cot_mavatars` ADD COLUMN `mav_date` int(11) NOT NULL;
