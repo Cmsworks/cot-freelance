@@ -286,6 +286,13 @@ if ($a == 'addpost')
 			));
 			cot_mail($offer['user_email'], $rsubject, $rbody);
 		}
+		
+		/* === Hook === */
+		foreach (cot_getextplugins('projects.offers.addpost.done') as $pl)
+		{
+			include $pl;
+		}
+		/* ===== */
 	}
 	cot_redirect(cot_url('projects', 'id=' . $id, '', true));
 	exit;
