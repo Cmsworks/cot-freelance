@@ -1,5 +1,5 @@
 <?php
-
+ 
 /**
  * projects module
  *
@@ -102,7 +102,7 @@ if ($a == 'addoffer')
 			include $pl;
 		}
 		/* ===== */
-
+		cot_message($L['offers_add_done'], 'ok');
 		cot_redirect(cot_url('projects', 'm=show&id=' . $id, '', true));
 		exit;
 	}
@@ -146,7 +146,7 @@ if ($a == 'setperformer' && !empty($userid))
 			'link' => COT_ABSOLUTE_URL . cot_url('projects', $urlparams, '', true)
 		));
 		cot_mail($urr['user_email'], $rsubject, $rbody);
-		
+		cot_message(cot_rc($L['performer_set_done'],array('username' => $urr['user_name'])), 'ok');
 		if(!empty($lastperformer))
 		{
 			// Если исполнителем был другой пользователь, то ему отказ
@@ -165,7 +165,7 @@ if ($a == 'setperformer' && !empty($userid))
 				'link' => COT_ABSOLUTE_URL . cot_url('projects', $urlparams, '', true)
 			));
 			cot_mail($lastperformer['user_email'], $rsubject, $rbody);
-			
+			cot_message(cot_rc($L['performer_set_refuse'],array('username' => $lastperformer['user_name'])), 'warning');
 			/* === Hook === */
 			foreach (cot_getextplugins('projects.offers.setperformer.refuselastperformer') as $pl)
 			{
@@ -217,7 +217,8 @@ if ($a == 'refuse' && !empty($userid))
 			'link' => COT_ABSOLUTE_URL . cot_url('projects', $urlparams, '', true)
 		));
 		cot_mail($urr['user_email'], $rsubject, $rbody);
-
+		cot_message(cot_rc($L['performer_set_refuse'],array('username' => $urr['user_name'])), 'warning');
+			
 		/* === Hook === */
 		foreach (cot_getextplugins('projects.offers.refuse') as $pl)
 		{
@@ -286,7 +287,7 @@ if ($a == 'addpost')
 			));
 			cot_mail($offer['user_email'], $rsubject, $rbody);
 		}
-		
+		cot_message($L['offers_add_post'], 'ok');
 		/* === Hook === */
 		foreach (cot_getextplugins('projects.offers.addpost.done') as $pl)
 		{

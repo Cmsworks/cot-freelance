@@ -1,5 +1,5 @@
 <?php
-
+ 
 /**
  * projects module
  *
@@ -116,6 +116,11 @@ $L['offers_useroffers_performer'] = 'Исполнитель';
 $L['offers_useroffers_refuse'] = 'Отказали';
 
 $L['offers_empty_text'] = 'Предложение не может быть пустым';
+$L['offers_add_done'] = 'Предложение добавленно';
+$L['offers_add_post'] = 'Сообщение отправленно';
+
+$L['performer_set_done'] = '{$username} выбран исполнителем';
+$L['performer_set_refuse'] = 'Отказано {$username}';
 
 $L['offers_add_msg'] = 'Написать сообщение';
 $L['offers_posts_title'] = 'Переписка по заказу';

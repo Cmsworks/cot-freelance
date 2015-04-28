@@ -116,6 +116,11 @@ $L['offers_useroffers_performer'] = 'Performer';
 $L['offers_useroffers_refuse'] = 'Refused';
 
 $L['offers_empty_text'] = 'Offer text is empty';
+$L['offers_add_done'] = 'Offer send';
+$L['offers_add_post'] = 'Message send';
+
+$L['performer_set_done'] = '{$username} chosen contractor';
+$L['performer_set_refuse'] = 'Being denied {$username}';
 
 $L['offers_add_msg'] = 'Send a message';
 $L['offers_posts_title'] = 'Posts';

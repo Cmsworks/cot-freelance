@@ -1,5 +1,5 @@
 <!-- BEGIN: MAIN -->
-
+{FILE "{PHP.cfg.themes_dir}/{PHP.cfg.defaulttheme}/warnings.tpl"}
 <!-- IF {PRJ_PERFORMER_ID} > 0 -->
 <h4>{PHP.L.offers_vibran_ispolnitel}</h4>
 <div class="well well-small">
