@@ -30,7 +30,7 @@ if (cot_plugin_active('mavatars') && $cfg['plugin']['mavatarslance']['market'])
 	}
 	else
 	{
-		$code = 'new';
+		$code = '';
 		$category = $ritem['item_cat'];
 		$mavpr = 'ADD';
 	}

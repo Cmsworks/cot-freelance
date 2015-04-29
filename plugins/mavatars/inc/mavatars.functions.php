@@ -253,6 +253,8 @@ class mavatar
 
 	private function get_mavatar_byid($id)
 	{
+		global $db;
+		
 		foreach ($this->mavatars as $key => $mavatar)
 		{
 			if ($mavatar['id'] == $id)
