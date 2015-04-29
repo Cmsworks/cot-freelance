@@ -34,8 +34,7 @@ $mavatars_tags = $mavatar->tags();
 
 
 $image = $mavatar->thumb($mavatars_tags[1], $width, $height, $resize, $filter, $quality);
-cot_watch($image, $mavatars_tags);
-ob_clean();
+
 header('Content-Type: image/jpeg');
 
 readfile($image);
