@@ -15,7 +15,7 @@
 
 	$.fn.mavatarsUpload = function(options) {
 
-		// default configuration properties
+		/* default configuration properties*/
 		var defaults = {
 			onSubmit: false,
 			btnText: "Browse files...",
@@ -35,15 +35,15 @@
 
 		var options = $.extend(defaults, options);
 
-		// строки замены. просто в стандартной библиотеке очень коряво был html - хочется это несколько упорядочить
+		/*строки замены. просто в стандартной библиотеке очень коряво был html - хочется это несколько упорядочить*/
 		var inputform = '<button class="button large special">%text%</button><div class="mavatarscontainer"></div>';
 		var progressbar = '<div class="file"><div class="filename"></div><div class="mavatarsupload-progress"><div class="mavatarsupload-bar mavatarsupload-progressbar" style="width: 0%;"><span></span></div></div></div>'
 		var alertmessage = '<div class="mavatarsupload-alert"><button type="button" class="close">&times;</button>%text%</div>'
 		
-		//Main function
-		var obj; //объект маватара
-		var fileinput; //поле ввода
-		var fileuploadcontainer; // поле прогреессбаров
+		/*Main function*/
+		var obj; /*объект маватара*/
+		var fileinput; /*поле ввода*/
+		var fileuploadcontainer; /*поле прогреессбаров*/
 		var uploadedfiles;
 		
 		var file = new Object();
@@ -58,12 +58,12 @@
 			fileuploadcontainer = fileinput.next('button').next('.mavatarscontainer');	
 			uploadedfiles = obj.find('.uploadedfiles');
 			
-			//Event when clicked the newly created link
+			/*Event when clicked the newly created link*/
 			fileinput.next('button').click(function() {
 				fileinput.click();
 				return false;
 			});
-			//Event when user select a file
+			/*Event when user select a file*/
 			fileinput.change(function() {
 				file.name = fileinput.val().split('\\').pop();
 				file.size = (fileinput[0].files[0].size / 1024) / 1024;
@@ -89,7 +89,7 @@
 				return false;
 			});*/		
 		});
-		//Function that uploads a file
+		/*Function that uploads a file*/
 		function UploadFile() {
 			var error = true;
 			var uploadobj;
@@ -104,7 +104,7 @@
 				url: options.url,
 				type: 'POST',
 				data: formData,
-			//	dataType: 'json',
+			/*dataType: 'json',*/
 				success: function(data) {
 					var percent = 100;
 					uploadobj.find('.mavatarsupload-progressbar:first').width(percent + '%');
@@ -118,7 +118,7 @@
 					}
 					if (data == 1 || data.success == 1) {
 						options.multi == false && fileinput.attr('disabled', 'disabled');
-					//	uploadobj.remove();
+					/*uploadobj.remove();*/
 						var decoded = $('<textarea/>').html(data.form).val();
 							uploadedfiles.append(decoded);
 						}
@@ -133,10 +133,10 @@
 						error = false;
 					}
 				},
-				xhr: function() {  // custom xhr
+				xhr: function() {  /* custom xhr*/
 					myXhr = $.ajaxSettings.xhr();
-					if (myXhr.upload) { // check if upload property exists
-						myXhr.upload.addEventListener('progress', progressHandlingFunction, false); // for handling the progress of the upload
+					if (myXhr.upload) { /* check if upload property exists*/
+						myXhr.upload.addEventListener('progress', progressHandlingFunction, false); /*for handling the progress of the upload*/
 					}
 					return myXhr;
 				},
@@ -146,7 +146,7 @@
 			});
 			return error;
 		}
-		//Function that updates bars progress
+		/*Function that updates bars progress*/
 		function progressHandlingFunction(e) {
 			if (e.lengthComputable) {
 				var total = e.total;
@@ -161,7 +161,7 @@
 				fileuploadcontainer.find('.file').first().find('.mavatarsupload-progressbar:first span').text(percent + "%");
 			}
 		}
-		//Validate master
+		/*Validate master*/
 		function validateresult() {
 			var canUpload = true;
 			if (options.allowedExtensions != "") {
@@ -194,7 +194,7 @@
 			}
 			return canUpload;
 		};
-		//Validate extension of file
+		/*Validate extension of file*/
 		function validateExtension() {
 			var ext = fileinput.val().split('.').pop().toLowerCase();
 			var allowed = options.allowedExtensions.split("|");
@@ -205,7 +205,7 @@
 				return true;
 			}
 		};
-		//Validate Size of the file
+		/*Validate Size of the file*/
 		function validateSize() {
 			if (file.size > options.maxSize) {
 				return false;

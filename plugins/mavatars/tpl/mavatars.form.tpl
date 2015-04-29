@@ -39,8 +39,8 @@
  
 	<script>
 		window.FileAPI = {
-			  debug: false // debug mode
-			, staticPath: '{PHP.cfg.plugins_dir}/mavatars/lib/FileAPI/' // path to *.swf
+			  debug: false
+			, staticPath: '{PHP.cfg.plugins_dir}/mavatars/lib/FileAPI/' /* path to *.swf*/
 		};
 	</script>	
 	
@@ -61,11 +61,10 @@
 			$('#uploader').fileapi({
 				url: '{FILEUPLOAD_URL}',
 				autoUpload: true,
-			//	accept: 'image/*',
+			/*accept: 'image/*',*/
 				multiple: true,
-				maxSize: FileAPI.MB*10, // max file size
+				maxSize: FileAPI.MB*10, /*max file size*/
 				imageTransform: {
-					// resize by max side
 					maxWidth: 1200,
 					maxHeight: 1200
 				},
@@ -73,7 +72,7 @@
 					var file = uiEvt.file;
 					var data = uiEvt.result;
 					if (data == 1 || data.success == 1) {
-					//	uploadobj.remove();
+					/*uploadobj.remove();*/
 						var decoded = $('<textarea/>').html(data.form).val();
 							$('.uploadedfiles').append(decoded);
 						}

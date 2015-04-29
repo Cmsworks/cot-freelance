@@ -26,7 +26,7 @@ if ((int) $id > 0)
 }
 else
 {
-	$code = 'new';
+	$code = '';
 	$category = $rpage['page_cat'];
 	$mavpr = 'ADD';
 }

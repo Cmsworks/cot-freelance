@@ -49,7 +49,6 @@
 				<td align="right">{PHP.L.Image}:</td>
 				<td>
 					{PRDADD_FORM_MAVATAR}
-					<div class="desc">{PHP.L.market_image_limit}</div>
 				</td>
 			</tr>
 			<tr>
