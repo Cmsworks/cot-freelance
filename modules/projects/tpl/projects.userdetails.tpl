@@ -1,6 +1,23 @@
 <!-- BEGIN: MAIN -->
 <h4><!-- IF {PHP.usr.id} == {PHP.urr.user_id} AND {ADDPRJ_SHOWBUTTON} --><div class="pull-right"><a href="{PHP|cot_url('projects', 'm=add')}" class="btn btn-success">{PHP.L.projects_add_to_catalog}</a></div><!-- ENDIF -->{PHP.L.projects_projects}</h4>
 
+<ul class="nav nav-pills">
+  <li>
+ 	  <a href="{PHP.urr.user_id|cot_url('users', 'm=details&id=$this&tab=projects')}">{PHP.L.All}</a>
+  </li>
+  	<!-- BEGIN: CAT_ROW -->
+  		<li class="centerall <!-- IF {PRJ_CAT_ROW_SELECT} -->active<!-- ENDIF -->">
+  				<a href="{PRJ_CAT_ROW_URL}">
+  						<!-- IF {PRJ_ROW_CAT_ICON} -->
+  							<img src="{PRJ_CAT_ROW_ICON}" alt="{PRJ_CAT_ROW_TITLE} ">
+  						<!-- ENDIF -->
+  						{PRJ_CAT_ROW_TITLE} 
+  					<span class="badge badge-inverse">{PRJ_CAT_ROW_COUNT_PROJECTS}</span>
+  				</a>
+  		</li>
+  	<!-- END: CAT_ROW -->
+</ul>
+<hr>
 <div id="listprojects">
 	<!-- BEGIN: PRJ_ROWS -->
 	<div class="media<!-- IF {PRJ_ROW_ISBOLD} --> well prjbold<!-- ENDIF --><!-- IF {PRJ_ROW_ISTOP} --> well prjtop<!-- ENDIF -->">
