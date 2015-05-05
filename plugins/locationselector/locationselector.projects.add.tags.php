@@ -20,15 +20,14 @@ defined('COT_CODE') or die('Wrong URL.');
 if ((int) $id > 0)
 {
 	$t->assign(array(
-		"PRJEDIT_FORM_LOCATION" => cot_select_location('rlocation', $item['item_country'], $item['item_region'], $item['item_city'])
+		"PRJEDIT_FORM_LOCATION" => cot_select_location($item['item_country'], $item['item_region'], $item['item_city'])
 	)); 
 }
 else
 {
 	$t->assign(array(
-		"PRJADD_FORM_LOCATION" => cot_select_location('rlocation', $ritem['item_country'], $ritem['item_region'], $ritem['item_city'], true)
+		"PRJADD_FORM_LOCATION" => cot_select_location($ritem['item_country'], $ritem['item_region'], $ritem['item_city'], true)
 	));
 }
 
 // ==============================================
-

@@ -33,5 +33,5 @@ if ($prfx != 'USERS_REGISTER_')
 }
 $t->assign(array(
 	$prfx . 'LOCATION' => (function_exists('cot_select_location')) ?
-			cot_select_location('rlocation', $ruser['user_country'], $ruser['user_region'], $ruser['user_city']) : '',
+			cot_select_location($ruser['user_country'], $ruser['user_region'], $ruser['user_city']) : '',
 ));

@@ -180,7 +180,7 @@ function cot_getlocation($country = '', $region = 0, $city = 0)
 	return $location;
 }
 
-function cot_select_location($name, $country = '', $region = 0, $city = 0, $userdefault = false)
+function cot_select_location($country = '', $region = 0, $city = 0, $userdefault = false)
 {
 	global $cfg, $L, $R, $usr;
 
@@ -203,7 +203,7 @@ function cot_select_location($name, $country = '', $region = 0, $city = 0, $user
 	$countries = cot_getcountries($countriesfilter);
 	if($countries){
 		$countries = array(0 => $L['select_country']) + $countries;
-		$country_selectbox = cot_selectbox($country, $name . '[country]', array_keys($countries), array_values($countries), 
+		$country_selectbox = cot_selectbox($country, 'country', array_keys($countries), array_values($countries), 
 			false, $disabled . 'class="locselectcountry form-control" id="locselectcountry"');
 		$country_selectbox .= (count($countriesfilter) == 1) ? cot_inputbox('hidden', $name . '[country]', $country) : '';
 
@@ -211,14 +211,14 @@ function cot_select_location($name, $country = '', $region = 0, $city = 0, $user
 		$regions = (!empty($country)) ? cot_getregions($country) : array();
 		$regions = array(0 => $L['select_region']) + $regions;
 		$disabled = (empty($country) || count($regions) < 2) ? 'disabled="disabled" ' : '';
-		$region_selectbox = cot_selectbox($region, $name . '[region]', array_keys($regions), array_values($regions), 
+		$region_selectbox = cot_selectbox($region, 'region', array_keys($regions), array_values($regions), 
 			false, $disabled . 'class="locselectregion form-control" id="locselectregion"');
 
 		$city = ($region == 0 || count($regions) < 2) ? 0 : $city;
 		$cities = (!empty($region)) ? cot_getcities($region) : array();
 		$cities = array(0 => $L['select_city']) + $cities;
 		$disabled = (empty($region) || count($cities) < 2) ? 'disabled="disabled" ' : '';
-		$city_selectbox = cot_selectbox($city, $name . '[city]', array_keys($cities), array_values($cities), 
+		$city_selectbox = cot_selectbox($city, 'city', array_keys($cities), array_values($cities), 
 			false, $disabled . 'class="locselectcity form-control" id="locselectcity"');	
 
 		$result = cot_rc('input_location' , array(
@@ -236,17 +236,14 @@ function cot_select_location($name, $country = '', $region = 0, $city = 0, $user
 /**
  * Imports location data
  *
- * @param string $name Variable name
  * @param string $source Source type: P (POST), C (COOKIE) or D (variable filtering)
  * @return array
  */
-function cot_import_location($name, $source = 'P')
+function cot_import_location($source = 'P')
 {
-	$location = cot_import($name, $source, 'ARR');
-	$result['country'] = cot_import($location['country'], 'D', 'TXT');
-	$result['region'] = cot_import($location['region'], 'D', 'INT');
-	$result['city'] = cot_import($location['city'], 'D', 'INT');
-
+	$result['country'] = cot_import('country',$source, 'TXT');
+	$result['region'] = cot_import('region', $source, 'INT');
+	$result['city'] = cot_import('city', $source, 'INT');
 	$result['region'] = ($result['country'] == '0') ? 0 : $result['region'];
 	$result['city'] = ($result['region'] == 0) ? 0 : $result['city'];
 

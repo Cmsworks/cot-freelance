@@ -28,7 +28,7 @@ if(isset($_REQUEST['country']))
 	$regions = (!empty($country)) ? cot_getregions($country) : array();
 	$regions = array(0 => $L['select_region']) + $regions;
 	$disabled = (empty($country) || count($regions) < 2) ? 'disabled="disabled" ' : '';
-	$region_selectbox = cot_selectbox($regions, '[region]', array_keys($regions), array_values($regions), 
+	$region_selectbox = cot_selectbox($regions, 'region', array_keys($regions), array_values($regions), 
 		false, $disabled . 'class="locselectregion form-control" id="locselectregion"');
 
 	echo $region_selectbox;
@@ -38,7 +38,7 @@ else
 	$cities = (!empty($region)) ? cot_getcities($region) : array();
 	$cities = array(0 => $L['select_city']) + $cities;
 	$disabled = (empty($region) || count($cities) < 2) ? 'disabled="disabled" ' : '';
-	$city_selectbox = cot_selectbox($regions, '[city]', array_keys($cities), array_values($cities), 
+	$city_selectbox = cot_selectbox($regions, 'city', array_keys($cities), array_values($cities), 
 		false, $disabled . 'class="locselectcity form-control" id="locselectcity"');	
 	
 	echo $city_selectbox;

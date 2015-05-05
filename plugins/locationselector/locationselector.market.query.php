@@ -17,7 +17,7 @@
  */
 defined('COT_CODE') or die('Wrong URL.');
 
-$location = cot_import_location('slocation', 'G');
+$location = cot_import_location('G');
 
 $location_info = cot_getlocation($location['country'], $location['region'], $location['city']);
 $out['subtitle'] .= (!empty($location_info['country'])) ? ' - ' . $location_info['country'] : '';
@@ -29,6 +29,6 @@ if((int)$location['region'] > 0) $where['location'] =  "item_region=" . (int)$lo
 if((int)$location['city'] > 0) $where['location'] = "item_city=" . (int)$location['city'];
 
 
-$list_url_path['slocation[country]'] = $location['country'];
-$list_url_path['slocation[region]'] = $location['region'];
-$list_url_path['slocation[city]'] = $location['city'];
+$list_url_path['country'] = $location['country'];
+$list_url_path['region'] = $location['region'];
+$list_url_path['city'] = $location['city'];

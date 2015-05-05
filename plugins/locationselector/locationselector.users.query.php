@@ -18,12 +18,14 @@
 defined('COT_CODE') or die('Wrong URL.');
 
 $c = cot_import('c', 'G', 'TXT');
-$location = cot_import_location('slocation', 'G');
+$location = cot_import_location('G');
 
 if(!empty($location)){
 	(!empty($location['country'])) && $where['user_country'] = "user_country='" . $location['country']."'";
 	((int) $location['region'] > 0) && $where['user_region'] = "user_region=" . (int) $location['region'];
 	((int) $location['city'] > 0) && $where['user_city'] = "user_city=" . (int) $location['city'];
 
-	$users_url_path['slocation'] = $location;
+	$users_url_path['country'] = $location['country'];
+	$users_url_path['region'] = $location['region'];
+	$users_url_path['city'] = $location['city'];
 }

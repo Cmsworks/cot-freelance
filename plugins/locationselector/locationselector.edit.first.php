@@ -18,7 +18,7 @@ defined('COT_CODE') or die('Wrong URL.');
 
 if (function_exists('cot_import_location'))
 {
-	$location = cot_import_location('rlocation', 'P');
+	$location = cot_import_location('P');
 	$ruser['user_country'] = $location['country'];
 	$ruser['user_region'] = $location['region'];
 	$ruser['user_city'] = $location['city'];
