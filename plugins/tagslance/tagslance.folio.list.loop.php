@@ -47,7 +47,7 @@ if ($cfg['plugin']['tagslance']['folio'])
 			$tl = $lang != 'en' && $tag_u != $tag ? 1 : null;
 			$t->assign(array(
 				'PRD_ROW_TAGS_ROW_TAG' => $cfg['plugin']['tags']['title'] ? htmlspecialchars(cot_tag_title($tag)) : htmlspecialchars($tag),
-				'PRG_ROW_TAGS_ROW_URL' => cot_url('plug', array('e' => 'tags', 'a' => 'folio', 't' => str_replace(' ', '-', $tag_u), 'tl' => $tl))
+				'PRD_ROW_TAGS_ROW_URL' => cot_url('plug', array('e' => 'tags', 'a' => 'folio', 't' => str_replace(' ', '-', $tag_u), 'tl' => $tl))
 			));
 			$t->parse('MAIN.PRD_ROWS.PRD_ROW_TAGS_ROW');
 			$tag_i++;
