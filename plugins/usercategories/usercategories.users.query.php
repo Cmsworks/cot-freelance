@@ -23,8 +23,12 @@ $cat = cot_import('cat', 'G', 'ALP');
 
 if (!empty($cat))
 {
-	if(!empty($cat)){
-		$where['cat'] = "user_cats LIKE '%".$db->prep($cat)."%'";
+	$subcats = cot_structure_children('usercategories', $cat);
+	if(count($subcats) > 0){
+		foreach ($subcats as $val) {
+			$cat_query[] = "user_cats LIKE '%".$db->prep($val)."%'";
+		}
+		$where['cat'] = "(".implode('OR ', $cat_query).")";
 	}else{
 		$where['cat'] = "user_id=0";
 	}

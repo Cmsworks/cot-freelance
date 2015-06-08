@@ -46,8 +46,15 @@ function cot_cfg_usercategories()
 function cot_usercategories_sync($cat)
 {
 	global $db, $db_structure, $db_users;
+	$subcats = cot_structure_children('usercategories', $cat);
+	if(count($subcats) > 0){
+		foreach ($subcats as $val) {
+			$cat_query[] = "user_cats LIKE '%".$db->prep($val)."%'";
+		}
+		$where = "(".implode('OR ', $cat_query).")";
+	}
 	$sql = $db->query("SELECT COUNT(*) FROM $db_users
-		WHERE user_cats LIKE '%" . $db->prep($cat) . "%'");
+		WHERE ".implode('OR ', $cat_query));
 	return (int)$sql->fetchColumn();
 }
 
