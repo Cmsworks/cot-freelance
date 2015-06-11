@@ -49,12 +49,12 @@ function cot_usercategories_sync($cat)
 	$subcats = cot_structure_children('usercategories', $cat);
 	if(count($subcats) > 0){
 		foreach ($subcats as $val) {
-			$cat_query[] = "user_cats LIKE '%".$db->prep($val)."%'";
+			$cat_query[] = "FIND_IN_SET('".$db->prep($val)."', user_cats)";
 		}
-		$where = "(".implode('OR ', $cat_query).")";
+		$where = implode(' OR ', $cat_query);
 	}
 	$sql = $db->query("SELECT COUNT(*) FROM $db_users
-		WHERE ".implode('OR ', $cat_query));
+		WHERE ".$where);
 	return (int)$sql->fetchColumn();
 }
 
