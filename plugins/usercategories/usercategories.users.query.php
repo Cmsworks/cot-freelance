@@ -29,7 +29,6 @@ if (!empty($cat))
 			$cat_query[] = "FIND_IN_SET('".$db->prep($val)."', user_cats)";
 		}
 		$where['cat'] = "(".implode(' OR ', $cat_query).")";
-		echo '<br/><br/>'.$where['cat'];
 	}else{
 		$where['cat'] = "user_id=0";
 	}
