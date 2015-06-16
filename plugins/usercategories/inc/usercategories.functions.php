@@ -52,6 +52,8 @@ function cot_usercategories_sync($cat)
 			$cat_query[] = "FIND_IN_SET('".$db->prep($val)."', user_cats)";
 		}
 		$where = implode(' OR ', $cat_query);
+	}else{
+		$where = "FIND_IN_SET('".$db->prep($cat)."', user_cats)";
 	}
 	$sql = $db->query("SELECT COUNT(*) FROM $db_users
 		WHERE ".$where);
@@ -70,7 +72,7 @@ function cot_usercategories_updatecat($oldcat, $newcat)
 {
 	global $db, $db_structure, $db_users;
 	
-	$sql = $db->query("SELECT * FROM $db_users WHERE user_cats LIKE '%" . $db->prep($oldcat) . "%'");
+	$sql = $db->query("SELECT * FROM $db_users WHERE FIND_IN_SET('".$db->prep($oldcat)."', user_cats)=1");
 	while($item = $sql->fetch()){
 		$cats = explode(',', $item['user_cats']);
 		$oldcatkey = array_search($oldcat, $cats);
