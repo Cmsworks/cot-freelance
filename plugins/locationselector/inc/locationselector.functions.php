@@ -205,7 +205,7 @@ function cot_select_location($country = '', $region = 0, $city = 0, $userdefault
 		$countries = array(0 => $L['select_country']) + $countries;
 		$country_selectbox = cot_selectbox($country, 'country', array_keys($countries), array_values($countries), 
 			false, $disabled . 'class="locselectcountry form-control" id="locselectcountry"');
-		$country_selectbox .= (count($countriesfilter) == 1) ? cot_inputbox('hidden', $name . '[country]', $country) : '';
+		$country_selectbox .= (count($countriesfilter) == 1) ? cot_inputbox('hidden', 'country', $country) : '';
 
 		$region = ($country == '' || count($countries) < 2) ? 0 : $region;
 		$regions = (!empty($country)) ? cot_getregions($country) : array();
