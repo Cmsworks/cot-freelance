@@ -30,7 +30,7 @@ if ($a == 'addoffer')
 
 	cot_shield_protect();
 	
-	$sql = $db->query("SELECT * FROM $db_projects_offers WHERE item_pid=" . $id . " AND item_userid=" . $usr['id'] . "");
+	$sql = $db->query("SELECT * FROM $db_projects_offers WHERE offer_pid=" . $id . " AND offer_userid=" . $usr['id'] . "");
 	cot_block($usr['auth_offers'] && $sql->fetchColumn() == 0 && $usr['id'] != $item['item_userid']);
 
 	/* === Hook === */
@@ -40,22 +40,22 @@ if ($a == 'addoffer')
 	}
 	/* ===== */
 	
-	$roffer['item_cost_min'] = (int)cot_import('costmin', 'P', 'INT');
-	$roffer['item_cost_max'] = (int)cot_import('costmax', 'P', 'INT');
-	$roffer['item_time_min'] = (int)cot_import('timemin', 'P', 'INT');
-	$roffer['item_time_max'] = (int)cot_import('timemax', 'P', 'INT');
-	$roffer['item_time_type'] = (int)cot_import('timetype', 'P', 'INT');
-	$roffer['item_hidden'] = (int)cot_import('hidden', 'P', 'BOL');
-	$roffer['item_text'] = cot_import('offertext', 'P', 'HTM');
+	$roffer['offer_cost_min'] = (int)cot_import('costmin', 'P', 'INT');
+	$roffer['offer_cost_max'] = (int)cot_import('costmax', 'P', 'INT');
+	$roffer['offer_time_min'] = (int)cot_import('timemin', 'P', 'INT');
+	$roffer['offer_time_max'] = (int)cot_import('timemax', 'P', 'INT');
+	$roffer['offer_time_type'] = (int)cot_import('timetype', 'P', 'INT');
+	$roffer['offer_hidden'] = (int)cot_import('hidden', 'P', 'BOL');
+	$roffer['offer_text'] = cot_import('offertext', 'P', 'HTM');
 	
-	$roffer['item_pid'] = (int)$id;
-	$roffer['item_userid'] = (int)$usr['id'];
-	$roffer['item_date'] = (int)$sys['now'];
+	$roffer['offer_pid'] = (int)$id;
+	$roffer['offer_userid'] = (int)$usr['id'];
+	$roffer['offer_date'] = (int)$sys['now'];
 
 	// Extra fields
 	foreach ($cot_extrafields[$db_projects_offers] as $exfld)
 	{
-		$roffer['item_'.$exfld['field_name']] = cot_import_extrafields('roffer'.$exfld['field_name'], $exfld, 'P', $roffer['item_'.$exfld['field_name']]);
+		$roffer['offer_'.$exfld['field_name']] = cot_import_extrafields('roffer'.$exfld['field_name'], $exfld, 'P', $roffer['offer_'.$exfld['field_name']]);
 	}
 	
 	/* === Hook === */
@@ -65,7 +65,7 @@ if ($a == 'addoffer')
 	}
 	/* ===== */
 	
-	cot_check(empty($roffer['item_text']), $L['offers_empty_text']);
+	cot_check(empty($roffer['offer_text']), $L['offers_empty_text']);
 
 	/* === Hook === */
 	foreach (cot_getextplugins('projects.offers.add.error') as $pl)
@@ -93,7 +93,7 @@ if ($a == 'addoffer')
 		));
 		cot_mail ($item['user_email'], $rsubject, $rbody);
 
-		$offerscount = $db->query("SELECT COUNT(*) FROM $db_projects_offers WHERE item_pid=" . (int)$id . "")->fetchColumn();
+		$offerscount = $db->query("SELECT COUNT(*) FROM $db_projects_offers WHERE offer_pid=" . (int)$id . "")->fetchColumn();
 		$db->update($db_projects, array("item_offerscount" => (int)$offerscount), "item_id=" . (int)$id);
 
 		/* === Hook === */
@@ -116,8 +116,8 @@ if ($a == 'setperformer' && !empty($userid))
 	
 	// находим предыдущего выбранного исполнителя, если есть
 	$lastperformer = $db->query("SELECT u.* FROM $db_projects_offers AS o
-		LEFT JOIN $db_users AS u ON u.user_id=o.item_userid 
-		WHERE item_pid=" . (int)$id . " AND item_choise='performer'")->fetch();
+		LEFT JOIN $db_users AS u ON u.user_id=o.offer_userid 
+		WHERE offer_pid=" . (int)$id . " AND offer_choise='performer'")->fetch();
 	
 	/* === Hook === */
 	foreach (cot_getextplugins('projects.offers.setperformer.error') as $pl)
@@ -129,7 +129,7 @@ if ($a == 'setperformer' && !empty($userid))
 	// Выбор исполнителя
 	if ($usr['id'] == $item['item_userid'] && (int)$userid > 0 && !cot_error_found())
 	{
-		if($db->update($db_projects_offers, array("item_choise" => 'performer', "item_choise_date" => (int)$sys['now_offset']), "item_pid=" . (int)$id . " AND item_userid=" . (int)$userid)){
+		if($db->update($db_projects_offers, array("offer_choise" => 'performer', "offer_choise_date" => (int)$sys['now_offset']), "offer_pid=" . (int)$id . " AND offer_userid=" . (int)$userid)){
 			$db->update($db_projects, array("item_performer" => $userid), "item_id=" . (int)$id);
 		}
 		
@@ -150,7 +150,7 @@ if ($a == 'setperformer' && !empty($userid))
 		if(!empty($lastperformer))
 		{
 			// Если исполнителем был другой пользователь, то ему отказ
-			$db->update($db_projects_offers, array("item_choise" => 'refuse', "item_choise_date" => (int)$sys['now_offset']), "item_pid=" . (int)$id . " AND item_choise='performer' AND item_userid=" . (int)$lastperformer['user_id']);
+			$db->update($db_projects_offers, array("offer_choise" => 'refuse', "offer_choise_date" => (int)$sys['now_offset']), "offer_pid=" . (int)$id . " AND offer_choise='performer' AND offer_userid=" . (int)$lastperformer['user_id']);
 
 			$urlparams = empty($item['item_alias']) ?
 				array('c' => $item['item_cat'], 'id' => $item['item_id']) :
@@ -200,7 +200,7 @@ if ($a == 'refuse' && !empty($userid))
 	// Отказать исполнителю
 	if ($usr['id'] == $item['item_userid'] && (int)$userid > 0 && !cot_error_found())
 	{
-		if($db->update($db_projects_offers, array('item_choise' => 'refuse', 'item_choise_date' => (int)$sys['now_offset']), "item_pid=" . $id . " AND item_userid=" . (int)$userid . "")){
+		if($db->update($db_projects_offers, array('offer_choise' => 'refuse', 'offer_choise_date' => (int)$sys['now_offset']), "offer_pid=" . $id . " AND offer_userid=" . (int)$userid . "")){
 			$db->update($db_projects, array("item_performer" => 0), "item_id=" . (int)$id);
 		}
 
@@ -250,7 +250,7 @@ if ($a == 'addpost')
 	}
 	/* ===== */
 	
-	if (!empty($offer_post['post_text']) && (in_array($usr['id'], array($offer['item_userid'], $item['item_userid'])) || $usr['isadmin']) && !cot_error_found())
+	if (!empty($offer_post['post_text']) && (in_array($usr['id'], array($offer['offer_userid'], $item['item_userid'])) || $usr['isadmin']) && !cot_error_found())
 	{
 
 		$db->insert($db_projects_posts, $offer_post);
@@ -314,13 +314,13 @@ $order = array();
 // Показать не автору только видимые проедложения:
 if ($usr['id'] != $item['item_userid'] && !$usr['isadmin'])
 {
-	$where['forshow'] = "(o.item_hidden!=1 OR o.item_userid=" . $usr['id'] . ")";
+	$where['forshow'] = "(o.offer_hidden!=1 OR o.offer_userid=" . $usr['id'] . ")";
 }
 // ==================================================
 
-$where['pid'] = "o.item_pid=" . $id;
+$where['pid'] = "o.offer_pid=" . $id;
 
-$order['date'] = "o.item_date DESC";
+$order['date'] = "o.offer_date DESC";
 
 $where = ($where) ? 'WHERE ' . implode(' AND ', $where) : '';
 $order = ($order) ? 'ORDER BY ' . implode(', ', $order) : '';
@@ -337,7 +337,7 @@ foreach (cot_getextplugins('projects.offers.query') as $pl)
 $totaloffers = $db->query("SELECT COUNT(*) FROM $db_projects_offers AS o 
 	" . $where . "")->fetchColumn();
 
-$sql = $db->query("SELECT * FROM $db_projects_offers AS o LEFT JOIN $db_users AS u ON u.user_id=o.item_userid
+$sql = $db->query("SELECT * FROM $db_projects_offers AS o LEFT JOIN $db_users AS u ON u.user_id=o.offer_userid
 	" . $where . " 
 	" . $order . "
 	" . $query_limit . "");
@@ -358,7 +358,7 @@ if($cfg['projects']['offersperpage'] > 0)
 	));
 }
 
-$alloffers_count = $db->query("SELECT COUNT(*) FROM $db_projects_offers WHERE item_pid=" . $id)->fetchColumn();
+$alloffers_count = $db->query("SELECT COUNT(*) FROM $db_projects_offers WHERE offer_pid=" . $id)->fetchColumn();
 
 $t_o->assign(array(
 	"ALLOFFERS_COUNT" => $alloffers_count,
@@ -369,16 +369,16 @@ $extp = cot_getextplugins('projects.offers.loop');
 $extp1 = cot_getextplugins('projects.offers.posts.loop');
 /* ===== */
 
-while ($offers = $sql->fetch())
+while ($offer = $sql->fetch())
 {
 	$choise_enabled = true;
 	
 	if ($usr['id'] == $item['item_userid'] && $choise_enabled)
 	{
 		$t_o->assign(array(
-			"OFFER_ROW_CHOISE" => $offers['item_choise'],
-			"OFFER_ROW_SETPERFORMER" => cot_url('projects', 'id=' . $id . '&a=setperformer&userid=' . $offers['user_id'] . '&' . cot_xg()),
-			"OFFER_ROW_REFUSE" => cot_url('projects', 'id=' . $id . '&a=refuse&userid=' . $offers['user_id'] . '&' . cot_xg()),
+			"OFFER_ROW_CHOISE" => $offer['offer_choise'],
+			"OFFER_ROW_SETPERFORMER" => cot_url('projects', 'id=' . $id . '&a=setperformer&userid=' . $offer['user_id'] . '&' . cot_xg()),
+			"OFFER_ROW_REFUSE" => cot_url('projects', 'id=' . $id . '&a=refuse&userid=' . $offer['user_id'] . '&' . cot_xg()),
 		));
 		
 		/* === Hook === */
@@ -391,17 +391,17 @@ while ($offers = $sql->fetch())
 		$t_o->parse("MAIN.ROWS.CHOISE");
 	}
 
-	$t_o->assign(cot_generate_usertags($offers, 'OFFER_ROW_OWNER_'));
+	$t_o->assign(cot_generate_usertags($offer, 'OFFER_ROW_OWNER_'));
 	$t_o->assign(array(
-		"OFFER_ROW_DATE" => cot_date('d.m.Y H:i', $offers['item_date']),
-		"OFFER_ROW_DATE_STAMP" => $offers['item_date'],
-		"OFFER_ROW_TEXT" => cot_parse($offers['item_text']),
-		"OFFER_ROW_COSTMIN" => number_format($offers['item_cost_min'], '0', '.', ' '),
-		"OFFER_ROW_COSTMAX" => number_format($offers['item_cost_max'], '0', '.', ' '),
-		"OFFER_ROW_TIMEMIN" => $offers['item_time_min'],
-		"OFFER_ROW_TIMEMAX" => $offers['item_time_max'],
-		"OFFER_ROW_TIMETYPE" => $L['offers_timetype'][$offers['item_time_type']],
-		"OFFER_ROW_HIDDEN" => $offers['item_hidden'],
+		"OFFER_ROW_DATE" => cot_date('d.m.Y H:i', $offer['offer_date']),
+		"OFFER_ROW_DATE_STAMP" => $offer['offer_date'],
+		"OFFER_ROW_TEXT" => cot_parse($offer['offer_text']),
+		"OFFER_ROW_COSTMIN" => number_format($offer['offer_cost_min'], '0', '.', ' '),
+		"OFFER_ROW_COSTMAX" => number_format($offer['offer_cost_max'], '0', '.', ' '),
+		"OFFER_ROW_TIMEMIN" => $offer['offer_time_min'],
+		"OFFER_ROW_TIMEMAX" => $offer['offer_time_max'],
+		"OFFER_ROW_TIMETYPE" => $L['offers_timetype'][$offer['offer_time_type']],
+		"OFFER_ROW_HIDDEN" => $offer['offer_hidden'],
 	));
 	
 	// Extrafields
@@ -412,15 +412,15 @@ while ($offers = $sql->fetch())
 			$uname = mb_strtoupper($exfld['field_name']);
 			$t_o->assign(array(
 				'OFFER_ROW_' . $uname . '_TITLE' => isset($L['offers_' . $exfld['field_name'] . '_title']) ? $L['offers_' . $exfld['field_name'] . '_title'] : $exfld['field_description'],
-				'OFFER_ROW_' . $uname => cot_build_extrafields_data('offers', $exfld, $offers['item_' . $exfld['field_name']])
+				'OFFER_ROW_' . $uname => cot_build_extrafields_data('offers', $exfld, $offer['item_' . $exfld['field_name']])
 			));
 		}
 	}
 
-	if ($usr['id'] == $offers['item_userid'] || $usr['id'] == $item['item_userid'] || $usr['isadmin'])
+	if ($usr['id'] == $offer['offer_userid'] || $usr['id'] == $item['item_userid'] || $usr['isadmin'])
 	{
 		$sql_prjposts = $db->query("SELECT * FROM $db_projects_posts as p LEFT JOIN $db_users as u ON u.user_id=p.post_userid
-			WHERE post_pid=" . $id . " AND post_oid=" . $offers['item_id'] . " ORDER BY post_date ASC");
+			WHERE post_pid=" . $id . " AND post_oid=" . $offer['offer_id'] . " ORDER BY post_date ASC");
 
 		while ($posts = $sql_prjposts->fetch())
 		{
@@ -440,9 +440,9 @@ while ($offers = $sql->fetch())
 		}
 
 		$t_o->assign(array(
-			"ADDPOST_ACTION_URL" => cot_url('projects', 'id=' . $id . '&oid=' . $offers['item_id'] . '&a=addpost'),
+			"ADDPOST_ACTION_URL" => cot_url('projects', 'id=' . $id . '&oid=' . $offer['offer_id'] . '&a=addpost'),
 			"ADDPOST_TEXT" => cot_textarea('posttext',  $offer_post['post_text'], 3, 60),
-			"ADDPOST_OFFERID" => $offers['item_id'],
+			"ADDPOST_OFFERID" => $offer['offer_id'],
 		));
 		$t_o->parse("MAIN.ROWS.POSTS.POSTFORM");
 
@@ -469,15 +469,15 @@ foreach (cot_getextplugins('projects.addofferform.main') as $pl)
 }
 /* ===== */
 
-$sql = $db->query("SELECT * FROM $db_projects_offers WHERE item_pid=" . $id . " AND item_userid=" . $usr['id'] . "");
+$sql = $db->query("SELECT * FROM $db_projects_offers WHERE offer_pid=" . $id . " AND offer_userid=" . $usr['id'] . "");
 if ($sql->fetchColumn() == 0 && $addoffer_enabled && $usr['auth_offers'] && $usr['id'] != $item['item_userid'] && empty($performer))
 {
 	$t_o->assign(array(
-		"OFFER_FORM_COSTMIN" => cot_inputbox('text', 'costmin', $roffer['item_cost_min'], 'size="7"'),
-		"OFFER_FORM_COSTMAX" => cot_inputbox('text', 'costmax', $roffer['item_cost_max'], 'size="7"'),
-		"OFFER_FORM_TIMEMIN" => cot_inputbox('text', 'timemin', $roffer['item_time_min'], 'size="7"'),
-		"OFFER_FORM_TIMEMAX" => cot_inputbox('text', 'timemax', $roffer['item_time_max'], 'size="7"'),
-		"OFFER_FORM_TEXT" => cot_textarea('offertext', $roffer['item_text'], 7, 40),
+		"OFFER_FORM_COSTMIN" => cot_inputbox('text', 'costmin', $roffer['offer_cost_min'], 'size="7"'),
+		"OFFER_FORM_COSTMAX" => cot_inputbox('text', 'costmax', $roffer['offer_cost_max'], 'size="7"'),
+		"OFFER_FORM_TIMEMIN" => cot_inputbox('text', 'timemin', $roffer['offer_time_min'], 'size="7"'),
+		"OFFER_FORM_TIMEMAX" => cot_inputbox('text', 'timemax', $roffer['offer_time_max'], 'size="7"'),
+		"OFFER_FORM_TEXT" => cot_textarea('offertext', $roffer['offer_text'], 7, 40),
 		"OFFER_FORM_HIDDEN" =>  cot_checkbox(0, 'hidden', $L['offers_hide_offer']),
 		"OFFER_FORM_ACTION_URL" => cot_url('projects', 'id=' . $id . '&a=addoffer'),
 		"OFFER_FORM_TIMETYPE" => cot_selectbox($timetype, 'timetype', array_keys($L['offers_timetype']), array_values($L['offers_timetype']), false),
@@ -487,7 +487,7 @@ if ($sql->fetchColumn() == 0 && $addoffer_enabled && $usr['auth_offers'] && $usr
 	foreach($cot_extrafields[$db_projects_offers] as $exfld)
 	{
 		$uname = strtoupper($exfld['field_name']);
-		$exfld_val = cot_build_extrafields('roffer'.$exfld['field_name'], $exfld, $roffer['item_'.$exfld['field_name']]);
+		$exfld_val = cot_build_extrafields('roffer'.$exfld['field_name'], $exfld, $roffer['offer_'.$exfld['field_name']]);
 		$exfld_title = isset($L['offers_'.$exfld['field_name'].'_title']) ?  $L['offers_'.$exfld['field_name'].'_title'] : $exfld['field_description'];
 		$t_o->assign(array(
 			'OFFER_FORM_'.$uname => $exfld_val,

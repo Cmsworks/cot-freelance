@@ -29,20 +29,20 @@ CREATE TABLE IF NOT EXISTS `cot_projects` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `cot_projects_offers` (
-  `item_id` int(10) unsigned NOT NULL auto_increment,
-  `item_pid` int(11) NOT NULL,
-  `item_date` int(11) NOT NULL,
-  `item_userid` int(11) NOT NULL,
-  `item_text` MEDIUMTEXT collate utf8_unicode_ci NOT NULL,
-  `item_cost_min` float NOT NULL,
-  `item_cost_max` float NOT NULL,
-  `item_time_min` int(11) NOT NULL,
-  `item_time_max` int(11) NOT NULL,
-  `item_time_type` tinyint(4) NOT NULL,
-  `item_choise` varchar(20) collate utf8_unicode_ci NOT NULL,
-  `item_choise_date` int(11) NOT NULL,
-  `item_hidden` tinyint(4) NOT NULL,
-  PRIMARY KEY  (`item_id`)
+  `offer_id` int(10) unsigned NOT NULL auto_increment,
+  `offer_pid` int(11) NOT NULL,
+  `offer_date` int(11) NOT NULL,
+  `offer_userid` int(11) NOT NULL,
+  `offer_text` MEDIUMTEXT collate utf8_unicode_ci NOT NULL,
+  `offer_cost_min` float NOT NULL,
+  `offer_cost_max` float NOT NULL,
+  `offer_time_min` int(11) NOT NULL,
+  `offer_time_max` int(11) NOT NULL,
+  `offer_time_type` tinyint(4) NOT NULL,
+  `offer_choise` varchar(20) collate utf8_unicode_ci NOT NULL,
+  `offer_choise_date` int(11) NOT NULL,
+  `offer_hidden` tinyint(4) NOT NULL,
+  PRIMARY KEY  (`offer_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `cot_projects_posts` (

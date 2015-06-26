@@ -561,7 +561,7 @@ function cot_projects_delete($id, $ritem = array())
 	}
 
 	$db->delete($db_projects, "item_id = ?", $id);
-	$db->delete($db_projects_offers, "item_pid = ?", $id);
+	$db->delete($db_projects_offers, "offer_pid = ?", $id);
 	$db->delete($db_projects_posts, "post_pid = ?", $id);
 	cot_log("Deleted project #" . $id, 'adm');
 
