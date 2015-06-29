@@ -27,8 +27,6 @@ $L['cfg_payoutmin'] = array('The minimum amount for payout', $cfg['payments']['v
 $L['cfg_payoutmax'] = array('The maximum amount for payout', $cfg['payments']['valuta']);
 $L['cfg_clearpaymentsdays'] = array('Clean the base of unpaid bills after', 'дней');
 
-$L['info_desc'] = 'Payment module';
-
 $L['payments_mybalance'] = 'My balance';
 $L['payments_balance'] = 'Balance';
 $L['payments_paytobalance'] = 'To deposit';
@@ -44,6 +42,7 @@ $L['payments_balance_payout_tax'] = "Commission";
 $L['payments_balance_payout_total'] = "Amount to be deducted";
 $L['payments_balance_payout_details'] = 'Details';
 $L['payments_balance_payout_error_details'] = 'Details is empty';
+$L['payments_balance_payout_error_wrongsumm'] = 'The amount can not be negative';
 $L['payments_balance_payout_error_balance'] = 'A very large amount';
 $L['payments_balance_payout_error_min'] = 'Amount shall not be less than %1$s %2$s';
 

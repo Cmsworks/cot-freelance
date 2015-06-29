@@ -68,6 +68,23 @@ if ($n == 'payouts')
 {
 	cot_block($cfg['payments']['payouts_enabled']);
 	
+	$payouttax_array = explode('|', $cfg['payments']['payouttax']);
+	if(is_array($payouttax_array)){
+		foreach ($payouttax_array as $j => $potaxs){
+			if($j > 0){
+				$utax_array = explode(',', $potaxs);
+				if($utax_array[0] == $usr['id'] && isset($utax_array[1])){
+					$utax = $utax_array[1];
+				}
+			}
+		}
+		if(isset($utax)){
+			$cfg['payments']['payouttax'] = $utax;
+		}else{
+			$cfg['payments']['payouttax'] = $payouttax_array[0];
+		}
+	}
+
 	if ($a == 'send')
 	{
 
@@ -79,6 +96,7 @@ if ($n == 'payouts')
 		$ubalance = cot_payments_getuserbalance($usr['id']);
 			
 		cot_check(empty($details), 'payments_balance_payout_error_details');
+		cot_check($summ < 0, 'payments_balance_payout_error_wrongsumm');
 		cot_check(empty($summ), 'payments_balance_payout_error_summ');
 		cot_check($total > $ubalance, 'payments_balance_payout_error_balance');	
 		cot_check($cfg['payments']['payoutmin'] > 0 && $summ < $cfg['payments']['payoutmin'], sprintf($L['payments_balance_payout_error_min'], $cfg['payments']['payoutmin'], $cfg['payments']['valuta']));	
