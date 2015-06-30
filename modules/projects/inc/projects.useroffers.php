@@ -32,24 +32,24 @@ $t = new XTemplate(cot_tplfile(array('projects', 'useroffers')));
 
 $out['subtitle'] = $L['offers_useroffers'];
 
-$where['userid'] = "o.item_userid=" . $usr['id'];
+$where['userid'] = "o.offer_userid=" . $usr['id'];
 
 switch($choise)
 {
 	case 'none':
-		$where['item_choise'] = "o.item_choise=''";
+		$where['offer_choise'] = "o.offer_choise=''";
 		break;
 	
 	case 'performer':
-		$where['item_choise'] = "o.item_choise='performer'";
+		$where['offer_choise'] = "o.offer_choise='performer'";
 		break;
 	
 	case 'refuse':
-		$where['item_choise'] = "o.item_choise='refuse'";
+		$where['offer_choise'] = "o.offer_choise='refuse'";
 		break;
 }
 
-$order['date'] = 'o.item_date DESC';
+$order['date'] = 'o.offer_date DESC';
 
 /* === Hook === */
 foreach (cot_getextplugins('projects.list.query') as $pl)
@@ -66,7 +66,7 @@ $totalitems = $db->query("SELECT COUNT(*) FROM $db_projects_offers AS o
 	" . $where . "")->fetchColumn();
 
 $sql = $db->query("SELECT o.* FROM $db_projects_offers AS o
-	LEFT JOIN $db_projects AS p ON o.item_pid=p.item_id
+	LEFT JOIN $db_projects AS p ON o.offer_pid=p.item_id
 	" . $where . "
 	" . $order . "
 	" . $query_limit . "");
@@ -94,18 +94,18 @@ $t->assign(array(
 $extp = cot_getextplugins('projects.useroffers.loop');
 /* ===== */
 
-while ($offers = $sql->fetch())
+while ($offer = $sql->fetch())
 {
-	$t->assign(cot_generate_projecttags($offers['item_pid'], 'OFFER_ROW_PROJECT_'));
+	$t->assign(cot_generate_projecttags($offer['offer_pid'], 'OFFER_ROW_PROJECT_'));
 	$t->assign(array(
-		"OFFER_ROW_DATE" => date('d.m.Y H:i', $offers['item_date']),
-		"OFFER_ROW_TEXT" => cot_parse($offers['item_text']),
-		"OFFER_ROW_COSTMIN" => number_format($offers['item_cost_min'], '0', '.', ' '),
-		"OFFER_ROW_COSTMAX" => number_format($offers['item_cost_max'], '0', '.', ' '),
-		"OFFER_ROW_TIMEMIN" => $offers['item_time_min'],
-		"OFFER_ROW_TIMEMAX" => $offers['item_time_max'],
-		"OFFER_ROW_TIMETYPE" => $L['offers_timetype'][$offers['item_time_type']],
-		"OFFER_ROW_CHOISE" => $offers['item_choise'],
+		"OFFER_ROW_DATE" => date('d.m.Y H:i', $offer['offer_date']),
+		"OFFER_ROW_TEXT" => cot_parse($offer['offer_text']),
+		"OFFER_ROW_COSTMIN" => number_format($offer['offer_cost_min'], '0', '.', ' '),
+		"OFFER_ROW_COSTMAX" => number_format($offer['offer_cost_max'], '0', '.', ' '),
+		"OFFER_ROW_TIMEMIN" => $offer['offer_time_min'],
+		"OFFER_ROW_TIMEMAX" => $offer['offer_time_max'],
+		"OFFER_ROW_TIMETYPE" => $L['offers_timetype'][$offer['offer_time_type']],
+		"OFFER_ROW_CHOISE" => $offer['offer_choise'],
 	));
 	
 	/* === Hook - Part2 : Include === */
