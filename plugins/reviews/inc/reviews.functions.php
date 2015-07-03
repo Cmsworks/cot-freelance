@@ -148,28 +148,28 @@ function cot_reviews_list($userid, $area, $code='', $name='', $params='', $tail=
 				$prjreviews[] = $row['item_code'];
 			}
 			
-			$prjreviews_string = (count($prjreviews) > 0) ? "AND o.item_pid NOT IN (".implode(",", $prjreviews).")" : '';
+			$prjreviews_string = (count($prjreviews) > 0) ? "AND o.offer_pid NOT IN (".implode(",", $prjreviews).")" : '';
 			
 			$bothprj_count = $db->query("SELECT COUNT(*) FROM  $db_projects_offers AS o
-				LEFT JOIN $db_projects AS p ON p.item_id=o.item_pid
-				WHERE ((p.item_userid = '".$userid."' AND o.item_userid='".$usr['id']."')
-					OR (p.item_userid = '".$usr['id']."' AND o.item_userid='".$userid."')) 
-					AND o.item_choise='performer' 
+				LEFT JOIN $db_projects AS p ON p.item_id=o.offer_pid
+				WHERE ((p.item_userid = '".$userid."' AND o.offer_userid='".$usr['id']."')
+					OR (p.item_userid = '".$usr['id']."' AND o.offer_userid='".$userid."')) 
+					AND o.offer_choise='performer' 
 					$prjreviews_string
 					")->fetchColumn();
 			
 			if($bothprj_count > 0)
 			{
 				$bothprj_sql = $db->query("SELECT * FROM  $db_projects_offers AS o
-				LEFT JOIN $db_projects AS p ON p.item_id=o.item_pid
-				WHERE ((p.item_userid = '".$userid."' AND o.item_userid='".$usr['id']."')
-					OR (p.item_userid = '".$usr['id']."' AND o.item_userid='".$userid."')) 
-					AND o.item_choise='performer' 
+				LEFT JOIN $db_projects AS p ON p.item_id=o.offer_pid
+				WHERE ((p.item_userid = '".$userid."' AND o.offer_userid='".$usr['id']."')
+					OR (p.item_userid = '".$usr['id']."' AND o.offer_userid='".$userid."')) 
+					AND o.offer_choise='performer' 
 					$prjreviews_string
 					");
 				while($bprj = $bothprj_sql->fetch())
 				{
-					$prj_ids[] = $bprj['item_pid'];
+					$prj_ids[] = $bprj['offer_pid'];
 					$prj_titles[] = $bprj['item_title'];
 				}
 			}
