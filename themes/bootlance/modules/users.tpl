@@ -23,7 +23,7 @@
 					<table width="100%" cellpadding="5" cellspacing="0">
 						<tr>
 							<td width="100">{PHP.L.Search}:</td>
-							<td><input type="text" name="sq" value="{PHP.sq}" class="schstring"/></td>
+							<td><input type="text" name="sq" value="{PHP.sq|htmlspecialchars($this)}" class="schstring"/></td>
 						</tr>
 						<!-- IF {PHP.cot_plugins_active.locationselector} -->
 						<tr>

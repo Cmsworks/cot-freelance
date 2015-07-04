@@ -241,7 +241,7 @@ function cot_select_location($country = '', $region = 0, $city = 0, $userdefault
  */
 function cot_import_location($source = 'P')
 {
-	$result['country'] = cot_import('country',$source, 'TXT');
+	$result['country'] = cot_import('country',$source, 'ALP', 2);
 	$result['region'] = cot_import('region', $source, 'INT');
 	$result['city'] = cot_import('city', $source, 'INT');
 	$result['region'] = ($result['country'] == '0') ? 0 : $result['region'];

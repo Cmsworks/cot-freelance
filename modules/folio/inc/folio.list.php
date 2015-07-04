@@ -16,6 +16,7 @@ cot_block($usr['auth_read']);
 $sort = cot_import('sort', 'G', 'ALP');
 $c = cot_import('c', 'G', 'ALP');
 $sq = cot_import('sq', 'G', 'TXT');
+$sq = $db->prep($sq);
 
 $maxrowsperpage = ($cfg['folio']['cat_' . $c]['maxrowsperpage']) ? $cfg['folio']['cat_' . $c]['maxrowsperpage'] : $cfg['folio']['cat___default']['maxrowsperpage'];
 list($pn, $d, $d_url) = cot_import_pagenav('d', $maxrowsperpage);
@@ -54,7 +55,7 @@ if (!empty($c))
 
 if (!empty($sq))
 {
-	$words = explode(' ', $sq);
+	$words = explode(' ', preg_replace("'\s+'", " ", $sq));
 	$sqlsearch = '%'.implode('%', $words).'%';
 
 	$where['search'] = "(item_title LIKE '".$db->prep($sqlsearch)."' OR item_text LIKE '".$db->prep($sqlsearch)."')";
@@ -122,7 +123,7 @@ $catpath = cot_breadcrumbs($catpatharray, $cfg['homebreadcrumb'], true);
 
 $t->assign(array(
 	"SEARCH_ACTION_URL" => cot_url('folio', '', '', true),
-	"SEARCH_SQ" => cot_inputbox('text', 'sq', $sq, 'class="schstring"'),
+	"SEARCH_SQ" => cot_inputbox('text', 'sq', htmlspecialchars($sq), 'class="schstring"'),
 	"SEARCH_CAT" => cot_folio_selectcat($c, 'c'),
 	"SEARCH_SORTER" => cot_selectbox($sort, "sort", array('', 'costasc', 'costdesc'), array($L['folio_mostrelevant'], $L['folio_costasc'], $L['folio_costdesc']), false),
 	"PAGENAV_PAGES" => $pagenav['main'],
