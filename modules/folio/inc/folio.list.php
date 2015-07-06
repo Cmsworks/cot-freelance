@@ -64,11 +64,12 @@ if (!empty($sq))
 // Extra fields
 foreach ($cot_extrafields[$db_folio] as $exfld)
 {
-	$shfld[$exfld['field_name']] = cot_import_extrafields($exfld['field_name'], $exfld, 'G', $shfld[$exfld['field_name']]);
+	$fld_value = cot_import($exfld['field_name'], 'G', 'TXT');
+	$fld_value = $db->prep($fld_value);
 	
 	if(!empty($shfld[$exfld['field_name']]))
 	{
-		$where[$exfld['field_name']] = "item_".$exfld['field_name']." LIKE '%".$shfld[$exfld['field_name']]."%'";
+		$where[$exfld['field_name']] = "item_".$exfld['field_name']." LIKE '%".$fld_value."%'";
 	}
 }
 
