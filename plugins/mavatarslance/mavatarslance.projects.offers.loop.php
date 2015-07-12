@@ -18,7 +18,7 @@ if (cot_plugin_active('mavatars') && $cfg['plugin']['mavatarslance']['projects']
 {
 	require_once cot_incfile('mavatars', 'plug');
 	
-	$mavatar = new mavatar('projectoffers', $id, $offers['item_id']);
+	$mavatar = new mavatar('projectoffers', $id, $offer['offer_id']);
 	$mavatars_tags = $mavatar->tags();
 	
 	$t_o->assign(array(
