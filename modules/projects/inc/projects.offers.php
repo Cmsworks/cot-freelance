@@ -255,7 +255,7 @@ if ($a == 'addpost')
 
 		$db->insert($db_projects_posts, $offer_post);
 
-		if ($usr['id'] == $offer['item_userid'])
+		if ($usr['id'] == $offer['offer_userid'])
 		{
 			$urlparams = empty($item['item_alias']) ?
 				array('c' => $item['item_cat'], 'id' => $item['item_id']) :
