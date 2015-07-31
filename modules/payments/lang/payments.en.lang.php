@@ -117,6 +117,7 @@ $L['payments_balance_transfer_total'] = "Amount to be deducted";
 $L['payments_balance_transfer_username'] = "User login";
 $L['payments_balance_transfer_error_username'] = "User not found";
 $L['payments_balance_transfer_error_summ'] = 'Amount empty';
+$L['payments_balance_transfer_error_wrongsumm'] = 'The amount can not be negative';
 $L['payments_balance_transfer_error_balance'] = 'Sum exceeds your account balance';
 $L['payments_balance_transfer_error_comment'] = 'Comment is empty';
 

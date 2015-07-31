@@ -204,6 +204,7 @@ if ($n == 'transfer')
 		cot_check(empty($recipient), 'payments_balance_transfer_error_username');
 		cot_check(empty($comment), 'payments_balance_transfer_error_comment');
 		cot_check(empty($summ), 'payments_balance_transfer_error_summ');
+		cot_check($summ < 0, 'payments_balance_transfer_error_wrongsumm');
 		cot_check($sendersumm > $ubalance, 'payments_balance_transfer_error_balance');	
 		cot_check($cfg['payments']['transfermin'] > 0 && $summ < $cfg['payments']['transfermin'], sprintf($L['payments_balance_transfer_error_min'], $cfg['payments']['transfermin'], $cfg['payments']['valuta']));	
 		cot_check($cfg['payments']['transfermax'] > 0 && $summ > $cfg['payments']['transfermax'], sprintf($L['payments_balance_transfer_error_max'], $cfg['payments']['transfermax'], $cfg['payments']['valuta']));
