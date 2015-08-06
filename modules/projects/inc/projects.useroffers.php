@@ -63,6 +63,7 @@ $order = ($order) ? 'ORDER BY ' . implode(', ', $order) : '';
 $query_limit = ($cfg['projects']['offersperpage'] > 0) ? "LIMIT $d, ".$cfg['projects']['offersperpage'] : '';
 
 $totalitems = $db->query("SELECT COUNT(*) FROM $db_projects_offers AS o 
+	LEFT JOIN $db_projects AS p ON o.offer_pid=p.item_id
 	" . $where . "")->fetchColumn();
 
 $sql = $db->query("SELECT o.* FROM $db_projects_offers AS o
