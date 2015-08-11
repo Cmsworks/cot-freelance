@@ -91,7 +91,6 @@ switch($sort)
 $list_url_path = array('c' => $c, 'sort' => $sort, 'sq' => $sq);
 
 $mskin = cot_tplfile(array('market', 'list', $structure['market'][$c]['tpl']));
-$t = new XTemplate($mskin);
 
 /* === Hook === */
 foreach (cot_getextplugins('market.list.query') as $pl)
@@ -99,6 +98,8 @@ foreach (cot_getextplugins('market.list.query') as $pl)
 	include $pl;
 }
 /* ===== */
+
+$t = new XTemplate($mskin);
 
 $where = ($where) ? 'WHERE ' . implode(' AND ', $where) : '';
 $order = ($order) ? 'ORDER BY ' . implode(', ', $order) : '';

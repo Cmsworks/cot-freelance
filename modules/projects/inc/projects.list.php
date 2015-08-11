@@ -105,7 +105,36 @@ $list_url_path = array('c' => $c, 'type'=> $type, 'sort' => $sort, 'sq' => $sq);
 
 $mskin = cot_tplfile(array('projects', 'list', $structure['projects'][$c]['tpl']));
 
+/* === Hook === */
+foreach (cot_getextplugins('projects.list.query') as $pl)
+{
+	include $pl;
+}
+/* ===== */
+
 $t = new XTemplate($mskin);
+
+$where = ($where) ? 'WHERE ' . implode(' AND ', $where) : '';
+$order = ($order) ? 'ORDER BY ' . implode(', ', $order) : '';
+
+$totalitems = $db->query("SELECT COUNT(*) FROM $db_projects AS p $join_condition
+	" . $where . "")->fetchColumn();
+
+$sqllist = $db->query("SELECT * FROM $db_projects AS p $join_condition
+	LEFT JOIN $db_users AS u ON u.user_id=p.item_userid
+	" . $where . "
+	" . $order . "
+	LIMIT $d, " . $maxrowsperpage);
+
+$pagenav = cot_pagenav('projects', $list_url_path, $d, $totalitems, $maxrowsperpage);
+
+$catpatharray[] = array(cot_url('projects'), $L['projects']);
+if(!empty($c))
+{
+	$catpatharray = array_merge($catpatharray, cot_structure_buildpath('projects', $c));
+}
+
+$catpath = cot_breadcrumbs($catpatharray, $cfg['homebreadcrumb'], true);
 
 if(is_array($projects_types)){
 	foreach ($projects_types as $i => $pr_type)
@@ -130,35 +159,6 @@ $t->assign(array(
 ));
 
 $t->parse("MAIN.PTYPES");
-
-/* === Hook === */
-foreach (cot_getextplugins('projects.list.query') as $pl)
-{
-	include $pl;
-}
-/* ===== */
-
-$where = ($where) ? 'WHERE ' . implode(' AND ', $where) : '';
-$order = ($order) ? 'ORDER BY ' . implode(', ', $order) : '';
-
-$totalitems = $db->query("SELECT COUNT(*) FROM $db_projects AS p $join_condition
-	" . $where . "")->fetchColumn();
-
-$sqllist = $db->query("SELECT * FROM $db_projects AS p $join_condition
-	LEFT JOIN $db_users AS u ON u.user_id=p.item_userid
-	" . $where . "
-	" . $order . "
-	LIMIT $d, " . $maxrowsperpage);
-
-$pagenav = cot_pagenav('projects', $list_url_path, $d, $totalitems, $maxrowsperpage);
-
-$catpatharray[] = array(cot_url('projects'), $L['projects']);
-if(!empty($c))
-{
-	$catpatharray = array_merge($catpatharray, cot_structure_buildpath('projects', $c));
-}
-
-$catpath = cot_breadcrumbs($catpatharray, $cfg['homebreadcrumb'], true);
 
 $t->assign(array(
 	"SEARCH_ACTION_URL" => cot_url('projects', "&type=" . $type, '', true),
