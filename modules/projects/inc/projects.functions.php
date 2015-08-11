@@ -93,6 +93,16 @@ function cot_build_structure_projects_tree($parent = '', $selected = array(), $l
 {
 	global $structure, $cfg, $db, $sys, $type;
 	global $i18n_notmain, $i18n_locale, $i18n_write, $i18n_admin, $i18n_read, $db_i18n_pages;
+
+	$urlparams = array('type' => $type);
+
+	/* === Hook === */
+	foreach (cot_getextplugins('projects.tree.first') as $pl)
+	{
+		include $pl;
+	}
+	/* ===== */
+
 	if (empty($parent))
 	{
 		$i18n_enabled = $i18n_read;
@@ -113,21 +123,44 @@ function cot_build_structure_projects_tree($parent = '', $selected = array(), $l
 
 	$t1 = new XTemplate(cot_tplfile(array('projects', 'tree', $template), 'module'));
 
+	/* === Hook === */
+	foreach (cot_getextplugins('projects.tree.main') as $pl)
+	{
+		include $pl;
+	}
+	/* ===== */
+
 	if (count($children) == 0)
 	{
 		return false;
 	}
+
+	$t1->assign(array(
+		"TITLE" => htmlspecialchars($structure['projects'][$parent]['title']),
+		"DESC" => $structure['projects'][$parent]['desc'],
+		"COUNT" => $structure['projects'][$parent]['count'],
+		"ICON" => $structure['projects'][$parent]['icon'],
+		"HREF" => cot_url("projects", $urlparams + array('c' => $parent)),
+		"LEVEL" => $level,
+	));
+
 	$jj = 0;
+
+	/* === Hook - Part1 : Set === */
+	$extp = cot_getextplugins('projects.tree.loop');
+	/* ===== */
+
 	foreach ($children as $row)
 	{
 		$jj++;
+		$urlparams['c'] = $row;
 		$t1->assign(array(
 			"ROW_CAT" => $row,
 			"ROW_TITLE" => htmlspecialchars($structure['projects'][$row]['title']),
 			"ROW_DESC" => $structure['projects'][$row]['desc'],
 			"ROW_COUNT" => $structure['projects'][$row]['count'],
 			"ROW_ICON" => $structure['projects'][$row]['icon'],
-			"ROW_HREF" => cot_url("projects", "c=" . $row . "&type=" . $type),
+			"ROW_HREF" => cot_url("projects", $urlparams),
 			"ROW_SELECTED" => in_array($row, $selected) ? 1 : 0,
 			"ROW_SUBCAT" => cot_build_structure_projects_tree($row, $selected, $level + 1),
 			"ROW_LEVEL" => $level,
@@ -135,30 +168,28 @@ function cot_build_structure_projects_tree($parent = '', $selected = array(), $l
 			"ROW_JJ" => $jj
 		));
 
-		if ($i18n_enabled && $i18n_notmain)
-		{
+		if ($i18n_enabled && $i18n_notmain){
 			$x_i18n = cot_i18n_get_cat($row, $i18n_locale);
-
-			if ($x_i18n)
-			{
-				$urlparams = (!$cfg['plugin']['i18n']['omitmain'] || $i18n_locale != $cfg['defaultlang']) ? "c=$row&l=$i18n_locale" : "c=$row";
+			if ($x_i18n){
+				if(!$cfg['plugin']['i18n']['omitmain'] || $i18n_locale != $cfg['defaultlang']){
+					$urlparams['l'] = $i18n_locale;
+				}
 				$t1->assign(array(
-					'ROW_URL' => cot_url('page', $urlparams),
+					'ROW_URL' => cot_url('projects', $urlparams),
 					'ROW_TITLE' => $x_i18n['title'],
 					'ROW_DESC' => $x_i18n['desc'],
 				));
 			}
 		}
-		$t1->parse("MAIN.CATS");
 
-		$t1->assign(array(
-			"TITLE" => htmlspecialchars($structure['projects'][$parent]['title']),
-			"DESC" => $structure['projects'][$parent]['desc'],
-			"COUNT" => $structure['projects'][$parent]['count'],
-			"ICON" => $structure['projects'][$parent]['icon'],
-			"HREF" => cot_url("projects", "c=" . $parent),
-			"LEVEL" => $level,
-		));
+		/* === Hook - Part2 : Include === */
+		foreach ($extp as $pl)
+		{
+			include $pl;
+		}
+		/* ===== */
+
+		$t1->parse("MAIN.CATS");
 	}
 	if ($jj == 0)
 	{

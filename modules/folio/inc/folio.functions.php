@@ -91,6 +91,16 @@ function cot_build_structure_folio_tree($parent = '', $selected = array(), $leve
 {
 	global $structure, $cfg, $db, $sys;
 	global $i18n_notmain, $i18n_locale, $i18n_write, $i18n_admin, $i18n_read, $db_i18n_pages;
+
+	$urlparams = array();
+
+	/* === Hook === */
+	foreach (cot_getextplugins('folio.tree.first') as $pl)
+	{
+		include $pl;
+	}
+	/* ===== */
+
 	if (empty($parent))
 	{
 		$i18n_enabled = $i18n_read;
@@ -108,23 +118,46 @@ function cot_build_structure_folio_tree($parent = '', $selected = array(), $leve
 		$i18n_enabled = $i18n_read && cot_i18n_enabled($parent);
 		$children = cot_structure_children('folio', $parent, false, false);
 	}
-	//cot_print($children, $parent);
+
 	$t1 = new XTemplate(cot_tplfile(array('folio', 'tree', $template), 'module'));
+
+	/* === Hook === */
+	foreach (cot_getextplugins('folio.tree.main') as $pl)
+	{
+		include $pl;
+	}
+	/* ===== */
 
 	if (count($children) == 0)
 	{
 		return false;
 	}
+
+	$t1->assign(array(
+		"TITLE" => htmlspecialchars($structure['folio'][$parent]['title']),
+		"DESC" => $structure['folio'][$parent]['desc'],
+		"COUNT" => $structure['folio'][$parent]['count'],
+		"ICON" => $structure['folio'][$parent]['icon'],
+		"HREF" => cot_url("folio", $urlparams + array('c' => $parent)),
+		"LEVEL" => $level,
+	));
+
 	$jj = 0;
+
+	/* === Hook - Part1 : Set === */
+	$extp = cot_getextplugins('folio.tree.loop');
+	/* ===== */
+
 	foreach ($children as $row)
 	{
 		$jj++;
+		$urlparams['c'] = $row;
 		$t1->assign(array(
 			"ROW_TITLE" => htmlspecialchars($structure['folio'][$row]['title']),
 			"ROW_DESC" => $structure['folio'][$row]['desc'],
 			"ROW_COUNT" => $structure['folio'][$row]['count'],
 			"ROW_ICON" => $structure['folio'][$row]['icon'],
-			"ROW_HREF" => cot_url("folio", "c=" . $row . "&type=" . $type),
+			"ROW_HREF" => cot_url("folio", $urlparams),
 			"ROW_SELECTED" => in_array($row, $selected) ? 1 : 0,
 			"ROW_SUBCAT" => cot_build_structure_folio_tree($row, $selected, $level + 1),
 			"ROW_LEVEL" => $level,
@@ -132,13 +165,12 @@ function cot_build_structure_folio_tree($parent = '', $selected = array(), $leve
 			"ROW_JJ" => $jj
 		));
 
-		if ($i18n_enabled && $i18n_notmain)
-		{
+		if ($i18n_enabled && $i18n_notmain){
 			$x_i18n = cot_i18n_get_cat($row, $i18n_locale);
-
-			if ($x_i18n)
-			{
-				$urlparams = (!$cfg['plugin']['i18n']['omitmain'] || $i18n_locale != $cfg['defaultlang']) ? "c=$row&l=$i18n_locale" : "c=$row";
+			if ($x_i18n){
+				if(!$cfg['plugin']['i18n']['omitmain'] || $i18n_locale != $cfg['defaultlang']){
+					$urlparams['l'] = $i18n_locale;
+				}
 				$t1->assign(array(
 					'ROW_URL' => cot_url('folio', $urlparams),
 					'ROW_TITLE' => $x_i18n['title'],
@@ -146,16 +178,15 @@ function cot_build_structure_folio_tree($parent = '', $selected = array(), $leve
 				));
 			}
 		}
-		$t1->parse("MAIN.CATS");
 
-		$t1->assign(array(
-			"TITLE" => htmlspecialchars($structure['folio'][$parent]['title']),
-			"DESC" => $structure['folio'][$parent]['desc'],
-			"COUNT" => $structure['folio'][$parent]['count'],
-			"ICON" => $structure['folio'][$parent]['icon'],
-			"HREF" => cot_url("folio", "c=" . $parent),
-			"LEVEL" => $level,
-		));
+		/* === Hook - Part2 : Include === */
+		foreach ($extp as $pl)
+		{
+			include $pl;
+		}
+		/* ===== */
+
+		$t1->parse("MAIN.CATS");
 	}
 	if ($jj == 0)
 	{

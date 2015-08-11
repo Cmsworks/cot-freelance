@@ -185,6 +185,15 @@ function cot_usercategories_tree($chosen = '', $parent = '', $template = '', $le
 	global $structure, $cfg, $gm, $group;
 	global $i18n_notmain, $i18n_locale, $i18n_read;
 	
+	$urlparams = array('gm' => $gm, 'group' => $group);
+
+	/* === Hook === */
+	foreach (cot_getextplugins('usercategories.tree.first') as $pl)
+	{
+		include $pl;
+	}
+	/* ===== */
+
 	if(empty($structure['usercategories'])){
 		return false;
 	}
@@ -212,20 +221,48 @@ function cot_usercategories_tree($chosen = '', $parent = '', $template = '', $le
 	}
 
 	$t1 = new XTemplate(cot_tplfile(array('usercategories', 'cattree', $template), 'plug'));
-	
+
+	/* === Hook === */
+	foreach (cot_getextplugins('usercategories.tree.main') as $pl)
+	{
+		include $pl;
+	}
+	/* ===== */
+
 	$level++;
+
+	if($parent){
+		$t1->assign(array(
+			"CAT_TITLE" => htmlspecialchars($structure['usercategories'][$parent]['title']),
+			"CAT_DESC" => $structure['usercategories'][$parent]['desc'],
+			"CAT_COUNT" => $structure['usercategories'][$parent]['count'],
+			"CAT_ICON" => $structure['usercategories'][$parent]['icon'],
+		));
+	}
+	
+	$t1->assign(array(
+		"CAT_URL" => cot_url("users", $urlparams + array('cat' => $parent)),
+		"CAT_LEVEL" => $level,
+	));
+
 	$jj = 0;
+
+	/* === Hook - Part1 : Set === */
+	$extp = cot_getextplugins('usercategories.tree.loop');
+	/* ===== */
+
 	foreach ($children as $row)
 	{
 		$jj++;
 		$subcats = cot_structure_children('usercategories', $row, false, false);
+		$urlparams['cat'] = $row;
 		$t1->assign(array(
 			"CAT_ROW_CAT" => $row,
 			"CAT_ROW_TITLE" => htmlspecialchars($structure['usercategories'][$row]['title']),
 			"CAT_ROW_DESC" => $structure['usercategories'][$row]['desc'],
 			"CAT_ROW_COUNT" => $structure['usercategories'][$row]['count'],
 			"CAT_ROW_ICON" => $structure['usercategories'][$row]['icon'],
-			"CAT_ROW_URL" => cot_url("users", "gm=" . $gm . "&cat=" . $row . "&group=" . $group),
+			"CAT_ROW_URL" => cot_url("users", $urlparams),
 			"CAT_ROW_SELECTED" => (is_array($chosen) && in_array($row, $chosen) || !is_array($chosen) && $row == $chosen) ? 1 : 0,
 			"CAT_ROW_SUBCAT" => (count($subcats) > 0) ? cot_usercategories_tree($chosen, $row, $template, $level) : '',
 			"CAT_ROW_ODDEVEN" => cot_build_oddeven($jj),
@@ -235,7 +272,9 @@ function cot_usercategories_tree($chosen = '', $parent = '', $template = '', $le
 		if ($i18n_enabled && $i18n_notmain){
 			$x_i18n = cot_i18n_get_cat($row, $i18n_locale);
 			if ($x_i18n){
-				$urlparams = (!$cfg['plugin']['i18n']['omitmain'] || $i18n_locale != $cfg['defaultlang']) ? "gm=" . $gm . "&cat=" . $row. "&group=" . $group . "&l=" . $i18n_locale : "gm=" . $gm . "&cat=" . $row. "&group=" . $group;
+				if(!$cfg['plugin']['i18n']['omitmain'] || $i18n_locale != $cfg['defaultlang']){
+					$urlparams['l'] = $i18n_locale;
+				}
 				$t1->assign(array(
 					'CAT_ROW_URL' => cot_url('users', $urlparams),
 					'CAT_ROW_TITLE' => $x_i18n['title'],
@@ -243,21 +282,15 @@ function cot_usercategories_tree($chosen = '', $parent = '', $template = '', $le
 				));
 			}
 		}
-		$t1->parse("MAIN.CAT_ROW");
 
-		if($parent){
-			$t1->assign(array(
-				"CAT_TITLE" => htmlspecialchars($structure['usercategories'][$parent]['title']),
-				"CAT_DESC" => $structure['usercategories'][$parent]['desc'],
-				"CAT_COUNT" => $structure['usercategories'][$parent]['count'],
-				"CAT_ICON" => $structure['usercategories'][$parent]['icon'],
-			));
+		/* === Hook - Part2 : Include === */
+		foreach ($extp as $pl)
+		{
+			include $pl;
 		}
-		
-		$t1->assign(array(
-			"CAT_URL" => cot_url("users", "gm=" . $gm . "&cat=" . $parent . "&group=" . $group),
-			"CAT_LEVEL" => $level,
-		));
+		/* ===== */
+
+		$t1->parse("MAIN.CAT_ROW");
 	}
 	
 	if ($jj == 0)
