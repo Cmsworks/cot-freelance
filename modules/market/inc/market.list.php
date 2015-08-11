@@ -107,7 +107,8 @@ $order = ($order) ? 'ORDER BY ' . implode(', ', $order) : '';
 $totalitems = $db->query("SELECT COUNT(*) FROM $db_market AS m $join_condition 
 	" . $where . "")->fetchColumn();
 
-$sqllist = $db->query("SELECT * FROM $db_market AS m $join_condition
+$sqllist = $db->query("SELECT m.*, u.* $join_columns 
+	FROM $db_market AS m $join_condition
 	LEFT JOIN $db_users AS u ON u.user_id=m.item_userid 
 	" . $where . "
 	" . $order . "

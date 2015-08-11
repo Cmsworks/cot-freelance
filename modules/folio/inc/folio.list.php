@@ -106,7 +106,8 @@ $order = ($order) ? 'ORDER BY ' . implode(', ', $order) : '';
 $totalitems = $db->query("SELECT COUNT(*) FROM $db_folio AS f $join_condition 
 	" . $where . "")->fetchColumn();
 
-$sqllist = $db->query("SELECT * FROM $db_folio AS f $join_condition 
+$sqllist = $db->query("SELECT f.*, u.* $join_columns 
+	FROM $db_folio AS f $join_condition 
 	LEFT JOIN $db_users AS u ON u.user_id=f.item_userid 
 	" . $where . " 
 	" . $order . "
