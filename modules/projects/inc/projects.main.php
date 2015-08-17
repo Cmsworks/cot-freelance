@@ -57,7 +57,7 @@ $out['meta_keywords'] = (!empty($item['item_keywords'])) ? $item['item_keywords'
 if ($item['item_state'] != 0 && !$usr['isadmin'] && $usr['id'] != $item['item_userid'])
 {
 	$userofferexists = (bool)$db->query("SELECT COUNT(*) FROM $db_projects_offers 
-			WHERE item_userid=" . $usr['id'] . " AND item_pid=" . $item['item_id'])->fetchColumn();
+			WHERE offer_userid=" . $usr['id'] . " AND offer_pid=" . $item['item_id'])->fetchColumn();
 	if(!$userofferexists)
 	{
 		cot_log("Attempt to directly access an un-validated", 'sec');
