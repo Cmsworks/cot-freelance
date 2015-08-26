@@ -80,8 +80,8 @@ $sqllist = $db->query("SELECT * FROM $db_market AS m
 foreach ($sql_market_count_cat as $value) {
 	$page_nav[$value['item_cat']] = $value['cat_count'];
 	$t1->assign(array(
-		"PRD_CAT_ROW_TITLE" => &$structure['folio'][$value['item_cat']]['title'],
-		"PRD_CAT_ROW_ICON" => &$structure['folio'][$value['item_cat']]['icon'],
+		"PRD_CAT_ROW_TITLE" => &$structure['market'][$value['item_cat']]['title'],
+		"PRD_CAT_ROW_ICON" => &$structure['market'][$value['item_cat']]['icon'],
 		"PRD_CAT_ROW_URL" => cot_url('users', 'm=details&id=' . $urr['user_id'] . '&u=' . $urr['user_name'] . '&tab=market&cat='.$value['item_cat']),
 		"PRD_CAT_ROW_COUNT_MARKET" => $value['cat_count'], 
 		"PRD_CAT_ROW_SELECT" => ($category && $category == $value['item_cat']) ? 1 : '' 
