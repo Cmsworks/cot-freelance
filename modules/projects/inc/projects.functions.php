@@ -430,7 +430,7 @@ function cot_projects_import($source = 'POST', $ritem = array(), $auth = array()
 	$ritem['item_title'] = cot_import('rtitle', $source, 'TXT');
 	$ritem['item_alias'] = cot_import('ralias', $source, 'TXT');
 	$ritem['item_text'] = cot_import('rtext', $source, 'HTM');
-	$ritem['item_cost'] = cot_import('rcost', $source, 'TXT');
+	$ritem['item_cost'] = cot_import('rcost', $source, 'NUM');
 	$ritem['item_type'] = cot_import('rtype', $source, 'INT');
 	$ritem['item_parser'] = cot_import('rparser', $source, 'ALP');
 	
