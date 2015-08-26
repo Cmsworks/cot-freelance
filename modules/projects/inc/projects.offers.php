@@ -40,8 +40,8 @@ if ($a == 'addoffer')
 	}
 	/* ===== */
 	
-	$roffer['offer_cost_min'] = (int)cot_import('costmin', 'P', 'INT');
-	$roffer['offer_cost_max'] = (int)cot_import('costmax', 'P', 'INT');
+	$roffer['offer_cost_min'] = (int)cot_import('costmin', 'P', 'NUM');
+	$roffer['offer_cost_max'] = (int)cot_import('costmax', 'P', 'NUM');
 	$roffer['offer_time_min'] = (int)cot_import('timemin', 'P', 'INT');
 	$roffer['offer_time_max'] = (int)cot_import('timemax', 'P', 'INT');
 	$roffer['offer_time_type'] = (int)cot_import('timetype', 'P', 'INT');
