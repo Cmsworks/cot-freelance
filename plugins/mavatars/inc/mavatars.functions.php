@@ -355,10 +355,10 @@ class mavatar
 		global $db_mavatars, $cot_extrafields;
 		$curr_mavatar = array(
 				'MAVATAR' => $this->object_tags($mavatar),
-				'ENABLED' => cot_checkbox(true, $prefix.'enabled['.$mavatar['id'].']', '', 'title="'.$L['Enabled'].'"'),
+				'DELETE' => cot_checkbox(false, $prefix.'delete['.$mavatar['id'].']', '', 'title="'.$L['Enabled'].'"'),
 				'FILEORDER' => cot_inputbox('text', $prefix.'order['.$mavatar['id'].']', $mavatar['order'], 'maxlength="4" size="4"'),
 				'FILEDESC' => cot_inputbox('text', $prefix.'desc['.$mavatar['id'].']', $mavatar['desc']),
-				'FILEDESCTEXT' => cot_textarea($prefix.'desc['.$mavatar['id'].']', $mavatar['desc'], 2, 30),
+				'FILEDESCTEXT' => cot_inputbox('text', $prefix.'desc['.$mavatar['id'].']', $mavatar['desc']),
 				'FILENEW' => cot_inputbox('hidden', $prefix.'new['.$mavatar['id'].']', 0),
 		);
 		foreach($cot_extrafields[$db_mavatars] as $exfld)
@@ -606,12 +606,12 @@ class mavatar
 		if ($this->code != 'new') //TODO: а что происходит с аякс загрузкой?
 		{
 
-			$mavatars['mav_enabled'] = cot_import('mavatar_enabled', 'P', 'ARR');
+			$mavatars['mav_delete'] = cot_import('mavatar_delete', 'P', 'ARR');
 			$mavatars['mav_order'] = cot_import('mavatar_order', 'P', 'ARR');
 			$mavatars['mav_desc'] = cot_import('mavatar_desc', 'P', 'ARR');
 			$mavatars['mav_new'] = cot_import('mavatar_new', 'P', 'ARR');
 
-			$mavatars['mav_enabled'] = (count($mavatars['mav_enabled']) > 0) ? $mavatars['mav_enabled'] : array();
+			$mavatars['mav_delete'] = (count($mavatars['mav_delete']) > 0) ? $mavatars['mav_delete'] : array();
 
 			foreach ($cot_extrafields[$db_mavatars] as $exfld)
 			{
@@ -626,11 +626,11 @@ class mavatar
 				}
 			}
 
-			foreach ($mavatars['mav_enabled'] as $id => $enabled)
+			foreach ($mavatars['mav_delete'] as $id => $delete)
 			{
 				$mavatar_info = $this->get_mavatar_byid($id);
 				$mavatar = array();
-				$enabled = cot_import($enabled, 'D', 'BOL') ? true : false;
+				$delete = cot_import($delete, 'D', 'BOL') ? true : false;
 				$mavatar['mav_order'] = cot_import($mavatars['mav_order'][$id], 'D', 'INT');
 				$mavatar['mav_desc'] = cot_import($mavatars['mav_desc'][$id], 'D', 'TXT');
 
@@ -641,7 +641,7 @@ class mavatar
 
 				$new = cot_import($mavatars['mav_new'][$id], 'D', 'BOL');
 				
-				if ($enabled)
+				if (!$delete)
 				{
 					$mavatar['mav_extension'] = $this->extension;
 					$mavatar['mav_category'] = $this->category;

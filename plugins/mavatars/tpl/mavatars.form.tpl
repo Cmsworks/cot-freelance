@@ -1,30 +1,33 @@
 <!-- BEGIN: MAIN -->
 <div class="mavatar_uploadform">
-	<div class="uploadedfiles rows">
+	<div class="uploadedfiles">
 	<!-- BEGIN: FILES -->	
 		<!-- BEGIN: ROW -->
-		<div class="uploadedfile col-md-3 marginbottom10">	
-
-			<div class="img text-center">
-				<a href="{MAVATAR.FILE}" target="_blank"  class="fancybox" rel="gallery1"><img src="{MAVATAR|cot_mav_thumb($this, 255, 191, auto)}" alt="{MAVATAR.FILENAME}.{MAVATAR.FILEEXT}" title="{MAVATAR.FILENAME}.{MAVATAR.FILEEXT}" class="img-thumbnail" /></a>
-			</div>
-			<div class="des">
-				<div class="inp">{FILEDESCTEXT|cot_rc_modify('$this', 'class="form-control"')}{FILENEW}</div> 
-			</div>			
-			<div class="order input-group">
-				<span class="input-group-addon">
-		        	Порядок
-		    	</span>
+		<div class="uploadedfile media">	
+			<div class="pull-left">{MAVATAR.ORDER}</div>
+			<div class="pull-right">				
 		    	{FILEORDER|cot_rc_modify('$this', 'class="form-control"')}
-				<span class="input-group-addon">
-		        	 Доступна {ENABLED}
-		    	</span>		    	
-			</div>			
-
+			</div>
+			<!-- IF {MAVATAR.FILEEXT} == 'png' OR {MAVATAR.FILEEXT} == 'jpg' OR {MAVATAR.FILEEXT} == 'gif' OR {MAVATAR.FILEEXT} == 'bmp' -->
+			<div class="pull-left">
+				<a href="{MAVATAR.FILE}" target="_blank" class="fancybox" rel="gallery1"><img src="{MAVATAR|cot_mav_thumb($this, 100, 100, auto)}" alt="{MAVATAR.FILENAME}.{MAVATAR.FILEEXT}" title="{MAVATAR.FILENAME}.{MAVATAR.FILEEXT}" class="img-thumbnail" /></a>
+			</div>
+			<div class="media-body">
+				<div class="inp">{FILEDESCTEXT|cot_rc_modify('$this', 'class="form-control"')}{FILENEW}</div>
+				<label class="checkbox">{DELETE} {PHP.L.Delete}</label>	    	
+			</div>	
+			<!-- ELSE -->
+			<div class="media-body">
+				<a href="{MAVATAR.FILE}" target="_blank" rel="gallery1">{MAVATAR.DESC}.{MAVATAR.FILEEXT}</a>
+				<div class="inp">{FILEDESCTEXT|cot_rc_modify('$this', 'class="form-control"')}{FILENEW}</div>
+				<label class="checkbox">{DELETE} {PHP.L.Delete}</label>	 
+			</div>
+			<!-- ENDIF -->		
 		</div>
 		<!-- END: ROW -->	
 	<!-- END: FILES -->
 	</div>
+	<br/>
 	<div class="clearfix"></div>
 
 	<!-- BEGIN: UPLOAD -->
@@ -61,23 +64,35 @@
 			$('#uploader').fileapi({
 				url: '{FILEUPLOAD_URL}',
 				autoUpload: true,
-			/*accept: 'image/*',*/
+			//	accept: 'image/*',
 				multiple: true,
-				maxSize: FileAPI.MB*10, /*max file size*/
+				maxSize: FileAPI.MB*10, // max file size
 				imageTransform: {
-					maxWidth: 1200,
-					maxHeight: 1200
+					// resize by max side
+					maxWidth: 1600,
+					maxHeight: 1600
 				},
 				onFileComplete: function (evt, uiEvt){
 					var file = uiEvt.file;
 					var data = uiEvt.result;
-					if (data == 1 || data.success == 1) {
-					/*uploadobj.remove();*/
+					if (data.success == 1) {
+					//	uploadobj.remove();
 						var decoded = $('<textarea/>').html(data.form).val();
 							$('.uploadedfiles').append(decoded);
 						}
 					else {
-						$(this).prepend(alertmessage.replace(/\%text\%/g, data.error));
+						var error= '';
+						if(data.error !== undefined)
+						{
+							error = data.error;
+						}
+						else
+						{
+							error = data;
+						}
+						$('.js-fileapi-error').append('<div class="alert alert-danger alert-dismissible" role="alert">'+
+								'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
+								'<strong>' + file.name + '</strong>: '+ error + '</div>');
 					}
 				}
 			});
