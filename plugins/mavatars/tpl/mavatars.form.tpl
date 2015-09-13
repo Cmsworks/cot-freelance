@@ -66,33 +66,48 @@
 				autoUpload: true,
 			//	accept: 'image/*',
 				multiple: true,
-				maxSize: FileAPI.MB*10, // max file size
+				maxSize: FileAPI.KB*{MAXFILESIZE}, // max file size
 				imageTransform: {
 					// resize by max side
 					maxWidth: 1600,
 					maxHeight: 1600
 				},
+				onSelect: function (evt, data){
+					data.all; // All files
+			        data.files; // Correct files
+			        if( data.other.length ){
+			            // errors
+			            var errors = data.other[0].errors;
+			            if( errors ){
+			                errors.maxSize; // File size exceeds the maximum size `@see maxSize`
+			                errors.maxFiles; // Number of files selected exceeds the maximum `@see maxFiles`
+			                errors.minWidth; // Width of the image is smaller than the specified `@see imageSize`
+			                errors.minHeight;
+			                errors.maxWidth; // Width of the image greater than the specified `@see imageSize`
+			                errors.maxHeight;
+			                
+			                $('.uploadedfiles').append('<div class="alert alert-danger alert-dismissible" role="alert">'+
+							'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
+							'{PHP.L.mavatar_wrongfile}</div>');
+			            }
+			        }
+				},
+				onBeforeUpload: function (evt, uiEvt){
+					console.log(evt, uiEvt);
+				},
 				onFileComplete: function (evt, uiEvt){
+					console.log(evt);
 					var file = uiEvt.file;
 					var data = uiEvt.result;
-					if (data.success == 1) {
+					console.log(data);
+					if (data.id) {
 					//	uploadobj.remove();
 						var decoded = $('<textarea/>').html(data.form).val();
 							$('.uploadedfiles').append(decoded);
-						}
-					else {
-						var error= '';
-						if(data.error !== undefined)
-						{
-							error = data.error;
-						}
-						else
-						{
-							error = data;
-						}
-						$('.js-fileapi-error').append('<div class="alert alert-danger alert-dismissible" role="alert">'+
-								'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
-								'<strong>' + file.name + '</strong>: '+ error + '</div>');
+					} else {
+						$('.uploadedfiles').append('<div class="alert alert-danger alert-dismissible" role="alert">'+
+							'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
+							'{PHP.L.mavatar_wrongfile}</div>');
 					}
 				}
 			});

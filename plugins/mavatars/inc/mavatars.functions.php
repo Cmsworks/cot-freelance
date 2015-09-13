@@ -402,6 +402,7 @@ class mavatar
 		if ($cfg['jquery'] && $cfg['plugin']['mavatars']['turnajax'])
 		{
 			$t->assign("FILEUPLOAD_URL", cot_url('plug', 'r=mavatars&m=upload&ext='.$this->extension.'&cat='.$this->category.'&code='.$this->code.'&'.cot_xg(), '', true));
+			$t->assign('MAXFILESIZE', $this->maxsize);
 			$t->parse("MAIN.AJAXUPLOAD");
 		}
 		else
@@ -468,7 +469,8 @@ class mavatar
 		global $cfg;
 
 		list($file_name, $file_extension) = $this->file_info($file_object['name']);
-		if (!empty($file_name) && !in_array($file_extension, $this->suppressed_ext) && in_array($file_extension, $this->allowed_ext))
+		$file_size = $file_object['tmp_name']['size'];
+		if (!empty($file_name) && !in_array($file_extension, $this->suppressed_ext) && in_array($file_extension, $this->allowed_ext) && $file_size <= $this->maxsize)
 		{
 			$safe_name = $this->safename($file_name, $file_extension, $this->filepath);
 			$file_fullname = $this->file_path($this->filepath, $safe_name, $file_extension);
