@@ -202,6 +202,7 @@ if ($n == 'transfer')
 		$recipient = $db->query("SELECT * FROM $db_users WHERE user_name = ? LIMIT 1", array($username))->fetch();
 		
 		cot_check(empty($recipient), 'payments_balance_transfer_error_username');
+		cot_check(!empty($recipient) && $username == $usr['name'], 'payments_balance_transfer_error_yourself');
 		cot_check(empty($comment), 'payments_balance_transfer_error_comment');
 		cot_check(empty($summ), 'payments_balance_transfer_error_summ');
 		cot_check($summ < 0, 'payments_balance_transfer_error_wrongsumm');

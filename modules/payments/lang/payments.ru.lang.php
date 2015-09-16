@@ -117,6 +117,7 @@ $L['payments_balance_transfer_tax'] = "Комиссия";
 $L['payments_balance_transfer_total'] = "Сумма к списанию";
 $L['payments_balance_transfer_username'] = "Логин получателя";
 $L['payments_balance_transfer_error_username'] = "Такого пользователя не существует";
+$L['payments_balance_transfer_error_yourself'] = "Нельзя выполнить перевод самому себе";
 $L['payments_balance_transfer_error_summ'] = 'Не указана сумма';
 $L['payments_balance_transfer_error_wrongsumm'] = 'Сумма не может быть отрицательной';
 $L['payments_balance_transfer_error_balance'] = 'Сумма превышает баланс вашего счета';
