@@ -4,7 +4,7 @@
  * folio module
  *
  * @package folio
- * @version 2.5.7
+ * @version 2.5.8
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru, littledev.ru
  * @license BSD

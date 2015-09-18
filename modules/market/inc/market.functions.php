@@ -4,7 +4,7 @@
  * market module
  *
  * @package market
- * @version 2.5.6
+ * @version 2.5.7
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru, littledev.ru
  * @license BSD

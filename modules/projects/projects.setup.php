@@ -4,7 +4,7 @@
  * Code=projects
  * Name=Projects
  * Description=Проекты
- * Version=2.5.7
+ * Version=2.5.8
  * Date=24.11.2012
  * Author=CMSWorks Team
  * Copyright=Copyright (c) CMSWorks.ru, littledev.ru
