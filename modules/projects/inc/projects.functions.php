@@ -118,7 +118,7 @@ function cot_build_structure_projects_tree($parent = '', $selected = array(), $l
 	else
 	{
 		$i18n_enabled = $i18n_read && cot_i18n_enabled($parent);
-		$children = cot_structure_children('projects', $parent, false, false);
+		$children = $structure['projects'][$parent]['subcats'];
 	}
 
 	$t1 = new XTemplate(cot_tplfile(array('projects', 'tree', $template), 'module'));
@@ -154,7 +154,7 @@ function cot_build_structure_projects_tree($parent = '', $selected = array(), $l
 	{
 		$jj++;
 		$urlparams['c'] = $row;
-		$subcats = cot_structure_children('projects', $row, false, false);
+		$subcats = $structure['projects'][$row]['subcats'];
 		$t1->assign(array(
 			"ROW_CAT" => $row,
 			"ROW_TITLE" => htmlspecialchars($structure['projects'][$row]['title']),

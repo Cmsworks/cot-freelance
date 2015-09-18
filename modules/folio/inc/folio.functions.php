@@ -116,7 +116,7 @@ function cot_build_structure_folio_tree($parent = '', $selected = array(), $leve
 	else
 	{
 		$i18n_enabled = $i18n_read && cot_i18n_enabled($parent);
-		$children = cot_structure_children('folio', $parent, false, false);
+		$children = $structure['folio'][$parent]['subcats'];
 	}
 
 	$t1 = new XTemplate(cot_tplfile(array('folio', 'tree', $template), 'module'));
@@ -152,7 +152,7 @@ function cot_build_structure_folio_tree($parent = '', $selected = array(), $leve
 	{
 		$jj++;
 		$urlparams['c'] = $row;
-		$subcats = cot_structure_children('folio', $row, false, false);
+		$subcats = $structure['folio'][$row]['subcats'];
 		$t1->assign(array(
 			"ROW_TITLE" => htmlspecialchars($structure['folio'][$row]['title']),
 			"ROW_DESC" => $structure['folio'][$row]['desc'],

@@ -118,7 +118,7 @@ function cot_build_structure_market_tree($parent = '', $selected = array(), $lev
 	else
 	{
 		$i18n_enabled = $i18n_read && cot_i18n_enabled($parent);
-		$children = cot_structure_children('market', $parent, false, false);
+		$children = $structure['market'][$parent]['subcats'];
 	}
 
 	$t1 = new XTemplate(cot_tplfile(array('market', 'tree', $template), 'module'));
@@ -154,7 +154,7 @@ function cot_build_structure_market_tree($parent = '', $selected = array(), $lev
 	{
 		$jj++;
 		$urlparams['c'] = $row;
-		$subcats = cot_structure_children('market', $row, false, false);
+		$subcats = $structure['market'][$row]['subcats'];
 		$t1->assign(array(
 			"ROW_TITLE" => htmlspecialchars($structure['market'][$row]['title']),
 			"ROW_DESC" => $structure['market'][$row]['desc'],

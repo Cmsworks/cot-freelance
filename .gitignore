@@ -15,7 +15,8 @@ sef-urls.nginx.conf
 /lang/
 /lib/
 /setup/
-/system/
+/system/*
+!/system/functions.php
 /modules/forums/
 /modules/index/
 /modules/install/
