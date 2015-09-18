@@ -124,7 +124,7 @@ function cot_usercategories_treecheck($chosen, $name, $parent = '', $template = 
 	}
 	else{
 		$i18n_enabled = $i18n_read && cot_i18n_enabled($parent);
-		$children = cot_structure_children('usercategories', $parent, false, false);
+		$children = $structure['usercategories'][$parent]['subcats'];
 	}
 
 	if (count($children) == 0){
@@ -137,7 +137,7 @@ function cot_usercategories_treecheck($chosen, $name, $parent = '', $template = 
 	foreach ($children as $row)
 	{
 		if(cot_auth('usercategories', $row, $userrights)){
-			$subcats = cot_structure_children('usercategories', $row, false, false);
+			$subcats = $structure['usercategories'][$row]['subcats'];
 			$cattitle = htmlspecialchars($structure['usercategories'][$row]['title']);
 			if ($i18n_enabled && $i18n_notmain){
 				$x_i18n = cot_i18n_get_cat($row, $i18n_locale);
@@ -213,7 +213,7 @@ function cot_usercategories_tree($chosen = '', $parent = '', $template = '', $le
 	}
 	else{
 		$i18n_enabled = $i18n_read && cot_i18n_enabled($parent);
-		$children = cot_structure_children('usercategories', $parent, false, false);
+		$children = $structure['usercategories'][$parent]['subcats'];
 	}
 
 	if (count($children) == 0){
@@ -254,7 +254,7 @@ function cot_usercategories_tree($chosen = '', $parent = '', $template = '', $le
 	foreach ($children as $row)
 	{
 		$jj++;
-		$subcats = cot_structure_children('usercategories', $row, false, false);
+		$subcats = $structure['usercategories'][$row]['subcats'];
 		$urlparams['cat'] = $row;
 		$t1->assign(array(
 			"CAT_ROW_CAT" => $row,
