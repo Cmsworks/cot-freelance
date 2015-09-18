@@ -4,7 +4,7 @@
  * market module
  *
  * @package market
- * @version 2.5.2
+ * @version 2.5.6
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru, littledev.ru
  * @license BSD
@@ -154,6 +154,7 @@ function cot_build_structure_market_tree($parent = '', $selected = array(), $lev
 	{
 		$jj++;
 		$urlparams['c'] = $row;
+		$subcats = cot_structure_children('market', $row, false, false);
 		$t1->assign(array(
 			"ROW_TITLE" => htmlspecialchars($structure['market'][$row]['title']),
 			"ROW_DESC" => $structure['market'][$row]['desc'],
@@ -161,7 +162,7 @@ function cot_build_structure_market_tree($parent = '', $selected = array(), $lev
 			"ROW_ICON" => $structure['market'][$row]['icon'],
 			"ROW_HREF" => cot_url("market", $urlparams),
 			"ROW_SELECTED" => in_array($row, $selected) ? 1 : 0,
-			"ROW_SUBCAT" => cot_build_structure_market_tree($row, $selected, $level + 1),
+			"ROW_SUBCAT" => (count($subcats) > 0) ? cot_build_structure_market_tree($row, $selected, $level + 1) : '',
 			"ROW_LEVEL" => $level,
 			"ROW_ODDEVEN" => cot_build_oddeven($jj),
 			"ROW_JJ" => $jj

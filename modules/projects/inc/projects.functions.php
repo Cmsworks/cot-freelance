@@ -4,7 +4,7 @@
  * projects module
  *
  * @package projects
- * @version 2.5.2
+ * @version 2.5.7
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru, littledev.ru
  * @license BSD
@@ -154,6 +154,7 @@ function cot_build_structure_projects_tree($parent = '', $selected = array(), $l
 	{
 		$jj++;
 		$urlparams['c'] = $row;
+		$subcats = cot_structure_children('projects', $row, false, false);
 		$t1->assign(array(
 			"ROW_CAT" => $row,
 			"ROW_TITLE" => htmlspecialchars($structure['projects'][$row]['title']),
@@ -162,7 +163,7 @@ function cot_build_structure_projects_tree($parent = '', $selected = array(), $l
 			"ROW_ICON" => $structure['projects'][$row]['icon'],
 			"ROW_HREF" => cot_url("projects", $urlparams),
 			"ROW_SELECTED" => in_array($row, $selected) ? 1 : 0,
-			"ROW_SUBCAT" => cot_build_structure_projects_tree($row, $selected, $level + 1),
+			"ROW_SUBCAT" => (count($subcats) > 0) ? cot_build_structure_projects_tree($row, $selected, $level + 1) : '',
 			"ROW_LEVEL" => $level,
 			"ROW_ODDEVEN" => cot_build_oddeven($jj),
 			"ROW_JJ" => $jj
