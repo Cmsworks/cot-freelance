@@ -1230,7 +1230,7 @@ function cot_load_structure()
 			$tpath[$row['structure_path']] = $tpath[$path1] . $separaror . $row['structure_title'];
 			$parent_dot = mb_strrpos($path[$path1], '.');
 			$parent = ($parent_dot > 0) ? mb_substr($path[$path1], $parent_dot + 1) : $path[$path1];
-			$subcats[$row['structure_area']][$path[$path1]][] = $row['structure_code'];
+			$subcats[$row['structure_area']][$parent][] = $row['structure_code'];
 		}
 		else
 		{
