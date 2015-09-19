@@ -10,12 +10,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 {HEADER_BASEHREF}
 <link rel="shortcut icon" href="favicon.ico">
-<link rel="stylesheet" href="{PHP.cfg.themes_dir}/{PHP.usr.theme}/bootstrap/css/bootstrap.css" type="text/css">
-<link rel="stylesheet" href="{PHP.cfg.themes_dir}/{PHP.usr.theme}/bootstrap/css/bootstrap-responsive.css" type="text/css">
+<link rel="stylesheet" href="{PHP.cfg.themes_dir}/admin/{PHP.cfg.admintheme}/bootstrap/css/bootstrap.css" type="text/css">
+<link rel="stylesheet" href="{PHP.cfg.themes_dir}/admin/{PHP.cfg.admintheme}/bootstrap/css/bootstrap-responsive.css" type="text/css">
 <link rel="stylesheet" href="{PHP.cfg.themes_dir}/admin/{PHP.cfg.admintheme}/{PHP.cfg.admintheme}.css" type="text/css">
 <title>{HEADER_TITLE}</title>
 <script src="js/jquery.min.js"></script>
-<script src="{PHP.cfg.themes_dir}/{PHP.usr.theme}/bootstrap/js/bootstrap.js"></script>
+<script src="{PHP.cfg.themes_dir}/admin/{PHP.cfg.admintheme}/bootstrap/js/bootstrap.js"></script>
 {HEADER_BASEHREF}
 {HEADER_HEAD}
 </head>
