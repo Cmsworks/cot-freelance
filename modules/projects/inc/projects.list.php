@@ -189,7 +189,10 @@ foreach($cot_extrafields[$db_projects] as $exfld)
 }
 
 /* === Hook === */
-$extp = cot_getextplugins('projects.list.search.tags');
+foreach (cot_getextplugins('projects.list.search.tags') as $pl)
+{
+	include $pl;
+}
 /* ===== */
 
 $sqllist_rowset = $sqllist->fetchAll();

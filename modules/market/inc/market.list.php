@@ -152,7 +152,10 @@ foreach($cot_extrafields[$db_market] as $exfld)
 }
 
 /* === Hook === */
-$extp = cot_getextplugins('market.list.search.tags');
+foreach (cot_getextplugins('market.list.search.tags') as $pl)
+{
+	include $pl;
+}
 /* ===== */
 
 $sqllist_rowset = $sqllist->fetchAll();

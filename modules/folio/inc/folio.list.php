@@ -151,7 +151,10 @@ foreach($cot_extrafields[$db_folio] as $exfld)
 }
 
 /* === Hook === */
-$extp = cot_getextplugins('folio.list.search.tags');
+foreach (cot_getextplugins('folio.list.search.tags') as $pl)
+{
+	include $pl;
+}
 /* ===== */
 
 $sqllist_rowset = $sqllist->fetchAll();
