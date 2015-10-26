@@ -11,7 +11,7 @@ require_once cot_incfile('paypro', 'plug');
 
 $forpro = cot_import('forpro', 'G', 'INT');
 
-if(isset($forpro))
+if(isset($forpro) && $forpro == 1)
 {
 	$where['forpro'] = 'item_forpro='.$forpro;
 }
