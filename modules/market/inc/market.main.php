@@ -63,6 +63,11 @@ $out['subtitle'] = cot_title($cfg['market']['title_market'], $title_params);
 $out['desc'] = (!empty($item['item_metadesc'])) ? $item['item_metadesc'] : cot_cutstring(strip_tags(cot_parse($item['item_text'], $cfg['market']['markup'], $item['item_parser'])), 160);
 $out['meta_keywords'] = (!empty($item['item_keywords'])) ? $item['item_keywords'] : $structure['market'][$item['item_cat']]['keywords'];
 
+// Building the canonical URL
+$pageurl_params = array('c' => $item['item_cat']);
+empty($al) ? $pageurl_params['id'] = $id : $pageurl_params['al'] = $al;
+$out['canonical_uri'] = cot_url('market', $pageurl_params);
+
 $mskin = cot_tplfile(array('market', $structure['market'][$item['item_cat']]['tpl']));
 
 /* === Hook === */

@@ -72,6 +72,11 @@ if (!$usr['isadmin'] || $cfg['count_admin'])
 	$db->update($db_projects, array('item_count' => $item['item_count']), "item_id=" . (int)$item['item_id']);
 }
 
+// Building the canonical URL
+$pageurl_params = array('c' => $item['item_cat']);
+empty($al) ? $pageurl_params['id'] = $id : $pageurl_params['al'] = $al;
+$out['canonical_uri'] = cot_url('projects', $pageurl_params);
+
 $mskin = cot_tplfile(array('projects', $structure['projects'][$item['item_cat']]['tpl']));
 
 /* === Hook === */

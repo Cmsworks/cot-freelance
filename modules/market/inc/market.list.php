@@ -90,6 +90,9 @@ switch($sort)
 
 $list_url_path = array('c' => $c, 'sort' => $sort, 'sq' => $sq);
 
+// Building the canonical URL
+$out['canonical_uri'] = cot_url('market', $list_url_path);
+
 $mskin = cot_tplfile(array('market', 'list', $structure['market'][$c]['tpl']));
 
 /* === Hook === */

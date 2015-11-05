@@ -89,6 +89,9 @@ switch($sort)
 }
 $list_url_path = array('c' => $c, 'sort' => $sort, 'sq' => $sq);
 
+// Building the canonical URL
+$out['canonical_uri'] = cot_url('folio', $list_url_path);
+
 $mskin = cot_tplfile(array('folio', 'list', $structure['folio'][$c]['tpl']));
 
 /* === Hook === */
