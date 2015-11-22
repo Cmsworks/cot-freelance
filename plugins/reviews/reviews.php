@@ -30,8 +30,8 @@ if($cfg['pligin']['reviews']['checkprojects'] && cot_module_active('projects') &
 	require_once cot_incfile('projects', 'module');
 	global $db_projects_offers, $db_projects;
 	$bothprj = $db->query("SELECT COUNT(*) FROM  $db_projects_offers AS o
-		LEFT JOIN $db_projects AS p ON p.item_id=o.item_pid
-		WHERE p.item_userid = '".$touser."' AND o.item_userid='".$usr['id']."' AND o.item_choise='performer'")->fetchColumn();
+		LEFT JOIN $db_projects AS p ON p.item_id=o.offer_pid
+		WHERE p.item_userid = '".$touser."' AND o.offer_userid='".$usr['id']."' AND o.offer_choise='performer'")->fetchColumn();
 	$usr['auth_write'] = ((int)$bothprj == 0) ? false : $usr['auth_write'];
 }
 
