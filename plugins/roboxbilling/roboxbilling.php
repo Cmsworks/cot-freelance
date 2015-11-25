@@ -41,9 +41,14 @@ if (empty($m))
 		$culture = "ru";
 		$out_summ = $pinfo['pay_summ']*$cfg['plugin']['roboxbilling']['rate'];
 
+		if($cfg['plugin']['roboxbilling']['testmode'])
+		{
+			$test_string = "&IsTest=1";
+		}
+
 		$crc = md5("$mrh_login:$out_summ:$inv_id:$mrh_pass1:Shp_item=$shp_item");
 
-		$post_opt = "MrchLogin=" . $mrh_login . "&OutSum=" . $out_summ . "&InvId=" . $inv_id . "&Desc=" . $inv_desc . "&SignatureValue=" . $crc . "&Shp_item=" . $shp_item . "&IncCurrLabel=" . $in_curr . "&Culture=" . $culture;
+		$post_opt = "MrchLogin=" . $mrh_login . "&OutSum=" . $out_summ . "&InvId=" . $inv_id . "&Desc=" . $inv_desc . "&SignatureValue=" . $crc . "&Shp_item=" . $shp_item . "&IncCurrLabel=" . $in_curr . "&Culture=" . $culture . $test_string;
 
 		cot_payments_updatestatus($pid, 'process'); // Изменяем статус "в процессе оплаты"
 

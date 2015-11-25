@@ -6,7 +6,7 @@
  * Name=Roboxbilling
  * Category=Payments
  * Description=Robox billing system
- * Version=1.0.2
+ * Version=1.0.3
  * Date=
  * Author=CMSWorks Team
  * Copyright=Copyright (c) CMSWorks.ru
@@ -27,14 +27,3 @@
  * rate=06:string::1:Соотношение суммы к валюте сайта
  * [END_COT_EXT_CONFIG]
  */
-
-/**
- * Robox billing Plugin
- *
- * @package roboxbilling
- * @version 1.0.2
- * @author CMSWorks Team
- * @copyright Copyright (c) CMSWorks.ru
- * @license BSD
- */
-?>
