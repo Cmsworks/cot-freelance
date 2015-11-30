@@ -17,6 +17,10 @@
  */
 defined('COT_CODE') or die('Wrong URL.');
 
+require_once cot_langfile('useragreement', 'plug');
+
+$out['subtitle'] = $L['useragreement'];
+
 $t->assign(array(
 	'USERAGREEMENT' => $cfg['plugin']['useragreement']['text']
 ));
