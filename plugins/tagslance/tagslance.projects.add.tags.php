@@ -22,8 +22,8 @@ if ($cfg['plugin']['tagslance']['projects'] && cot_auth('plug', 'tags', 'W'))
 {
 	require_once cot_incfile('tags', 'plug');
 	$t->assign(array(
-		'PRJADD_TOP_TAGS' => $L['Tags'],
-		'PRJADD_TOP_TAGS_HINT' => $L['tags_comma_separated'],
+		'PRJADD_FORM_TAGS_TITLE' => $L['Tags'],
+		'PRJADD_FORM_TAGS_HINT' => $L['tags_comma_separated'],
 		'PRJADD_FORM_TAGS' => cot_rc('tags_input_editpage', array('tags' => ''))
 	));
 	if (cot_get_caller() == 'i18n.projects')

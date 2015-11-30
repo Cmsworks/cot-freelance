@@ -38,8 +38,8 @@
 			</tr>
 			<!-- BEGIN: TAGS -->
 			<tr>
-				<td>{PRJEDIT_TOP_TAGS}:</td>
-				<td>{PRJEDIT_FORM_TAGS} ({PRJEDIT_TOP_TAGS_HINT})</td>
+				<td>{PRJEDIT_FORM_TAGS_TITLE}:</td>
+				<td>{PRJEDIT_FORM_TAGS} ({PRJEDIT_FORM_TAGS_HINT})</td>
 			</tr>
 			<!-- END: TAGS -->
 			<tr>

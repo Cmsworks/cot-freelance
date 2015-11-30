@@ -31,8 +31,8 @@
 			</tr>
 			<!-- BEGIN: TAGS -->
 					<tr>
-						<td>{PRDEDIT_TOP_TAGS}:</td>
-						<td>{PRDEDIT_FORM_TAGS} ({PRDEDIT_TOP_TAGS_HINT})</td>
+						<td>{PRDEDIT_FORM_TAGS_TITLE}:</td>
+						<td>{PRDEDIT_FORM_TAGS} ({PRDEDIT_FORM_TAGS_HINT})</td>
 					</tr>
 			<!-- END: TAGS -->
 			<tr>

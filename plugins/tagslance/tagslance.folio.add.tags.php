@@ -21,8 +21,8 @@ if ($cfg['plugin']['tagslance']['folio'] && cot_auth('plug', 'tags', 'W'))
 {
 	require_once cot_incfile('tags', 'plug');
 	$t->assign(array(
-		'PRDADD_TOP_TAGS' => $L['Tags'],
-		'PRDADD_TOP_TAGS_HINT' => $L['tags_comma_separated'],
+		'PRDADD_FORM_TAGS_TITLE' => $L['Tags'],
+		'PRDADD_FORM_TAGS_HINT' => $L['tags_comma_separated'],
 		'PRDADD_FORM_TAGS' => cot_rc('tags_input_editpage', array('tags' => ''))
 	));
 	if (cot_get_caller() == 'i18n.folio')

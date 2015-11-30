@@ -33,8 +33,8 @@ if ($cfg['plugin']['tagslance']['folio'] && cot_auth('plug', 'tags', 'W'))
 	$tags = cot_tag_list($id, 'folio', $tags_extra);
 	$tags = implode(', ', $tags);
 	$t->assign(array(
-		'PRDEDIT_TOP_TAGS' => $L['Tags'],
-		'PRDEDIT_TOP_TAGS_HINT' => $L['tags_comma_separated'],
+		'PRDEDIT_FORM_TAGS_TITLE' => $L['Tags'],
+		'PRDEDIT_FORM_TAGS_HINT' => $L['tags_comma_separated'],
 		'PRDEDIT_FORM_TAGS' => cot_rc('tags_input_editpage')
 	));
 	if ($tags_caller == 'i18n.folio')
