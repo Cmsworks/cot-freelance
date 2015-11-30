@@ -121,6 +121,7 @@ $where = ($where) ? 'WHERE ' . implode(' AND ', $where) : '';
 $order = ($order) ? 'ORDER BY ' . implode(', ', $order) : '';
 
 $totalitems = $db->query("SELECT COUNT(*) FROM $db_projects AS p $join_condition
+	LEFT JOIN $db_users AS u ON u.user_id=p.item_userid
 	" . $where . "")->fetchColumn();
 
 $sqllist = $db->query("SELECT p.*, u.* $join_columns 
