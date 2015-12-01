@@ -322,9 +322,6 @@ $where['pid'] = "o.offer_pid=" . $id;
 
 $order['date'] = "o.offer_date DESC";
 
-$where = ($where) ? 'WHERE ' . implode(' AND ', $where) : '';
-$order = ($order) ? 'ORDER BY ' . implode(', ', $order) : '';
-
 $query_limit = ($cfg['projects']['offersperpage'] > 0) ? "LIMIT $d, ".$cfg['projects']['offersperpage'] : '';
 
 /* === Hook === */
@@ -333,6 +330,9 @@ foreach (cot_getextplugins('projects.offers.query') as $pl)
 	include $pl;
 }
 /* ===== */
+
+$where = ($where) ? 'WHERE ' . implode(' AND ', $where) : '';
+$order = ($order) ? 'ORDER BY ' . implode(', ', $order) : '';
 
 $totaloffers = $db->query("SELECT COUNT(*) FROM $db_projects_offers AS o 
 	" . $where . "")->fetchColumn();
