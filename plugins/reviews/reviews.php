@@ -46,6 +46,22 @@ if ($a == 'add')
 	$uinfo = $db->query("SELECT * FROM $db_users WHERE user_id='".$touser."'")->fetch();
 	
 	cot_block(!empty($uinfo['user_name']));
+	
+	// Самому себе отзыв оставлять нельзя
+	cot_check($touser == $usr['id'], 'review_to_yourself');
+	
+	// Включена настройка "Добавление отзывов только при наличии совместных проектов"
+	if ($cfg['plugin']['reviews']['checkprojects'] && cot_module_active('projects')) {
+		// Проверяем проект, действительно ли он совместный для пользователей.
+		$count = (int) $db->query("SELECT COUNT(*) AS count FROM $db_projects WHERE item_id = :item_id AND item_userid = :item_userid
+			AND item_performer = :item_performer", [
+				':item_id' => $code,
+				':item_userid' => $usr['id'],
+				':item_performer' => $touser
+		])->fetch()['count'];
+
+		cot_check(($count !== 1), 'review_must_be_collaborative_project');
+	}
 
 	$item = $db->query("SELECT * FROM $db_reviews WHERE item_touserid='$touser' AND item_area = '".$db->prep($area)."' AND item_code = '".$db->prep($code)."' AND item_userid=" . $usr['id'] . " LIMIT 1")->fetch();
 	cot_block(empty($item));	
