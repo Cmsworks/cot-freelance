@@ -21,7 +21,7 @@ list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('plug', 
 $touser = cot_import('touser', 'G', 'INT');
 $itemid = cot_import('itemid', 'G', 'INT');
 $area = cot_import('area', 'G', 'TXT');
-$code = cot_import('code', 'G', 'TXT');
+$code = cot_import('code', 'P', 'TXT');
 $redirect = cot_import('redirect', 'G', 'TXT');
 $area = empty($area) ? 'users' : $area;
 
