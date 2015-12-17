@@ -33,7 +33,8 @@ if (isset($_POST['LMI_PREREQUEST']) && $_POST['LMI_PREREQUEST'] == 1)
 		}
 		else
 		{
-			if ($_POST['LMI_PAYMENT_NO'] == $pinfo['pay_id'] && $_POST['LMI_PAYEE_PURSE'] == $cfg['plugin']['wmbilling']['webmoney_purse'] && $_POST['LMI_PAYMENT_AMOUNT'] == $pinfo['pay_summ']*$cfg['plugin']['wmbilling']['webmoney_rate'])
+			$amount = number_format($pinfo['pay_summ']*$cfg['plugin']['wmbilling']['webmoney_rate'], 2);
+			if ($_POST['LMI_PAYMENT_NO'] == $pinfo['pay_id'] && $_POST['LMI_PAYEE_PURSE'] == $cfg['plugin']['wmbilling']['webmoney_purse'] && $_POST['LMI_PAYMENT_AMOUNT'] == $amount)
 			{
 				echo 'YES';
 			}
@@ -86,7 +87,8 @@ else
 				echo "ERR: Config parameter LMI_HASH_METHOD incorrect!";
 			};
 
-			if ($_POST['LMI_PAYMENT_NO'] == $pinfo['pay_id'] && $_POST['LMI_PAYEE_PURSE'] == $cfg['plugin']['wmbilling']['webmoney_purse'] && $_POST['LMI_PAYMENT_AMOUNT'] == $pinfo['pay_summ']*$cfg['plugin']['wmbilling']['webmoney_rate'] && $_POST['LMI_MODE'] == $cfg['plugin']['wmbilling']['webmoney_mode'] && $hash_check)
+			$amount = number_format($pinfo['pay_summ']*$cfg['plugin']['wmbilling']['webmoney_rate'], 2);
+			if ($_POST['LMI_PAYMENT_NO'] == $pinfo['pay_id'] && $_POST['LMI_PAYEE_PURSE'] == $cfg['plugin']['wmbilling']['webmoney_purse'] && $_POST['LMI_PAYMENT_AMOUNT'] == $amount && $_POST['LMI_MODE'] == $cfg['plugin']['wmbilling']['webmoney_mode'] && $hash_check)
 			{
 				if (cot_payments_updatestatus($pinfo['pay_id'], 'paid'))
 				{

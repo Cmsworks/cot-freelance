@@ -6,7 +6,7 @@
  * Name=Wmbilling
  * Category=Payments
  * Description=Webmoney billing system
- * Version=1.1.0
+ * Version=1.1.1
  * Date=
  * Author=CMSWorks Team
  * Copyright=Copyright (c) CMSWorks.ru

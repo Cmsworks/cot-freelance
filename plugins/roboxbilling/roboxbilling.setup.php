@@ -6,7 +6,7 @@
  * Name=Roboxbilling
  * Category=Payments
  * Description=Robox billing system
- * Version=1.0.3
+ * Version=1.0.4
  * Date=
  * Author=CMSWorks Team
  * Copyright=Copyright (c) CMSWorks.ru
