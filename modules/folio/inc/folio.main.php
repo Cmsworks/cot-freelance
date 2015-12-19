@@ -49,7 +49,7 @@ if ($item['item_state'] == 1 && !$usr['isadmin'] && $usr['id'] != $item['item_us
 	exit;
 }
 
-if (!$usr['isadmin'] || $cfg['count_admin'])
+if ($usr['id'] != $item['item_userid'] && (!$usr['isadmin'] || $cfg['folio']['count_admin']))
 {
 	$item['item_count']++;
 	$db->update($db_folio, array('item_count' => $item['item_count']), "item_id=" . (int)$item['item_id']);
