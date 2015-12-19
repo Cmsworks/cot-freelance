@@ -4,7 +4,7 @@
  * Code=reviews
  * Name=Reviews
  * Description=Отзывы о человеке
- * Version=2.2
+ * Version=2.2.1
  * Date=24.11.2012
  * Author=CMSWorks Team
  * Copyright=Copyright (c) CMSWorks.ru, littledev.ru
@@ -25,7 +25,7 @@
  * Reviews plugin
  *
  * @package reviews
- * @version 2.0.0
+ * @version 2.2.1
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru, littledev.ru
  * @license BSD

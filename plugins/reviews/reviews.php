@@ -25,13 +25,13 @@ $code = cot_import('code', 'P', 'TXT');
 $redirect = cot_import('redirect', 'G', 'TXT');
 $area = empty($area) ? 'users' : $area;
 
-if($cfg['pligin']['reviews']['checkprojects'] && cot_module_active('projects') && $usr['id'] > 0 && $usr['auth_write'] && $usr['id'] != $userid)
+if($cfg['pligin']['reviews']['checkprojects'] && cot_module_active('projects') && $usr['id'] > 0 && $touser > 0 && $usr['id'] != $touser && $usr['auth_write'])
 {
 	require_once cot_incfile('projects', 'module');
 	global $db_projects_offers, $db_projects;
 	$bothprj = $db->query("SELECT COUNT(*) FROM  $db_projects_offers AS o
 		LEFT JOIN $db_projects AS p ON p.item_id=o.offer_pid
-		WHERE p.item_userid = '".$touser."' AND o.offer_userid='".$usr['id']."' AND o.offer_choise='performer'")->fetchColumn();
+		WHERE (p.item_userid = '".$touser."' AND o.offer_userid='".$usr['id']."' OR p.item_userid = '".$usr['id']."' AND o.offer_userid='".$touser."') AND o.offer_choise='performer'")->fetchColumn();
 	$usr['auth_write'] = ((int)$bothprj == 0) ? false : $usr['auth_write'];
 }
 
@@ -40,31 +40,6 @@ cot_block($usr['auth_write']);
 if ($a == 'add')
 {
 	cot_shield_protect();
-	
-	
-//	cot_print('step');
-	$uinfo = $db->query("SELECT * FROM $db_users WHERE user_id='".$touser."'")->fetch();
-	
-	cot_block(!empty($uinfo['user_name']));
-	
-	// Самому себе отзыв оставлять нельзя
-	cot_check($touser == $usr['id'], 'review_to_yourself');
-	
-	// Включена настройка "Добавление отзывов только при наличии совместных проектов"
-	if ($cfg['plugin']['reviews']['checkprojects'] && cot_module_active('projects')) {
-		// Проверяем проект, действительно ли он совместный для пользователей.
-		$count = (int) $db->query("SELECT COUNT(*) AS count FROM $db_projects WHERE item_id = :item_id AND item_userid = :item_userid
-			AND item_performer = :item_performer", [
-				':item_id' => $code,
-				':item_userid' => $usr['id'],
-				':item_performer' => $touser
-		])->fetch()['count'];
-
-		cot_check(($count !== 1), 'review_must_be_collaborative_project');
-	}
-
-	$item = $db->query("SELECT * FROM $db_reviews WHERE item_touserid='$touser' AND item_area = '".$db->prep($area)."' AND item_code = '".$db->prep($code)."' AND item_userid=" . $usr['id'] . " LIMIT 1")->fetch();
-	cot_block(empty($item));	
 	
 	$ritem['item_touserid'] = $touser;
 	$ritem['item_text'] = cot_import('rtext', 'P', 'TXT');
@@ -75,9 +50,31 @@ if ($a == 'add')
 	$ritem['item_area'] = $area;
 	$ritem['item_code'] = (!empty($code)) ? $code : cot_import('code', 'P', 'TXT');
 	$ritem['item_code'] = $db->prep($ritem['item_code']);
+
+	$uinfo = $db->query("SELECT * FROM $db_users WHERE user_id='".$touser."'")->fetch();
+	cot_block(!empty($uinfo['user_name']));
 	
-	cot_check(empty($ritem['item_text']), 'review_empty_text');
-	cot_check(empty($ritem['item_score']), 'review_empty_score');
+	// Самому себе отзыв оставлять нельзя
+	cot_check($touser == $usr['id'], 'reviews_error_toyourself');
+	
+	// Включена настройка "Добавление отзывов только при наличии совместных проектов"
+	if ($cfg['plugin']['reviews']['checkprojects'] && cot_module_active('projects')) {
+		// Проверяем проект, действительно ли он совместный для пользователей.
+		$project_exists = (bool)$db->query("SELECT COUNT(*) FROM  $db_projects_offers AS o
+			LEFT JOIN $db_projects AS p ON p.item_id=o.offer_pid
+			WHERE p.item_id='".$ritem['item_code']."' 
+				AND (p.item_userid = '".$touser."' AND o.offer_userid='".$usr['id']."' OR p.item_userid = '".$usr['id']."' AND o.offer_userid='".$touser."') 
+				AND o.offer_choise='performer'")->fetchColumn();
+
+		cot_check(!$project_exists, 'reviews_error_projectsonly');
+	}
+	
+	$review_exists = (bool)$db->query("SELECT COUNT(*) FROM $db_reviews 
+		WHERE item_touserid='$touser' AND item_area = '".$db->prep($area)."' AND item_code = '".$db->prep($code)."' AND item_userid=" . $usr['id'])->fetchColumn();
+
+	cot_check($review_exists, 'reviews_error_exists');
+	cot_check(empty($ritem['item_text']), 'reviews_error_emptytext');
+	cot_check(empty($ritem['item_score']), 'reviews_error_emptyscore');
 
 	if (!cot_error_found()  && $ritem['item_touserid'] != $urr['user_id'])
 	{
@@ -108,8 +105,8 @@ elseif ($a == 'update')
 	$ritem['item_text'] = cot_import('rtext', 'P', 'TXT');
 	$ritem['item_score'] = (int) cot_import('rscore', 'P', 'INT');
 
-	cot_check(empty($ritem['item_text']), 'review_empty_text');
-	cot_check(empty($ritem['item_score']), 'review_empty_score');
+	cot_check(empty($ritem['item_text']), 'reviews_error_emptytext');
+	cot_check(empty($ritem['item_score']), 'review_error_emptyscore');
 
 	if (!cot_error_found())
 	{
