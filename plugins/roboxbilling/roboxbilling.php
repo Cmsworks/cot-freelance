@@ -39,7 +39,7 @@ if (empty($m))
 		$inv_desc = $pinfo['pay_desc'];
 		$in_curr = '';
 		$culture = "ru";
-		$out_summ = number_format($pinfo['pay_summ']*$cfg['plugin']['roboxbilling']['rate'], 2);
+		$out_summ = number_format($pinfo['pay_summ']*$cfg['plugin']['roboxbilling']['rate'], 2, '.', '');
 
 		if($cfg['plugin']['roboxbilling']['testmode'])
 		{
