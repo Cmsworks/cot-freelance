@@ -256,6 +256,16 @@ function cot_usercategories_tree($chosen = '', $parent = '', $template = '', $le
 		$jj++;
 		$subcats = $structure['usercategories'][$row]['subcats'];
 		$urlparams['cat'] = $row;
+		
+		if(is_array($subcats))
+		{
+			$parent_selected = (is_array($chosen)) ? (bool)count(array_intersect($subcats, $chosen)) : in_array($chosen, $subcats);
+		}
+		else
+		{
+			$parent_selected = false;
+		}
+
 		$t1->assign(array(
 			"CAT_ROW_CAT" => $row,
 			"CAT_ROW_TITLE" => htmlspecialchars($structure['usercategories'][$row]['title']),
@@ -263,7 +273,7 @@ function cot_usercategories_tree($chosen = '', $parent = '', $template = '', $le
 			"CAT_ROW_COUNT" => $structure['usercategories'][$row]['count'],
 			"CAT_ROW_ICON" => $structure['usercategories'][$row]['icon'],
 			"CAT_ROW_URL" => cot_url("users", $urlparams),
-			"CAT_ROW_SELECTED" => (is_array($chosen) && in_array($row, $chosen) || !is_array($chosen) && $row == $chosen) ? 1 : 0,
+			"CAT_ROW_SELECTED" => (is_array($chosen) && in_array($row, $chosen) || !is_array($chosen) && $row == $chosen || $parent_selected) ? 1 : 0,
 			"CAT_ROW_SUBCAT" => (count($subcats) > 0) ? cot_usercategories_tree($chosen, $row, $template, $level) : '',
 			"CAT_ROW_ODDEVEN" => cot_build_oddeven($jj),
 			"CAT_ROW_JJ" => $jj
