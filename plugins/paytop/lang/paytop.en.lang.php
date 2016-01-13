@@ -33,6 +33,7 @@ $L['paytop_buy'] = 'Buy';
 $L['paytop_period'] = 'period';
 
 $L['paytop_how'] = 'How to get here?';
+$L['paytop_default_text'] = 'Advertising space';
 
 $L['paytop_header_buy'] = 'Buy place';
 $L['paytop_header_extend'] = 'Extend';

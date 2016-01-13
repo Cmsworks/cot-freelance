@@ -33,6 +33,7 @@ $L['paytop_buy'] = 'Купить';
 $L['paytop_period'] = 'на срок';
 
 $L['paytop_how'] = 'Как сюда попасть?';
+$L['paytop_default_text'] = 'Место для рекламы';
 
 $L['paytop_header_buy'] = 'Купить рекламное место';
 $L['paytop_header_extend'] = 'Продлить услугу';
