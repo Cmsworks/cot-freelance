@@ -17,4 +17,4 @@
  *  */
 defined('COT_CODE') or die('Wrong URL.');
 
-$out['subtitle'] = $subtitle; 
+$out['subtitle'] = (!empty($out['subtitle'])) ? $subtitle.' - '.$out['subtitle'] : $subtitle; 
