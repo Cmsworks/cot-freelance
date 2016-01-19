@@ -70,8 +70,12 @@ function cot_usercategories_sync($cat)
  */
 function cot_usercategories_updatecat($oldcat, $newcat)
 {
-	global $db, $db_structure, $db_users;
+	global $db, $db_structure, $db_users, $db_config, $db_auth;
 	
+	$db->update($db_auth, array('auth_option' => $newcat), "auth_code=? AND auth_option=?", array('usercategories', $oldcat));
+	$db->update($db_config, array('config_subcat' => $newcat),
+		"config_cat=? AND config_subcat=? AND config_owner='plug'", array('usercategories', $oldcat));
+
 	$sql = $db->query("SELECT * FROM $db_users WHERE FIND_IN_SET('".$db->prep($oldcat)."', user_cats)=1");
 	while($item = $sql->fetch()){
 		$cats = explode(',', $item['user_cats']);
