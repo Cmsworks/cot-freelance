@@ -27,6 +27,24 @@ while($cat = $sql->fetch()){
 	$rcat['structure_code'] = $cat['cat_code'];
 	$rcat['structure_path'] = $cat['cat_path'];
 	cot_structure_add('usercategories', $rcat);
+	$config_values = array(
+	  array(
+            'name' => 'metatitle',
+            'type' => COT_CONFIG_TYPE_STRING,
+            'default' => $cat['cat_desc']
+          ),
+          array(
+            'name' => 'metadesc',
+            'type' => COT_CONFIG_TYPE_STRING,
+            'default' => $cat['cat_metadesc']
+          ),
+          array(
+            'name' => 'keywords',
+            'type' => COT_CONFIG_TYPE_STRING,
+            'default' => $cat['cat_keywords']
+          )
+	);
+	cot_config_add('usercategories', $config_values, false, $rcat['structure_code']);
 }
 
 $sql = $db->query("SELECT user_id FROM $db_users WHERE 1");
