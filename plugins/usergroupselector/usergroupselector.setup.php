@@ -7,7 +7,7 @@
  * Name=User Group Selector
  * Category=post-install
  * Description=Users can select their main group
- * Version=1.0.1
+ * Version=1.0.2
  * Date=2013-09-05
  * Author=CMSWorks Team
  * Auth_guests=R
@@ -19,6 +19,7 @@
  * allowchange=01:radio::0:Разрешить пользователям изменять свою группу в профиле
  * required=02:radio::1:Указывать группу обязательно
  * groups=03:textarea::4,7:Пользовательские группы
+ * grptitle=04:radio::1:Включить вывод названия группы в Title
  * [END_COT_EXT_CONFIG]
  * 
  *  */
