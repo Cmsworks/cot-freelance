@@ -17,4 +17,7 @@
  *  */
 defined('COT_CODE') or die('Wrong URL.');
 
-$out['subtitle'] = (!empty($out['subtitle'])) ? $subtitle.' - '.$out['subtitle'] : $subtitle; 
+if($cfg['plugin']['flevents']['ordersperpage'] > 0)
+{
+	list($pn, $d, $d_url) = cot_import_pagenav('d', $cfg['plugin']['flevents']['ordersperpage']);
+}
