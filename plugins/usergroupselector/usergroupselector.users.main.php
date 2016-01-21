@@ -19,4 +19,6 @@ defined('COT_CODE') or die('Wrong URL.');
 
 if($cfg['plugin']['usergroupselector']['grptitle']){
 	$out['subtitle'] = (!empty($out['subtitle'])) ? $subtitle.' - '.$out['subtitle'] : $subtitle; 
+} elseif(empty($cat)) {
+	$out['subtitle'] = $subtitle;
 }
