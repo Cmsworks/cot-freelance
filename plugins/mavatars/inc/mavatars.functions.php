@@ -178,7 +178,7 @@ class mavatar
 	{
 		global $db_mavatars, $db;
 		return "SELECT * FROM $db_mavatars WHERE mav_extension ='".$db->prep($this->extension)."' AND
-				 mav_code = '".$db->prep($this->code)."' ORDER BY mav_order ASC, mav_item ASC";
+				  mav_code = '".$db->prep($this->code)."' AND ".(($usr['id'] > 0) ? "mav_userid='".$usr['id']."'" : "mav_sessid='".cot_import('PHPSESSID', 'C', 'TXT')."'")." ORDER BY mav_order ASC, mav_item ASC";
 	}
 	private function mavatars_queryid($id)
 	{
@@ -499,6 +499,7 @@ class mavatar
 		global $db, $db_mavatars, $sys, $cot_extrafields, $usr;
 		$mavarray = array(
 			'mav_userid' => $usr['id'],
+      'mav_sessid' => ($usr['id'] > 0) ? '' : cot_import('PHPSESSID', 'C', 'TXT'),
 			'mav_extension' => $this->extension,
 			'mav_category' => $this->category,
 			'mav_code' => $this->code,

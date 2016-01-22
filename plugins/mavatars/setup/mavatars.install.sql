@@ -1,6 +1,7 @@
 CREATE TABLE IF NOT EXISTS `cot_mavatars` (
     `mav_id` int(11) NOT NULL AUTO_INCREMENT,
     `mav_userid` int(11) NOT NULL,
+    `mav_sessid` varchar(255) collate utf8_unicode_ci,
 	`mav_extension` varchar(255) collate utf8_unicode_ci,
 	`mav_category` varchar(255) collate utf8_unicode_ci,
     `mav_code` varchar(255) collate utf8_unicode_ci,
