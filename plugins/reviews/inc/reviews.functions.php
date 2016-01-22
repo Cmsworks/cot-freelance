@@ -108,6 +108,14 @@ function cot_reviews_list($userid, $area, $code='', $name='', $params='', $tail=
 					'REVIEW_FORM_USERID' => $item['item_userid'],
 					'REVIEW_FORM_DELETE_URL' => cot_url('plug', 'r=reviews&a=delete&area='.$area.'&code='.$code.'&touser='.$userid.'&redirect='.$redirect.'&itemid=' . $item['item_id']),
 				));
+        
+        /* === Hook === */
+        foreach (cot_getextplugins('reviews.edit.tags') as $pl)
+        {
+        	include $pl;
+        }
+        /* ===== */
+        
 				$t1->parse('MAIN.REVIEWS_ROWS.EDITFORM');
 			}
 			
@@ -124,6 +132,13 @@ function cot_reviews_list($userid, $area, $code='', $name='', $params='', $tail=
 				'REVIEW_ROW_DATE' => $item['item_date'],
 				'REVIEW_ROW_DELETE_URL' => ($usr['id'] == $item['item_userid'] || $usr['isadmin']) ? cot_url('plug', 'r=reviews&a=delete&area='.$area.'&code='.$code.'&itemid=' . $item['item_id'] . '&redirect='.$redirect) : '',
 			));
+      
+      /* === Hook === */
+      foreach (cot_getextplugins('reviews.list.tags') as $pl)
+      {
+      	include $pl;
+      }
+      /* ===== */
 
 			if($item['item_area'] == 'projects' && !empty($item['item_code']))
 			{
@@ -199,6 +214,14 @@ function cot_reviews_list($userid, $area, $code='', $name='', $params='', $tail=
 				'REVIEW_FORM_PROJECTS' => ($cfg['plugin']['reviews']['checkprojects'] && cot_module_active('projects') && $bothprj_count > 0) ? cot_selectbox($pid, 'code', $prj_ids, $prj_titles, false) : '',
 				'REVIEW_FORM_ACTION' => 'ADD',
 			));
+      
+      /* === Hook === */
+      foreach (cot_getextplugins('reviews.add.tags') as $pl)
+      {
+      	include $pl;
+      }
+      /* ===== */
+      
 			$t1->parse('MAIN.FORM');
 		}
 		$t1->parse('MAIN');

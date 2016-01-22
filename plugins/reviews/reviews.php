@@ -51,6 +51,13 @@ if ($a == 'add')
 	$ritem['item_code'] = (!empty($code)) ? $code : cot_import('code', 'P', 'TXT');
 	$ritem['item_code'] = $db->prep($ritem['item_code']);
 
+  /* === Hook === */
+  foreach (cot_getextplugins('reviews.add.import') as $pl)
+  {
+    include $pl;
+  }
+  /* ===== */
+
 	$uinfo = $db->query("SELECT * FROM $db_users WHERE user_id='".$touser."'")->fetch();
 	cot_block(!empty($uinfo['user_name']));
 	
