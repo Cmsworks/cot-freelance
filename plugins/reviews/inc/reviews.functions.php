@@ -104,7 +104,7 @@ function cot_reviews_list($userid, $area, $code='', $name='', $params='', $tail=
 					'REVIEW_FORM_ID' => $item['item_id'],
 					'REVIEW_FORM_SEND' => cot_url('plug', 'r=reviews&a=update&area='.$area.'&code='.$code.'&touser='.$userid.'&redirect='.$redirect.'&itemid=' . $item['item_id']),
 					'REVIEW_FORM_TEXT' => cot_textarea('rtext', $item['item_text'], 5, 50),
-					'REVIEW_FORM_SCORE' => cot_radiobox($item['item_score'], 'rscore', $L['review_score_values'], $L['review_score_titles']),
+					'REVIEW_FORM_SCORE' => cot_radiobox($item['item_score'], 'rscore', $L['reviews_score_values'], $L['reviews_score_titles']),
 					'REVIEW_FORM_USERID' => $item['item_userid'],
 					'REVIEW_FORM_DELETE_URL' => cot_url('plug', 'r=reviews&a=delete&area='.$area.'&code='.$code.'&touser='.$userid.'&redirect='.$redirect.'&itemid=' . $item['item_id']),
 				));
