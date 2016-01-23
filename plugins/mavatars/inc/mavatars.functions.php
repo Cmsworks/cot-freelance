@@ -62,14 +62,16 @@ class mavatar
 	private $required = '';
 	private $allowed_ext = '';
 	private $maxsize = '';
+	private $mode = '';
 
-	public function __construct($extension, $category, $code, $inputdata = array())
+	public function __construct($extension, $category, $code, $mode = '', $inputdata = array())
 	{
 		$this->get_config($extension, $category);
 
 		$this->extension = $extension;
 		$this->category = $category;
 		$this->code = $code;
+		$this->mode = $mode;
 
 		$this->get_mavatars($inputdata);
 	}
@@ -176,9 +178,15 @@ class mavatar
 	 */	
 	private function mavatars_query()
 	{
-		global $db_mavatars, $db;
+		global $db_mavatars, $db, $usr;
+
+		if($this->mode == 'edit' && $usr['id'] == 0)
+		{
+			$query_string = " AND mav_sessid='".cot_import('PHPSESSID', 'C', 'TXT')."'";
+		}
+
 		return "SELECT * FROM $db_mavatars WHERE mav_extension ='".$db->prep($this->extension)."' AND
-			mav_code = '".$db->prep($this->code)."' ORDER BY mav_order ASC, mav_item ASC";
+			mav_code = '".$db->prep($this->code)."' $query_string ORDER BY mav_order ASC, mav_item ASC";
 	}
 	private function mavatars_queryid($id)
 	{

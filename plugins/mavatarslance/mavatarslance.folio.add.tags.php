@@ -34,7 +34,7 @@ if (cot_plugin_active('mavatars') && $cfg['plugin']['mavatarslance']['folio'])
 		$category = $ritem['item_cat'];
 		$mavpr = 'ADD';
 	}
-	$mavatar = new mavatar('folio', $category, $code);
+	$mavatar = new mavatar('folio', $category, $code, 'edit');
 
 	$t->assign('PRD'.$mavpr.'_FORM_MAVATAR', $mavatar->upload_form());
 }

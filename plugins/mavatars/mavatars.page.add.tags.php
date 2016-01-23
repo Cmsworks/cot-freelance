@@ -30,6 +30,6 @@ else
 	$category = $rpage['page_cat'];
 	$mavpr = 'ADD';
 }
-$mavatar = new mavatar('page', $category, $code);
+$mavatar = new mavatar('page', $category, $code, 'edit');
 
 $t->assign('PAGE'.$mavpr.'_FORM_MAVATAR', $mavatar->upload_form());

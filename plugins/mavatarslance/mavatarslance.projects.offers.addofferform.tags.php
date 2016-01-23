@@ -22,7 +22,7 @@ if (cot_plugin_active('mavatars') && $cfg['plugin']['mavatarslance']['projects']
 {
 	require_once cot_incfile('mavatars', 'plug');
 	
-	$mavatar = new mavatar('projectoffers', $id, '');
+	$mavatar = new mavatar('projectoffers', $id, '', 'edit');
 	
 	$t_o->assign('OFFER_FORM_MAVATAR', $mavatar->upload_form());
 }

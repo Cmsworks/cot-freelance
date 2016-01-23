@@ -23,7 +23,7 @@ if (cot_plugin_active('mavatars') && $cfg['plugin']['mavatarslance']['market'])
 
 	if (!cot_error_found())
 	{
-		$mavatar = new mavatar('market', $ritem['item_cat'], $id);
+		$mavatar = new mavatar('market', $ritem['item_cat'], $id, 'edit');
 		$mavatar->update();
 		$mavatar->upload();	
 	}

@@ -18,7 +18,7 @@ if (cot_plugin_active('mavatars') && $cfg['plugin']['mavatarslance']['market'])
 {
 	require_once cot_incfile('mavatars', 'plug');
 	
-	$mavatar = new mavatar('market', $item_data['item_cat'], $item_data['item_id'], $mav_rowset_list);
+	$mavatar = new mavatar('market', $item_data['item_cat'], $item_data['item_id'], '', $mav_rowset_list);
 	$mavatars_tags = $mavatar->tags();
 	$temp_array['MAVATAR'] = $mavatars_tags;
 	$temp_array['MAVATARCOUNT'] = count($mavatars_tags);

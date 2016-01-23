@@ -20,7 +20,7 @@ global $cfg;
 if (cot_plugin_active('mavatars') && $cfg['plugin']['mavatarslance']['folio'])
 {
 	require_once cot_incfile('mavatars', 'plug');	
-	$mavatar = new mavatar('folio', $ritem['item_cat'], $id);
+	$mavatar = new mavatar('folio', $ritem['item_cat'], $id, 'edit');
 	$mavatar->delete_all_mavatars();
 	$mavatar->get_mavatars();
 }
