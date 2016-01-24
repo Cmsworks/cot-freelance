@@ -29,7 +29,7 @@ if(empty($resize))
 {
 	$resize = 'crop';
 }
-$mavatar = new mavatar($ext, $cat, $code, $id);
+$mavatar = new mavatar($ext, $cat, $code, '', $id);
 $mavatars_tags = $mavatar->tags();
 
 

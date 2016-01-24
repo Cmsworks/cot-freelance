@@ -13,7 +13,7 @@ $ext = cot_import('ext', 'G', 'TXT');
 $cat = cot_import('cat', 'G', 'TXT');
 $code = cot_import('code', 'G', 'TXT');
 
-$mavatar = new mavatar($ext, $cat, $code);
+$mavatar = new mavatar($ext, $cat, $code, 'edit');
 
 $array = $mavatar->ajax_upload();
 
