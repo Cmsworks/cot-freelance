@@ -373,6 +373,13 @@ while ($offer = $sql->fetch())
 {
 	$choise_enabled = true;
 	
+	/* === Hook === */
+	foreach (cot_getextplugins('projects.offers.choise.first') as $pl)
+	{
+		include $pl;
+	}
+	/* ===== */
+  
 	if ($usr['id'] == $item['item_userid'] && $choise_enabled)
 	{
 		$t_o->assign(array(
