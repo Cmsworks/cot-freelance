@@ -77,26 +77,31 @@ if ($a == 'add')
 		switch ($ritem['item_state'])
 		{
 			case 0:
+				$urlparams = empty($ritem['item_alias']) ?
+					array('c' => $ritem['item_cat'], 'id' => $id) :
+					array('c' => $ritem['item_cat'], 'al' => $ritem['item_alias']);
+				$r_url = cot_url('projects', $urlparams, '', true);
+
 				if (!$usr['isadmin'])
 				{
 					$rbody = cot_rc($L['project_added_mail_body'], array(
 						'user_name' => $usr['profile']['user_name'],
 						'prj_name' => $ritem['item_title'],
 						'sitename' => $cfg['maintitle'],
-						'link' => COT_ABSOLUTE_URL . cot_url('projects', 'id=' . $id, '', true)
+						'link' => COT_ABSOLUTE_URL . $r_url
 					));
 					cot_mail($usr['profile']['user_email'], $L['project_added_mail_subj'], $rbody);
 				}
-
-				$urlparams = empty($ritem['item_alias']) ?
-					array('c' => $ritem['item_cat'], 'id' => $id) :
-					array('c' => $ritem['item_cat'], 'al' => $ritem['item_alias']);
-				$r_url = cot_url('projects', $urlparams, '', true);
 				break;
 			case 1:
 				$r_url = cot_url('projects', 'm=preview&id=' . $id, '', true);
 				break;
 			case 2:
+				$urlparams = empty($ritem['item_alias']) ?
+					array('c' => $ritem['item_cat'], 'id' => $id) :
+					array('c' => $ritem['item_cat'], 'al' => $ritem['item_alias']);
+				$r_url = cot_url('projects', $urlparams, '', true);
+
 				if (!$usr['isadmin'])
 				{
 					$rbody = cot_rc($L['project_senttovalidation_mail_body'], array( 
@@ -107,11 +112,6 @@ if ($a == 'add')
 					));
 					cot_mail($usr['profile']['user_email'], $L['project_senttovalidation_mail_subj'], $rbody);
 				}
-
-				$urlparams = empty($ritem['item_alias']) ?
-					array('c' => $ritem['item_cat'], 'id' => $id) :
-					array('c' => $ritem['item_cat'], 'al' => $ritem['item_alias']);
-				$r_url = cot_url('projects', $urlparams, '', true);
 				break;
 		}
 		
