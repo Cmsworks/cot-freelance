@@ -33,7 +33,7 @@
  * [END_COT_EXT_CONFIG]
  * 
  * [BEGIN_COT_EXT_CONFIG_STRUCTURE]
- * order=01:callback:cot_projects_config_order():date:
+ * order=01:callback:cot_market_config_order():date:
  * way=02:select:asc,desc:asc:
  * maxrowsperpage=03:string::30:
  * truncatetext=04:string::0:
