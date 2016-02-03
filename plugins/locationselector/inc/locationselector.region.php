@@ -67,7 +67,7 @@ if ($a == 'edit')
 	exit;
 }
 
-$t = new XTemplate(cot_tplfile('locationselector.region', 'plug'));
+$t = new XTemplate(cot_tplfile('locationselector.region', 'plug', true));
 
 $totalitems = $db->query("SELECT COUNT(*) FROM $db_ls_regions WHERE region_country='" . $db->prep($country)."'")->fetchColumn();
 $sql = $db->query("SELECT * FROM $db_ls_regions WHERE region_country='" . $db->prep($country) . "' ORDER by region_name ASC LIMIT $d, " . $cfg['maxrowsperpage']);
