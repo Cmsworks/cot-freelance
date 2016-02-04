@@ -23,7 +23,7 @@ if($a == 'update')
 	cot_redirect(cot_url('admin', 'm=other&p=locationselector', '', true));
 }
 
-$t = new XTemplate(cot_tplfile('locationselector.country', 'plug'));
+$t = new XTemplate(cot_tplfile('locationselector.country', 'plug', true));
 
 $countriesfilter = str_replace(' ', '', $cfg['plugin']['locationselector']['countriesfilter']);
 $countriesfilter = explode(',', $countriesfilter);
