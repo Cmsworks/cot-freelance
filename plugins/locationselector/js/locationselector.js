@@ -1,5 +1,4 @@
 $(document).on("change", "#locselectcountry", function(){
-    var x = $('input[name=x]').val();
     var country = $(this).val();
     var region_id = 'locselectregion';
     var city_id = 'locselectcity';
@@ -25,10 +24,10 @@ $(document).on("change", "#locselectcountry", function(){
             class: "loading"
         }).css('position', 'absolute').css('opacity', 0);
         loader_bg.html('<img src="./images/spinner.gif" alt="loading" alt="Loading...">');
-		Parent.append(loader_bg).css('opacity', 0.5);
+        Parent.append(loader_bg).css('opacity', 0.5);
         $('#'+region_id).html('<option> --- </option>');
 
-        $.post('index.php?r=locationselector', { country: country, x: x }, function(data) {
+        $.get('index.php?r=locationselector', { country: country }, function(data) {
             var opts = '';
             $.each(data.regions, function(index, value) {
                opts = opts + '<option value="'+index+'">'+value+'</option>';
@@ -38,7 +37,7 @@ $(document).on("change", "#locselectcountry", function(){
                 $('#'+region_id).attr('disabled', null);
             }
             loader_bg.remove();
-			Parent.css('opacity', 1);
+            Parent.css('opacity', 1);
         }, "json");
     }else{
 
@@ -47,7 +46,6 @@ $(document).on("change", "#locselectcountry", function(){
 
 $(document).on("change", "#locselectregion", function(){
     var id = $(this).attr('id');
-    var x = $('input[name=x]').val();
     var region = $(this).val();
     var city_id = 'locselectcity';
 
@@ -72,7 +70,7 @@ $(document).on("change", "#locselectregion", function(){
         Parent.append(loader_bg).css('opacity', 0.5);
         $('#'+city_id).html('<option> --- </option>');
 
-        $.post('index.php?r=locationselector', { region: region, x: x }, function(data) {
+        $.get('index.php?r=locationselector', { region: region }, function(data) {
             var opts = '';
             $.each(data.cities, function(index, value) {
                 opts = opts + '<option value="'+index+'">'+value+'</option>';
@@ -82,7 +80,7 @@ $(document).on("change", "#locselectregion", function(){
                 $('#'+city_id).attr('disabled', null);
             }
             loader_bg.remove();
-			Parent.css('opacity', 1);
+            Parent.css('opacity', 1);
         }, "json");
     }else{
 
