@@ -76,7 +76,7 @@ if ($a == 'edit')
 	exit;	
 }
 
-$t = new XTemplate(cot_tplfile('locationselector.city', 'plug'));
+$t = new XTemplate(cot_tplfile('locationselector.city', 'plug', true));
 
 $totalitems = $db->query("SELECT COUNT(*) FROM $db_ls_cities WHERE city_region=" . $id)->fetchColumn();
 $sql = $db->query("SELECT * FROM $db_ls_cities WHERE city_region=" . $id . " ORDER by city_name ASC LIMIT $d, " . $cfg['maxrowsperpage']);
