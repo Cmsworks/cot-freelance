@@ -19,5 +19,7 @@ if ($db->fieldExists($db_users, "user_userpoints"))
 	$db->query("ALTER TABLE `$db_users` DROP COLUMN `user_userpoints`");
 }
 
-
-?>
+if ($db->fieldExists($db_users, "user_userpointsauth"))
+{
+	$db->query("ALTER TABLE `$db_users` DROP COLUMN `user_userpointsauth`");
+}

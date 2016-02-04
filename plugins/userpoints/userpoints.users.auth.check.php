@@ -24,7 +24,5 @@ $lastlog = $db->query("SELECT item_date FROM $db_userpoints
 if ($lastlog + 86400 < $sys['now'])
 {
 	cot_setuserpoints($cfg['plugin']['userpoints']['auth'], 'auth', $ruserid);
-	cot_setcookie("lastauthuserpoints", $sys['now'], time()+$cfg['cookielifetime'], $cfg['cookiepath'], $cfg['cookiedomain'], $sys['secure'], true);
+	$db->update($db_users, array('user_userpointsauth' => $sys['now']), "user_id=".$ruserid);
 }
-
-?>

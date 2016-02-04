@@ -18,4 +18,7 @@ if (!$db->fieldExists($db_users, "user_userpoints"))
 {
 	$db->query("ALTER TABLE `$db_users` ADD COLUMN `user_userpoints` float NOT NULL");
 }
-?>
+if (!$db->fieldExists($db_users, "user_userpointsauth"))
+{
+	$db->query("ALTER TABLE `$db_users` ADD COLUMN `user_userpointsauth` int(11) NOT NULL");
+}
