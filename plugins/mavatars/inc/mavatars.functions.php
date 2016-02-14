@@ -184,6 +184,10 @@ class mavatar
 		{
 			$query_string = " AND mav_sessid='".cot_import('PHPSESSID', 'C', 'TXT')."'";
 		}
+		elseif($this->mode == 'edit' && $usr['id'] > 0)
+		{
+			$query_string = " AND mav_userid=".$usr['id'];
+		}
 
 		return "SELECT * FROM $db_mavatars WHERE mav_extension ='".$db->prep($this->extension)."' AND
 			mav_code = '".$db->prep($this->code)."' $query_string ORDER BY mav_order ASC, mav_item ASC";
