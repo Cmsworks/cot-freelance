@@ -5,7 +5,7 @@
  * Code=mavatars
  * Name=MAvatars
  * Description=Adding files for cotonti modules
- * Version=2.2.2
+ * Version=2.2.3
  * Date=08-jan-2015
  * Author=esclkm littledev.ru
  * Copyright=(c)esclkm
