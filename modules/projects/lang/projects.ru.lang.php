@@ -29,6 +29,7 @@ $L['cfg_description'] = array('Description');
 $L['cfg_prjsearch'] = array('Включить в общий поиск');
 $L['cfg_license'] = array('Лицензионный ключ');
 $L['cfg_default_type'] = array('Тип проекта по-умолчанию');
+$L['cfg_notif_admin_moderate'] = array('Уведомлять о новых проектах на проверке','Отправка уведомления на системный email о новых проектах на премодерации');
 
 $L['info_desc'] = 'Модуль публикации проектов';
 
@@ -137,6 +138,9 @@ $L['project_setperformer_body'] = 'Здравствуйте, {$offeruser_name}. 
 $L['project_refuse_header'] = 'Вам отказали по проекту «{$prtitle}»';
 $L['project_refuse_body'] = 'Здравствуйте, {$offeruser_name}. '."\n\n".'Вам отказали по проекту «{$prj_name}».'."\n\n".'{$link}';
 
+$L['project_notif_admin_moderate_mail_subj'] = 'Новый проект на проверку';
+$L['project_notif_admin_moderate_mail_body'] = 'Здравствуйте, '."\n\n".'Пользователь {$user_name} отправил на проверку новый проект "{$prj_name}".'."\n\n".'{$link}';
+
 $L['project_realized'] = 'Отметить исполненным';
 $L['project_unrealized'] = 'Отметить неисполненным';
 
@@ -150,3 +154,5 @@ $L['plu_prj_res_sort3'] = 'Категории';
 $L['plu_prj_search_names'] = 'Поиск в названиях проектов';
 $L['plu_prj_search_text'] = 'Поиск в самих проектах';
 $L['plu_prj_set_subsec'] = 'Поиск в подразделах';
+
+$Ls['projects_headermoderated'] = "проект на проверке,проекта на проверке,проектов на проверке";

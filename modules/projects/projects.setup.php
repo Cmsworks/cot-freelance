@@ -4,7 +4,7 @@
  * Code=projects
  * Name=Projects
  * Description=Проекты
- * Version=2.5.9
+ * Version=2.5.10
  * Date=24.11.2012
  * Author=CMSWorks Team
  * Copyright=Copyright (c) CMSWorks.ru, littledev.ru
@@ -32,6 +32,7 @@
  * title_projects=13:string::{TITLE} - {CATEGORY}:
  * offersperpage=14:string::0:Число предложений на странице
  * count_admin=15:radio::0:
+ * notif_admin_moderate=16:radio::1:Уведомлять о новых проектах на проверке
  * [END_COT_EXT_CONFIG]
  * 
  * [BEGIN_COT_EXT_CONFIG_STRUCTURE]

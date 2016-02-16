@@ -126,6 +126,17 @@ if ($a == 'update')
 					));
 					cot_mail($usr['profile']['user_email'], $L['project_senttovalidation_mail_subj'], $rbody);
 				}
+
+				if ($cfg['projects']['notif_admin_moderate'])
+				{					
+					$nbody = cot_rc($L['project_notif_admin_moderate_mail_body'], array( 
+						'user_name' => $usr['profile']['user_name'],
+						'prj_name' => $ritem['item_title'],
+						'sitename' => $cfg['maintitle'],
+						'link' => COT_ABSOLUTE_URL . $r_url
+					));
+					cot_mail($cfg['adminemail'], $L['project_notif_admin_moderate_mail_subj'], $nbody);
+				}
 				break;
 		}
 		cot_redirect($r_url);

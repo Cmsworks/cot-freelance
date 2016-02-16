@@ -98,6 +98,7 @@
 								<!-- ENDIF -->
 							</li>
 							<!-- IF {HEADER_USER_PMREMINDER} --><li>{HEADER_USER_PMREMINDER}</li><!-- ENDIF -->
+							<!-- IF {HEADER_NOTICES} --><li>{HEADER_NOTICES}</li><!-- ENDIF -->
 							<li>{HEADER_USER_ADMINPANEL}</li>
 							<li>{HEADER_USER_LOGINOUT}</li>
 							<!-- END: USER -->
