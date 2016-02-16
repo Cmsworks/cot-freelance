@@ -91,7 +91,7 @@ function cot_market_auth($cat = null)
 
 function cot_build_structure_market_tree($parent = '', $selected = '', $level = 0, $template = '')
 {
-	global $structure, $cfg, $db, $sys;
+	global $structure, $cfg, $db, $sys, $cot_extrafields, $db_structure;
 	global $i18n_notmain, $i18n_locale, $i18n_write, $i18n_admin, $i18n_read, $db_i18n_pages;
 
 	$urlparams = array();
@@ -167,6 +167,17 @@ function cot_build_structure_market_tree($parent = '', $selected = '', $level = 
 			"ROW_ODDEVEN" => cot_build_oddeven($jj),
 			"ROW_JJ" => $jj
 		));
+		
+		// Extra fields for structure
+		foreach ($cot_extrafields[$db_structure] as $exfld)
+		{
+			$uname = strtoupper($exfld['field_name']);
+			$t1->assign(array(
+				'ROW_'.$uname.'_TITLE' => isset($L['structure_'.$exfld['field_name'].'_title']) ?  $L['structure_'.$exfld['field_name'].'_title'] : $exfld['field_description'],
+				'ROW_'.$uname => cot_build_extrafields_data('structure', $exfld, $structure['market'][$row][$exfld['field_name']]),
+				'ROW_'.$uname.'_VALUE' => $structure['market'][$row][$exfld['field_name']],
+			));
+		}
 
 		if ($i18n_enabled && $i18n_notmain){
 			$x_i18n = cot_i18n_get_cat($row, $i18n_locale);

@@ -186,7 +186,7 @@ function cot_usercategories_treecheck($chosen, $name, $parent = '', $template = 
 
 function cot_usercategories_tree($chosen = '', $parent = '', $template = '', $level = 0)
 {
-	global $structure, $cfg, $gm, $group;
+	global $structure, $cfg, $gm, $group, $cot_extrafields, $db_structure;
 	global $i18n_notmain, $i18n_locale, $i18n_read;
 	
 	$urlparams = array('gm' => $gm, 'group' => $group);
@@ -282,6 +282,17 @@ function cot_usercategories_tree($chosen = '', $parent = '', $template = '', $le
 			"CAT_ROW_ODDEVEN" => cot_build_oddeven($jj),
 			"CAT_ROW_JJ" => $jj
 		));
+		
+		// Extra fields for structure
+		foreach ($cot_extrafields[$db_structure] as $exfld)
+		{
+			$uname = strtoupper($exfld['field_name']);
+			$t1->assign(array(
+				'ROW_'.$uname.'_TITLE' => isset($L['structure_'.$exfld['field_name'].'_title']) ?  $L['structure_'.$exfld['field_name'].'_title'] : $exfld['field_description'],
+				'ROW_'.$uname => cot_build_extrafields_data('structure', $exfld, $structure['usercategories'][$row][$exfld['field_name']]),
+				'ROW_'.$uname.'_VALUE' => $structure['usercategories'][$row][$exfld['field_name']],
+			));
+		}
 
 		if ($i18n_enabled && $i18n_notmain){
 			$x_i18n = cot_i18n_get_cat($row, $i18n_locale);
