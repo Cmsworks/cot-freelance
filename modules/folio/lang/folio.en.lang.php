@@ -25,6 +25,7 @@ $L['cfg_foliositemap_freq_params'] = $sitemap_freqs;
 $L['cfg_foliositemap_prio'] = array('Priority on Sitemap');
 $L['cfg_description'] = array('Description');
 $L['cfg_foliosearch'] = array('Enable search');
+$L['cfg_notiffolio_admin_moderate'] = array('Notify on new work at checkout','Send email for new work in the pre-moderation');
 
 $L['info_desc'] = 'Portfolio';
 
@@ -76,3 +77,5 @@ $L['plu_folio_res_sort3'] = 'Category';
 $L['plu_folio_search_names'] = 'Search in titles';
 $L['plu_folio_search_text'] = 'Search in text';
 $L['plu_folio_set_subsec'] = 'Include subcategories';
+
+$Ls['folio_headermoderated'] = "Portfolio on moderation,Portfolio on moderation,Portfolio on moderation";
