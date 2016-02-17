@@ -63,3 +63,6 @@ Operation number: %3$s.
 Date of transaction: %4$s.
 
 ';
+
+$L['paytop_my_area'] = 'Advertising space';
+$L['paytop_my_until'] = 'Expire';

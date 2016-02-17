@@ -5,7 +5,7 @@
  * Name=PayTop
  * Category=Payments
  * Description=Услуга размещения на главной
- * Version=1.0.4
+ * Version=1.1.0
  * Date=
  * Author=CMSWorks Team
  * Copyright=Copyright (c) CMSWorks.ru, littledev.ru
@@ -27,7 +27,7 @@
  * PayTop Plugin
  *
  * @package paytop
- * @version 1.0.4
+ * @version 1.1.0
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru, littledev.ru
  * @license BSD
