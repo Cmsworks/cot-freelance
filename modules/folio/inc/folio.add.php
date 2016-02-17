@@ -89,6 +89,17 @@ if ($a == 'add')
 					array('c' => $ritem['item_cat'], 'id' => $id) :
 					array('c' => $ritem['item_cat'], 'al' => $ritem['item_alias']);
 				$r_url = cot_url('folio', $urlparams, '', true);
+
+				if (!$usr['isadmin'])
+				{
+					$rbody = cot_rc($L['folio_senttovalidation_mail_body'], array( 
+						'user_name' => $usr['profile']['user_name'],
+						'prd_name' => $ritem['item_title'],
+						'sitename' => $cfg['maintitle'],
+						'link' => COT_ABSOLUTE_URL . $r_url
+					));
+					cot_mail($usr['profile']['user_email'], $L['folio_senttovalidation_mail_subj'], $rbody);
+				}
 				break;
 		}
 		
