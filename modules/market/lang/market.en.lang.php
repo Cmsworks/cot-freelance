@@ -28,6 +28,8 @@ $L['cfg_marketsearch'] = array('Enable search');
 $L['cfg_warranty'] = array('Warranty period (days)');
 $L['cfg_tax'] = array('Selling commission (%)');
 $L['cfg_ordersperpage'] = array('Orders per page');
+$L['cfg_notifmarket_admin_moderate'] = array('Notify on new product at checkout','Send email for new product in the pre-moderation');
+
 
 $L['info_desc'] = 'Online market';
 
@@ -69,6 +71,9 @@ $L['market_admin_home_hidden'] = 'Hidden';
 $L['market_added_mail_body'] = 'Hello, {$user_name}. '."\n\n".'Your product "{$prd_name}" has been published on the website {$sitename} - {$link}';
 $L['market_senttovalidation_mail_body'] = 'Hello, {$user_name}. '."\n\n".'Your product "{$prd_name}" is submitted for review. A moderator will check it as soon as possible.';
 
+$L['market_notif_admin_moderate_mail_subj'] = 'The new product for review';
+$L['market_notif_admin_moderate_mail_body'] = 'Hi, '."\n\n".'User {$user_name} submit new product "{$prd_name}".'."\n\n".'{$link}';
+
 $L['market_status_published'] = 'Published';
 $L['market_status_moderated'] = 'Moderated';
 $L['market_status_hidden'] = 'Hidden';
@@ -81,3 +86,5 @@ $L['plu_market_res_sort3'] = 'Category';
 $L['plu_market_search_names'] = 'Search in titles';
 $L['plu_market_search_text'] = 'Search in text';
 $L['plu_market_set_subsec'] = 'Include subcategories';
+
+$Ls['market_headermoderated'] = "товар на проверке,товара на проверке,товаров на проверке";

@@ -128,6 +128,17 @@ if ($a == 'update')
 					));
 					cot_mail($usr['profile']['user_email'], $L['market_senttovalidation_mail_subj'], $rbody);
 				}
+
+				if ($cfg['market']['notifmarket_admin_moderate'])
+				{
+					$nbody = cot_rc($L['market_notif_admin_moderate_mail_body'], array( 
+						'user_name' => $usr['profile']['user_name'],
+						'prd_name' => $item['item_title'],
+						'sitename' => $cfg['maintitle'],
+						'link' => COT_ABSOLUTE_URL . $r_url
+					));
+					cot_mail($cfg['adminemail'], $L['market_notif_admin_moderate_mail_subj'], $nbody);
+				}
 				break;
 		}
 		cot_redirect($r_url);

@@ -28,6 +28,7 @@ $L['cfg_marketsearch'] = array('Включить в общий поиск');
 $L['cfg_warranty'] = array('Гарантийный срок (дней)');
 $L['cfg_tax'] = array('Комиссия за продажи (%)');
 $L['cfg_ordersperpage'] = array('Число заказов на странице');
+$L['cfg_notifmarket_admin_moderate'] = array('Уведомлять о новых товарах на проверке','Отправка уведомления на системный email о новых товарах на премодерации');
 
 $L['info_desc'] = 'Ветрина товаров и услуг';
 
@@ -69,6 +70,9 @@ $L['market_admin_home_hidden'] = 'Скрытые';
 $L['market_added_mail_body'] = 'Здравствуйте, {$user_name}. '."\n\n".'Ваш товар "{$prd_name}" был опубликован на сайте {$sitename} - {$link}';
 $L['market_senttovalidation_mail_body'] = 'Здравствуйте, {$user_name}.'."\n\n".'Ваш товар "{$prd_name}" был отправлен на проверку. Модератор утвердит его публикацию в ближайшее время.';
 
+$L['market_notif_admin_moderate_mail_subj'] = 'Новый товар на проверку';
+$L['market_notif_admin_moderate_mail_body'] = 'Здравствуйте, '."\n\n".'Пользователь {$user_name} отправил на проверку новый товар "{$prd_name}".'."\n\n".'{$link}';
+
 $L['market_status_published'] = 'Опубликовано';
 $L['market_status_moderated'] = 'На проверке';
 $L['market_status_hidden'] = 'Скрыто';
@@ -81,3 +85,5 @@ $L['plu_market_res_sort3'] = 'Категории';
 $L['plu_market_search_names'] = 'Поиск в названиях товаров';
 $L['plu_market_search_text'] = 'Поиск в описании';
 $L['plu_market_set_subsec'] = 'Поиск в подразделах';
+
+$Ls['market_headermoderated'] = "товар на проверке,товара на проверке,товаров на проверке";

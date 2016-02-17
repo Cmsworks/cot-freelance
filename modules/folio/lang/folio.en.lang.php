@@ -65,6 +65,9 @@ $L['folio_admin_home_hidden'] = 'Hidden';
 $L['folio_added_mail_body'] = 'Hello, {$user_name}. '."\n\n".'Your work "{$prd_name}" has been published on the website {$sitename} - {$link}';
 $L['folio_senttovalidation_mail_body'] = 'Hello, {$user_name}. '."\n\n".'Your work "{$prd_name}" is submitted for review. A moderator will check it as soon as possible.';
 
+$L['folio_notif_admin_moderate_mail_subj'] = 'The new portfolio for review';
+$L['folio_notif_admin_moderate_mail_body'] = 'Hi, '."\n\n".'User {$user_name} submit new portfolio "{$prd_name}".'."\n\n".'{$link}';
+
 $L['folio_status_published'] = 'Published';
 $L['folio_status_moderated'] = 'Moderated';
 $L['folio_status_hidden'] = 'Hidden';
