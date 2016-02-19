@@ -140,8 +140,6 @@ $t->assign(array(
 	"PAGENAV_COUNT" => $totalitems,
 	"CATALOG" => cot_build_structure_market_tree('', array($c), 0),
 	"BREADCRUMBS" => $catpath,
-	"CATTITLE" => (!empty($c)) ? $structure['market'][$c]['title'] : '',
-	"CATDESC" => (!empty($c)) ? $structure['market'][$c]['desc'] : '',
 ));
 
 foreach($cot_extrafields[$db_market] as $exfld)
@@ -161,6 +159,14 @@ foreach (cot_getextplugins('market.list.search.tags') as $pl)
 	include $pl;
 }
 /* ===== */
+
+if(!empty($c) && is_array($structure['market'][$c]))
+{
+	foreach ($structure['market'][$c] as $field => $val)
+	{
+		$t->assign('CAT'.strtoupper($field), $val);
+	}
+}
 
 $sqllist_rowset = $sqllist->fetchAll();
 $sqllist_idset = array();
