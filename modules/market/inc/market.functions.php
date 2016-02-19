@@ -474,9 +474,7 @@ function cot_market_validate($ritem)
 	cot_check(empty($ritem['item_cat']), 'market_select_cat', 'rcat');
 	if ($structure['market'][$ritem['item_cat']]['locked'])
 	{
-		global $L;
-		require_once cot_langfile('message', 'core');
-		cot_error('msg602_body', 'rcat');
+		cot_error('market_locked_cat', 'rcat');
 	}
 	cot_check(mb_strlen($ritem['item_title']) < 2, 'market_empty_title', 'rtitle');
 	cot_check(!empty($ritem['item_alias']) && preg_match('`[+/?%#&]`', $ritem['item_alias']), 'market_aliascharacters', 'ralias');

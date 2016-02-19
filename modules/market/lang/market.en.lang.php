@@ -34,6 +34,7 @@ $L['cfg_notifmarket_admin_moderate'] = array('Notify on new product at checkout'
 $L['info_desc'] = 'Online market';
 
 $L['market_select_cat'] = "Select Section";
+$L['market_locked_cat'] = "Selected category blocked";
 $L['market_empty_title'] = "The title can not be empty";
 $L['market_empty_text'] = "Text is empty";
 $L['market_large_img'] = "Image too large";

@@ -487,9 +487,7 @@ function cot_projects_validate($ritem)
 	cot_check(empty($ritem['item_cat']), 'projects_select_cat', 'rcat');
 	if ($structure['projects'][$ritem['item_cat']]['locked'])
 	{
-		global $L;
-		require_once cot_langfile('message', 'core');
-		cot_error('msg602_body', 'rcat');
+		cot_error('projects_locked_cat', 'rcat');
 	}
 	cot_check(mb_strlen($ritem['item_title']) < 2, 'projects_empty_title', 'rtitle');
 	cot_check(!empty($ritem['item_alias']) && preg_match('`[+/?%#&]`', $ritem['item_alias']), 'prj_aliascharacters', 'ralias');

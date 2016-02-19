@@ -33,6 +33,7 @@ $L['cfg_notifmarket_admin_moderate'] = array('Уведомлять о новых
 $L['info_desc'] = 'Ветрина товаров и услуг';
 
 $L['market_select_cat'] = "Выберите раздел";
+$L['market_locked_cat'] = "Выбранная категория заблокирована";
 $L['market_empty_title'] = "Название не может быть пустым";
 $L['market_empty_text'] = "Описание не может быть пустым";
 $L['market_large_img'] = "Изображение слишком большое";

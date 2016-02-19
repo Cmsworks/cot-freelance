@@ -34,6 +34,7 @@ $L['cfg_notif_admin_moderate'] = array('Notify on new projects at checkout','Sen
 $L['info_desc'] = 'Module publishing projects';
 
 $L['projects_select_cat'] = "Select the category of project";
+$L['projects_locked_cat'] = "Selected category blocked";
 $L['projects_empty_title'] = "Title is empty";
 $L['projects_empty_text'] = "Text of project is empty";
 

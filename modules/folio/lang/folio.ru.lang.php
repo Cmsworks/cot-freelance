@@ -30,6 +30,7 @@ $L['cfg_notiffolio_admin_moderate'] = array('Уведомлять о новых 
 $L['info_desc'] = 'Портфолио пользователей';
 
 $L['folio_select_cat'] = "Выберите раздел";
+$L['folio_locked_cat'] = "Выбранная категория заблокирована";
 $L['folio_empty_title'] = "Название не может быть пустым";
 $L['folio_empty_text'] = "Описание не может быть пустым";
 $L['folio_large_img'] = "Изображение слишком большое";

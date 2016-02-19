@@ -4,7 +4,7 @@
  * Code=market
  * Name=Market
  * Description=Магазин
- * Version=2.5.9
+ * Version=2.5.10
  * Date=24.11.2012
  * Author=CMSWorks Team
  * Copyright=Copyright (c) CMSWorks.ru, littledev.ru
@@ -49,7 +49,7 @@
  * market module
  *
  * @package market
- * @version 2.5.8
+ * @version 2.5.10
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru, littledev.ru
  * @license BSD

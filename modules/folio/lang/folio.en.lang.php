@@ -30,6 +30,7 @@ $L['cfg_notiffolio_admin_moderate'] = array('Notify on new work at checkout','Se
 $L['info_desc'] = 'Portfolio';
 
 $L['folio_select_cat'] = "Select Section";
+$L['folio_locked_cat'] = "Selected category blocked";
 $L['folio_empty_title'] = "The title can not be empty";
 $L['folio_empty_text'] = "Text is empty";
 $L['folio_large_img'] = "Image too large";
