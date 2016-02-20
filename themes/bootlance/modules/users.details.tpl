@@ -3,8 +3,9 @@
 <div class="row">
 	<div class="span3">
 		<div class="thumbnail">{USERS_DETAILS_AVATAR}</div>
-		<!-- IF {PHP.cot_plugins_active.paypro} && {PHP.usr.id} > 0 -->
-		<a href="<!-- IF {PHP.usr.isadmin} -->{USERS_DETAILS_ID|cot_url('admin', 'm=other&p=paypro&id='$this)}<!-- ELSE -->{USERS_DETAILS_ID|cot_url('paypro', 'id='$this)}<!-- ENDIF -->">{PHP.L.paypro_giftpro}</a>
+		<!-- IF {PHP.cot_plugins_active.paypro} && {PHP.usr.id} > 0 AND {PHP.usr.id} != {USERS_DETAILS_ID} -->
+		<br/>
+		<a class="btn btn-info btn-block" href="<!-- IF {PHP.usr.isadmin} -->{USERS_DETAILS_ID|cot_url('admin', 'm=other&p=paypro&id='$this)}<!-- ELSE -->{USERS_DETAILS_ID|cot_url('paypro', 'id='$this)}<!-- ENDIF -->">{PHP.L.paypro_giftpro}</a>
 		<br/>
 		<!-- ENDIF -->
 		<br/>
