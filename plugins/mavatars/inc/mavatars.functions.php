@@ -193,7 +193,7 @@ class mavatar
 
 			$oldmavatars = $db->query("SELECT * FROM $db_mavatars 
 				WHERE mav_extension ='".$db->prep($this->extension)."' 
-					AND mav_code = '".$db->prep($this->code)."' $query_string 
+					AND mav_code = '' $query_string 
 					AND mav_date+86400<".$sys['now'])->fetchAll();
 
 			if(is_array($oldmavatars))
