@@ -16,3 +16,4 @@ defined('COT_CODE') or die('Wrong URL.');
  */
 
 $L['Username'] = 'Login';  
+$L['header_notice'] = 'Have notice'; 

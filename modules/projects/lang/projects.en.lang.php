@@ -29,10 +29,12 @@ $L['cfg_description'] = array('Description');
 $L['cfg_prjsearch'] = array('Enable search');
 $L['cfg_license'] = array('License key');
 $L['cfg_default_type'] = array('Default projects type');
+$L['cfg_notif_admin_moderate'] = array('Notify on new projects at checkout','Send email for new projects in the pre-moderation');
 
 $L['info_desc'] = 'Module publishing projects';
 
 $L['projects_select_cat'] = "Select the category of project";
+$L['projects_locked_cat'] = "Selected category blocked";
 $L['projects_empty_title'] = "Title is empty";
 $L['projects_empty_text'] = "Text of project is empty";
 
@@ -137,6 +139,9 @@ $L['project_setperformer_body'] = 'Hi, {$offeruser_name}. '."\n\n".'You have cho
 $L['project_refuse_header'] = 'Being denied the project «{$prtitle}»';
 $L['project_refuse_body'] = 'Hi, {$offeruser_name}. '."\n\n".'Being denied the project "{$prj_name}".'."\n\n".'{$link}';
 
+$L['project_notif_admin_moderate_mail_subj'] = 'The new draft for review';
+$L['project_notif_admin_moderate_mail_body'] = 'Hi, '."\n\n".'User {$user_name} submit new project "{$prj_name}".'."\n\n".'{$link}';
+
 $L['project_realized'] = 'Mark executed';
 $L['project_unrealized'] = 'Mark unexecuted';
 
@@ -150,3 +155,5 @@ $L['plu_prj_res_sort3'] = 'Category';
 $L['plu_prj_search_names'] = 'Search in titles';
 $L['plu_prj_search_text'] = 'Search in projects text';
 $L['plu_prj_set_subsec'] = 'Include subcategories';
+
+$Ls['projects_headermoderated'] = "moderated project,project on moderation,projects in moderation";

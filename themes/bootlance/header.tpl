@@ -98,6 +98,14 @@
 								<!-- ENDIF -->
 							</li>
 							<!-- IF {HEADER_USER_PMREMINDER} --><li>{HEADER_USER_PMREMINDER}</li><!-- ENDIF -->
+							<!-- IF {HEADER_NOTICES} -->
+							<li class="dropdown">
+								<a class="dropdown-toggle" data-toggle="dropdown" href="#">{PHP.L.header_notice}<b class="caret"></b></a>
+								<ul class="dropdown-menu">
+									{HEADER_NOTICES}
+								</ul>
+							</li>
+							<!-- ENDIF -->
 							<li>{HEADER_USER_ADMINPANEL}</li>
 							<li>{HEADER_USER_LOGINOUT}</li>
 							<!-- END: USER -->

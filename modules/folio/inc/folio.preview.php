@@ -56,6 +56,17 @@ if ($a == 'save')
 			));
 			cot_mail($item['user_email'], $L['folio_senttovalidation_mail_subj'], $rbody);
 		}
+
+		if ($cfg['folio']['notiffolio_admin_moderate'])
+		{
+			$nbody = cot_rc($L['folio_notif_admin_moderate_mail_body'], array( 
+				'user_name' => $usr['profile']['user_name'],
+				'prd_name' => $item['item_title'],
+				'sitename' => $cfg['maintitle'],
+				'link' => COT_ABSOLUTE_URL . $r_url
+			));
+			cot_mail($cfg['adminemail'], $L['folio_notif_admin_moderate_mail_subj'], $nbody);
+		}	
 	}
 	else{
 		$ritem['item_state'] = 0;

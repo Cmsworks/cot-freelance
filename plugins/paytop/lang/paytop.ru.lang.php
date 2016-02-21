@@ -63,3 +63,6 @@ $L['paytop_mail_admin_body'] = 'Здравствуйте,
 Дата операции: %4$s.
 
 ';
+
+$L['paytop_my_area'] = 'Рекламное место';
+$L['paytop_my_until'] = 'Срок действия';

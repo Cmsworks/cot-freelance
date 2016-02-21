@@ -176,8 +176,6 @@ $t->assign(array(
 	"PAGENAV_COUNT" => $totalitems,
 	"CATALOG" => cot_build_structure_projects_tree('', array($c)),
 	"BREADCRUMBS" => $catpath,
-	"CATTITLE" => (!empty($c)) ? $structure['projects'][$c]['title'] : '',
-	"CATDESC" => (!empty($c)) ? $structure['projects'][$c]['desc'] : '',
 	"SUBMITNEWPROJECT_URL" => cot_url('projects', 'm=add&c='.$c.'&type='.$type)
 ));
 
@@ -198,6 +196,14 @@ foreach (cot_getextplugins('projects.list.search.tags') as $pl)
 	include $pl;
 }
 /* ===== */
+
+if(!empty($c) && is_array($structure['projects'][$c]))
+{
+	foreach ($structure['projects'][$c] as $field => $val)
+	{
+		$t->assign('CAT'.strtoupper($field), $val);
+	}
+}
 
 $sqllist_rowset = $sqllist->fetchAll();
 $sqllist_idset = array();

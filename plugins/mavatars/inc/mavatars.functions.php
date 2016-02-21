@@ -178,15 +178,32 @@ class mavatar
 	 */	
 	private function mavatars_query()
 	{
-		global $db_mavatars, $db, $usr;
+		global $db_mavatars, $db, $usr, $sys;
 
-		if($this->mode == 'edit' && $usr['id'] == 0)
+		if($this->mode == 'edit')
 		{
-			$query_string = " AND mav_sessid='".cot_import('PHPSESSID', 'C', 'TXT')."'";
-		}
-		elseif($this->mode == 'edit' && $usr['id'] > 0)
-		{
-			$query_string = " AND mav_userid=".$usr['id'];
+			if($usr['id'] == 0)
+			{
+				$query_string = " AND mav_sessid='".cot_import('PHPSESSID', 'C', 'TXT')."'";
+			}
+			else
+			{
+				$query_string = " AND mav_userid=".$usr['id'];
+			}
+
+			$oldmavatars = $db->query("SELECT * FROM $db_mavatars 
+				WHERE mav_extension ='".$db->prep($this->extension)."' 
+					AND mav_code = '' $query_string 
+					AND mav_date+86400<".$sys['now'])->fetchAll();
+
+			if(is_array($oldmavatars))
+			{
+				foreach ($oldmavatars as $oldmavatar) 
+				{
+					$mavatar = $this->sqldata_to_array($oldmavatar);
+					$this->delete_mavatar($mavatar);
+				}
+			}
 		}
 
 		return "SELECT * FROM $db_mavatars WHERE mav_extension ='".$db->prep($this->extension)."' AND

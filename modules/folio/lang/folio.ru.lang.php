@@ -25,10 +25,12 @@ $L['cfg_foliositemap_freq_params'] = $sitemap_freqs;
 $L['cfg_foliositemap_prio'] = array('Приоритет в Sitemap');
 $L['cfg_description'] = array('Description');
 $L['cfg_foliosearch'] = array('Включить в общий поиск');
+$L['cfg_notiffolio_admin_moderate'] = array('Уведомлять о новых портфолио на проверке','Отправка уведомления на системный email о новых портфолио на премодерации');
 
 $L['info_desc'] = 'Портфолио пользователей';
 
 $L['folio_select_cat'] = "Выберите раздел";
+$L['folio_locked_cat'] = "Выбранная категория заблокирована";
 $L['folio_empty_title'] = "Название не может быть пустым";
 $L['folio_empty_text'] = "Описание не может быть пустым";
 $L['folio_large_img'] = "Изображение слишком большое";
@@ -64,6 +66,9 @@ $L['folio_admin_home_hidden'] = 'Скрытые';
 $L['folio_added_mail_body'] = 'Здравствуйте, {$user_name}. '."\n\n".'Работа "{$prd_name}" была добавлена в ваше Портфолио на сайте {$sitename} - {$link}';
 $L['folio_senttovalidation_mail_body'] = 'Здравствуйте, {$user_name}.'."\n\n".'Ваша работа "{$prd_name}" из Портфолио была отправлена на проверку. Модератор утвердит ее публикацию в ближайшее время.';
 
+$L['folio_notif_admin_moderate_mail_subj'] = 'Новое портфолио на проверку';
+$L['folio_notif_admin_moderate_mail_body'] = 'Здравствуйте, '."\n\n".'Пользователь {$user_name} отправил на проверку новое портфолио "{$prd_name}".'."\n\n".'{$link}';
+
 $L['folio_status_published'] = 'Опубликовано';
 $L['folio_status_moderated'] = 'На проверке';
 $L['folio_status_hidden'] = 'Скрыто';
@@ -76,3 +81,5 @@ $L['plu_folio_res_sort3'] = 'Категории';
 $L['plu_folio_search_names'] = 'Поиск в названиях';
 $L['plu_folio_search_text'] = 'Поиск в описании';
 $L['plu_folio_set_subsec'] = 'Поиск в подразделах';
+
+$Ls['folio_headermoderated'] = "портфолио на проверке,портфолио на проверке,портфолио на проверке";

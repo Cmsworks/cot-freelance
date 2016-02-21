@@ -11,4 +11,4 @@ $R['link_pagenav_prev'] = '<li><a href="{$url}"{$event}{$rel}>'.$L['pagenav_prev
 
 $R['input_radio'] = '<label class="radio inline"><input type="radio" name="{$name}" value="{$value}"{$checked}{$attrs} /> {$title}</label>';
 
-?>
+$R['notices_link'] = '<li><a href="{$url}" title="{$title}">{$title}</a><li>';

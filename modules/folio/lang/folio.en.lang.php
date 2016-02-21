@@ -25,10 +25,12 @@ $L['cfg_foliositemap_freq_params'] = $sitemap_freqs;
 $L['cfg_foliositemap_prio'] = array('Priority on Sitemap');
 $L['cfg_description'] = array('Description');
 $L['cfg_foliosearch'] = array('Enable search');
+$L['cfg_notiffolio_admin_moderate'] = array('Notify on new work at checkout','Send email for new work in the pre-moderation');
 
 $L['info_desc'] = 'Portfolio';
 
 $L['folio_select_cat'] = "Select Section";
+$L['folio_locked_cat'] = "Selected category blocked";
 $L['folio_empty_title'] = "The title can not be empty";
 $L['folio_empty_text'] = "Text is empty";
 $L['folio_large_img'] = "Image too large";
@@ -64,6 +66,9 @@ $L['folio_admin_home_hidden'] = 'Hidden';
 $L['folio_added_mail_body'] = 'Hello, {$user_name}. '."\n\n".'Your work "{$prd_name}" has been published on the website {$sitename} - {$link}';
 $L['folio_senttovalidation_mail_body'] = 'Hello, {$user_name}. '."\n\n".'Your work "{$prd_name}" is submitted for review. A moderator will check it as soon as possible.';
 
+$L['folio_notif_admin_moderate_mail_subj'] = 'The new portfolio for review';
+$L['folio_notif_admin_moderate_mail_body'] = 'Hi, '."\n\n".'User {$user_name} submit new portfolio "{$prd_name}".'."\n\n".'{$link}';
+
 $L['folio_status_published'] = 'Published';
 $L['folio_status_moderated'] = 'Moderated';
 $L['folio_status_hidden'] = 'Hidden';
@@ -76,3 +81,5 @@ $L['plu_folio_res_sort3'] = 'Category';
 $L['plu_folio_search_names'] = 'Search in titles';
 $L['plu_folio_search_text'] = 'Search in text';
 $L['plu_folio_set_subsec'] = 'Include subcategories';
+
+$Ls['folio_headermoderated'] = "Portfolio on moderation,Portfolio on moderation,Portfolio on moderation";

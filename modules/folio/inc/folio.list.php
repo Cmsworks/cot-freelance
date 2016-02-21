@@ -139,8 +139,6 @@ $t->assign(array(
 	"PAGENAV_COUNT" => $totalitems,
 	"CATALOG" => cot_build_structure_folio_tree('', array($c), 0),
 	"BREADCRUMBS" => $catpath,
-	"CATTITLE" => (!empty($c)) ? $structure['folio'][$c]['title'] : '',
-	"CATDESC" => (!empty($c)) ? $structure['folio'][$c]['desc'] : '',
 ));
 
 foreach($cot_extrafields[$db_folio] as $exfld)
@@ -160,6 +158,14 @@ foreach (cot_getextplugins('folio.list.search.tags') as $pl)
 	include $pl;
 }
 /* ===== */
+
+if(!empty($c) && is_array($structure['folio'][$c]))
+{
+	foreach ($structure['folio'][$c] as $field => $val)
+	{
+		$t->assign('CAT'.strtoupper($field), $val);
+	}
+}
 
 $sqllist_rowset = $sqllist->fetchAll();
 $sqllist_idset = array();

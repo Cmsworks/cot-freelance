@@ -42,7 +42,7 @@ $item = $sql->fetch();
 list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('folio', $item['item_cat'], 'RWA');
 cot_block($usr['auth_read']);
 
-if ($item['item_state'] == 1 && !$usr['isadmin'] && $usr['id'] != $item['item_userid'])
+if ($item['item_state'] != 0 && !$usr['isadmin'] && $usr['id'] != $item['item_userid'])
 {
 	cot_log("Attempt to directly access an un-validated", 'sec');
 	cot_redirect(cot_url('message', "msg=930", '', true));

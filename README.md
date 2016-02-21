@@ -1,5 +1,7 @@
 ##Фриланс-биржа на Cotonti Siena##
 
+Версия сборки: 2.6.9
+
 Copyright 2015 CMSWorks Team (CMSWorks.ru)
 
 Информация о сборке: http://cmsworks.ru/apps/freelance2
