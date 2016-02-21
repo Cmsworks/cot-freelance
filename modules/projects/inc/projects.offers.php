@@ -380,6 +380,8 @@ while ($offer = $sql->fetch())
 	}
 	/* ===== */
   
+  $t_o->assign(cot_generate_usertags($offer, 'OFFER_ROW_OWNER_'));
+
 	if ($usr['id'] == $item['item_userid'] && $choise_enabled)
 	{
 		$t_o->assign(array(
@@ -398,7 +400,6 @@ while ($offer = $sql->fetch())
 		$t_o->parse("MAIN.ROWS.CHOISE");
 	}
 
-	$t_o->assign(cot_generate_usertags($offer, 'OFFER_ROW_OWNER_'));
 	$t_o->assign(array(
 		"OFFER_ROW_DATE" => cot_date('d.m.Y H:i', $offer['offer_date']),
 		"OFFER_ROW_DATE_STAMP" => $offer['offer_date'],
