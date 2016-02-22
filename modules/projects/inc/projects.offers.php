@@ -201,7 +201,10 @@ if ($a == 'refuse' && !empty($userid))
 	if ($usr['id'] == $item['item_userid'] && (int)$userid > 0 && !cot_error_found())
 	{
 		if($db->update($db_projects_offers, array('offer_choise' => 'refuse', 'offer_choise_date' => (int)$sys['now_offset']), "offer_pid=" . $id . " AND offer_userid=" . (int)$userid . "")){
-			$db->update($db_projects, array("item_performer" => 0), "item_id=" . (int)$id);
+			if($userid == $item['item_performer'])
+			{
+				$db->update($db_projects, array("item_performer" => 0), "item_id=" . (int)$id);
+			}
 		}
 
 		$urlparams = empty($item['item_alias']) ?
@@ -365,8 +368,10 @@ $t_o->assign(array(
 ));
 
 /* === Hook === */
-$extp = cot_getextplugins('projects.offers.loop');
-$extp1 = cot_getextplugins('projects.offers.posts.loop');
+$extp1 = cot_getextplugins('projects.offers.choise.first');
+$extp2 = cot_getextplugins('projects.offers.choise');
+$extp3 = cot_getextplugins('projects.offers.posts.loop');
+$extp4 = cot_getextplugins('projects.offers.loop');
 /* ===== */
 
 while ($offer = $sql->fetch())
@@ -400,8 +405,8 @@ while ($offer = $sql->fetch())
 
 	$choise_enabled = true;
 	
-	/* === Hook === */
-	foreach (cot_getextplugins('projects.offers.choise.first') as $pl)
+	/* === Hook - Part1 : Include === */
+	foreach ($extp1 as $pl)
 	{
 		include $pl;
 	}
@@ -414,8 +419,8 @@ while ($offer = $sql->fetch())
 			"OFFER_ROW_REFUSE" => cot_url('projects', 'id=' . $id . '&a=refuse&userid=' . $offer['user_id'] . '&' . cot_xg()),
 		));
 		
-		/* === Hook === */
-		foreach (cot_getextplugins('projects.offers.choise') as $pl)
+		/* === Hook - Part2 : Include === */
+		foreach ($extp2 as $pl)
 		{
 			include $pl;
 		}
@@ -437,8 +442,8 @@ while ($offer = $sql->fetch())
 				"POST_ROW_DATE" => cot_date('d.m.y H:i', $posts['post_date']),
 				"POST_ROW_DATE_STAMP" => $posts['post_date'],
 			));
-			/* === Hook - Part2 : Include === */
-			foreach ($extp1 as $pl)
+			/* === Hook - Part3 : Include === */
+			foreach ($extp3 as $pl)
 			{
 				include $pl;
 			}
@@ -456,8 +461,8 @@ while ($offer = $sql->fetch())
 		$t_o->parse("MAIN.ROWS.POSTS");
 	}
 	
-	/* === Hook - Part2 : Include === */
-	foreach ($extp as $pl)
+	/* === Hook - Part4 : Include === */
+	foreach ($extp4 as $pl)
 	{
 		include $pl;
 	}
