@@ -370,36 +370,8 @@ $extp1 = cot_getextplugins('projects.offers.posts.loop');
 /* ===== */
 
 while ($offer = $sql->fetch())
-{
-	$choise_enabled = true;
-	
-	/* === Hook === */
-	foreach (cot_getextplugins('projects.offers.choise.first') as $pl)
-	{
-		include $pl;
-	}
-	/* ===== */
-  
-  $t_o->assign(cot_generate_usertags($offer, 'OFFER_ROW_OWNER_'));
-
-	if ($usr['id'] == $item['item_userid'] && $choise_enabled)
-	{
-		$t_o->assign(array(
-			"OFFER_ROW_CHOISE" => $offer['offer_choise'],
-			"OFFER_ROW_SETPERFORMER" => cot_url('projects', 'id=' . $id . '&a=setperformer&userid=' . $offer['user_id'] . '&' . cot_xg()),
-			"OFFER_ROW_REFUSE" => cot_url('projects', 'id=' . $id . '&a=refuse&userid=' . $offer['user_id'] . '&' . cot_xg()),
-		));
-		
-		/* === Hook === */
-		foreach (cot_getextplugins('projects.offers.choise') as $pl)
-		{
-			include $pl;
-		}
-		/* ===== */
-		
-		$t_o->parse("MAIN.ROWS.CHOISE");
-	}
-
+{  
+  	$t_o->assign(cot_generate_usertags($offer, 'OFFER_ROW_OWNER_'));
 	$t_o->assign(array(
 		"OFFER_ROW_DATE" => cot_date('d.m.Y H:i', $offer['offer_date']),
 		"OFFER_ROW_DATE_STAMP" => $offer['offer_date'],
@@ -410,6 +382,7 @@ while ($offer = $sql->fetch())
 		"OFFER_ROW_TIMEMAX" => $offer['offer_time_max'],
 		"OFFER_ROW_TIMETYPE" => $L['offers_timetype'][$offer['offer_time_type']],
 		"OFFER_ROW_HIDDEN" => $offer['offer_hidden'],
+		"OFFER_ROW_CHOISE" => $offer['offer_choise'],
 	));
 	
 	// Extrafields
@@ -423,6 +396,32 @@ while ($offer = $sql->fetch())
 				'OFFER_ROW_' . $uname => cot_build_extrafields_data('offers', $exfld, $offer['item_' . $exfld['field_name']])
 			));
 		}
+	}
+
+	$choise_enabled = true;
+	
+	/* === Hook === */
+	foreach (cot_getextplugins('projects.offers.choise.first') as $pl)
+	{
+		include $pl;
+	}
+	/* ===== */
+
+	if ($usr['id'] == $item['item_userid'] && $choise_enabled)
+	{
+		$t_o->assign(array(
+			"OFFER_ROW_SETPERFORMER" => cot_url('projects', 'id=' . $id . '&a=setperformer&userid=' . $offer['user_id'] . '&' . cot_xg()),
+			"OFFER_ROW_REFUSE" => cot_url('projects', 'id=' . $id . '&a=refuse&userid=' . $offer['user_id'] . '&' . cot_xg()),
+		));
+		
+		/* === Hook === */
+		foreach (cot_getextplugins('projects.offers.choise') as $pl)
+		{
+			include $pl;
+		}
+		/* ===== */
+		
+		$t_o->parse("MAIN.ROWS.CHOISE");
 	}
 
 	if ($usr['id'] == $offer['offer_userid'] || $usr['id'] == $item['item_userid'] || $usr['isadmin'])
