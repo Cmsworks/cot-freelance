@@ -51,6 +51,7 @@ sef-urls.nginx.conf
 /plugins/markitup/
 /plugins/mcaptcha/
 /plugins/news/
+/plugins/indexnews/
 /plugins/ratings/
 /plugins/recentitems/
 /plugins/referers/

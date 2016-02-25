@@ -413,6 +413,17 @@ function cot_import($name, $source, $filter, $maxlen = 0, $dieonerror = false, $
 			break;
 	}
 
+	if (is_array($v))
+	{
+		if ($filter == 'NOC') $filter = 'ARR';
+		if ($filter != 'ARR') return null;
+	}
+	else
+	{
+		if ($filter == 'ARR') return array();
+	}
+
+
 	if (MQGPC && ($source=='G' || $source=='P' || $source=='C') && $v != NULL && $filter != 'ARR')
 	{
 		$v = stripslashes($v);
@@ -954,10 +965,11 @@ function cot_module_active($name)
 }
 
 /**
- * Standard SED output filters, adds XSS protection to forms
+ * Applies output filters, adds XSS protection to POST forms
+ * Note: XSS can be switched off by adding "xp-off" class to form
  *
- * @param unknown_type $output
- * @return unknown
+ * @param string $output
+ * @return string
  */
 function cot_outputfilters($output)
 {
@@ -968,7 +980,10 @@ function cot_outputfilters($output)
 	}
 	/* ==== */
 
-	$output = preg_replace('#<form\s+[^>]*method=["\']?post["\']?[^>]*>#i', '$0' . cot_xp(), $output);
+	$output = preg_replace_callback('#<form\s+[^>]*method=["\']?post["\']?[^>]*>#i',
+		function ($m) {
+			return $m[0] . (preg_match('/class\s*=\s*["\']?.*?[\s"\']xp-off[\s"\'].*?["\']?/i', $m[0]) ? '' : cot_xp());
+		}, $output);
 
 	return($output);
 }
@@ -1300,9 +1315,15 @@ function cot_structure_children($area, $cat, $allsublev = true,  $firstcat = tru
 {
 	global $structure, $db;
 
-	$mtch = $structure[$area][$cat]['path'].'.';
-	$mtchlen = mb_strlen($mtch);
-	$mtchlvl = mb_substr_count($mtch,".");
+	$mtch = '';
+	$mtchlen = $mtchlvl = 0;
+
+	if ($cat != '')
+	{
+		$mtch = $structure[$area][$cat]['path'] . '.';
+		$mtchlen = mb_strlen($mtch);
+		$mtchlvl = mb_substr_count($mtch, ".");
+	}
 
 	$catsub = array();
 	if ($cat != '' && $firstcat && (($userrights && cot_auth($area, $cat, 'R') || !$userrights)))
@@ -1315,7 +1336,7 @@ function cot_structure_children($area, $cat, $allsublev = true,  $firstcat = tru
 		if (($cat == '' || mb_substr($x['path'], 0, $mtchlen) == $mtch) && (($userrights && cot_auth($area, $i, 'R') || !$userrights)))
 		{
 			//$subcat = mb_substr($x['path'], $mtchlen + 1);
-			if ($cat == '' || $allsublev || (!$allsublev && mb_substr_count($x['path'],".") == $mtchlvl))
+			if ($allsublev || (!$allsublev && mb_substr_count($x['path'],".") == $mtchlvl))
 			{
 				$i = ($sqlprep) ? $db->prep($i) : $i;
 				$catsub[] = $i;
@@ -2132,6 +2153,10 @@ function cot_generate_usertags($user_data, $tag_prefix = '', $emptyname='', $all
 			$sql = $db->query("SELECT * FROM $db_users WHERE user_id = $user_id LIMIT 1");
 			$user_data = $sql->fetch();
 		}
+		else if (!is_array($user_data))
+		{
+			$user_data = array();
+		}
 
 		if (is_array($user_data) && $user_data['user_id'] > 0 && !empty($user_data['user_name']))
 		{
@@ -2158,6 +2183,7 @@ function cot_generate_usertags($user_data, $tag_prefix = '', $emptyname='', $all
 				'EMAIL' => cot_build_email($user_data['user_email'], $user_data['user_hideemail']),
 				'THEME' => $user_data['user_theme'],
 				'SCHEME' => $user_data['user_scheme'],
+				'LANG' => $user_data['user_lang'],
 				'GENDER' => ($user_data['user_gender'] == '' || $user_data['user_gender'] == 'U') ? '' : $L['Gender_' . $user_data['user_gender']],
 				'BIRTHDATE' => (is_null($user_data['user_birthdate'])) ? '' : cot_date('date_full', $user_data['user_birthdate']),
 				'BIRTHDATE_STAMP' => (is_null($user_data['user_birthdate'])) ? '' : $user_data['user_birthdate'],
@@ -2220,7 +2246,10 @@ function cot_generate_usertags($user_data, $tag_prefix = '', $emptyname='', $all
 		}
 		/* ===== */
 
-		$cacheitem && $user_cache[$user_data['user_id']] = $temp_array;
+		if(is_array($user_data) && isset($user_data['user_id'])) {
+			$cacheitem && $user_cache[$user_data['user_id']] = $temp_array;
+		}
+
 	}
 	foreach ($temp_array as $key => $val)
 	{
@@ -2481,6 +2510,11 @@ function cot_img_check_memory($file_path, $extra_size = 0)
 	$usedMem = round($usedMem / 1048576);
 
 	$haveMem = ini_get('memory_limit');
+	if ($haveMem == '-1')
+	{
+		// no limit set, so we try any way
+		return true;
+	}
 	preg_match('/(\d+)(\w+)/', $haveMem, $mtch);
 	// Getting available memory in MBytes
 	if (!empty($mtch[2]))
@@ -3133,7 +3167,7 @@ function cot_log($text, $group='def')
 {
 	global $db, $db_logger, $sys, $usr, $_SERVER;
 
-	$db->insert($db_logger, array(
+	$db && $db->insert($db_logger, array(
 		'log_date' => (int)$sys['now'],
 		'log_ip' => $usr['ip'],
 		'log_name' => $usr['name'],
@@ -3273,6 +3307,37 @@ function cot_langfile($name, $type = 'plug', $default = 'en', $lang = null)
 }
 
 /**
+ * Returns a exists language from HTTP_ACCEPT_LANGUAGE
+ *
+ * @return string
+ */
+function cot_lang_determine()
+{
+	global $cfg;
+	if (($list = strtolower($_SERVER['HTTP_ACCEPT_LANGUAGE'])))
+	{
+		if (preg_match_all('/([a-z]{1,8}(?:-[a-z]{1,8})?)(?:;q=([0-9.]+))?/', $list, $list))
+		{
+			$language = array_combine($list[1], $list[2]);
+			//
+			foreach ($language as $n => $v)
+			{
+				$language[$n] = $v ? $v : 1;
+			}
+			arsort($language, SORT_NUMERIC);
+			foreach ($language as $n => $v)
+			{
+				if (@file_exists($cfg['lang_dir']."/$n/main.$n.lang.php"))
+				{
+					return $n;
+				}
+			}
+		}
+	}
+	return 'en';
+}
+
+/**
  * Tries to detect and fetch a user scheme CSS file or returns FALSE on error.
  *
  * @global array $usr User object
@@ -3283,12 +3348,11 @@ function cot_langfile($name, $type = 'plug', $default = 'en', $lang = null)
 function cot_schemefile()
 {
 	global $usr, $cfg, $out;
-
 	if (file_exists("{$cfg['themes_dir']}/{$usr['theme']}/{$usr['scheme']}.css"))
 	{
 		return "{$cfg['themes_dir']}/{$usr['theme']}/{$usr['scheme']}.css";
 	}
-	elseif (is_dir("{$cfg['themes_dir']}/{$usr['theme']}/css/"))
+	if (is_dir("{$cfg['themes_dir']}/{$usr['theme']}/css/"))
 	{
 		if (file_exists("{$cfg['themes_dir']}/{$usr['theme']}/css/{$usr['scheme']}.css"))
 		{
@@ -3301,7 +3365,7 @@ function cot_schemefile()
 			return "{$cfg['themes_dir']}/{$usr['theme']}/css/{$cfg['defaultscheme']}.css";
 		}
 	}
-	elseif (is_dir("{$cfg['themes_dir']}/{$usr['theme']}"))
+	if (is_dir("{$cfg['themes_dir']}/{$usr['theme']}"))
 	{
 		if (file_exists("{$cfg['themes_dir']}/{$usr['theme']}/{$cfg['defaultscheme']}.css"))
 		{
@@ -3322,7 +3386,6 @@ function cot_schemefile()
 			return "{$cfg['themes_dir']}/{$usr['theme']}/style.css";
 		}
 	}
-
 	$out['notices_array'][] = $L['com_schemefail'];
 	if (file_exists("{$cfg['themes_dir']}/{$cfg['defaulttheme']}/{$cfg['defaultscheme']}.css"))
 	{
@@ -3336,10 +3399,7 @@ function cot_schemefile()
 		$usr['scheme'] = $cfg['defaultscheme'];
 		return "{$cfg['themes_dir']}/{$cfg['defaulttheme']}/css/{$cfg['defaultscheme']}.css";
 	}
-	else
-	{
-		return false;
-	}
+	return false;
 }
 
 /**
@@ -4588,7 +4648,7 @@ function cot_rc_add_standard()
 
 	if ($cfg['jquery'] && !$cfg['jquery_cdn'])
 	{
-		Resources::addFile(Resources::jQuery);
+		Resources::addFile(Resources::jQuery, 'js', 30);
 	}
 
 	if ($cfg['jquery'])
@@ -4994,7 +5054,7 @@ function cot_unregister_globals()
 /**
  * Returns XSS protection variable for GET URLs
  *
- * @return unknown
+ * @return string
  */
 function cot_xg()
 {
@@ -5265,18 +5325,113 @@ function cot_uriredir_store()
 {
 	global $sys;
 
+	$m = cot_import('m', 'G', 'ALP');
 	if ($_SERVER['REQUEST_METHOD'] != 'POST' // not form action/POST
 		&& empty($_GET['x']) // not xg, hence not form action/GET and not command from GET
 		&& !defined('COT_MESSAGE') // not message location
 		&& !defined('COT_AUTH') // not login/logout location
 		&&	(!defined('COT_USERS')
-			|| empty($_GET['m'])
-			|| !in_array($_GET['m'], array('auth', 'logout', 'register'))
-	)
+			|| is_null($m)
+			|| !in_array($m, array('auth', 'logout', 'register'))
+		)
 	)
 	{
 		$_SESSION['s_uri_redir'] = $sys['uri_redir'];
 	}
+}
+
+/**
+ * Splits URL for its parts
+ * Same as `parse_str` but with workaround for URL with omitted scheme for old PHP versions
+ *
+ * @param array $url Array of URL parts
+ * @see http://php.net/manual/en/function.parse-str.php
+ */
+function cot_parse_url($url)
+{
+	$urlp = parse_url($url);
+
+	// check for URL with omited scheme on PHP prior 5.4.7 (//somesite.com)
+	if (substr($urlp['path'],0,2) == '//' && empty($urlp['scheme'])) $needfix = true;
+
+	// check for URL with auth credentials (user[:pass]@site.com/)
+	if (empty($urlp['host']) && preg_match('#^(([^@:]+)|([^@:]+:[^@:]+?))@.+/#', $urlp['path'])) $needfix = true;
+
+	if ($needfix)
+	{
+		$fake_scheme = 'fix-url-parsing';
+		$delimiter = (substr($urlp['path'],0,2) == '//') ? ':' : '://';
+		$url = $fake_scheme . $delimiter . $url; // adding fake scheme
+		$urlp = parse_url($url);
+		if ($urlp['scheme'] == $fake_scheme) unset($urlp['scheme']);
+	}
+	return $urlp;
+}
+
+/**
+ * Builds URL string from URL parts
+ *
+ * @param array $urlp
+ * @return string URL Array of URL parts
+ * @see `cot_parse_url()`
+ */
+function cot_http_build_url($urlp)
+{
+	$url = '';
+	$port = (int) $urlp['port'];
+	if ($urlp['port'] != $port) $port = '';
+	if (!empty($urlp['scheme'])) $url .= $urlp['scheme'] . '://';
+	if (!empty($urlp['user'])) {
+		if (!empty($urlp['pass'])) {
+			$url .= $urlp['user'] . ':' . $urlp['pass'] . '@';
+		} else{
+			$url .= $urlp['user'] . '@';
+		}
+	}
+	$url .= $urlp['host'];
+	if ($port && $port != '80' && preg_match('/^\d+$/', $port)) $url .=  ':' . $port;
+	if ( (empty($urlp['path']) && ($urlp['query'] || $urlp['fragment']))
+		|| ((!empty($urlp['path'])) && substr($urlp['path'], 0, 1) != '/') ) $urlp['path'] = '/' . $urlp['path'];
+	$url .=  $urlp['path'];
+	if (!empty($urlp['query'])) $url .=  '?' . $urlp['query'];
+	if (!empty($urlp['fragment'])) $url .=  '#' . $urlp['fragment'];
+	return $url;
+}
+
+/**
+ * Sanitize given URL to prevent XSS
+ *
+ * @param string $url URL to process (absolute or not)
+ */
+function cot_url_sanitize($url)
+{
+	function urlfilter($str)
+	{
+		return rawurlencode(rawurldecode($str));
+	}
+
+	$urlp = cot_parse_url($url);
+	$urlp['fragment'] = urlfilter($urlp['fragment']);
+
+	$path = $urlp['path'];
+	$query = str_replace('&amp;', '&', $urlp['query']);
+
+	$path = explode('/', $path);
+	$path = array_map('urlfilter', $path);
+	$urlp['path'] = implode('/', $path);
+
+	$filtered_params = array();
+	foreach (explode('&', $query) as $item)
+	{
+		if (!empty($item))
+		{
+			list($key, $val) = explode('=', $item, 2);
+			$filtered_params[] = urlfilter($key) . '=' . urlfilter($val);
+		}
+	}
+	if (sizeof($filtered_params)) $urlp['query'] = implode('&', $filtered_params);
+
+	return cot_http_build_url($urlp);
 }
 
 /**
