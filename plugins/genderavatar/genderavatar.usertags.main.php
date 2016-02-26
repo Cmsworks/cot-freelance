@@ -5,7 +5,7 @@ Hooks=usertags.main
 Order=11
 [END_COT_EXT]
 ==================== */
-if($user_data['user_id'] > 0 && $user_data['user_avatar'] == 0 ){
+if($user_data['user_id'] > 0 && empty($user_data['user_avatar'])){
 	switch ($user_data['user_gender']) {
 		case 'M':
 			$temp_array['AVATAR'] = cot_rc('ga_user_default_avatar_m');
