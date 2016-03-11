@@ -25,6 +25,7 @@ if ($p == 'usergroupselector' && $row['config_name'] == 'groups' && $cfg['jquery
 	$sskin = cot_tplfile('usergroupselector.admin.config', 'plug', true);
 	$tt = new XTemplate($sskin);
 
+	$row['config_value'] = (!empty($row['config_value'])) ? $row['config_value'] : cot_import($row['config_name'], 'P', 'NOC');
 	$tpaset = explode(",", $row['config_value']);
 
 	$jj = 0;
@@ -45,6 +46,6 @@ if ($p == 'usergroupselector' && $row['config_name'] == 'groups' && $cfg['jquery
 	$tt->parse('MAIN');
 	
 	$t->assign(array(
-		'ADMIN_CONFIG_ROW_CONFIG' => cot_config_input($row['config_name'], $row['config_type'], $row['config_value'], $row['config_variants']).$tt->text('MAIN'),
+		'ADMIN_CONFIG_ROW_CONFIG' => cot_config_input($row).$tt->text('MAIN'),
 	));
 }
