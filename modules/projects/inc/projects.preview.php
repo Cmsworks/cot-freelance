@@ -67,7 +67,7 @@ if ($a == 'save')
 		{
 			$nbody = cot_rc($L['project_notif_admin_moderate_mail_body'], array( 
 				'user_name' => $usr['profile']['user_name'],
-				'prj_name' => $ritem['item_title'],
+				'prj_name' => $item['item_title'],
 				'sitename' => $cfg['maintitle'],
 				'link' => COT_ABSOLUTE_URL . $r_url
 			));
