@@ -16,7 +16,7 @@ $default_modules = array('index', 'page', 'users', 'rss', 'market', 'payments', 
 $default_plugins = array('ckeditor', 'cleaner', 'html', 'htmlpurifier', 'ipsearch', 'mcaptcha', 'news', 'search', 
 		'locationselector', 'paypro', 'paytop', 'reviews', 'useragreement', 'usercategories', 'usergroupselector', 'userpoints', 'userimages');
 
-$L['install_body_message1'] = "Вас приветствует установщик Фриланс-биржи 2.6.9!<br/><br/>".$L['install_body_message1'];
+$L['install_body_message1'] = "Вас приветствует установщик Фриланс-биржи 2.7.0!<br/><br/>".$L['install_body_message1'];
 
 function cot_install_step2_tags()
 {
