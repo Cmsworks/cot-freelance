@@ -7,7 +7,7 @@
  * Name=User Group Selector
  * Category=post-install
  * Description=Users can select their main group
- * Version=1.0.2
+ * Version=1.0.3
  * Date=2013-09-05
  * Author=CMSWorks Team
  * Auth_guests=R
@@ -28,7 +28,7 @@
  * plugin User Group Selector for Cotonti Siena
  * 
  * @package usergroupselector
- * @version 1.0.1
+ * @version 1.0.3
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru, littledev.ru
  * @license BSD
