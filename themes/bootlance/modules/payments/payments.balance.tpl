@@ -66,6 +66,8 @@
 		</tr>
 		<!-- END: PAYOUT_ROW -->
 	</table>
+	<!-- ELSE -->
+	<div class="alert alert-info">{PHP.L.payments_history_empty}</div>
 	<!-- ENDIF -->
 	<!-- END: PAYOUTS -->
 
@@ -152,6 +154,8 @@
 		</tr>
 		<!-- END: TRANSFER_ROW -->
 	</table>
+	<!-- ELSE -->
+	<div class="alert alert-info">{PHP.L.payments_history_empty}</div>
 	<!-- ENDIF -->
 	<!-- END: TRANSFERS -->
 
