@@ -16,10 +16,10 @@
  */
 defined('COT_CODE') or die('Wrong URL.');
 
+require_once cot_incfile('wmbilling', 'plug');
+
 $cot_billings['webmoney'] = array(
 	'plug' => 'wmbilling',
-	'title' => 'Webmoney',
+	'title' => $L['wmbilling_title'],
 	'icon' => $cfg['plugins_dir'] . '/wmbilling/images/webmoney.png'
 );
-
-?>

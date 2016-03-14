@@ -16,9 +16,10 @@
  */
 defined('COT_CODE') or die('Wrong URL.');
 
+require_once cot_incfile('roboxbilling', 'plug');
+
 $cot_billings['robox'] = array(
 	'plug' => 'roboxbilling',
-	'title' => 'Robokassa',
+	'title' => $L['roboxbilling_title'],
 	'icon' => $cfg['plugins_dir'] . '/roboxbilling/images/robox.png'
 );
-?>

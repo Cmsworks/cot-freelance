@@ -70,4 +70,3 @@ if ($cfg['payments']['clearpaymentsdays'] > 0)
 	$clearpaymentsdate = $sys['now'] - $cfg['payments']['clearpaymentsdays'] * 24 * 60 * 60;
 	$db->delete($db_payments, "pay_status!='done' AND pay_cdate<" . $clearpaymentsdate);
 }
-?>

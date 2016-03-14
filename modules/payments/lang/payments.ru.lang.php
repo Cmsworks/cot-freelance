@@ -27,15 +27,19 @@ $L['cfg_payoutmin'] = array('Минимальная сумма для вывод
 $L['cfg_payoutmax'] = array('Максимальная сумма для вывода со счета', $cfg['payments']['valuta']);
 $L['cfg_clearpaymentsdays'] = array('Очищать базу от неоплаченных платежек через', 'дней');
 
+$L['info_desc'] = 'Система оплаты';
+
 $L['payments_mybalance'] = 'Мой счет';
 $L['payments_balance'] = 'На счету';
 $L['payments_paytobalance'] = 'Пополнить счет';
 $L['payments_history'] = 'История операций';
+$L['payments_history_empty'] = 'Операций нет';
 $L['payments_payouts'] = 'Вывод со счета';
 $L['payments_balance_payouts_button'] = 'Новая заявка';
 $L['payments_balance_payout_list'] = 'Заявки на вывод средств со счета';
 $L['payments_balance_payout_title'] = 'Заявка на вывод со счета';
 $L['payments_balance_payout_desc'] = 'Вывод со счета по заявке';
+$L['payments_balance_payout_cancel_desc'] = 'Отмена заявки на вывод';
 $L['payments_balance_payout_summ'] = 'Укажите сумму';
 $L['payments_balance_payout_tax'] = "Комиссия";
 $L['payments_balance_payout_total'] = "Сумма к списанию";
@@ -46,6 +50,10 @@ $L['payments_balance_payout_error_wrongsumm'] = 'Сумма не может бы
 $L['payments_balance_payout_error_balance'] = 'Указанная сумма превышает баланс вашего счета';
 $L['payments_balance_payout_error_min'] = 'Сумма для вывода не должна быть меньше %1$s %2$s';
 $L['payments_balance_payout_error_max'] = 'Сумма для вывода не должна быть больше %1$s %2$s';
+
+$L['payments_balance_payout_status_process'] = 'Обрабатывается';
+$L['payments_balance_payout_status_done'] = 'Обработана';
+$L['payments_balance_payout_status_canceled'] = 'Отменена';
 
 $L['payments_balance_billing_desc'] = 'Пополнение счета';
 $L['payments_balance_billing_summ'] = 'Укажите сумму';
@@ -79,6 +87,11 @@ $L['payments_balance_payout_admin_body'] = 'Здравствуйте,
 
 ';
 
+$L['payments_balance_payout_cancel_subject'] = 'Заявка на вывод отменена';
+$L['payments_balance_payout_cancel_body'] = 'Здравствуйте, %1$s
+
+Заявка на вывод денег со счета №%2$s была отменена. Для уточнения причины свяжитесь с администрацией.';
+
 $L['payments_balance_transfer_admin_subject'] = 'Перевод пользователю';
 $L['payments_balance_transfer_admin_body'] = 'Здравствуйте,
 
@@ -110,8 +123,19 @@ $L['payments_balance_transfer_recipient_body'] = 'Здравствуйте, %2$s
 
 ';
 
+$L['payments_balance_transfer_cancel_subject'] = 'Перевод отменен';
+$L['payments_balance_transfer_cancel_body'] = 'Здравствуйте, %1$s
+
+Перевод №%2$s был отменен. Для уточнения причины свяжитесь с администрацией.';
+
 $L['payments_transfer'] = 'Перевод пользователю';
+$L['payments_transfers'] = 'Переводы';
+$L['payments_balance_transfers_list'] = 'Переводы';
+$L['payments_balance_transfers_button'] = 'Создать перевод';
+$L['payments_balance_transfers_from'] = 'От';
+$L['payments_balance_transfers_for'] = 'Для';
 $L['payments_balance_transfer_desc'] = "Перевод от %1\$s для %2\$s (%3\$s)";
+$L['payments_balance_transfer_cancel_desc'] = "Отмена заявки на перевод №%1\$s";
 $L['payments_balance_transfer_comment'] = "Комментарий";
 $L['payments_balance_transfer_summ'] = "Укажите сумму";
 $L['payments_balance_transfer_tax'] = "Комиссия";
@@ -125,6 +149,10 @@ $L['payments_balance_transfer_error_balance'] = 'Сумма превышает �
 $L['payments_balance_transfer_error_comment'] = 'Не указаны комментарии к переводу';
 $L['payments_balance_transfer_error_min'] = 'Сумма для перевода не должна быть меньше %1$s %2$s';
 $L['payments_balance_transfer_error_max'] = 'Сумма для перевода не должна быть больше %1$s %2$s';
+
+$L['payments_balance_transfer_status_process'] = 'Обрабатывается';
+$L['payments_balance_transfer_status_done'] = 'Обработана';
+$L['payments_balance_transfer_status_canceled'] = 'Отменена';
 
 $L['payments_billing_title'] = 'Способы оплаты';
 $L['payments_emptybillings'] = 'На данный момент способы оплаты недоступны. Пожалуйста, попробуйте выполнить оплату позже.';

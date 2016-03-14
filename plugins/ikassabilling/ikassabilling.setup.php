@@ -6,7 +6,7 @@
  * Name=Ikassabilling
  * Category=Payments
  * Description=Ikassa billing system
- * Version=2.0.1
+ * Version=2.0.2
  * Date=
  * Author=CMSWorks Team
  * Copyright=Copyright (c) CMSWorks.ru

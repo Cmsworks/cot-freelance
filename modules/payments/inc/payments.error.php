@@ -20,4 +20,3 @@ $t->assign('ERROR_TEXT', $L['payments_error_message_'.$msg]);
 
 $t->parse('MAIN');
 $module_body = $t->text('MAIN');
-?>
