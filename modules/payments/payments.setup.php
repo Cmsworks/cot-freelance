@@ -7,7 +7,7 @@
  * Version=2.0
  * Date=
  * Author=CMSWorks Team
- * Copyright=Copyright (c) CMSWorks.ru, littledev.ru
+ * Copyright=Copyright (c) CMSWorks.ru
  * Notes=
  * SQL=
  * Auth_guests=R

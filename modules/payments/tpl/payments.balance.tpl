@@ -45,6 +45,7 @@
 	<!-- BEGIN: PAYOUTS -->
 	<a class="pull-right btn btn-success" href="{PHP|cot_url('payments', 'm=balance&n=payouts&a=add')}">{PHP.L.payments_balance_payouts_button}</a>
 	<h5>{PHP.L.payments_balance_payout_list}</h5>
+	<!-- IF {PHP.payouts|count($this)} > 0 -->
 	<table class="table table-striped">
 		<thead>
 			<tr>
@@ -65,6 +66,9 @@
 		</tr>
 		<!-- END: PAYOUT_ROW -->
 	</table>
+	<!-- ELSE -->
+	<div class="alert alert-info">{PHP.L.payments_history_empty}</div>
+	<!-- ENDIF -->
 	<!-- END: PAYOUTS -->
 
 	<!-- BEGIN: PAYOUTFORM -->
@@ -125,6 +129,7 @@
 	<!-- BEGIN: TRANSFERS -->
 	<a class="pull-right btn btn-success" href="{PHP|cot_url('payments', 'm=balance&n=transfers&a=add')}">{PHP.L.payments_balance_transfers_button}</a>
 	<h5>{PHP.L.payments_balance_transfers_list}</h5>
+	<!-- IF {PHP.transfers|count($this)} > 0 -->
 	<table class="table table-striped">
 		<thead>
 			<tr>
@@ -149,6 +154,9 @@
 		</tr>
 		<!-- END: TRANSFER_ROW -->
 	</table>
+	<!-- ELSE -->
+	<div class="alert alert-info">{PHP.L.payments_history_empty}</div>
+	<!-- ENDIF -->
 	<!-- END: TRANSFERS -->
 
 	<!-- BEGIN: TRANSFERFORM -->	
