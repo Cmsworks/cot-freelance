@@ -14,7 +14,7 @@ defined('COT_CODE') or die('Wrong URL');
 // Modules and plugins checked by default
 $default_modules = array('index', 'page', 'users', 'rss', 'market', 'payments', 'projects', 'folio');
 $default_plugins = array('ckeditor', 'cleaner', 'html', 'htmlpurifier', 'ipsearch', 'mcaptcha', 'news', 'search', 
-		'locationselector', 'paypro', 'paytop', 'reviews', 'useragreement', 'usercategories', 'usergroupselector', 'userpoints', 'userimages');
+		'locationselector', 'paypro', 'paytop', 'reviews', 'useragreement', 'usercategories', 'usergroupselector', 'userpoints', 'userimages', 'genderavatar');
 
 $L['install_body_message1'] = "Вас приветствует установщик Фриланс-биржи 2.7.0!<br/><br/>".$L['install_body_message1'];
 
