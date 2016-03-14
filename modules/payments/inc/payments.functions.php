@@ -14,12 +14,10 @@ defined('COT_CODE') or die('Wrong URL');
 // Requirements
 require_once cot_langfile('payments', 'module');
 
-// Global variables
-global $db_payments, $db_payments_services, $db_x;
-$db_payments = (isset($db_payments)) ? $db_payments : $db_x . 'payments';
-$db_payments_outs = (isset($db_payments_outs)) ? $db_payments_outs : $db_x . 'payments_outs';
-$db_payments_services = (isset($db_payments_services)) ? $db_payments_services : $db_x . 'payments_services';
-
+cot::$db->registerTable('payments');
+cot::$db->registerTable('payments_outs');
+cot::$db->registerTable('payments_transfers');
+cot::$db->registerTable('payments_services');
 
 /**
  * Удаление услуг с истекщим сроком действия (если установлен параметр service_expire)

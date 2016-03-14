@@ -6,7 +6,7 @@
  * Name=Nullbilling
  * Category=Payments
  * Description=Null billing system for test mode
- * Version=1.0.0
+ * Version=1.0.1
  * Date=
  * Author=CMSWorks Team
  * Copyright=Copyright (c) CMSWorks.ru
@@ -27,7 +27,7 @@
  * Null billing Plugin
  *
  * @package nullbilling
- * @version 1.0.0
+ * @version 1.0.1
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru
  * @license BSD

@@ -26,18 +26,18 @@
 	<h5>{PHP.L.payments_balance_billing_desc}</h5>
 	{FILE "{PHP.cfg.themes_dir}/{PHP.cfg.defaulttheme}/warnings.tpl"}
 	<form action="{BALANCE_FORM_ACTION_URL}" method="post" class="form-horizontal">
-		<div class="form-group">
-			<label class="col-md-2 control-label">{PHP.L.payments_balance_billing_summ}:</label>
-			<div class="col-md-2">
+		<div class="control-group">
+			<label class="control-label">{PHP.L.payments_balance_billing_summ}:</label>
+			<div class="controls">
 				<div class="input-group">
 			        {BALANCE_FORM_SUMM}
 			        <span class="input-group-addon">{PHP.cfg.payments.valuta}</span>
 		        </div>
 	        </div>
 		</div>
-		<div class="form-group">
-			<label class="col-md-2 control-label"></label>
-			<div class="col-md-2"><button class="btn btn-success">{PHP.L.payments_paytobalance}</button></div>
+		<div class="control-group">
+			<label class="control-label"></label>
+			<div class="controls"><button class="btn btn-success">{PHP.L.payments_paytobalance}</button></div>
 		</div>
 	</form>
 	<!-- END: BILLINGFORM -->
@@ -75,13 +75,13 @@
 	<h5>{PHP.L.payments_balance_payout_title}</h5>
 	{FILE "{PHP.cfg.themes_dir}/{PHP.cfg.defaulttheme}/warnings.tpl"}
 	<form action="{PAYOUT_FORM_ACTION_URL}" method="post" id="payoutform" class="form-horizontal">
-		<div class="form-group">
-			<label class="col-md-2 control-label">{PHP.L.payments_balance_payout_details}:</label>
-			<div class="col-md-6">{PAYOUT_FORM_DETAILS}</div>
+		<div class="control-group">
+			<label class="control-label">{PHP.L.payments_balance_payout_details}:</label>
+			<div class="controls">{PAYOUT_FORM_DETAILS|cot_rc_modify($this, 'class="span4"')}</div>
 		</div>
-		<div class="form-group">
-			<label class="col-md-2 control-label">{PHP.L.payments_balance_payout_summ}:</label>
-			<div class="col-md-2">
+		<div class="control-group">
+			<label class="control-label">{PHP.L.payments_balance_payout_summ}:</label>
+			<div class="controls">
 				<div class="input-group">
 			        {PAYOUT_FORM_SUMM}
 			        <span class="input-group-addon">{PHP.cfg.payments.valuta}</span>
@@ -89,18 +89,18 @@
 		    </div>
 		</div>
 			<!-- IF {PHP.cfg.payments.payouttax} > 0 -->
-		<div class="form-group">
-			<label class="col-md-2 control-label">{PHP.L.payments_balance_payout_tax} ({PHP.cfg.payments.payouttax}%):</label>
-			<div class="col-md-2 form-control-static"><span id="payout_tax">{PAYOUT_FORM_TAX}</span> {PHP.cfg.payments.valuta}</div>
+		<div class="control-group">
+			<label class="control-label">{PHP.L.payments_balance_payout_tax} ({PHP.cfg.payments.payouttax}%):</label>
+			<div class="controls"><span class="help-inline"><span id="payout_tax">{PAYOUT_FORM_TAX}</span> {PHP.cfg.payments.valuta}</span></div>
 		</div>
-		<div class="form-group">
-			<label class="col-md-2 control-label">{PHP.L.payments_balance_payout_total}:</label>
-			<div class="col-md-2 form-control-static"><span id="payout_total">{PAYOUT_FORM_TOTAL}</span> {PHP.cfg.payments.valuta}</div>
+		<div class="control-group">
+			<label class="control-label">{PHP.L.payments_balance_payout_total}:</label>
+			<div class="controls"><span class="help-inline"><span id="payout_total">{PAYOUT_FORM_TOTAL}</span> {PHP.cfg.payments.valuta}</span></div>
 		</div>
 			<!-- ENDIF -->
-		<div class="form-group">
-			<label class="col-md-2 control-label"></label>
-			<div class="col-md-2"><button class="btn btn-success">{PHP.L.Submit}</button></td>
+		<div class="control-group">
+			<label class="control-label"></label>
+			<div class="controls"><button class="btn btn-success">{PHP.L.Submit}</button></td>
 			</div>
 		</div>
 	</form>
@@ -163,17 +163,17 @@
 	<h5>{PHP.L.payments_transfer}</h5>
 	{FILE "{PHP.cfg.themes_dir}/{PHP.cfg.defaulttheme}/warnings.tpl"}
 	<form action="{TRANSFER_FORM_ACTION_URL}" method="post" id="transferform" class="form-horizontal">
-		<div class="form-group">
-			<label class="col-md-2 control-label">{PHP.L.payments_balance_transfer_comment}:</label>
-			<div class="col-md-6">{TRANSFER_FORM_COMMENT}</div>
+		<div class="control-group">
+			<label class="control-label">{PHP.L.payments_balance_transfer_comment}:</label>
+			<div class="controls">{TRANSFER_FORM_COMMENT|cot_rc_modify($this, 'class="span4"')}</div>
 		</div>
-		<div class="form-group">
-			<label class="col-md-2 control-label">{PHP.L.payments_balance_transfer_username}:</label>
-			<div class="col-md-2">{TRANSFER_FORM_USERNAME}</div>
+		<div class="control-group">
+			<label class="control-label">{PHP.L.payments_balance_transfer_username}:</label>
+			<div class="controls">{TRANSFER_FORM_USERNAME}</div>
 		</div>
-		<div class="form-group">
-			<label class="col-md-2 control-label">{PHP.L.payments_balance_transfer_summ}:</label>
-			<div class="col-md-2">
+		<div class="control-group">
+			<label class="control-label">{PHP.L.payments_balance_transfer_summ}:</label>
+			<div class="controls">
 				<div class="input-group">
 					{TRANSFER_FORM_SUMM} 
 					<span class="input-group-addon">{PHP.cfg.payments.valuta}</span>
@@ -181,15 +181,16 @@
 			</div>
 		</div>
 		<!-- IF {PHP.cfg.payments.transfertax} > 0 AND !{PHP.cfg.payments.transfertaxfromrecipient} -->
-		<div class="form-group">
-			<label class="col-md-2 control-label">{PHP.L.payments_balance_transfer_tax} ({PHP.cfg.payments.transfertax}%):</label>
-			<div class="col-md-2 form-control-static"><span id="transfer_tax">{TRANSFER_FORM_TAX}</span> {PHP.cfg.payments.valuta}</div>
+		<div class="control-group">
+			<label class="control-label">{PHP.L.payments_balance_transfer_tax} ({PHP.cfg.payments.transfertax}%):</label>
+			<div class="controls"><span class="help-inline"><span id="transfer_tax">{TRANSFER_FORM_TAX}</span> {PHP.cfg.payments.valuta}</span></div>
 		</div>
-		<div class="form-group">
-			<label class="col-md-2 control-label">{PHP.L.payments_balance_transfer_total}:</label>
-			<div class="col-md-2 form-control-static">
-				<span id="transfer_total">{TRANSFER_FORM_TOTAL}</span> {PHP.cfg.payments.valuta}
-			
+		<div class="control-group">
+			<label class="control-label">{PHP.L.payments_balance_transfer_total}:</label>
+			<div class="controls">
+				<span class="help-inline">
+					<span id="transfer_total">{TRANSFER_FORM_TOTAL}</span> {PHP.cfg.payments.valuta}
+				</span>
 				<script>
 					$().ready(function() {
 						$('#transferform').bind('change click keyup', function (){
@@ -210,9 +211,9 @@
 			</div>
 		</div>
 		<!-- ENDIF -->
-		<div class="form-group">
-			<label class="col-md-2 control-label"></label>
-			<div class="col-md-2"><button class="btn btn-success">{PHP.L.Submit}</button></div>
+		<div class="control-group">
+			<label class="control-label"></label>
+			<div class="controls"><button class="btn btn-success">{PHP.L.Submit}</button></div>
 		</div>
 	</form>
 

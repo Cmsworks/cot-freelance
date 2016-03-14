@@ -16,7 +16,21 @@ cot_block($usr['auth_read']);
 
 require_once cot_incfile('payments', 'module');
 
+/* === Hook === */
+foreach (cot_getextplugins('payments.billing.first') as $pl)
+{
+	include $pl;
+}
+/* ===== */
+
 $t = new XTemplate(cot_tplfile('payments.billing', 'module'));
+
+/* === Hook === */
+foreach (cot_getextplugins('payments.billing.main') as $pl)
+{
+	include $pl;
+}
+/* ===== */
 
 $pid = cot_import('pid', 'G', 'INT');
 
@@ -40,6 +54,14 @@ if ($pinfo = cot_payments_payinfo($pid))
 			if (cot_payments_updatestatus($pid, 'paid'))
 			{
 				cot_payments_updateuserbalance($usr['id'], -$pinfo['pay_summ'], $pid);
+
+				/* === Hook === */
+				foreach (cot_getextplugins('payments.billing.paid.done') as $pl)
+				{
+					include $pl;
+				}
+				/* ===== */
+
 				if(!empty($pinfo['pay_redirect'])){
 					$pinfo['pay_redirect'] = $pinfo['pay_redirect'].'&'.cot_xg();
 					cot_redirect($pinfo['pay_redirect']);
@@ -67,6 +89,10 @@ if ($pinfo = cot_payments_payinfo($pid))
 		}
 		else
 		{
+			/* === Hook === */
+			$extp = cot_getextplugins('payments.billing.loop');
+			/* ===== */
+
 			foreach ($cot_billings as $bill)
 			{
 				$t->assign(array(
@@ -74,6 +100,14 @@ if ($pinfo = cot_payments_payinfo($pid))
 					'BILL_ROW_ICON' => $bill['icon'],
 					'BILL_ROW_URL' => cot_url('plug', 'e=' . $bill['plug'] . '&pid=' . $pid),
 				));
+
+				/* === Hook - Part2 : Include === */
+				foreach ($extp as $pl)
+				{
+					include $pl;
+				}
+				/* ===== */
+				
 				$t->parse('MAIN.BILLINGS.BILL_ROW');
 			}
 			$t->parse('MAIN.BILLINGS');
@@ -81,6 +115,13 @@ if ($pinfo = cot_payments_payinfo($pid))
 	}
 	else
 	{
+		/* === Hook === */
+		foreach (cot_getextplugins('payments.billing.empty') as $pl)
+		{
+			include $pl;
+		}
+		/* ===== */
+
 		$t->parse('MAIN.EMPTYBILLINGS');
 	}
 }
@@ -89,6 +130,12 @@ else
 	cot_redirect(cot_url('payments', 'm=error&msg=2', '', true));
 }
 
+/* === Hook === */
+foreach (cot_getextplugins('payments.billing.tags') as $pl)
+{
+	include $pl;
+}
+/* ===== */
+
 $t->parse('MAIN');
 $module_body = $t->text('MAIN');
-?>

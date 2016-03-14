@@ -5,7 +5,7 @@
 	<h4>{PHP.L.payments_billing_title}:</h4>
 	<!-- BEGIN: BILL_ROW -->
 	<div class="media">
-		<div class="media-left">
+		<div class="pull-left">
 			<img src="<!-- IF {BILL_ROW_ICON} -->{BILL_ROW_ICON}<!-- ELSE -->modules/payments/images/billing_blank.png<!-- ENDIF -->" />
 		</div>
 		<div class="media-body">

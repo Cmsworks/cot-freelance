@@ -16,9 +16,10 @@
  */
 defined('COT_CODE') or die('Wrong URL.');
 
+require_once cot_incfile('nullbilling', 'plug');
+
 $cot_billings['null'] = array(
 	'plug' => 'nullbilling',
-	'title' => 'Test billing system',
+	'title' => $L['nullbilling_title'],
 	'icon' => $cfg['plugins_dir'] . '/nullbilling/images/nullbill.png'
 );
-?>
