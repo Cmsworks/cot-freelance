@@ -38,12 +38,6 @@
 			</p>
 			<!-- ENDIF -->
 			
-			<!-- IF {PRD_COST} > 0 AND {PRD_STATE} == 0 -->
-				<p>&nbsp;</p>
-				<!-- IF {PHP.cot_plugins_active.marketorders} AND {PHP|cot_auth('plug', 'marketorders', 'R')} -->
-				<p><a class="btn btn-large btn-success" href="{PRD_ID|cot_url('marketorders', 'm=neworder&pid='$this)}">{PHP.L.marketorders_neworder_button}</a></p>
-				<!-- ENDIF -->
-			<!-- ENDIF -->
 		</div>	
 	</div>
 	<div class="span3">	
