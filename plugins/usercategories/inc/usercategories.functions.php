@@ -27,10 +27,12 @@ function cot_cfg_usercategories()
 		$lines = explode("|", $lineset);
 		$lines[0] = trim($lines[0]);
 		$lines[1] = trim($lines[1]);
+		$lines[2] = trim($lines[2]);
 		
-		if ($lines[0] > 0 && $lines[1] > 0)
+		if ($lines[0] > 0 && $lines[1] > 0 && $lines[2] > 0)
 		{	
-			$catslimit[$lines[0]] = $lines[1];
+			$catslimit[$lines[0]]['default'] = $lines[1];
+			$catslimit[$lines[0]]['pro'] = $lines[2];
 		}
 	}
 	return $catslimit;
