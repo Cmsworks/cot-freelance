@@ -498,7 +498,7 @@ class mavatar
 		global $cfg;
 
 		list($file_name, $file_extension) = $this->file_info($file_object['name']);
-		$file_size = $file_object['tmp_name']['size'];
+		$file_size = (isset($file_object['tmp_name']['size'])) ? $file_object['tmp_name']['size'] : 0;
 		if (!empty($file_name) && !in_array($file_extension, $this->suppressed_ext) && in_array($file_extension, $this->allowed_ext) && $file_size <= $this->maxsize)
 		{
 			$safe_name = $this->safename($file_name, $file_extension, $this->filepath);
@@ -528,7 +528,7 @@ class mavatar
 		global $db, $db_mavatars, $sys, $cot_extrafields, $usr;
 		$mavarray = array(
 			'mav_userid' => $usr['id'],
-      'mav_sessid' => ($usr['id'] > 0) ? '' : cot_import('PHPSESSID', 'C', 'TXT'),
+      		'mav_sessid' => ($usr['id'] > 0) ? '' : cot_import('PHPSESSID', 'C', 'TXT'),
 			'mav_extension' => $this->extension,
 			'mav_category' => $this->category,
 			'mav_code' => $this->code,
@@ -889,7 +889,7 @@ class mavatar
 		{
 			if((int)$object['id'] > 0)
 			{
-				delete_mavatar($object);
+				$this->delete_mavatar($object);
 			}
 			return false;
 		}	
