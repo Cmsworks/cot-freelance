@@ -19,12 +19,10 @@ require_once cot_langfile('market', 'module');
 require_once cot_incfile('forms');
 require_once cot_incfile('extrafields');
 
-// Global variables
-global $cot_extrafields, $db_market, $db_market_orders, $db_x;
-$db_market = (isset($db_market)) ? $db_market : $db_x . 'market';
-$db_market_orders = (isset($db_market_orders)) ? $db_market_orders : $db_x . 'market_orders';
+// Tables and extras
+cot::$db->registerTable('market');
 
-$cot_extrafields[$db_market] = (!empty($cot_extrafields[$db_market])) ? $cot_extrafields[$db_market] : array();
+cot_extrafields_register_table('market');
 
 $structure['market'] = (is_array($structure['market'])) ? $structure['market'] : array();
 

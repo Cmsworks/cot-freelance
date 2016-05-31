@@ -19,11 +19,10 @@ require_once cot_langfile('folio', 'module');
 require_once cot_incfile('forms');
 require_once cot_incfile('extrafields');
 
-// Global variables
-global $cot_extrafields, $db_folio, $db_x;
-$db_folio = (isset($db_folio)) ? $db_folio : $db_x . 'folio';
+// Tables and extras
+cot::$db->registerTable('folio');
 
-$cot_extrafields[$db_folio] = (!empty($cot_extrafields[$db_folio])) ? $cot_extrafields[$db_folio] : array();
+cot_extrafields_register_table('folio');
 
 $structure['folio'] = (is_array($structure['folio'])) ? $structure['folio'] : array();
 
