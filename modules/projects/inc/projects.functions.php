@@ -766,3 +766,7 @@ function cot_projects_selectcat($check, $name, $subcat = '', $hideprivate = true
 
 	return($result);
 }
+
+if ($cfg['projects']['markup'] == 1){
+  $prjeditor = $cfg['projects']['prjeditor'];
+}
