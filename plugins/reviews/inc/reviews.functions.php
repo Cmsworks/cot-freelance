@@ -11,8 +11,9 @@
  */
 defined('COT_CODE') or die('Wrong URL.');
 
-global $cot_extrafields, $db_reviews, $db_x;
-$db_reviews = (isset($db_reviews)) ? $db_reviews : $db_x . 'reviews';
+global $cot_extrafields;
+// Tables
+cot::$db->registerTable('reviews');
 
 /**
  * Вывод "oчков" пользователя

@@ -21,4 +21,5 @@ if(is_array($user_data)){
 
 	$temp_array['REVIEWS_NEGATIVE_SUMM'] = $scores['neg']['summ'];
 	$temp_array['REVIEWS_POZITIVE_SUMM'] = $scores['poz']['summ'];
+	$temp_array['REVIEWS_SUMM'] = $scores['poz']['summ'] + $scores['neg']['summ'];
 }
