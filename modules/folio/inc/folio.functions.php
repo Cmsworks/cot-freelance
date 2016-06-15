@@ -739,3 +739,7 @@ function cot_folio_selectcat($check, $name, $subcat = '', $hideprivate = true)
 
 	return($result);
 }
+
+if ($cfg['folio']['markup'] == 1){
+  $folioeditor = $cfg['folio']['folioeditor'];
+}

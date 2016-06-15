@@ -738,3 +738,7 @@ function cot_market_selectcat($check, $name, $subcat = '', $hideprivate = true)
 
 	return($result);
 }
+
+if ($cfg['market']['markup'] == 1){
+  $prdeditor = $cfg['market']['prdeditor'];
+}
