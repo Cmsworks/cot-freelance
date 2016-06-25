@@ -8,11 +8,11 @@ function changeareas()
 
 	$('#areagenerator .area').each(function(i) {
 		var area_groupid = $(this).find('select option:selected').val();			
-		var area_limit = $(this).find('.area_limit').val();	
-
-		if (area_groupid > 0 && area_limit > 0)
+		var area_limit1 = $(this).find('.area_limit1').val();	
+		var area_limit2 = $(this).find('.area_limit2').val();	
+		if (area_groupid > 0)
 		{
-			areastext += area_groupid + '|' + area_limit;
+			areastext += area_groupid + '|' + area_limit1 + '|' + area_limit2;
 			if (i + 1 < num) areastext +=  '\r\n';
 		}
 	});
@@ -35,13 +35,7 @@ $('#addoption').live("click", function(){
 	return false;
 });
 	
-$('input[type=text], input[type=checkbox]').live("change", function(){
-	changeareas();
-});
-$('input[type=checkbox]').live("click", function(){
-	changeareas();
-});
-$('select').live("change", function(){
+$('#areagenerator').live("change", function(){
 	changeareas();
 });
 

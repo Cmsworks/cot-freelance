@@ -24,13 +24,15 @@ if ($p == 'usercategories' && $row['config_name'] == 'catslimit' && $cfg['jquery
 		$lines = explode("|", $lineset);
 		$lines[0] = (int)trim($lines[0]);
 		$lines[1] = (int)trim($lines[1]);
+		$lines[2] = (int)trim($lines[2]);
 
-		if ($lines[0] > 0 && $lines[1] > 0)
+		if ($lines[0] > 0)
 		{
 			$tt->assign(array(
 				'ADDNUM' => $jj,
 				'ADDGROUP' => cot_selectbox_groups($lines[0], 'groupid' . $jj, array(1,2,3,5,6), 'class="area_groupid"'),
-				'ADDLIMIT' => cot_inputbox('text', 'limit', $lines[1], 'class="area_limit"'),
+				'ADDLIMIT1' => cot_inputbox('text', 'limit1', $lines[1], 'class="area_limit1"'),
+				'ADDLIMIT2' => cot_inputbox('text', 'limit2', $lines[2], 'class="area_limit2"'),
 			));
 			$tt->parse('MAIN.ADDITIONAL');
 			$jj++;
@@ -41,7 +43,8 @@ if ($p == 'usercategories' && $row['config_name'] == 'catslimit' && $cfg['jquery
 		$tt->assign(array(
 			'ADDNUM' => $jj,
 			'ADDGROUP' => cot_selectbox_groups('', 'groupid' . $jj, array(1,2,3,5,6), 'class="area_groupid"'),
-			'ADDLIMIT' => cot_inputbox('text', 'limit', 0, 'class="area_limit"'),
+			'ADDLIMIT1' => cot_inputbox('text', 'limit1', 0, 'class="area_limit1"'),
+			'ADDLIMIT2' => cot_inputbox('text', 'limit2', 0, 'class="area_limit2"'),
 		));
 		$tt->parse('MAIN.ADDITIONAL');
 	}

@@ -26,6 +26,8 @@ $L['cfg_foliositemap_prio'] = array('Priority on Sitemap');
 $L['cfg_description'] = array('Description');
 $L['cfg_foliosearch'] = array('Enable search');
 $L['cfg_notiffolio_admin_moderate'] = array('Notify on new work at checkout','Send email for new work in the pre-moderation');
+$L['cfg_folioeditor'] = 'Configurable visual editor';
+$L['cfg_folioeditor_params'] = 'Minimal set of buttons, Standard set of buttons, Advanced set of buttons';
 
 $L['info_desc'] = 'Portfolio';
 

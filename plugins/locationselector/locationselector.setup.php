@@ -4,7 +4,7 @@
  * Code=locationselector
  * Name=Location Selector
  * Description=Редактор/Селектор стран, регионов, городов
- * Version=2.5.8
+ * Version=2.5.9
  * Date=2012.11.03
  * Author=CMSWorks Team
  * Copyright=Copyright (c) CMSWorks.ru, littledev.ru
@@ -25,7 +25,7 @@
  * Location Selector for Cotonti
  *
  * @package locationselector
- * @version 2.5.5
+ * @version 2.5.9
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru, littledev.ru
  * @license BSD

@@ -13,7 +13,7 @@
 				<td align="right">{PHP.L.Title}:</td>
 				<td>{PRDEDIT_FORM_TITLE}</td>
 			</tr>	
-			<tr>
+			<tr<!-- IF !{PHP.usr.isadmin} --> class="hidden"<!-- ENDIF -->>
 				<td align="right">{PHP.L.Alias}:</td>
 				<td>{PRDEDIT_FORM_ALIAS}</td>
 			</tr>		

@@ -26,6 +26,8 @@ $L['cfg_foliositemap_prio'] = array('Приоритет в Sitemap');
 $L['cfg_description'] = array('Description');
 $L['cfg_foliosearch'] = array('Включить в общий поиск');
 $L['cfg_notiffolio_admin_moderate'] = array('Уведомлять о новых портфолио на проверке','Отправка уведомления на системный email о новых портфолио на премодерации');
+$L['cfg_folioeditor'] = 'Выбор конфигурации визуального редактора';
+$L['cfg_folioeditor_params'] = 'Минимальный набор кнопок,Стандартный набор кнопок,Расширенный набор кнопок'; 
 
 $L['info_desc'] = 'Портфолио пользователей';
 

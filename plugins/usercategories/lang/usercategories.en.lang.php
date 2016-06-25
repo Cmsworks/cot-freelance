@@ -12,6 +12,7 @@
 defined('COT_CODE') or die('Wrong URL.');
 
 $L['usercategories_admin_config_groupid'] = 'Group';
-$L['usercategories_admin_config_limit'] = 'Limit';
+$L['usercategories_admin_config_limit1'] = 'Default limit';
+$L['usercategories_admin_config_limit2'] = 'Limit for PRO';
 
 $L['usercategories_error_catslimit'] = 'You can select up to {$limit} specializations';

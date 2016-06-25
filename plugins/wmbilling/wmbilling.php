@@ -27,7 +27,7 @@ if (empty($m))
 	// Получаем информацию о заказе
 	if (!empty($pid) && $pinfo = cot_payments_payinfo($pid))
 	{
-
+		cot_block($usr['id'] == $pinfo['pay_userid']);
 		cot_block($pinfo['pay_status'] == 'new' || $pinfo['pay_status'] == 'process');
 
 		$rpay['pay_wmrnd'] = strtoupper(substr(md5(uniqid(microtime(), 1)) . getmypid(), 1, 8));

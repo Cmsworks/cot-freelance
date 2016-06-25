@@ -23,7 +23,12 @@ if(is_array($rcats)){
 		$groupid = cot_import('ruserusergroup','P','INT');
 	}
 
-	if(!cot_plugin_active('paypro') || cot_plugin_active('paypro') && !cot_getuserpro($urr)){
-		cot_check($catslimit[$groupid] > 0 && count($rcats) > $catslimit[$groupid], cot_rc($L['usercategories_error_catslimit'], array('limit' => $catslimit[$groupid])), 'rcats');
+	if(!cot_plugin_active('paypro') || cot_plugin_active('paypro') && !cot_getuserpro($urr))
+	{
+		cot_check($catslimit[$groupid]['default'] > 0 && count($rcats) > $catslimit[$groupid]['default'], cot_rc($L['usercategories_error_catslimit'], array('limit' => $catslimit[$groupid]['default'])), 'rcats');
+	}
+	elseif(cot_plugin_active('paypro') && cot_getuserpro($urr))
+	{
+		cot_check($catslimit[$groupid]['pro'] > 0 && count($rcats) > $catslimit[$groupid]['pro'], cot_rc($L['usercategories_error_catslimit'], array('limit' => $catslimit[$groupid]['pro'])), 'rcats');
 	}
 }

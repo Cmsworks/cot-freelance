@@ -4,13 +4,15 @@
 	<table class="cells">
 		<tr>
 			<td class="coltop width20">{PHP.L.usercategories_admin_config_groupid}</td>
-			<td class="coltop">{PHP.L.usercategories_admin_config_limit}</td>
+			<td class="coltop">{PHP.L.usercategories_admin_config_limit1}</td>
+			<td class="coltop">{PHP.L.usercategories_admin_config_limit2}</td>
 			<td class="coltop">&nbsp;</td>
 		</tr>
 		<!-- BEGIN: ADDITIONAL -->
 		<tr class="area">
 			<td>{ADDGROUP}</td>
-			<td>{ADDLIMIT}</td>
+			<td>{ADDLIMIT1}</td>
+			<td>{ADDLIMIT2}</td>
 			<td><a href="#" class="deloption negative button"><span class="trash icon"></span>{PHP.L.Delete}</a></td>
 		</tr>
 		<!-- END: ADDITIONAL -->
