@@ -145,7 +145,7 @@ foreach($cot_extrafields[$db_folio] as $exfld)
 {
 	$uname = strtoupper($exfld['field_name']);
 	$exfld_val = cot_build_extrafields($exfld['field_name'], $exfld, $shfld[$exfld['field_name']]);
-	$exfld_title = isset($L['projects_'.$exfld['field_name'].'_title']) ?  $L['projects_'.$exfld['field_name'].'_title'] : $exfld['field_description'];
+	$exfld_title = isset($L['folio_'.$exfld['field_name'].'_title']) ?  $L['folio_'.$exfld['field_name'].'_title'] : $exfld['field_description'];
 	$t->assign(array(
 		'SEARCH_'.$uname => $exfld_val,
 		'SEARCH_'.$uname.'_TITLE' => $exfld_title,
