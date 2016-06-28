@@ -144,12 +144,15 @@ $t->assign(array(
 
 foreach($cot_extrafields[$db_market] as $exfld)
 {
-	$uname = strtoupper($exfld['field_name']);
-	$exfld_val = cot_build_extrafields($exfld['field_name'], $exfld, $shfld[$exfld['field_name']]);
+	$fld_value = cot_import($exfld['field_name'], 'G', 'TXT');
+	$fld_value = $db->prep($fld_value);
+
+	$fieldname = strtoupper($exfld['field_name']);
+	$exfld_val = cot_build_extrafields($exfld['field_name'], $exfld, $fld_value);
 	$exfld_title = isset($L['market_'.$exfld['field_name'].'_title']) ?  $L['market_'.$exfld['field_name'].'_title'] : $exfld['field_description'];
 	$t->assign(array(
-		'SEARCH_'.$uname => $exfld_val,
-		'SEARCH_'.$uname.'_TITLE' => $exfld_title,
+		'SEARCH_'.$fieldname => $exfld_val,
+		'SEARCH_'.$fieldname.'_TITLE' => $exfld_title,
 	));
 }
 
