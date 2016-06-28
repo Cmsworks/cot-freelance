@@ -67,7 +67,7 @@ foreach ($cot_extrafields[$db_folio] as $exfld)
 	$fld_value = cot_import($exfld['field_name'], 'G', 'TXT');
 	$fld_value = $db->prep($fld_value);
 	
-	if(!empty($shfld[$exfld['field_name']]))
+	if(!empty($fld_value))
 	{
 		$where[$exfld['field_name']] = "item_".$exfld['field_name']." LIKE '%".$fld_value."%'";
 	}
@@ -143,12 +143,15 @@ $t->assign(array(
 
 foreach($cot_extrafields[$db_folio] as $exfld)
 {
-	$uname = strtoupper($exfld['field_name']);
-	$exfld_val = cot_build_extrafields($exfld['field_name'], $exfld, $shfld[$exfld['field_name']]);
-	$exfld_title = isset($L['projects_'.$exfld['field_name'].'_title']) ?  $L['projects_'.$exfld['field_name'].'_title'] : $exfld['field_description'];
+	$fld_value = cot_import($exfld['field_name'], 'G', 'TXT');
+	$fld_value = $db->prep($fld_value);
+
+	$fieldname = strtoupper($exfld['field_name']);
+	$exfld_val = cot_build_extrafields($exfld['field_name'], $exfld, $fld_value);
+	$exfld_title = isset($L['folio_'.$exfld['field_name'].'_title']) ?  $L['folio_'.$exfld['field_name'].'_title'] : $exfld['field_description'];
 	$t->assign(array(
-		'SEARCH_'.$uname => $exfld_val,
-		'SEARCH_'.$uname.'_TITLE' => $exfld_title,
+		'SEARCH_'.$fieldname => $exfld_val,
+		'SEARCH_'.$fieldname.'_TITLE' => $exfld_title,
 	));
 }
 
