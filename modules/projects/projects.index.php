@@ -53,12 +53,12 @@ $t_pr->assign(array(
 
 foreach($cot_extrafields[$db_projects] as $exfld)
 {
-	$uname = strtoupper($exfld['field_name']);
+	$fieldname = strtoupper($exfld['field_name']);
 	$exfld_val = cot_build_extrafields($exfld['field_name'], $exfld, '');
 	$exfld_title = isset($L['projects_'.$exfld['field_name'].'_title']) ?  $L['projects_'.$exfld['field_name'].'_title'] : $exfld['field_description'];
 	$t_pr->assign(array(
-		'SEARCH_'.$uname => $exfld_val,
-		'SEARCH_'.$uname.'_TITLE' => $exfld_title,
+		'SEARCH_'.$fieldname => $exfld_val,
+		'SEARCH_'.$fieldname.'_TITLE' => $exfld_title,
 	));
 }
 
