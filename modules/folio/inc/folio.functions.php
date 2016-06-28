@@ -287,7 +287,7 @@ function cot_generate_foliotags($item_data, $tag_prefix = '', $textlength = 0, $
 			'CATPATH' => $catpath,
 			'TEXT' => $text,
 			'SHORTTEXT' => $text_cut,
-			'COST' => number_format($item_data['item_cost'], '0', '.', ' '),
+			'COST' => (!empty($item_data['item_cost'])) ? number_format($item_data['item_cost'], '2', '.', ' ') : 0,
 			'DATE' => cot_date('datetime_medium', $item_data['item_date']),
 			'DATE_STAMP' => $item_data['item_date'],
 			'SHOW_URL' => $item_data['item_pageurl'],
