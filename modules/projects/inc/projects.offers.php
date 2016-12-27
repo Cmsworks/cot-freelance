@@ -398,7 +398,7 @@ while ($offer = $sql->fetch())
 			$uname = mb_strtoupper($exfld['field_name']);
 			$t_o->assign(array(
 				'OFFER_ROW_' . $uname . '_TITLE' => isset($L['offers_' . $exfld['field_name'] . '_title']) ? $L['offers_' . $exfld['field_name'] . '_title'] : $exfld['field_description'],
-				'OFFER_ROW_' . $uname => cot_build_extrafields_data('offers', $exfld, $offer['item_' . $exfld['field_name']])
+				'OFFER_ROW_' . $uname => cot_build_extrafields_data('offers', $exfld, $offer['offer_' . $exfld['field_name']])
 			));
 		}
 	}
