@@ -4,7 +4,7 @@
  * Code=folio
  * Name=Folio
  * Description=Портфолио
- * Version=2.5.14
+ * Version=2.5.15
  * Date=24.11.2012
  * Author=CMSWorks Team
  * Copyright=Copyright &copy; CMSWorks.ru, littledev.ru
@@ -29,7 +29,7 @@
  * title_folio=10:string::{TITLE} - {CATEGORY}:
  * count_admin=11:radio::0: 
  * notiffolio_admin_moderate=12:radio::1:Уведомлять о новых портфолио на проверке
- * folioeditor=13:select:minieditor,medieditor,editor:medieditor:
+ * folioeditor=13:select:disable,minieditor,medieditor,editor:medieditor:
  * [END_COT_EXT_CONFIG]
  * 
  * [BEGIN_COT_EXT_CONFIG_STRUCTURE]
