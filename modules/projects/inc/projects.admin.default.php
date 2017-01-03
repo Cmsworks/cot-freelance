@@ -159,7 +159,7 @@ if (!empty($sq))
 	$where['search'] = "(item_title LIKE '".$db->prep($sqlsearch)."' OR item_text LIKE '".$db->prep($sqlsearch)."')";
 }
 
-$list_url_path = array('m' => 'projects', 'c' => $c, 'type'=> $type, 'sort' => $sort, 'sq' => $sq);
+$list_url_path = array('m' => 'projects', 'c' => $c, 'type'=> $type, 'sort' => $sort, 'sq' => $sq, 'state' => $state);
 
 /* === Hook === */
 foreach (cot_getextplugins('projects.admin.list.query') as $pl)

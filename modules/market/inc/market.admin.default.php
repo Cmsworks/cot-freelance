@@ -155,7 +155,7 @@ if (!empty($sq))
 
 $order['date'] = 'item_date DESC';
 
-$list_url_path = array('m' => 'market', 'c' => $c, 'sort' => $sort, 'sq' => $sq);
+$list_url_path = array('m' => 'market', 'c' => $c, 'sort' => $sort, 'sq' => $sq, 'state' => $state);
 
 /* === Hook === */
 foreach (cot_getextplugins('market.admin.list.query') as $pl)
