@@ -151,7 +151,7 @@ if (!empty($sq))
 	$where['search'] = "(item_title LIKE '".$db->prep($sqlsearch)."' OR item_text LIKE '".$db->prep($sqlsearch)."')";
 }
 
-$list_url_path = array('m' => 'folio', 'c' => $c, 'sort' => $sort, 'sq' => $sq);
+$list_url_path = array('m' => 'folio', 'c' => $c, 'sort' => $sort, 'sq' => $sq, 'state' => $state);
 
 $order['date'] = 'item_date DESC';
 

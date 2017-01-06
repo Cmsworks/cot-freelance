@@ -31,7 +31,7 @@ $L['cfg_license'] = array('License key');
 $L['cfg_default_type'] = array('Default projects type');
 $L['cfg_notif_admin_moderate'] = array('Notify on new projects at checkout','Send email for new projects in the pre-moderation');
 $L['cfg_prjeditor'] = 'Configurable visual editor';
-$L['cfg_prjeditor_params'] = 'Minimal set of buttons, Standard set of buttons, Advanced set of buttons';
+$L['cfg_prjeditor_params'] = 'Disable,Minimal set of buttons, Standard set of buttons, Advanced set of buttons';
 
 $L['info_desc'] = 'Module publishing projects';
 

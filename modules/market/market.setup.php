@@ -4,7 +4,7 @@
  * Code=market
  * Name=Market
  * Description=Магазин
- * Version=2.5.13
+ * Version=2.5.14
  * Date=24.11.2012
  * Author=CMSWorks Team
  * Copyright=Copyright &copy; CMSWorks.ru, littledev.ru
@@ -31,7 +31,7 @@
  * title_market=12:string::{TITLE} - {CATEGORY}:
  * count_admin=13:radio::0: 
  * notifmarket_admin_moderate=14:radio::1:Уведомлять о новых товарах на проверке
- * prdeditor=15:select:minieditor,medieditor,editor:medieditor:
+ * prdeditor=15:select:disable,minieditor,medieditor,editor:medieditor:
  * [END_COT_EXT_CONFIG]
  * 
  * [BEGIN_COT_EXT_CONFIG_STRUCTURE]

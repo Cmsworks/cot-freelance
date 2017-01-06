@@ -30,7 +30,7 @@ $L['cfg_tax'] = array('Selling commission (%)');
 $L['cfg_ordersperpage'] = array('Orders per page');
 $L['cfg_notifmarket_admin_moderate'] = array('Notify on new product at checkout','Send email for new product in the pre-moderation');
 $L['cfg_prdeditor'] = 'Configurable visual editor';
-$L['cfg_prdeditor_params'] = 'Minimal set of buttons, Standard set of buttons, Advanced set of buttons';
+$L['cfg_prdeditor_params'] = 'Disable,Minimal set of buttons, Standard set of buttons, Advanced set of buttons';
 
 
 $L['info_desc'] = 'Online market';
