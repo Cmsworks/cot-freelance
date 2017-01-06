@@ -230,7 +230,7 @@ if ($a == 'hide')
 	exit;
 }
 
-$out['subtitle'] = $L['folio_edit_product_title'];
+$out['subtitle'] = $L['folio_edit_work_title'];
 $out['head'] .= $R['code_noindex'];
 $sys['sublocation'] = $structure['folio'][$item['item_cat']]['title'];
 
