@@ -1,6 +1,6 @@
 ##Фриланс-биржа на Cotonti Siena##
 
-Версия сборки: 2.7.0
+Версия сборки: 2.7.1
 
 Copyright 2012 - 2016 CMSWorks Team (CMSWorks.ru)
 
