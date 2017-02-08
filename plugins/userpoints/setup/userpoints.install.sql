@@ -6,7 +6,6 @@ CREATE TABLE IF NOT EXISTS `cot_userpoints` (
   `item_userid` int(11) NOT NULL,
   `item_date` int(11) NOT NULL,
   `item_type` varchar(20) collate utf8_unicode_ci NOT NULL,
-  `item_cancel` tinyint(4) NOT NULL,
   `item_point` float NOT NULL,
   `item_itemid` int(11) NOT NULL,
   PRIMARY KEY  (`item_id`)
