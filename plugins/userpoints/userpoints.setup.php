@@ -4,7 +4,7 @@
  * Code=userpoints
  * Name=UserPoints
  * Description=Система рейтингов пользователей
- * Version=2.0.6
+ * Version=2.0.7
  * Date=21.12.2010
  * Author=CMSWorks Team
  * Copyright=Copyright (c) CMSWorks.ru, littledev.ru
@@ -31,7 +31,7 @@
  * UserPoints plugin
  *
  * @package userpoints
- * @version 2.0.6
+ * @version 2.0.7
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru, littledev.ru
  * @license BSD
