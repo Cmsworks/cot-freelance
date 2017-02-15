@@ -10,13 +10,18 @@
  * @license BSD
  */
 
-list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('market', 'any', 'RWA');
-cot_block($usr['auth_read']);
-
 $sort = cot_import('sort', 'G', 'ALP');
 $c = cot_import('c', 'G', 'ALP');
 $sq = cot_import('sq', 'G', 'TXT');
 $sq = $db->prep($sq);
+
+if (!empty($c)){
+	list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('market', $c);
+	cot_block($usr['auth_read']);
+}else{
+	list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('market', 'any', 'RWA');
+	cot_block($usr['auth_read']);
+}
 
 $maxrowsperpage = ($cfg['market']['cat_' . $c]['maxrowsperpage']) ? $cfg['market']['cat_' . $c]['maxrowsperpage'] : $cfg['market']['cat___default']['maxrowsperpage'];
 list($pn, $d, $d_url) = cot_import_pagenav('d', $maxrowsperpage);

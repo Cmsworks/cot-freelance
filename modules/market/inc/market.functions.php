@@ -105,11 +105,12 @@ function cot_build_structure_market_tree($parent = '', $selected = '', $level = 
 	{
 		$i18n_enabled = $i18n_read;
 		$children = array();
-		foreach ($structure['market'] as $i => $x)
+		$allcat = cot_structure_children('market', '');		
+		foreach ($allcat as $x)
 		{
-			if (mb_substr_count($structure['market'][$i]['path'], ".") == 0)
+			if (mb_substr_count($structure['market'][$x]['path'], ".") == 0)
 			{
-				$children[] = $i;
+				$children[] = $x;
 			}
 		}
 	}
