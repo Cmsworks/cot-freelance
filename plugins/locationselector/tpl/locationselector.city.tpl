@@ -11,19 +11,19 @@
 			<tr>
 				<td>{CITY_ROW_NAME} </td>
 				<td>
-					<a title="{PHP.L.Delete}" href="{CITY_ROW_DEL_URL}" class="negative button"><span class="trash icon"></span>{PHP.L.Delete}</a>		
+					<a title="{PHP.L.Delete}" href="{CITY_ROW_DEL_URL}" class="negative button btn btn-danger"><span class="trash icon"></span>{PHP.L.Delete}</a>		
 				</td>
 			</tr>
 			<!-- END: ROWS -->
 			<!-- BEGIN: NOROWS -->
 			<tr>
-				<td class="centerall" colspan="2">{PHP.L.ls_nocountries}</td>
+				<td class="centerall" colspan="2">{PHP.L.ls_nocities}</td>
 			</tr>
 			<!-- END: NOROWS -->	
 		</table>
 		<div class="action_bar valid">
 			<p class="paging">{PAGENAV_PAGES} </p>
-			<input type="submit" class="submit" value="{PHP.L.Update}" />
+			<input type="submit" class="submit btn btn-success" value="{PHP.L.Update}" />
 		</div>	
 	</form>
 </div>
@@ -41,7 +41,7 @@
 			</tr>
 		</table>
 		<div class="action_bar valid">
-			<input type="submit" class="submit" value="{PHP.L.Add}" />
+			<input type="submit" class="submit btn btn-success" value="{PHP.L.Add}" />
 		</div>
 	</form>
 </div>
