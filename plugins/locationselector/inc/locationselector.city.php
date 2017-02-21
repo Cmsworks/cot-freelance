@@ -120,7 +120,7 @@ $t->assign(array(
 
 $adminpath[] = array(cot_url('admin', 'm=other&p=locationselector&n=region&country=' . $region['region_country']), 
 	$cot_countries[$region['region_country']]);
-$adminpath[] = array(cot_url('admin', 'm=other&p=locationselector&n=city&id=' . $region['region_name']), $region['region_name']);
+$adminpath[] = array(cot_url('admin', 'm=other&p=locationselector&n=city&id=' . $region['region_id']), $region['region_name']);
 $t->parse("MAIN");
 $plugin_body .= $t->text("MAIN");
 ?>
