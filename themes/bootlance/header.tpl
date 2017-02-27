@@ -65,9 +65,10 @@
 							<!-- BEGIN: USER -->
 							<li><a href="{PHP.usr.name|cot_url('users', 'm=details&u='$this)}">{PHP.usr.name}</a></li>
 							<li><a href="{PHP|cot_url('users', 'm=profile')}">{PHP.L.Profile}</a></li>
-							<!-- IF {PHP.cfg.payments.balance_enabled} -->
+							<!-- IF {PHP.cot_modules.payments} AND {PHP.cfg.payments.balance_enabled} -->
 							<li><a href="{HEADER_USER_BALANCE_URL}">{PHP.L.payments_mybalance}: {HEADER_USER_BALANCE|number_format($this, '2', '.', ' ')} {PHP.cfg.payments.valuta}</a></li>
 							<!-- ENDIF -->
+							<!-- IF {PHP.cot_modules.projects} -->
 							<li class="dropdown">
 								<a class="dropdown-toggle" data-toggle="dropdown" href="#">{PHP.L.projects_projects}<b class="caret"></b></a>
 								<ul class="dropdown-menu">
@@ -80,6 +81,8 @@
 									<!-- ENDIF --> 
 								</ul>
 							</li>
+							<!-- ENDIF -->
+							<!-- IF {PHP.cot_modules.market} -->
 							<li class="dropdown">
 								<a class="dropdown-toggle" data-toggle="dropdown" href="#">{PHP.L.market}<b class="caret"></b></a>
 								<ul class="dropdown-menu">
@@ -90,6 +93,8 @@
 									<!-- ENDIF --> 
 								</ul>
 							</li>
+							<!-- ENDIF -->
+							<!-- IF {PHP.cot_plugins_active.paypro} -->
 							<li>
 								<!-- IF {HEADER_USER_PROEXPIRE} -->
 								<a href="{PHP|cot_url('plug', 'e=paypro')}" title="{PHP.L.paypro_header_extend}">{PHP.L.paypro_header_expire_short} {HEADER_USER_PROEXPIRE|cot_date('d.m.Y', $this)}</a>
@@ -97,6 +102,7 @@
 								<a href="{PHP|cot_url('plug', 'e=paypro')}" title="{PHP.L.paypro_header_buy}">{PHP.L.paypro_header_buy}</a>
 								<!-- ENDIF -->
 							</li>
+							<!-- ENDIF -->
 							<!-- IF {HEADER_USER_PMREMINDER} --><li>{HEADER_USER_PMREMINDER}</li><!-- ENDIF -->
 							<!-- IF {HEADER_NOTICES} -->
 							<li class="dropdown">
@@ -134,10 +140,14 @@
 			<div class="navbar-inner">
 				<ul class="nav">
 					<li<!-- IF {PHP.env.ext} == 'index' --> class="active"<!-- ENDIF -->><a href="{PHP|cot_url('index')}">{PHP.L.Home}</a></li>
+					<!-- IF {PHP.cot_modules.projects} -->
 					<li<!-- IF {PHP.env.ext} == 'projects' --> class="active"<!-- ENDIF -->><a href="{PHP|cot_url('projects')}">{PHP.L.projects_projects}</a></li>
+					<!-- ENDIF -->
 					<li<!-- IF {PHP.env.ext} == 'users' AND ({PHP.group} == {PHP.cot_groups.4.alias} AND {PHP.m} == 'main' --> class="active"<!-- ENDIF -->><a href="{PHP.cot_groups.4.alias|cot_url('users', 'group='$this)}">{PHP.cot_groups.4.name}</a></li>
 					<li<!-- IF {PHP.env.ext} == 'users' AND ({PHP.group} == {PHP.cot_groups.7.alias} AND {PHP.m} == 'main' --> class="active"<!-- ENDIF -->><a href="{PHP.cot_groups.7.alias|cot_url('users', 'group='$this)}">{PHP.cot_groups.7.name}</a></li>
+					<!-- IF {PHP.cot_modules.market} -->
 					<li<!-- IF {PHP.env.ext} == 'market' AND !{PHP.type} --> class="active"<!-- ENDIF -->><a href="{PHP|cot_url('market')}">{PHP.L.market}</a></li>
+					<!-- ENDIF -->
 				</ul>
 			</div>
 		</div>
