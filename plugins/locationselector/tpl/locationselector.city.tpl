@@ -17,12 +17,12 @@
 			<!-- END: ROWS -->
 			<!-- BEGIN: NOROWS -->
 			<tr>
-				<td class="centerall" colspan="2">{PHP.L.ls_nocities}</td>
+				<td class="centerall" colspan="2">{PHP.L.ls_nocountries}</td>
 			</tr>
 			<!-- END: NOROWS -->	
 		</table>
 		<div class="action_bar valid">
-			<p class="paging">{PAGENAV_PAGES} </p>
+			<div class="pagination"><ul>{PAGENAV_PAGES}</ul></div>
 			<input type="submit" class="submit btn btn-success" value="{PHP.L.Update}" />
 		</div>	
 	</form>

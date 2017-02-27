@@ -11,7 +11,7 @@
 		<tr>
 			<td>{REGION_ROW_NAME}</td>
 			<td>
-				<a href="{REGION_ROW_URL}" class="special button btn btn-info"><span class="view icon"></span>{PHP.L.Open}</a>
+				<a href="{REGION_ROW_URL}" class="special button btn btn-default"><span class="view icon"></span>{PHP.L.Open}</a>
 				<a href="{REGION_ROW_DEL_URL}" class="negative button btn btn-danger"><span class="trash icon"></span>{PHP.L.Delete}</a>
 			</td>
 		</tr>
@@ -23,7 +23,7 @@
 		<!-- END: NOROWS -->
 	</table>	
 	<div class="action_bar valid">
-		<div class="paging">{PAGENAV_PAGES} </div>
+		<div class="pagination"><ul>{PAGENAV_PAGES}</ul></div>
 		<input type="submit" class="submit btn btn-success" value="{PHP.L.Update}" />
 	</div>
 	</form>
