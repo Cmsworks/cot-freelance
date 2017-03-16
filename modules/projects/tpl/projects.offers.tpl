@@ -59,7 +59,7 @@
 			</div>
 			<!-- END: CHOISE -->
 			
-			<p class="owner">{OFFER_ROW_OWNER_NAME} <span class="date">[{OFFER_ROW_DATE}] &nbsp; {OFFER_ROW_EDIT}</span></p>
+			<p class="owner">{OFFER_ROW_OWNER_NAME} <span class="date">[{OFFER_ROW_DATE}]</span></p>
 			<p>
 				<!-- IF {OFFER_ROW_OWNER_ISPRO} -->
 				<span class="label label-important">PRO</span> 
