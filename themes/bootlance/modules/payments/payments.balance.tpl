@@ -149,7 +149,7 @@
 			<td class="text-right">{TRANSFER_ROW_SUMM|number_format($this, '2', '.', ' ')} {PHP.cfg.payments.valuta}</td>
 			<td>{TRANSFER_ROW_COMMENT}</td>
 			<td class="text-right">{TRANSFER_ROW_DATE|cot_date('d.m.Y H:i', $this)}</td>
-			<td class="text-right">{TRANSFER_ROW_DONE|cot_date('d.m.Y H:i', $this)}</td>
+			<td class="text-right"><!-- IF {TRANSFER_ROW_DONE} > 0 -->{TRANSFER_ROW_DONE|cot_date('d.m.Y H:i', $this)}<!-- ELSE -->{PHP.L.No}<!-- ENDIF --></td>
 			<td class="text-right">{TRANSFER_ROW_LOCALSTATUS}</td>
 		</tr>
 		<!-- END: TRANSFER_ROW -->
