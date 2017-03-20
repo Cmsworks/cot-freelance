@@ -9,18 +9,24 @@
  * User Categories plugin
  *
  * @package usercategories
- * @version 2.6.1
+ * @version 2.6.2
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru, littledev.ru
  * @license BSD
  */
 defined('COT_CODE') or die('Wrong URL.');
 
-if(!empty($ruser['user_cats']))
+if($ruser['user_cats'] != $urr['user_cats'])
 {
-	$rcats = explode(',', $ruser['user_cats']);
-	foreach ($rcats as $cat) 
+	$_cats = $urr['user_cats'].','.$ruser['user_cats'];
+	$rcats = explode(',', $_cats);
+	if(count($rcats) > 0)
 	{
-		cot_usercategories_sync($cat);
+		$rcats = array_unique($rcats);
+		$rcats = array_diff($rcats, array(''));
+		foreach ($rcats as $cat) 
+		{
+			cot_usercategories_sync($cat);
+		}
 	}
 }
