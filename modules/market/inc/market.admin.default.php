@@ -22,6 +22,8 @@ $ajax = empty($ajax) ? 0 : (int)$ajax;
 
 $sq = cot_import('sq', 'G', 'TXT');
 
+$sort = cot_import('sort', 'G', 'ALP');
+
 $mass_act = cot_import('prd_action', 'P', 'TXT');
 $prd_arr = cot_import('prd_arr', 'P', 'ARR');
 
@@ -153,7 +155,18 @@ if (!empty($sq))
 	$where['search'] = "(item_title LIKE '".$db->prep($sqlsearch)."' OR item_text LIKE '".$db->prep($sqlsearch)."')";
 }
 
-$order['date'] = 'item_date DESC';
+switch ($sort) {
+	case 'costasc':
+		$order['costasc'] = "item_cost ASC";
+		break;
+	case 'costdesc':
+		$order['costdesc'] = "item_cost DESC";
+		break;
+	
+	default:
+		$order['date'] = "item_date DESC";
+		break;
+}
 
 $list_url_path = array('m' => 'market', 'c' => $c, 'sort' => $sort, 'sq' => $sq, 'state' => $state);
 
