@@ -23,6 +23,8 @@ $ajax = empty($ajax) ? 0 : (int)$ajax;
 
 $sq = cot_import('sq', 'G', 'TXT');
 
+$sort = cot_import('sort', 'G', 'ALP');
+
 $mass_act = cot_import('prj_action', 'P', 'TXT');
 $prj_arr = cot_import('prj_arr', 'P', 'ARR');
 /* === Hook === */
@@ -157,6 +159,19 @@ if (!empty($sq))
 	$sqlsearch = '%'.implode('%', $words).'%';
 
 	$where['search'] = "(item_title LIKE '".$db->prep($sqlsearch)."' OR item_text LIKE '".$db->prep($sqlsearch)."')";
+}
+
+switch ($sort) {
+	case 'costasc':
+		$order['costasc'] = "item_cost ASC";
+		break;
+	case 'costdesc':
+		$order['costdesc'] = "item_cost DESC";
+		break;
+	
+	default:
+		$order['date'] = "item_date DESC";
+		break;
 }
 
 $list_url_path = array('m' => 'projects', 'c' => $c, 'type'=> $type, 'sort' => $sort, 'sq' => $sq, 'state' => $state);
