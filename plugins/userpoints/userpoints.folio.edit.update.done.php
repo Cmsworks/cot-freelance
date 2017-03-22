@@ -24,7 +24,7 @@ if($ritem['item_state'] != $item['item_state'])
 	{
 		cot_setuserpoints($cfg['plugin']['userpoints']['portfolioaddtocat'], 'portfolioaddtocat', $item['item_userid'], $id);
 	}
-	else
+	elseif(!$cfg['folio']['prevalidate'])
 	{
 		cot_setuserpoints(-$cfg['plugin']['userpoints']['portfolioaddtocat'], 'portfoliodeltocat', $item['item_userid'], $id);
 	}
