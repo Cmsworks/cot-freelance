@@ -5,29 +5,29 @@
 		<!-- BEGIN: ROW -->
 		<div class="uploadedfile media">	
 			<div class="pull-left">{MAVATAR.ORDER}</div>
-			<div class="pull-right">				
+			<div class="pull-right">		 	
+				<a class="pull-right btn btn-warning" href="javascript:void(0);" onclick="$(this).parents('.uploadedfile').find('input').attr('checked', true); $(this).parents('.uploadedfile').css('height', 0); $(this).parents('.uploadedfile').css('overflow', 'hidden'); return false;">Удалить</a>   			
 		    	{FILEORDER|cot_rc_modify('$this', 'class="form-control"')}
 			</div>
-			<!-- IF {MAVATAR.FILEEXT} == 'png' OR {MAVATAR.FILEEXT} == 'jpg' OR {MAVATAR.FILEEXT} == 'gif' OR {MAVATAR.FILEEXT} == 'bmp' -->
+			<!-- IF {MAVATAR.FILEEXT} == 'png' OR {MAVATAR.FILEEXT} == 'jpg' OR {MAVATAR.FILEEXT} == 'jpeg' OR {MAVATAR.FILEEXT} == 'gif' OR {MAVATAR.FILEEXT} == 'bmp' -->
 			<div class="pull-left">
 				<a href="{MAVATAR.FILE}" target="_blank" class="fancybox" rel="gallery1"><img src="{MAVATAR|cot_mav_thumb($this, 100, 100, auto)}" alt="{MAVATAR.FILENAME}.{MAVATAR.FILEEXT}" title="{MAVATAR.FILENAME}.{MAVATAR.FILEEXT}" class="img-thumbnail" /></a>
 			</div>
 			<div class="media-body">
 				<div class="inp">{FILEDESCTEXT|cot_rc_modify('$this', 'class="form-control"')}{FILENEW}</div>
-				<label class="checkbox">{DELETE} {PHP.L.Delete}</label>	    	
+				<label class="checkbox" style="display: none;">{DELETE} {PHP.L.Delete}</label>	
 			</div>	
 			<!-- ELSE -->
 			<div class="media-body">
 				<a href="{MAVATAR.FILE}" target="_blank" rel="gallery1">{MAVATAR.DESC}.{MAVATAR.FILEEXT}</a>
 				<div class="inp">{FILEDESCTEXT|cot_rc_modify('$this', 'class="form-control"')}{FILENEW}</div>
-				<label class="checkbox">{DELETE} {PHP.L.Delete}</label>	 
+				<label class="checkbox" style="display: none;">{DELETE} {PHP.L.Delete}</label>	 
 			</div>
-			<!-- ENDIF -->		
+			<!-- ENDIF -->	
 		</div>
 		<!-- END: ROW -->	
 	<!-- END: FILES -->
 	</div>
-	<br/>
 	<div class="clearfix"></div>
 
 	<!-- BEGIN: UPLOAD -->
@@ -52,7 +52,8 @@
 	<script src="{PHP.cfg.plugins_dir}/mavatars/lib/jquery.fileapi.min.js"></script>
 	
 	<div id="uploader">
-		<div class="js-fileapi-wrapper">
+		<div class="upload-link js-fileapi-wrapper">
+    		<span class="upload-link__txt">{PHP.L.mavatar_form_addfiles}</span>
 			<input type="file"  tabindex="-1" hidefocus="true" id="mavatar_file" name="mavatar_file[]" />
 		</div>
 		<div data-fileapi="active.show" class="progress">

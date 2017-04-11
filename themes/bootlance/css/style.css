@@ -256,3 +256,37 @@ ol					{ margin-left:20px; list-style-type:decimal; }
 #listprojects {}
 #listprojects .prjtop { background-color: #feefb3; }
 #listprojects .prjbold { background-color: #dff2bf; }
+
+/* Mavatars 
+---------------------------------------------------- */
+
+.upload-link {
+    color: #36c;
+    display: inline-block;
+    *zoom: 1;
+    *display: inline;
+    overflow: hidden;
+    position: relative;
+    padding-bottom: 2px;
+    text-decoration: none;
+}
+.upload-link__txt {
+    z-index: 1;
+    position: relative;
+    border-bottom: 1px dotted #36c;
+}
+.upload-link:hover .upload-link__txt {
+    color: #f00;
+    border-bottom-color: #f00;
+}
+
+.upload-link input {
+    top: -10px;
+    right: -40px;
+    z-index: 2;
+    position: absolute;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    font-size: 50px;
+}
