@@ -230,4 +230,62 @@ function cot_reviews_list($userid, $area, $code='', $name='', $params='', $tail=
 	}
 	return '';
 }
-?>
+
+/**
+ * Вывод последних отзывов
+ *
+ * @param int $count Количество отзывов
+ * @return string
+ */
+function cot_reviews_last($count = 0)
+{
+	global $db_reviews, $db_users, $db, $L, $usr, $cfg;
+	list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('plug', 'reviews', 'RWA');
+	if ($usr['auth_read'])
+	{
+		$t1 = new XTemplate(cot_tplfile(array('reviews', 'last'), 'plug'));
+
+		require_once cot_langfile('reviews', 'plug');
+		
+		if($count > 0) $limit = "LIMIT $count";
+
+		$sql = $db->query("SELECT * FROM $db_reviews as r 
+			LEFT JOIN $db_users as u ON u.user_id=r.item_userid 
+			ORDER BY item_date ASC $limit");
+
+		while ($item = $sql->fetch())
+		{			
+			$t1->assign(cot_generate_usertags($item, 'REVIEW_ROW_OWNER_'));
+			$t1->assign(cot_generate_usertags($item['item_touserid'], 'REVIEW_ROW_TO_'));
+			$t1->assign(array(
+				'REVIEW_ROW_ID' => $item['item_id'],
+				'REVIEW_ROW_TEXT' => $item['item_text'],
+				'REVIEW_ROW_SCORE' => ($item['item_score'] > 0) ? '+' . $item['item_score'] : $item['item_score'],
+				'REVIEW_ROW_AREA' => $item['item_area'],
+				'REVIEW_ROW_CODE' => $item['item_code'],
+				'REVIEW_ROW_DATE' => $item['item_date'],
+			));
+
+			if($item['item_area'] == 'projects' && !empty($item['item_code']))
+			{
+				require_once cot_incfile('projects', 'module');
+				global $db_projects;
+				
+				$prj = $db->query("SELECT * FROM $db_projects WHERE item_id=".$item['item_code'])->fetch();
+				$t1->assign(cot_generate_projecttags($prj, 'REVIEW_ROW_PRJ_'));
+			}
+      
+			/* === Hook === */
+			foreach (cot_getextplugins('reviews.list.loop') as $pl)
+			{
+				include $pl;
+			}
+			/* ===== */
+			
+			$t1->parse('MAIN.REVIEW_ROW');
+		}
+		$t1->parse('MAIN');
+		return $t1->text('MAIN');
+	}
+	return '';
+}
