@@ -482,7 +482,7 @@ foreach (cot_getextplugins('projects.addofferform.main') as $pl)
 /* ===== */
 
 $sql = $db->query("SELECT * FROM $db_projects_offers WHERE offer_pid=" . $id . " AND offer_userid=" . $usr['id'] . "");
-if ($sql->fetchColumn() == 0 && $addoffer_enabled && $usr['auth_offers'] && $usr['id'] != $item['item_userid'] && empty($performer))
+if ($sql->fetchColumn() == 0 && $addoffer_enabled && $usr['auth_offers'] && $usr['id'] != $item['item_userid'] && !($item['item_performer'] || $item['item_realized']))
 {
 	$t_o->assign(array(
 		"OFFER_FORM_COSTMIN" => cot_inputbox('text', 'costmin', $roffer['offer_cost_min'], 'size="7"'),
