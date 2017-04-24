@@ -19,4 +19,8 @@
 defined('COT_CODE') or die('Wrong URL');
 require_once cot_incfile('folio', 'module');
 
-$db->update($db_folio, array('item_state' => -1), "item_userid='" . $urr['user_id'] . "'");
+$folioworks = $db->query("SELECT * FROM $db_folio WHERE item_userid=".$urr['user_id'])->fetchAll();
+foreach ($folioworks as $item)
+{
+	cot_folio_delete($item['item_id'], $item);
+}
