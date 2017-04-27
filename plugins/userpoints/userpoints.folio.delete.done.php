@@ -16,11 +16,6 @@
  */
 defined('COT_CODE') or die('Wrong URL.');
 
-require_once cot_incfile('userpoints', 'plug');
+global $db_userpoints;
 
-if($ritem['item_state'] == 0)
-{
-	cot_setuserpoints(-$cfg['plugin']['userpoints']['portfolioaddtocat'], 'portfoliodeltocat', $ritem['item_userid'], $id);
-}
-
-?>
+$db->delete($db_userpoints, "item_type IN ('portfolioaddtocat', 'portfoliodeltocat') AND item_itemid=".$id);
