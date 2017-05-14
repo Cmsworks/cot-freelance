@@ -72,7 +72,9 @@
 							<li class="dropdown">
 								<a class="dropdown-toggle" data-toggle="dropdown" href="#">{PHP.L.projects_projects}<b class="caret"></b></a>
 								<ul class="dropdown-menu">
+									<!-- IF {PHP|cot_auth('projects', 'any', 'W')} -->
 									<li><a href="{PHP.usr.id|cot_url('users', 'm=details&id='$this'&tab=projects')}">{PHP.L.projects_myprojects}</a></li>
+									<!-- ENDIF -->
 									<!-- IF {PHP.cot_plugins_active.sbr} -->
 									<li><a href="{PHP|cot_url('sbr')}">{PHP.L.sbr_mydeals}</a></li>
 									<!-- ENDIF -->
