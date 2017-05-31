@@ -314,10 +314,12 @@ if ($n == 'transfers')
 		if($cfg['payments']['transfertaxfromrecipient'])
 		{
 			$sendersumm = $summ;
+			$recipientsumm = $sendersumm - $summ;
 		}
 		else 
 		{
 			$sendersumm = $summ + $taxsumm;
+			$recipientsumm = $summ;
 		}
 		
 		$ubalance = cot_payments_getuserbalance($usr['id']);
