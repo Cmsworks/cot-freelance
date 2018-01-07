@@ -2,8 +2,9 @@
 
 Версия сборки: 2.7.1
 
-Copyright 2012 - 2016 CMSWorks Team (CMSWorks.ru)
+Copyright 2012 - 2016 CMSWorks Team
 
+Сайт по сборке: https://Cotonti.CMSWorks.ru
 
 ##Подготовка к установке##
 
