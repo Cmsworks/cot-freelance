@@ -134,12 +134,22 @@ function cot_build_structure_projects_tree($parent = '', $selected = '', $level 
 		return false;
 	}
 
+    $title = '';
+    $desc = '';
+    $count = 0;
+    $icon = '';
+    if (isset(cot::$structure['projects']) && !empty($parent) && isset(cot::$structure['projects'][$parent])) {
+        $title = cot::$structure['projects'][$parent]['title'];
+        $desc  = cot::$structure['projects'][$parent]['desc'];
+        $count = cot::$structure['projects'][$parent]['count'];
+        $icon  = cot::$structure['projects'][$parent]['icon'];
+    }
 	$t1->assign(array(
-		"TITLE" => htmlspecialchars($structure['projects'][$parent]['title']),
-		"DESC" => $structure['projects'][$parent]['desc'],
-		"COUNT" => $structure['projects'][$parent]['count'],
-		"ICON" => $structure['projects'][$parent]['icon'],
-		"HREF" => cot_url("projects", $urlparams + array('c' => $parent)),
+		"TITLE" => htmlspecialchars($title),
+		"DESC"  => $desc,
+		"COUNT" => $count,
+		"ICON"  => $icon,
+		"HREF"  => cot_url("projects", $urlparams + array('c' => $parent)),
 		"LEVEL" => $level,
 	));
 
@@ -162,7 +172,7 @@ function cot_build_structure_projects_tree($parent = '', $selected = '', $level 
 			"ROW_ICON" => $structure['projects'][$row]['icon'],
 			"ROW_HREF" => cot_url("projects", $urlparams),
 			"ROW_SELECTED" => ((is_array($selected) && in_array($row, $selected)) || (!is_array($selected) && $row == $selected)) ? 1 : 0,
-			"ROW_SUBCAT" => (count($subcats) > 0) ? cot_build_structure_projects_tree($row, $selected, $level + 1) : '',
+			"ROW_SUBCAT" => !empty($subcats) ? cot_build_structure_projects_tree($row, $selected, $level + 1) : '',
 			"ROW_LEVEL" => $level,
 			"ROW_ODDEVEN" => cot_build_oddeven($jj),
 			"ROW_JJ" => $jj
@@ -737,10 +747,10 @@ function cot_getprojectslist($template='index', $count=5, $sqlsearch='', $order 
  * @param type $name
  * @param type $subcat
  * @param type $hideprivate
- * @param type $is_module
- * @return type
+ * @param bool $is_module
+ * @return string
  */
-function cot_projects_selectcat($check, $name, $subcat = '', $hideprivate = true)
+function cot_projects_selectcat($check, $name, $subcat = '', $hideprivate = true, $is_module = false)
 {
 	global $structure;
 
@@ -767,6 +777,6 @@ function cot_projects_selectcat($check, $name, $subcat = '', $hideprivate = true
 	return($result);
 }
 
-if ($cfg['projects']['markup'] == 1){
-  $prjeditor = $cfg['projects']['prjeditor'];
+if (cot::$cfg['projects']['markup'] == 1) {
+  $prjeditor = isset(cot::$cfg['projects']['prjeditor']) ? cot::$cfg['projects']['prjeditor'] : null;
 }

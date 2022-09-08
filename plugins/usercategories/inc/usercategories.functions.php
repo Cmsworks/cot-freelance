@@ -127,7 +127,10 @@ function cot_usercategories_treecheck($chosen, $name, $parent = '', $template = 
 		return false;
 	}
 	
-	if(!is_array($chosen)){
+	if (!is_array($chosen)) {
+        if (empty($chosen)) {
+            $chosen = [];
+        }
 		$chosen = explode(',', $chosen);
 	}
 	
@@ -292,7 +295,7 @@ function cot_usercategories_tree($chosen = '', $parent = '', $template = '', $le
 			"CAT_ROW_ICON" => $structure['usercategories'][$row]['icon'],
 			"CAT_ROW_URL" => cot_url("users", $urlparams),
 			"CAT_ROW_SELECTED" => (is_array($chosen) && in_array($row, $chosen) || !is_array($chosen) && $row == $chosen || $parent_selected) ? 1 : 0,
-			"CAT_ROW_SUBCAT" => (count($subcats) > 0) ? cot_usercategories_tree($chosen, $row, $template, $level) : '',
+			"CAT_ROW_SUBCAT" => !empty($subcats) ? cot_usercategories_tree($chosen, $row, $template, $level) : '',
 			"CAT_ROW_ODDEVEN" => cot_build_oddeven($jj),
 			"CAT_ROW_JJ" => $jj
 		));

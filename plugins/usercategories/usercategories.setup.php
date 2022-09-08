@@ -6,8 +6,8 @@
  * Name=User Categories
  * Category=community-social
  * Description=Add custom categories for users
- * Version=2.6.2
- * Date=28.09.2013
+ * Version=2.6.3
+ * Date=2022-09-08
  * Author=CMSWorks Team
  * Copyright=Copyright (c) CMSWorks.ru, littledev.ru
  * Auth_guests=R

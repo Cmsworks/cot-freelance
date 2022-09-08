@@ -27,10 +27,12 @@ elseif ($m == 'profile')
 {
 	$prfx = 'USERS_PROFILE_';
 }
-if ($prfx != 'USERS_REGISTER_')
-{
-	$rcats = explode(',', $urr['user_cats']);
+if ($prfx != 'USERS_REGISTER_') {
+    $rcats = [];
+    if (!empty($urr['user_cats'])) {
+        $rcats = explode(',', $urr['user_cats']);
+    }
 }
 $t->assign(array(
-	$prfx . 'CAT' => cot_usercategories_treecheck($rcats, 'rcats[]')
+	$prfx . 'CAT' => cot_usercategories_treecheck(!empty($rcats) ? $rcats : [], 'rcats[]')
 ));

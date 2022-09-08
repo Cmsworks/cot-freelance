@@ -21,8 +21,7 @@ defined('COT_CODE') or die('Wrong URL.');
 require_once cot_incfile('projects', 'module');
 
 
-if(!$projects_types)
-{
+if (empty($projects_types)) {
 	$projects_types =  array();
 	$sql_t = $db->query("SELECT * FROM $db_projects_types");
 	while ($item = $sql_t->fetch())

@@ -28,12 +28,12 @@ elseif ($m == 'profile')
 	$prfx = 'USERS_PROFILE_';
 }
 
-if(($cfg['plugin']['usergroupselector']['allowchange'] || $cfg['plugin']['usergroupselector']['required']) 
-	&& $urr['user_maingrp'] != COT_GROUP_SUPERADMINS 
-	&& $urr['user_maingrp'] != COT_GROUP_MODERATORS)
-{
+if (
+    (cot::$cfg['plugin']['usergroupselector']['allowchange'] || cot::$cfg['plugin']['usergroupselector']['required']) &&
+    (empty($urr) || ($urr['user_maingrp'] != COT_GROUP_SUPERADMINS && $urr['user_maingrp'] != COT_GROUP_MODERATORS))
+) {
 	
-	$options = explode(',', $cfg['plugin']['usergroupselector']['groups']);
+	$options = explode(',', cot::$cfg['plugin']['usergroupselector']['groups']);
 	$groups_values = array();
 	$groups_titles = array();
 	foreach ($options as $v)
@@ -51,15 +51,13 @@ if(($cfg['plugin']['usergroupselector']['allowchange'] || $cfg['plugin']['usergr
 		));
 		$t->parse('MAIN.USERGROUP_ROW');		
 	}
-	
-	if(count($groups_values) == 1)
-	{
-		$user_f_group = cot_checkbox($urr['user_usergroup'], 'ruserusergroup', $groups_titles[0], '', $groups_values[0]);
-	}
-	else
-	{
-		$user_f_group = cot_radiobox($urr['user_usergroup'], 'ruserusergroup', $groups_values, $groups_titles, '', '<br />');
+
+    $selected = (!empty($urr) && !empty($urr['user_usergroup'])) ? $urr['user_usergroup'] : 0;
+	if(count($groups_values) == 1) {
+		$user_f_group = cot_checkbox($selected, 'ruserusergroup', $groups_titles[0], '', $groups_values[0]);
+	} else {
+		$user_f_group = cot_radiobox($selected, 'ruserusergroup', $groups_values, $groups_titles, '', '<br />');
 	}
 	$t->assign($prfx . 'GROUPSELECT', $user_f_group);
-	$t->assign($prfx . 'GROUPSELECTBOX', cot_selectbox($urr['user_usergroup'], 'ruserusergroup', $groups_values, $groups_titles));
+	$t->assign($prfx . 'GROUPSELECTBOX', cot_selectbox($selected, 'ruserusergroup', $groups_values, $groups_titles));
 }

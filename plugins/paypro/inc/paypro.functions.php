@@ -23,30 +23,25 @@ function cot_getuserpro($user = '')
 {
 	global $db, $db_users, $sys, $usr;
 
-	if(empty($user) && $usr['profile']['user_pro'] > 0)
-	{
+    $upro = 0;
+
+	if (empty($user) && isset(cot::$usr['profile']) && cot::$usr['profile']['user_pro'] > 0) {
 		$upro = $usr['profile']['user_pro'];
 		$userid = $usr['id'];
-	}	
-	elseif(!empty($user) && !is_array($user))
-	{
+	} elseif (!empty($user) && !is_array($user)) {
 		$upro = $db->query("SELECT user_pro FROM $db_users WHERE user_id=".$user)->fetchColumn();
 		$userid = $user;
-	}
-	elseif(is_array($user))
-	{	
+	} elseif(is_array($user)) {
 		$upro = $user['user_pro'];
 		$userid = $user['user_id'];
 	}
 	
-	if($upro > $sys['now'])
-	{
+	if($upro > $sys['now']) {
 		return $upro;
-	}	
-	elseif($upro > 0)
-	{
+	} elseif($upro > 0) {
 		$db->update($db_users, array('user_pro' => 0), "user_id=".$userid);
 	}
+
 	return false;
 }
 

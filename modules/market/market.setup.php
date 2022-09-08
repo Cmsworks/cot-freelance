@@ -4,8 +4,8 @@
  * Code=market
  * Name=Market
  * Description=Магазин
- * Version=2.6.0
- * Date=24.11.2012
+ * Version=2.6.1
+ * Date=2022-09-08
  * Author=CMSWorks Team
  * Copyright=Copyright &copy; CMSWorks.ru, littledev.ru
  * Notes=

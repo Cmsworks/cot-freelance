@@ -4,8 +4,8 @@
  * Code=payments
  * Name=Payments
  * Description=Платежный модуль
- * Version=2.0.4
- * Date=
+ * Version=2.0.5
+ * Date=2022-09-08
  * Author=CMSWorks Team
  * Copyright=Copyright (c) CMSWorks.ru
  * Notes=

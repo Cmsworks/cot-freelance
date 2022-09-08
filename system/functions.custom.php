@@ -23,6 +23,7 @@ function cot_load_structure_custom()
 	$path = array(); // code path tree
 	$tpath = array(); // title path tree
 	$tpls = array(); // tpl codes tree
+    $subcats = [];
 
 	foreach ($sql->fetchAll() as $row)
 	{
@@ -87,7 +88,7 @@ function cot_load_structure_custom()
 	{
 		foreach ($area_structure as $i => $x)
 		{
-			$structure[$area][$i]['subcats'] = $subcats[$area][$i];
+			$structure[$area][$i]['subcats'] = isset($subcats[$area]) ? $subcats[$area][$i] : null;
 		}
 	}
 }

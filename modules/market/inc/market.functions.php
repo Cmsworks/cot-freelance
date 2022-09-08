@@ -682,9 +682,9 @@ function cot_getmarketlist($template = 'index', $count = 5, $sqlsearch = '',
 	{
 		$sqllist_idset[$item['item_id']] = $item['item_alias'];
 	}
-	
-	foreach($sqllist_rowset as $item)
-	{
+
+    $jj = 0;
+	foreach ($sqllist_rowset as $item) {
 		$jj++;
 		$t->assign(cot_generate_usertags($item, 'PRD_ROW_OWNER_'));
 		$t->assign(cot_generate_markettags($item, 'PRD_ROW_', $cfg['market']['shorttextlen'],
@@ -740,6 +740,6 @@ function cot_market_selectcat($check, $name, $subcat = '', $hideprivate = true)
 	return($result);
 }
 
-if ($cfg['market']['markup'] == 1){
-  $prdeditor = $cfg['market']['prdeditor'];
+if (cot::$cfg['market']['markup'] == 1) {
+  $prdeditor = isset(cot::$cfg['market']['prdeditor']) ? cot::$cfg['market']['prdeditor'] : null;
 }

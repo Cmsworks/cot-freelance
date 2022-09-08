@@ -24,8 +24,7 @@ $db_ls_regions = (isset($db_ls_regions)) ? $db_ls_regions : $db_x . 'ls_regions'
 $db_ls_cities = (isset($db_ls_cities)) ? $db_ls_cities : $db_x . 'ls_cities';
 $R['input_location'] = (empty($R['input_location'])) ? '<span class="locselect"><span>{$country}</span> <span>{$region}</span> <span>{$city}</span></span>' : $R['input_location'];
 
-if (!$cot_countries)
-{
+if (empty($cot_countries)) {
 	include_once cot_langfile('countries', 'core');
 }
 
