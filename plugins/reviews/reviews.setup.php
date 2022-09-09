@@ -4,8 +4,8 @@
 Code=reviews
 Name=Reviews
 Description=Отзывы о человеке
-Version=2.2.3
-Date=24.11.2012
+Version=2.2.4
+Date=2022-09-09
 Author=CMSWorks Team
 Copyright=Copyright &copy; CMSWorks.ru, littledev.ru
 Notes=

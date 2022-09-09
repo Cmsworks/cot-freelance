@@ -72,9 +72,9 @@ function cot_reviews_list($userid, $area, $code='', $name='', $params='', $tail=
 		$t1 = new XTemplate(cot_tplfile(array('reviews', $area), 'plug'));
 
 		require_once cot_langfile('reviews', 'plug');
-		
-		if (!$showall)
-		{
+
+        $sqlarea = $sqlcode = '';
+		if (!$showall) {
 			$sqlcode = !empty($code) ? " AND item_code='" . $db->prep($code) . "'" : '';
 			$sqlarea = " AND item_area='".$db->prep($area)."'";
 		}
@@ -84,7 +84,7 @@ function cot_reviews_list($userid, $area, $code='', $name='', $params='', $tail=
 		if(is_array($params))
 		{
 			$params2 = array();
-			foreach ($array as $key => $value)
+			foreach ($params as $key => $value)
 			{
 				$params2[$key] = str_replace(array('$userid', '$area', '$code'), array('$userid', $area, $code), $value);
 			}

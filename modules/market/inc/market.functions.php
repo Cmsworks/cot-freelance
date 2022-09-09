@@ -134,11 +134,21 @@ function cot_build_structure_market_tree($parent = '', $selected = '', $level = 
 		return false;
 	}
 
+    $title = '';
+    $desc = '';
+    $count = 0;
+    $icon = '';
+    if (isset(cot::$structure['market']) && !empty($parent) && isset(cot::$structure['market'][$parent])) {
+        $title = cot::$structure['market'][$parent]['title'];
+        $desc  = cot::$structure['market'][$parent]['desc'];
+        $count = cot::$structure['market'][$parent]['count'];
+        $icon  = cot::$structure['market'][$parent]['icon'];
+    }
 	$t1->assign(array(
-		"TITLE" => htmlspecialchars($structure['market'][$parent]['title']),
-		"DESC" => $structure['market'][$parent]['desc'],
-		"COUNT" => $structure['market'][$parent]['count'],
-		"ICON" => $structure['market'][$parent]['icon'],
+		"TITLE" => htmlspecialchars($title),
+		"DESC" => $desc,
+		"COUNT" => $count,
+		"ICON" => $icon,
 		"HREF" => cot_url("market", $urlparams + array('c' => $parent)),
 		"LEVEL" => $level,
 	));
@@ -161,7 +171,7 @@ function cot_build_structure_market_tree($parent = '', $selected = '', $level = 
 			"ROW_ICON" => $structure['market'][$row]['icon'],
 			"ROW_HREF" => cot_url("market", $urlparams),
 			"ROW_SELECTED" => ((is_array($selected) && in_array($row, $selected)) || (!is_array($selected) && $row == $selected)) ? 1 : 0,
-			"ROW_SUBCAT" => (count($subcats) > 0) ? cot_build_structure_market_tree($row, $selected, $level + 1) : '',
+			"ROW_SUBCAT" => !empty($subcats) ? cot_build_structure_market_tree($row, $selected, $level + 1) : '',
 			"ROW_LEVEL" => $level,
 			"ROW_ODDEVEN" => cot_build_oddeven($jj),
 			"ROW_JJ" => $jj
@@ -270,7 +280,15 @@ function cot_generate_markettags($item_data, $tag_prefix = '', $textlength = 0, 
 		$text_cut = ((int)$textlength > 0) ? cot_string_truncate($text, $textlength) : $text;
 		
 		$item_data['item_status'] = cot_market_status($item_data['item_state']);
-		
+
+        $userPrdUrlParams = ['m' => 'details'];
+        if (!empty($item_data['item_userid'])) {
+            $userPrdUrlParams['id'] = $item_data['item_userid'];
+        }
+        if (!empty($item_data['user_name'])) {
+            $userPrdUrlParams['u'] = $item_data['user_name'];
+        }
+        $userPrdUrlParams['tab'] = 'market';
 		$temp_array = array(
 			'ID' => $item_data['item_id'],
 			'ALIAS' => $item_data['item_alias'],
@@ -278,7 +296,7 @@ function cot_generate_markettags($item_data, $tag_prefix = '', $textlength = 0, 
 			'STATUS' => $item_data['item_status'],
 			'LOCALSTATUS' => $L['market_status_'.$item_data['item_status']],
 			'URL' => $item_data['item_pageurl'],
-			'USER_PRDURL' => cot_url('users', 'm=details&id=' . $item_data['item_userid'] . '&u=' . $item_data['user_name'] . '&tab=market'),
+			'USER_PRDURL' => cot_url('users', $userPrdUrlParams),
 			'TITLE' => $itempath,
 			'SHORTTITLE' => $item_data['item_title'],
 			'CAT' => $item_data['item_cat'],
@@ -710,10 +728,10 @@ function cot_getmarketlist($template = 'index', $count = 5, $sqlsearch = '',
  * @param type $name
  * @param type $subcat
  * @param type $hideprivate
- * @param type $is_module
- * @return type
+ * @param string $is_module
+ * @return string
  */
-function cot_market_selectcat($check, $name, $subcat = '', $hideprivate = true)
+function cot_market_selectcat($check, $name, $subcat = '', $hideprivate = true, $is_module = true)
 {
 	global $structure;
 

@@ -23,7 +23,11 @@ if (!empty($c)){
 	cot_block($usr['auth_read']);
 }
 
-$maxrowsperpage = ($cfg['market']['cat_' . $c]['maxrowsperpage']) ? $cfg['market']['cat_' . $c]['maxrowsperpage'] : $cfg['market']['cat___default']['maxrowsperpage'];
+$maxrowsperpage = cot::$cfg['market']['cat___default']['maxrowsperpage'];
+if (!empty($c) && isset(cot::$cfg['market']['cat_' . $c]) && !empty(cot::$cfg['market']['cat_' . $c]['maxrowsperpage'])) {
+    $maxrowsperpage = cot::$cfg['market']['cat_' . $c]['maxrowsperpage'];
+}
+
 list($pn, $d, $d_url) = cot_import_pagenav('d', $maxrowsperpage);
 
 /* === Hook === */
@@ -98,7 +102,13 @@ $list_url_path = array('c' => $c, 'sort' => $sort, 'sq' => $sq);
 // Building the canonical URL
 $out['canonical_uri'] = cot_url('market', $list_url_path);
 
-$mskin = cot_tplfile(array('market', 'list', $structure['market'][$c]['tpl']));
+if (!empty($c) && isset(cot::$structure['market'][$c])) {
+    $mskin = cot_tplfile(array('market', 'list', cot::$structure['market'][$c]['tpl']));
+} else {
+    $mskin = cot_tplfile(['market', 'list']);
+}
+
+$join_columns = $join_condition = '';
 
 /* === Hook === */
 foreach (cot_getextplugins('market.list.query') as $pl)
@@ -187,6 +197,7 @@ foreach($sqllist_rowset as $item)
 $extp = cot_getextplugins('market.list.loop');
 /* ===== */
 
+$jj = 0;
 foreach ($sqllist_rowset as $item)
 {
 	$jj++;
