@@ -44,7 +44,7 @@ function cot_market_sync($cat)
 		$subcats = cot_structure_children('market', $c, true, true);
 		$count = $db->query("SELECT COUNT(*) FROM $db_market WHERE item_cat IN ('".implode("','", $subcats)."') AND item_state = 0")->fetchColumn();		
 		$db->query("UPDATE $db_structure SET structure_count=".(int)$count." WHERE structure_area='market' AND structure_code = ?", $c);
-		$summcount += $count;
+		//$summcount += $count;
 		if($cat == $c) $catcount = $count;
 	}
 	$cache && $cache->db->remove('structure', 'system');
@@ -695,6 +695,10 @@ function cot_getmarketlist($template = 'index', $count = 5, $sqlsearch = '',
 	WHERE item_state=0 $sqlsearch ORDER BY $order LIMIT " . (int)$count);
 	
 	$sqllist_rowset = $sqllist->fetchAll();
+//    echo "<pre>";
+//    var_dump($sqllist_rowset);
+//    echo "</pre>";
+
 	$sqllist_idset = array();
 	foreach($sqllist_rowset as $item)
 	{

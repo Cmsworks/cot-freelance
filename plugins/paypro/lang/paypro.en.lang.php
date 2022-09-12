@@ -35,8 +35,8 @@ $L['paypro_header_expire'] = 'PRO is available to';
 $L['paypro_header_expire_short'] = 'PRO to';
 $L['paypro_header_extend'] = 'Extend';
 
-$L['paypro_warning_projectslimit_empty'] = 'You can no longer publish projects. Maximum number of projects for the publication is: '.$cfg['plugin']['paypro']['projectslimit'].' night. To remove this restriction, use PRO-service account.';
-$L['paypro_warning_offerslimit_empty'] = 'You can no longer post project proposals. The maximum number of responses to the projects is: '.$cfg['plugin']['paypro']['offerslimit'].' night. To remove this restriction, use PRO-service account.';
+$L['paypro_warning_projectslimit_empty'] = 'You can no longer publish projects. Maximum number of projects for the publication is: '.cot::$cfg['plugin']['paypro']['projectslimit'].' night. To remove this restriction, use PRO-service account.';
+$L['paypro_warning_offerslimit_empty'] = 'You can no longer post project proposals. The maximum number of responses to the projects is: '.cot::$cfg['plugin']['paypro']['offerslimit'].' night. To remove this restriction, use PRO-service account.';
 $L['paypro_warning_onlyforpro'] = 'You can not leave suggestions for this project, as it is only available for users with PRO-account. To remove this restriction, use PRO-service account.';
 
 $L['paypro_error_username'] = 'Login empty';

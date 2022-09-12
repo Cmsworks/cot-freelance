@@ -17,20 +17,17 @@ require_once cot_langfile('usercategories', 'plug');
 // Global variables
 function cot_cfg_usercategories()
 {
-	global $cfg;
-	
-	$tpaset = str_replace("\r\n", "\n", $cfg['plugin']['usercategories']['catslimit']);
+	$tpaset = str_replace("\r\n", "\n", cot::$cfg['plugin']['usercategories']['catslimit']);
 	$tpaset = explode("\n", $tpaset);
 	$paytopset = array();
-	foreach ($tpaset as $lineset)
-	{
+    $catslimit = [];
+	foreach ($tpaset as $lineset) {
 		$lines = explode("|", $lineset);
-		$lines[0] = trim($lines[0]);
-		$lines[1] = trim($lines[1]);
-		$lines[2] = trim($lines[2]);
+		$lines[0] = (int) trim($lines[0]);
+		$lines[1] = !empty($lines[1]) ? (int) trim($lines[1]) : 0;
+		$lines[2] = !empty($lines[2]) ? (int) trim($lines[2]) : 0;
 		
-		if ($lines[0] > 0 && $lines[1] > 0 && $lines[2] > 0)
-		{	
+		if ($lines[0] > 0 && $lines[1] > 0 && $lines[2] > 0) {
 			$catslimit[$lines[0]]['default'] = $lines[1];
 			$catslimit[$lines[0]]['pro'] = $lines[2];
 		}
@@ -170,7 +167,8 @@ function cot_usercategories_treecheck($chosen, $name, $parent = '', $template = 
 			$t1->assign(array(
 				"CAT_ROW_CAT" => $row,
 				"CAT_ROW_CHECKBOX" => (is_array($chosen) && in_array($row, $chosen) || !is_array($chosen) && $row == $chosen) ? cot_checkbox($row, $name, $cattitle, '', $row) : cot_checkbox('', $name, $cattitle, '', $row),
-				"CAT_ROW_SUBCAT" => (count($subcats) > 0) ? cot_usercategories_treecheck($chosen, $name, $row, $template, $userrights, $level) : '',
+				"CAT_ROW_SUBCAT" => (!empty($subcats) && count($subcats) > 0) ?
+                    cot_usercategories_treecheck($chosen, $name, $row, $template, $userrights, $level) : '',
 			));
 			
 			if ($i18n_enabled && $i18n_notmain){

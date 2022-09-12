@@ -58,10 +58,20 @@ $title_params = array(
 	'TITLE' => empty($item['item_metatitle']) ? $item['item_title'] : $item['item_metatitle'],
 	'CATEGORY' => $structure['market'][$item['item_cat']]['title'],
 );
-$out['subtitle'] = cot_title($cfg['market']['title_market'], $title_params);
+cot::$out['subtitle'] = cot_title(cot::$cfg['market']['title_market'], $title_params);
 
-$out['desc'] = (!empty($item['item_metadesc'])) ? $item['item_metadesc'] : cot_cutstring(strip_tags(cot_parse($item['item_text'], $cfg['market']['markup'], $item['item_parser'])), 160);
-$out['meta_keywords'] = (!empty($item['item_keywords'])) ? $item['item_keywords'] : $structure['market'][$item['item_cat']]['keywords'];
+cot::$out['desc'] = (!empty($item['item_metadesc'])) ?
+    $item['item_metadesc'] :
+    cot_cutstring(strip_tags(cot_parse($item['item_text'], cot::$cfg['market']['markup'], $item['item_parser'])), 160);
+
+if (!empty($item['item_keywords'])) {
+    cot::$out['meta_keywords'] = $item['item_keywords'];
+} elseif (
+    !empty(cot::$structure['market'][$item['item_cat']]) &&
+    !empty(cot::$structure['market'][$item['item_cat']]['keywords'])
+) {
+    cot::$out['meta_keywords'] = cot::$structure['market'][$item['item_cat']]['keywords'];
+}
 
 // Building the canonical URL
 $pageurl_params = array('c' => $item['item_cat']);

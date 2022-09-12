@@ -12,6 +12,10 @@
 
 defined('COT_CODE') or die('Wrong URL.');
 
+if (empty($sitemap_freqs)) {
+    require cot_langfile('sitemap');
+}
+
 /**
  * Module Config
  */

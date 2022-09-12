@@ -18,7 +18,7 @@ Hooks=admin.config.edit.loop
 defined('COT_CODE') or die('Wrong URL');
 
 require_once cot_langfile('usergroupselector', 'plug');
-$adminhelp = $L['usergroupselector_help'];
+$adminhelp .= isset(cot::$L['usergroupselector_help']) ? cot::$L['usergroupselector_help'] : '';
 
 if ($p == 'usergroupselector' && $row['config_name'] == 'groups' && $cfg['jquery'])
 {

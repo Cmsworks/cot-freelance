@@ -247,8 +247,16 @@ $t = new XTemplate($mskin);
 // Error and message handling
 cot_display_messages($t);
 
+$formSendParams = [
+    'm' => 'edit',
+    'a' => 'update',
+    'id' => $item['item_id']
+];
+if (isset($r)) {
+    $formSendParams['r'] = $r;
+}
 $t->assign(array(
-	"PRDEDIT_FORM_SEND" => cot_url('market', "m=edit&a=update&id=" . $item['item_id'] . "&r=" . $r),
+	"PRDEDIT_FORM_SEND" => cot_url('market', $formSendParams),
 	"PRDEDIT_FORM_ID" => $item['item_id'],
 	"PRDEDIT_FORM_CAT" => cot_selectbox_structure('market', $item['item_cat'], 'rcat'),
 	"PRDEDIT_FORM_CATTITLE" => $structure['market'][$item['item_cat']]['title'],

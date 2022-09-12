@@ -9,7 +9,7 @@ Hooks=admin.config.edit.loop
 defined('COT_CODE') or die('Wrong URL');
 
 require_once cot_incfile('usercategories', 'plug');
-$adminhelp = $L['usercategories_help'];
+$adminhelp .= isset(cot::$L['usercategories_help']) ? cot::$L['usercategories_help'] : '';
 
 if ($p == 'usercategories' && $row['config_name'] == 'catslimit' && $cfg['jquery'])
 {
@@ -19,12 +19,11 @@ if ($p == 'usercategories' && $row['config_name'] == 'catslimit' && $cfg['jquery
 	$tpaset = str_replace("\r\n", "\n", $row['config_value']);
 	$tpaset = explode("\n", $tpaset);
 	$jj = 0;
-	foreach ($tpaset as $lineset)
-	{
+	foreach ($tpaset as $lineset) {
 		$lines = explode("|", $lineset);
-		$lines[0] = (int)trim($lines[0]);
-		$lines[1] = (int)trim($lines[1]);
-		$lines[2] = (int)trim($lines[2]);
+        $lines[0] = (int) trim($lines[0]);
+        $lines[1] = !empty($lines[1]) ? (int) trim($lines[1]) : 0;
+        $lines[2] = !empty($lines[2]) ? (int) trim($lines[2]) : 0;
 
 		if ($lines[0] > 0)
 		{
@@ -55,9 +54,8 @@ if ($p == 'usercategories' && $row['config_name'] == 'catslimit' && $cfg['jquery
 	));
 	$tt->parse('MAIN');
 
+    $more = isset($config_more) ? '<div id="helptext">' . $config_more . '</div>' : '';
 	$t->assign(array(
-		'ADMIN_CONFIG_ROW_CONFIG_MORE' => $tt->text('MAIN') . '<div id="helptext">' . $config_more . '</div>'
+		'ADMIN_CONFIG_ROW_CONFIG_MORE' => $tt->text('MAIN') . $more
 	));
 }
-
-?>
