@@ -692,12 +692,9 @@ function cot_getmarketlist($template = 'index', $count = 5, $sqlsearch = '',
 	$sqlsearch = !empty($sqlsearch) ? " AND " . $sqlsearch : '';
 	
 	$sqllist = $db->query("SELECT * FROM $db_market AS p LEFT JOIN $db_users AS u ON u.user_id=p.item_userid
-	WHERE item_state=0 $sqlsearch ORDER BY $order LIMIT " . (int)$count);
+	WHERE item_state=0 $sqlsearch ORDER BY $order LIMIT " . (int) $count);
 	
 	$sqllist_rowset = $sqllist->fetchAll();
-//    echo "<pre>";
-//    var_dump($sqllist_rowset);
-//    echo "</pre>";
 
 	$sqllist_idset = array();
 	foreach($sqllist_rowset as $item)

@@ -50,7 +50,7 @@
  * market module
  *
  * @package market
- * @version 2.6.0
+ * @version 2.6.1
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru, littledev.ru
  * @license BSD
