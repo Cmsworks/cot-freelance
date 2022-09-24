@@ -48,7 +48,7 @@ if ($cfg['market']['marketsearch'] && ($tab == 'market' || empty($tab)) && cot_m
 	}
 	$where_and['state'] = "item_state = 0";
 	$where_and['date'] = ($rs['setlimit'] > 0) ? "item_date >= ".$rs['setfrom']." AND item_date <= ".$rs['setto'] : "";
-	$where_and['users'] = (!empty($touser)) ? "item_userid ".$touser_ids : "";
+	$where_and['users'] = (!empty($touser)) ? "item_userid " . $touser : "";
 
 	$where_or['title'] = ($rs['markettitle'] == 1) ? "item_title LIKE '".cot::$db->prep($sqlsearch)."'" : "";
 	$where_or['text'] = (($rs['markettext'] == 1)) ? "item_text LIKE '".cot::$db->prep($sqlsearch)."'" : "";
@@ -80,15 +80,17 @@ if ($cfg['market']['marketsearch'] && ($tab == 'market' || empty($tab)) && cot_m
     $search_join_condition = (!empty($search_join_condition)) ? $search_join_condition : '';
     $search_union_query = (!empty($search_union_query)) ? $search_union_query : '';
 
-	$sqllist = $db->query("SELECT SQL_CALC_FOUND_ROWS m.* $search_join_columns
+    $query = "SELECT SQL_CALC_FOUND_ROWS m.* $search_join_columns
 		FROM $db_market AS m $search_join_condition
 		WHERE $where
 		ORDER BY item_".$rs['marketsort']." ".$rs['marketsort2']."
 		LIMIT $d, ".$cfg_maxitems
-			.$search_union_query);
+        .$search_union_query;
+
+	$sqllist = cot::$db->query($query);
 
 	$items = $sqllist->rowCount();
-	$totalitems[] = $db->query('SELECT FOUND_ROWS()')->fetchColumn();
+	$totalitems[] = cot::$db->query('SELECT FOUND_ROWS()')->fetchColumn();
 	$jj = 0;
 		
 	$sqllist_rowset = $sqllist->fetchAll();
