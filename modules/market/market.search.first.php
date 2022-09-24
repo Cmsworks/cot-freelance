@@ -60,7 +60,14 @@ if (cot::$cfg['market']['marketsearch']) {
 		/* ===== */
 
 		$t->assign(array(
-			'PLUGIN_MARKET_SEC_LIST' => cot_selectbox($rs['marketsub'], 'rs[marketsub][]', array_keys($market_cat_list), array_values($market_cat_list), false, 'multiple="multiple" style="width:50%"'),
+			'PLUGIN_MARKET_SEC_LIST' => cot_selectbox(
+                $rs['marketsub'],
+                'rs[marketsub][]',
+                array_keys($market_cat_list),
+                array_values($market_cat_list),
+                false,
+                'multiple="multiple"'
+            ),
 			'PLUGIN_MARKET_RES_SORT' => cot_selectbox(
                 $rs['marketsort'],
                 'rs[marketsort]',
