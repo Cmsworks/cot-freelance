@@ -1,5 +1,4 @@
 <?php
-
 /**
  * [BEGIN_COT_EXT]
  * Hooks=search.list
@@ -10,7 +9,6 @@
  * market module
  *
  * @package market
- * @version 2.5.2
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru, littledev.ru
  * @license BSD
@@ -18,8 +16,7 @@
 
 defined('COT_CODE') or die('Wrong URL.');
 
-if ($cfg['market']['marketsearch'] && ($tab == 'market' || empty($tab)) && cot_module_active('market') && !cot_error_found())
-{
+if (cot::$cfg['market']['marketsearch'] && (empty($tab) || $tab == 'market') && !cot_error_found()) {
 	if ($rs['marketsub'][0] != 'all' && count($rs['marketsub']) > 0)
 	{
 		if ($rs['marketsubcat'])
@@ -60,11 +57,6 @@ if ($cfg['market']['marketsearch'] && ($tab == 'market' || empty($tab)) && cot_m
         }
 		$where_or[$addfields_el] = $addfields_el." LIKE '" . cot::$db->prep($sqlsearch) . "'";
 	}
-	$where_or = array_diff($where_or, array(''));
-	count($where_or) || $where_or['title'] = "item_title LIKE '".cot::$db->prep($sqlsearch)."'";
-	$where_and['or'] = '('.implode(' OR ', $where_or).')';
-	$where_and = array_diff($where_and, array(''));
-	$where = implode(' AND ', $where_and);
 
 	/* === Hook === */
 	foreach (cot_getextplugins('market.search.query') as $pl) {
@@ -75,6 +67,12 @@ if ($cfg['market']['marketsearch'] && ($tab == 'market' || empty($tab)) && cot_m
 	if (!$db->fieldExists($db_market, 'item_'.$rs['marketsort'])) {
 		$rs['marketsort'] = 'date';
 	}
+
+    $where_or = array_diff($where_or, array(''));
+    count($where_or) || $where_or['title'] = "item_title LIKE '".cot::$db->prep($sqlsearch)."'";
+    $where_and['or'] = '('.implode(' OR ', $where_or).')';
+    $where_and = array_diff($where_and, array(''));
+    $where = implode(' AND ', $where_and);
 
     $search_join_columns = (!empty($search_join_columns)) ? $search_join_columns : '';
     $search_join_condition = (!empty($search_join_condition)) ? $search_join_condition : '';

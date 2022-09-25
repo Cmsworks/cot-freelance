@@ -1,10 +1,8 @@
 <?php
-
 /**
  * Location Selector for Cotonti
  *
  * @package locationselector
- * @version 2.0.0
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru, littledev.ru
  * @license BSD
@@ -251,6 +249,4 @@ function cot_import_location($source = 'P')
 
 cot_load_location();
 
-//$cot_location - удалить 
-
-?>
+//$cot_location - удалить
