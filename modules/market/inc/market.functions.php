@@ -678,10 +678,7 @@ function cot_market_update($id, &$ritem, $auth = array())
 	return true;
 }
 
-
-
-function cot_getmarketlist($template = 'index', $count = 5, $sqlsearch = '',
-							 $order = "item_date DESC")
+function cot_getmarketlist($template = 'index', $count = 5, $sqlsearch = '', $order = "item_date DESC")
 {
 	global $db, $db_market, $cfg, $db_users;
 	
@@ -690,7 +687,7 @@ function cot_getmarketlist($template = 'index', $count = 5, $sqlsearch = '',
 	$t = new XTemplate(cot_tplfile(array('market', $template), 'module'));
 	
 	$sqlsearch = !empty($sqlsearch) ? " AND " . $sqlsearch : '';
-	
+
 	$sqllist = $db->query("SELECT * FROM $db_market AS p LEFT JOIN $db_users AS u ON u.user_id=p.item_userid
 	WHERE item_state=0 $sqlsearch ORDER BY $order LIMIT " . (int) $count);
 	
