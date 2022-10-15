@@ -29,10 +29,7 @@
  * PayPro Plugin
  *
  * @package paypro
- * @version 1.2.3
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru, littledev.ru
  * @license BSD
  */
-
-?>

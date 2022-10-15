@@ -180,16 +180,12 @@ class mavatar
 	{
 		global $db_mavatars, $db, $usr, $sys;
 
-		if($this->mode == 'edit')
-		{
-			if($usr['id'] == 0)
-			{
+        $query_string = '';
+		if ($this->mode == 'edit') {
+			if ($usr['id'] == 0) {
 				$query_string = " AND mav_sessid='".cot_import('PHPSESSID', 'C', 'TXT')."'";
-			}
-			else
-			{
-				if(!$usr['isadmin'])
-				{
+			} else {
+				if(!$usr['isadmin']) {
 					$query_string = " AND mav_userid=".$usr['id'];
 				}
 			}
@@ -212,6 +208,7 @@ class mavatar
 		return "SELECT * FROM $db_mavatars WHERE mav_extension ='".$db->prep($this->extension)."' AND
 			mav_code = '".$db->prep($this->code)."' $query_string ORDER BY mav_order ASC, mav_item ASC";
 	}
+
 	private function mavatars_queryid($id)
 	{
 		global $db_mavatars, $db;

@@ -36,12 +36,9 @@
  * Payments module
  *
  * @package payments
- * @version 2.0.4
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru
  * @license BSD
  */
 
 defined('COT_CODE') or die('Wrong URL');
-
-?>

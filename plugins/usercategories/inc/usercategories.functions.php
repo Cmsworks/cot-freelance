@@ -270,18 +270,16 @@ function cot_usercategories_tree($chosen = '', $parent = '', $template = '', $le
 	$extp = cot_getextplugins('usercategories.tree.loop');
 	/* ===== */
 
-	foreach ($children as $row)
-	{
+	foreach ($children as $row) {
 		$jj++;
-		$subcats = $structure['usercategories'][$row]['subcats'];
+		$subcats = !empty($structure['usercategories'][$row]['subcats']) ?
+            $structure['usercategories'][$row]['subcats'] : [];
 		$urlparams['cat'] = $row;
 		
-		if(is_array($subcats))
-		{
-			$parent_selected = (is_array($chosen)) ? (bool)count(array_intersect($subcats, $chosen)) : in_array($chosen, $subcats);
-		}
-		else
-		{
+		if (is_array($subcats)) {
+			$parent_selected = (is_array($chosen)) ?
+                (bool) count(array_intersect($subcats, $chosen)) : in_array($chosen, $subcats);
+        } else {
 			$parent_selected = false;
 		}
 

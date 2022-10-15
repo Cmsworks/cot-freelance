@@ -36,6 +36,7 @@ function cot_load_location()
 		$cot_lf_cities = array();
 		$cot_lf_regions = array();
 		$cot_lf_locations = array();
+        $countriesfilter = [];
 		if (!empty($cfg['plugin']['locationselector']['countriesfilter']) && $cfg['plugin']['locationselector']['countriesfilter'] != 'all')
 		{
 			$countriesfilter = str_replace(' ', '', $cfg['plugin']['locationselector']['countriesfilter']);
@@ -182,23 +183,26 @@ function cot_select_location($country = '', $region = 0, $city = 0, $userdefault
 	global $cfg, $L, $R, $usr;
 
 	$countriesfilter = array();
-	if (!empty($cfg['plugin']['locationselector']['countriesfilter']) &&  $cfg['plugin']['locationselector']['countriesfilter'] != 'all')
-	{
+    $disabled = '';
+
+	if (
+        !empty($cfg['plugin']['locationselector']['countriesfilter']) &&
+        $cfg['plugin']['locationselector']['countriesfilter'] != 'all'
+    ) {
 		$countriesfilter = str_replace(' ', '', $cfg['plugin']['locationselector']['countriesfilter']);
 		$countriesfilter = explode(',', $countriesfilter);
 		$disabled = (count($countriesfilter) == 1) ? 'disabled="disabled" ' : '';
 		$country = (count($countriesfilter) == 1) ? $countriesfilter[0] : $country;
 	}
 	
-	if ($userdefault && $usr['id'] > 0 && $country == '' && $region == 0 && $city == 0)
-	{
+	if ($userdefault && $usr['id'] > 0 && $country == '' && $region == 0 && $city == 0) {
 		$country = $usr['profile']['user_country'];
 		$region = $usr['profile']['user_region'];
 		$city = $usr['profile']['user_city'];
 	}
 	
 	$countries = cot_getcountries($countriesfilter);
-	if($countries){
+	if ($countries) {
 		$countries = array(0 => $L['select_country']) + $countries;
 		$country_selectbox = cot_selectbox($country, 'country', array_keys($countries), array_values($countries), 
 			false, $disabled . 'class="locselectcountry form-control" id="locselectcountry"');

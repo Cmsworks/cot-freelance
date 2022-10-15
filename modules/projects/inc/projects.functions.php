@@ -1,10 +1,8 @@
 <?php
-
 /**
  * projects module
  *
  * @package projects
- * @version 2.5.8
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru, littledev.ru
  * @license BSD
@@ -12,7 +10,7 @@
 
 defined('COT_CODE') or die('Wrong URL');
 
-list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('projects', 'any', 'RWA');
+list(cot::$usr['auth_read'], cot::$usr['auth_write'], cot::$usr['isadmin']) = cot_auth('projects', 'any', 'RWA');
 
 // Requirements
 require_once cot_langfile('projects', 'module');
@@ -29,7 +27,8 @@ cot::$db->registerTable('projects_posts');
 cot_extrafields_register_table('projects');
 cot_extrafields_register_table('projects_offers');
 
-$structure['projects'] = (is_array($structure['projects'])) ? $structure['projects'] : array();
+cot::$structure['projects'] = (!empty(cot::$structure['projects']) && is_array(cot::$structure['projects'])) ?
+    cot::$structure['projects'] : [];
 
 /**
  * Update projects categories counters
@@ -163,7 +162,7 @@ function cot_build_structure_projects_tree($parent = '', $selected = '', $level 
 	{
 		$jj++;
 		$urlparams['c'] = $row;
-		$subcats = $structure['projects'][$row]['subcats'];
+		$subcats = !empty($structure['projects'][$row]['subcats']) ? $structure['projects'][$row]['subcats'] : [];
 		$t1->assign(array(
 			"ROW_CAT" => $row,
 			"ROW_TITLE" => htmlspecialchars($structure['projects'][$row]['title']),
@@ -777,6 +776,6 @@ function cot_projects_selectcat($check, $name, $subcat = '', $hideprivate = true
 	return($result);
 }
 
-if (cot::$cfg['projects']['markup'] == 1) {
-  $prjeditor = isset(cot::$cfg['projects']['prjeditor']) ? cot::$cfg['projects']['prjeditor'] : null;
+if (!empty(cot::$cfg['projects']['markup']) && cot::$cfg['projects']['markup'] == 1) {
+    $prjeditor = isset(cot::$cfg['projects']['prjeditor']) ? cot::$cfg['projects']['prjeditor'] : null;
 }

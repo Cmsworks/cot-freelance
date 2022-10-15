@@ -1,5 +1,4 @@
 <?php
-
 /**
  * [BEGIN_COT_EXT]
  * Code=mavatars

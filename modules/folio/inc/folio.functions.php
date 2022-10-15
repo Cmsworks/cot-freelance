@@ -1,10 +1,8 @@
 <?php
-
 /**
  * folio module
  *
  * @package folio
- * @version 2.5.8
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru, littledev.ru
  * @license BSD
@@ -12,7 +10,7 @@
 
 defined('COT_CODE') or die('Wrong URL');
 
-list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('folio', 'any', 'RWA');
+list(cot::$usr['auth_read'], cot::$usr['auth_write'], cot::$usr['isadmin']) = cot_auth('folio', 'any', 'RWA');
 
 // Requirements
 require_once cot_langfile('folio', 'module');
@@ -24,7 +22,8 @@ cot::$db->registerTable('folio');
 
 cot_extrafields_register_table('folio');
 
-$structure['folio'] = (is_array($structure['folio'])) ? $structure['folio'] : array();
+cot::$structure['folio'] = (!empty(cot::$structure['folio']) && is_array(cot::$structure['folio'])) ?
+    cot::$structure['folio'] : [];
 
 /**
  * Update product categories counters
@@ -740,6 +739,6 @@ function cot_folio_selectcat($check, $name, $subcat = '', $hideprivate = true)
 	return($result);
 }
 
-if (cot::$cfg['folio']['markup'] == 1) {
+if (!empty(cot::$cfg['folio']['markup']) && cot::$cfg['folio']['markup'] == 1) {
   $folioeditor = isset(cot::$cfg['folio']['folioeditor']) ? cot::$cfg['folio']['folioeditor'] : null;
 }

@@ -1,10 +1,8 @@
 <?php
-
 /**
  * market module
  *
  * @package market
- * @version 2.5.7
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru, littledev.ru
  * @license BSD
@@ -12,7 +10,7 @@
 
 defined('COT_CODE') or die('Wrong URL');
 
-list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('market', 'any', 'RWA');
+list(cot::$usr['auth_read'], cot::$usr['auth_write'], cot::$usr['isadmin']) = cot_auth('market', 'any', 'RWA');
 
 // Requirements
 require_once cot_langfile('market', 'module');
@@ -24,7 +22,8 @@ cot::$db->registerTable('market');
 
 cot_extrafields_register_table('market');
 
-$structure['market'] = (is_array($structure['market'])) ? $structure['market'] : array();
+cot::$structure['market'] = (!empty(cot::$structure['market']) && is_array(cot::$structure['market'])) ?
+    cot::$structure['market'] : [];
 
 /**
  * Update market categories counters
@@ -82,10 +81,6 @@ function cot_market_auth($cat = null)
 	list($auth['auth_read'], $auth['auth_write'], $auth['isadmin']) = cot_auth('market', $cat, 'RWA1');
 	return $auth;
 }
-
-
-
-
 
 function cot_build_structure_market_tree($parent = '', $selected = '', $level = 0, $template = '')
 {
@@ -266,7 +261,7 @@ function cot_generate_markettags($item_data, $tag_prefix = '', $textlength = 0, 
 		$item_data['item_pageurl'] = (empty($item_data['item_alias'])) ? 
 			cot_url('market', 'c='.$item_data['item_cat'].'&id='.$item_data['item_id']) : cot_url('market', 'c='.$item_data['item_cat'].'&al='.$item_data['item_alias']);
 		
-		$catpatharray[] = array(cot_url('market'), $L['market']);
+		$catpatharray[] = array(cot_url('market'), cot::$L['market']);
 		$itempatharray[] = array($item_data['item_pageurl'], $item_data['item_title']);
 
 		$patharray = array_merge($catpatharray, cot_structure_buildpath('market', $item_data['item_cat']), $itempatharray);
@@ -756,6 +751,6 @@ function cot_market_selectcat($check, $name, $subcat = '', $hideprivate = true, 
 	return($result);
 }
 
-if (cot::$cfg['market']['markup'] == 1) {
-  $prdeditor = isset(cot::$cfg['market']['prdeditor']) ? cot::$cfg['market']['prdeditor'] : null;
+if (!empty(cot::$cfg['market']['markup']) && cot::$cfg['market']['markup'] == 1) {
+    $prdeditor = isset(cot::$cfg['market']['prdeditor']) ? cot::$cfg['market']['prdeditor'] : null;
 }
