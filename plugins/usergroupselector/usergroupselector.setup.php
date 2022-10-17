@@ -26,7 +26,6 @@
  * plugin User Group Selector for Cotonti Siena
  * 
  * @package usergroupselector
- * @version 1.0.3
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru, littledev.ru
  * @license BSD

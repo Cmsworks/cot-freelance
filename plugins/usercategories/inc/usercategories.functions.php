@@ -380,35 +380,32 @@ function cot_usercategories_catlist($cats, $template = ''){
  * Select users cat for search from
  * 
  * @global array $structure
- * @param type $check
- * @param type $name
- * @param type $subcat
- * @param type $hideprivate
- * @return type
+ * @param $check
+ * @param string $name
+ * @param string $subcat
+ * @param bool $hideprivate
+ * @return string
  */
 function cot_usercategories_selectcat($check, $name, $subcat = '', $hideprivate = true)
 {
 	global $structure;
 
-	$structure['usercategories'] = (is_array($structure['usercategories'])) ? $structure['usercategories'] : array();
+	cot::$structure['usercategories'] = (!empty(cot::$structure['usercategories']) && is_array(cot::$structure['usercategories'])) ?
+        cot::$structure['usercategories'] : [];
 
 	$result_array = array();
-	foreach ($structure['usercategories'] as $i => $x)
-	{
+	foreach (cot::$structure['usercategories'] as $i => $x) {
 		$display = ($hideprivate) ? cot_auth('usercategories', $i, 'R') : true;
-		if ($display && !empty($subcat) && isset($structure['usercategories'][$subcat]))
-		{
-			$mtch = $structure['usercategories'][$subcat]['path'].".";
+		if ($display && !empty($subcat) && isset(cot::$structure['usercategories'][$subcat])) {
+			$mtch = cot::$structure['usercategories'][$subcat]['path'].".";
 			$mtchlen = mb_strlen($mtch);
 			$display = (mb_substr($x['path'], 0, $mtchlen) == $mtch || $i === $subcat);
 		}
 
-		if ((!$is_module || cot_auth('usercategories', $i, 'R')) && $i!='all' && $display)
-		{
+		if ($i != 'all' && $display && cot_auth('usercategories', $i, 'R')) {
 			$result_array[$i] = $x['tpath'];
 		}
 	}
-	$result = cot_selectbox($check, $name, array_keys($result_array), array_values($result_array), true);
 
-	return($result);
+    return cot_selectbox($check, $name, array_keys($result_array), array_values($result_array), true);
 }

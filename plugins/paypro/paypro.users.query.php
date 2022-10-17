@@ -1,5 +1,4 @@
 <?php
-
 /**
  * [BEGIN_COT_EXT]
  * Hooks=users.query
@@ -10,7 +9,6 @@
  * PayPro plugin
  *
  * @package paypro
- * @version 1.0
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru, littledev.ru
  * @license BSD
@@ -19,7 +17,8 @@ defined('COT_CODE') or die('Wrong URL.');
 
 require_once cot_incfile('paypro', 'plug');
 
+if (!isset($join_columns)) {
+    $join_columns = '';
+}
 $join_columns .= ', (user_pro > 0) as ispro';
 $sqlorder = "ispro DESC";
-
-?>

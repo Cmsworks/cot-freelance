@@ -19,7 +19,7 @@ defined('COT_CODE') or die('Wrong URL');
 
 require_once cot_langfile('usergroupselector', 'plug');
 
-if(($cfg['plugin']['usergroupselector']['allowchange'] || $cfg['plugin']['usergroupselector']['required']) 
+if (($cfg['plugin']['usergroupselector']['allowchange'] || $cfg['plugin']['usergroupselector']['required'])
 	&& !empty($cfg['plugin']['usergroupselector']['groups'])
 	&& $urr['user_maingrp'] != COT_GROUP_SUPERADMINS 
 	&& $urr['user_maingrp'] != COT_GROUP_MODERATORS)
