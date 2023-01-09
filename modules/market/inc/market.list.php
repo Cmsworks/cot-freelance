@@ -136,7 +136,12 @@ $catpath = cot_breadcrumbs($catpatharray, $cfg['homebreadcrumb'], true);
 
 $t->assign(array(
 	"SEARCH_ACTION_URL" => cot_url('market', '', '', true),
-	"SEARCH_SQ" => cot_inputbox('text', 'sq', htmlspecialchars($sq), 'class="schstring"'),
+	"SEARCH_SQ" => cot_inputbox(
+        'text',
+        'sq',
+        !empty($sq) ? htmlspecialchars($sq) : '',
+        'class="schstring"'
+    ),
 	"SEARCH_CAT" => cot_market_selectcat($c, 'c'),
 	"SEARCH_SORTER" => cot_selectbox($sort, "sort", array('', 'costasc', 'costdesc'), array($L['market_mostrelevant'], $L['market_costasc'], $L['market_costdesc']), false),
 	"PAGENAV_PAGES" => $pagenav['main'],

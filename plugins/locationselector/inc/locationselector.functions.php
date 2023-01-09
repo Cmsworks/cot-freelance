@@ -106,13 +106,15 @@ function cot_getcountries($countriesfilter = array())
 function cot_getregions($country)
 {
 	global $cot_lf_regions, $cot_lf_locations;
-	$regions = array();
-	$cot_lf_locations[$country] = (is_array($cot_lf_locations[$country])) ? $cot_lf_locations[$country] : array();
-	foreach ($cot_lf_locations[$country] as $i => $reg)
-	{
+
+	$regions = [];
+	$cot_lf_locations[$country] = (!empty($cot_lf_locations[$country]) && is_array($cot_lf_locations[$country])) ?
+        $cot_lf_locations[$country] : [];
+	foreach ($cot_lf_locations[$country] as $i => $reg) {
 		$regions[$i] = $cot_lf_regions[$i];
 	}
 	asort($regions);
+
 	return $regions;
 }
 

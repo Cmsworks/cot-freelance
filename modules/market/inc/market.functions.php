@@ -308,12 +308,18 @@ function cot_generate_markettags($item_data, $tag_prefix = '', $textlength = 0, 
 			'USER_IS_ADMIN' => ($admin_rights || $usr['id'] == $item_data['item_userid']),
 		);
 
-		if ($admin_rights || $usr['id'] == $item_data['item_userid'])
-		{
+		if ($admin_rights || cot::$usr['id'] == $item_data['item_userid']) {
+            $deleteUrl = cot_url(
+                'market',
+                ['m' => 'edit', 'a' => 'update', 'delete' => '1', 'id' => $item_data['item_id'], 'x' => cot::$sys['xk'],]
+            );
+            $deleteConfirmUrl = cot_confirm_url($deleteUrl, 'market');
 			$temp_array['ADMIN_EDIT'] = cot_rc_link(cot_url('market', 'm=edit&id=' . $item_data['item_id']), $L['Edit']);
 			$temp_array['ADMIN_EDIT_URL'] = cot_url('market', 'm=edit&id=' . $item_data['item_id']);
 			$temp_array['HIDEPRODUCT_URL'] = cot_url('market', 'm=edit&id=' . $item_data['item_id'] .	(($item_data['item_state'] == 1) ? '&a=public' : '&a=hide'));
 			$temp_array['HIDEPRODUCT_TITLE'] = ($item_data['item_state'] == 1) ? $L['Publish'] : $L['Hide'];
+            $temp_array['ADMIN_DELETE'] = cot_rc_link($deleteConfirmUrl, cot::$L['Delete'], 'class="confirmLink"');
+            $temp_array['ADMIN_DELETE_URL'] = $deleteConfirmUrl;
 		}
 
 		// Extrafields
