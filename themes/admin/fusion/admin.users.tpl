@@ -1,5 +1,4 @@
 <!-- BEGIN: MAIN -->
-		<h2>{PHP.L.Users}</h2>
 		{FILE "{PHP.cfg.themes_dir}/admin/{PHP.cfg.admintheme}/warnings.tpl"}
 
 		<div class="block btn-toolbar">

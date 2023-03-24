@@ -2,6 +2,7 @@
 		<h2>{PHP.L.Rights}</h2>
 		{FILE "{PHP.cfg.themes_dir}/admin/{PHP.cfg.admintheme}/warnings.tpl"}
 		<form name="saverights" id="saverights" action="{ADMIN_RIGHTS_FORM_URL}" method="post" class="ajax">
+			{ADMIN_RIGHTS_FORM_ITEMS}
 			<!-- IF {PHP.g} > 5 -->
 			<table class="cells table">
 				<tr>

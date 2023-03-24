@@ -22,46 +22,6 @@
 <hr/>
 
 <div class="row">
-	<div class="span8">
-		<div class="block">
-			<h3>Cotonti</h3>
-			<table class="cells table table-bordered table-striped">
-				<tr>
-					<td class="width80">{PHP.L.Version}</td>
-					<td class="textcenter width20">{ADMIN_HOME_VERSION}</td>
-				</tr>
-				<tr>
-					<td>{PHP.L.Database}</td>
-					<td class="textcenter">{ADMIN_HOME_DB_VERSION}</td>
-				</tr>
-				<tr>
-					<td>{PHP.L.home_db_rows}</td>
-					<td class="textcenter">{ADMIN_HOME_DB_TOTAL_ROWS}</td>
-				</tr>
-				<tr>
-					<td>{PHP.L.home_db_indexsize}</td>
-					<td class="textcenter">{ADMIN_HOME_DB_INDEXSIZE}</td>
-				</tr>
-				<tr>
-					<td>{PHP.L.home_db_datassize}</td>
-					<td class="textcenter">{ADMIN_HOME_DB_DATASSIZE}</td>
-				</tr>
-				<tr>
-					<td>{PHP.L.home_db_totalsize}</td>
-					<td class="textcenter">{ADMIN_HOME_DB_TOTALSIZE}</td>
-				</tr>
-				<tr>
-					<td>{PHP.L.Plugins}</td>
-					<td class="textcenter">{ADMIN_HOME_TOTALPLUGINS}</td>
-				</tr>
-				<tr>
-					<td>{PHP.L.Hooks}</td>
-					<td class="textcenter">{ADMIN_HOME_TOTALHOOKS}</td>
-				</tr>
-			</table>
-		</div>
-	</div>
-
 	<div class="span4">
 		<div class="block">
 			<h3>{PHP.L.home_ql_b1_title}</h3>
