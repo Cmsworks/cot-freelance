@@ -155,7 +155,8 @@ function cot_usercategories_treecheck($chosen, $name, $parent = '', $template = 
 	foreach ($children as $row)
 	{
 		if(cot_auth('usercategories', $row, $userrights)){
-			$subcats = $structure['usercategories'][$row]['subcats'];
+			$subcats = isset($structure['usercategories'][$row]['subcats']) ?
+                $structure['usercategories'][$row]['subcats'] : [];
 			$cattitle = htmlspecialchars($structure['usercategories'][$row]['title']);
 			if ($i18n_enabled && $i18n_notmain){
 				$x_i18n = cot_i18n_get_cat($row, $i18n_locale);
@@ -217,7 +218,7 @@ function cot_usercategories_tree($chosen = '', $parent = '', $template = '', $le
 		return false;
 	}
 	
-	if(!is_array($chosen)){
+	if (!empty($chosen) && is_array($chosen)) {
 		$chosen = explode(',', $chosen);
 	}
 	
