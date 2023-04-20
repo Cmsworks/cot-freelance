@@ -34,8 +34,11 @@
 				<!-- IF {PHP.cot_modules.projects} -->
 				<li<!-- IF {PHP.tab} == 'projects' --> class="active"<!-- ENDIF -->><a href="{USERS_DETAILS_PROJECTS_URL}#tab_projects" data-toggle="tab">{PHP.L.projects_projects} {USERS_DETAILS_PROJECTS_COUNT}</a></li>
 				<!-- ENDIF -->
-				<!-- IF {PHP.cot_plugins_active.reviews} -->
+				<!-- IF {PHP.cot_plugins_enabled.reviews} -->
 				<li<!-- IF {PHP.tab} == 'reviews' --> class="active"<!-- ENDIF -->><a href="{USERS_DETAILS_REVIEWS_URL}#tab_reviews" data-toggle="tab">{PHP.L.reviews_reviews} {USERS_DETAILS_REVIEWS_COUNT}</a></li>
+				<!-- ENDIF -->
+				<!-- IF {PHP.cot_plugins_enabled.sbr} -->
+				<li><a href="{USERS_DETAILS_ID|cot_url('sbr', 'm=add&uid='$this)}">Предложить сделку</a></li>
 				<!-- ENDIF -->
 			</ul>
 		</div>

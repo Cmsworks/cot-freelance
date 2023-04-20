@@ -1,5 +1,4 @@
 <!-- BEGIN: MAIN -->
-
 <div class="breadcrumb">{SBREDIT_TITLE}</div>
 <h1>{SBREDIT_SUBTITLE}</h1>
 <div class="row">
@@ -21,13 +20,21 @@
 			<div id="sbrstageslist">
 				<!-- BEGIN: STAGE_ROW -->
 				<div class="stageblock<!-- IF {STAGEEDIT_FORM_NUM} == {PHP.stagescount} --> laststage<!-- ENDIF --> well">
-					<div class="removestage pull-right<!-- IF {STAGEEDIT_FORM_NUM} == 1 --> hidden<!-- ENDIF -->"><i class="icon icon-remove" onclick="SbrRemoveStage(this); return false;"></i></div>
+					<!-- IF {PHP.cfg.plugin.sbr.stages_on} == 1 -->
+					<div class="removestage pull-right<!-- IF {STAGEEDIT_FORM_NUM} == 1 --> hidden<!-- ENDIF -->">
+						<i class="icon icon-remove" onclick="SbrRemoveStage(this); return false;"></i>
+					</div>
 					<h5>{PHP.L.sbr_stage} № <span class="stagenum">{STAGEEDIT_FORM_NUM}</span></h5>
+					<!-- ELSE -->
+					<span class="hidden stagenum">{STAGEADD_FORM_NUM}</span>
+					<!-- ENDIF -->
 					<table class="table customform">
+						<!-- IF {PHP.cfg.plugin.sbr.stages_on} == 1 -->
 						<tr>
 							<td class="width30"><b>{PHP.L.sbr_stagetitle}</b></td>
 							<td class="width70">{STAGEEDIT_FORM_TITLE}</td>
 						</tr>
+						<!-- ENDIF -->
 						<tr>
 							<td class="width30"><b>{PHP.L.sbr_stagetext}</b></td>
 							<td class="width70">
@@ -54,6 +61,15 @@
 							<td>{STAGEEDIT_FORM_COST}</td>
 						</tr>
 						<tr>
+							<td class="width30"><b>Срок исполнения</b></td>
+							<td>
+								{STAGEEDIT_FORM_EXPIRE}
+								<p class="text-muted">
+									Нужно указать дату окончания срока исполнения или количество дней в поле ниже
+								</p>
+							</td>
+						</tr>
+						<tr>
 							<td class="width30"><b>{PHP.L.sbr_stagedays} ({PHP|cot_declension(0, 'Days', true)})</b>
 								<!-- IF {PHP.PHP.cfg.plugin.sbr.maxdays} > 0 -->
 								<p class="small">{PHP.L.sbr_maxdays} {PHP.cfg.plugin.sbr.maxdays|cot_declension($this, 'Days')}</p>
@@ -65,9 +81,13 @@
 				</div>
 				<!-- END: STAGE_ROW -->
 			</div>
+			<!-- IF {PHP.cfg.plugin.sbr.stages_on} == 1 -->
 			<p>
-				<a href="javascript:void(0);" onclick="SbrAddNewStage(); return false;"><i class="icon icon-plus"></i>{PHP.L.sbr_addstagelink}</a>
+				<a href="javascript:void(0);" onclick="SbrAddNewStage(); return false;">
+					<i class="icon icon-plus"></i>{PHP.L.sbr_addstagelink}
+				</a>
 			</p>
+			<!-- ENDIF -->
 			<div class="well">
 				<h4>{PHP.L.sbr_calc_title}</h4>
 				<table class="table">
@@ -116,6 +136,7 @@
 		});
 	});
 
+	<!-- IF {PHP.cfg.plugin.sbr.stages_on} == 1 -->
 	function SbrRemoveStage(obj)
 	{
 		$(obj).parent().parent().remove();
@@ -160,7 +181,7 @@
 		});
 
 	}
-	
+	<!-- ENDIF -->
 	function StageFileAdd(obj)
 	{
 		var stagenum = $(obj).closest('.stageblock').find('.stagenum').text();
@@ -180,7 +201,5 @@
 	{
 		$(obj).parent().remove();
 	}
-
 </script>
-
 <!-- END: MAIN -->

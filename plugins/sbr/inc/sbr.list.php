@@ -86,16 +86,15 @@ $sqllist_rowset = $sqllist->fetchAll();
 $extp = cot_getextplugins('sbr.list.loop');
 /* ===== */
 
-foreach ($sqllist_rowset as $sbr)
-{
+$jj = 0;
+foreach ($sqllist_rowset as $sbr) {
 	$jj++;
 	$t->assign(cot_generate_usertags($sbr['sbr_employer'], 'SBR_ROW_EMPLOYER_'));
 	$t->assign(cot_generate_usertags($sbr['sbr_performer'], 'SBR_ROW_PERFORMER_'));
 	$t->assign(cot_generate_sbrtags($sbr, 'SBR_ROW_'));
 
 	/* === Hook - Part2 : Include === */
-	foreach ($extp as $pl)
-	{
+	foreach ($extp as $pl) {
 		include $pl;
 	}
 	/* ===== */
@@ -104,8 +103,7 @@ foreach ($sqllist_rowset as $sbr)
 }
 
 /* === Hook === */
-foreach (cot_getextplugins('sbr.list.tags') as $pl)
-{
+foreach (cot_getextplugins('sbr.list.tags') as $pl) {
 	include $pl;
 }
 /* ===== */

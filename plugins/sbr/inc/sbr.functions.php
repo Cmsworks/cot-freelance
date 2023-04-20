@@ -17,13 +17,15 @@ require_once cot_incfile('sbr', 'plug', 'resources');
 
 // Global variables
 global $db_sbr, $db_sbr_stages, $db_sbr_claims, $db_x;
-$db_sbr = (isset($db_sbr)) ? $db_sbr : $db_x . 'sbr';
-$db_sbr_stages = (isset($db_sbr_stages)) ? $db_sbr_stages : $db_x . 'sbr_stages';
-$db_sbr_posts = (isset($db_sbr_posts)) ? $db_sbr_posts : $db_x . 'sbr_posts';
-$db_sbr_claims = (isset($db_sbr_claims)) ? $db_sbr_claims : $db_x . 'sbr_claims';
-$db_sbr_files = (isset($db_sbr_files)) ? $db_sbr_files : $db_x . 'sbr_files';
 
-$cot_extrafields[$db_sbr] = (!empty($cot_extrafields[$db_sbr])) ? $cot_extrafields[$db_sbr] : array();
+// Register tables
+cot::$db->registerTable('sbr');
+cot::$db->registerTable('sbr_stages');
+cot::$db->registerTable('sbr_posts');
+cot::$db->registerTable('sbr_claims');
+cot::$db->registerTable('sbr_files');
+
+cot_extrafields_register_table('sbr');
 
 
 function cot_generate_sbrtags($item_data, $tag_prefix = '', $admin_rights = null, $pagepath_home = false)
@@ -79,20 +81,20 @@ function cot_generate_sbrtags($item_data, $tag_prefix = '', $admin_rights = null
 			'COST' => $item_data['sbr_cost'],
 			'TAX' => $item_data['sbr_tax'],
 			'TOTAL' => $item_data['sbr_cost'] + $item_data['sbr_tax'],
-			'USER_IS_ADMIN' => ($admin_rights || $usr['id'] == $item_data['item_userid']),
+			'USER_IS_ADMIN' => (
+                $admin_rights
+                || (!empty($item_data['item_userid']) && cot::$usr['id'] == $item_data['item_userid'])
+            ),
 		);
 
-		if ($admin_rights || $usr['id'] == $item_data['sbr_employer'])
-		{
+		if ($admin_rights || cot::$usr['id'] == $item_data['sbr_employer']) {
 			$temp_array['ADMIN_EDIT'] = cot_rc_link(cot_url('sbr', 'm=edit&id=' . $item_data['sbr_id']), $L['Edit']);
 			$temp_array['ADMIN_EDIT_URL'] = cot_url('sbr', 'm=edit&id=' . $item_data['sbr_id']);
 		}
 
 		// Extrafields
-		if (isset($cot_extrafields[$db_sbr]))
-		{
-			foreach ($cot_extrafields[$db_sbr] as $exfld)
-			{
+		if (isset($cot_extrafields[$db_sbr])) {
+			foreach ($cot_extrafields[$db_sbr] as $exfld) {
 				$tag = mb_strtoupper($exfld['field_name']);
 				$temp_array[$tag . '_TITLE'] = isset($L['sbr_' . $exfld['field_name'] . '_title']) ? $L['sbr_' . $exfld['field_name'] . '_title'] : $exfld['field_description'];
 				$temp_array[$tag] = cot_build_extrafields_data('sbr', $exfld, $item_data['item_' . $exfld['field_name']]);
@@ -100,14 +102,11 @@ function cot_generate_sbrtags($item_data, $tag_prefix = '', $admin_rights = null
 		}
 
 		/* === Hook === */
-		foreach ($extp_main as $pl)
-		{
+		foreach ($extp_main as $pl) {
 			include $pl;
 		}
 		/* ===== */
-	}
-	else
-	{
+	} else {
 		$temp_array = array(
 			'TITLE' => (!empty($emptytitle)) ? $emptytitle : $L['Deleted'],
 			'SHORTTITLE' => (!empty($emptytitle)) ? $emptytitle : $L['Deleted'],
@@ -123,27 +122,25 @@ function cot_generate_sbrtags($item_data, $tag_prefix = '', $admin_rights = null
 	return $return_array;
 }
 
-
-
 function cot_sbr_counters()
 {
-	global $db, $db_sbr, $db_sbr_files, $usr, $R;
+	global $db_sbr, $R;
 	
-	$counters['all'] = 0;
-	
-	$sbrstat = array();
-	$sbrstat = $db->query("SELECT sbr_status as status, COUNT(*) as count FROM $db_sbr 
-		WHERE (sbr_employer=" . $usr['id'] . " OR sbr_performer=" . $usr['id'] . ") 
+	$counters = ['all' => 0,];
+
+	$sbrstat = cot::$db->query("SELECT sbr_status as status, COUNT(*) as count FROM $db_sbr 
+		WHERE (sbr_employer=" . cot::$usr['id'] . " OR sbr_performer=" . cot::$usr['id'] . ") 
 		GROUP BY sbr_status")->fetchAll();
-	foreach ($sbrstat as $stat)
-	{
-		$counters[$stat['status']] = $stat['count'];
-		$counters['all'] += $stat['count'];
-	}
+
+    if (!empty($sbrstat)) {
+        foreach ($sbrstat as $stat) {
+            $counters[$stat['status']] = $stat['count'];
+            $counters['all'] += $stat['count'];
+        }
+    }
 	
-	foreach ($R['sbr_statuses'] as $status)
-	{
-		$counters[$status] = ($counters[$status] > 0) ? $counters[$status] : 0;
+	foreach (cot::$R['sbr_statuses'] as $status) {
+		$counters[$status] = !empty($counters[$status]) ? $counters[$status] : 0;
 	}
 	
 	return $counters;
@@ -167,21 +164,16 @@ function cot_sbr_sendpost($id, $text, $to, $from = 0, $type = '', $mail = false,
 	}
 	/* ===== */
 	
-	if($db->insert($db_sbr_posts, $rpost))
-	{
+	if ($db->insert($db_sbr_posts, $rpost)) {
 		$postid = $db->lastInsertId();
 		
-		$sbr_path = $cfg['plugin']['sbr']['filepath'] . '/' . $id . '/';
-		if (!file_exists($sbr_path))
-		{
-			mkdir($sbr_path);
-			@chmod($sbr_path, $cfg['dir_perms']);
+		$sbr_path = cot::$cfg['plugin']['sbr']['filepath'] . '/' . $id . '/';
+		if (!file_exists($sbr_path)) {
+			mkdir($sbr_path, cot::$cfg['dir_perms'], true);
 		}
-		
-		for($j = 0; $j < 10; $j++)
-		{
-			if($rfiles['size'][$j] > 0 && $rfiles['error'][$j] == 0)
-			{
+
+		for($j = 0; $j < 10; $j++) {
+			if ($rfiles['size'][$j] > 0 && $rfiles['error'][$j] == 0) {
 				$u_tmp_name_file = $rfiles['tmp_name'][$j];
 				$u_type_file = $rfiles['type'][$j];
 				$u_name_file = $rfiles['name'][$j];
@@ -286,7 +278,8 @@ function cot_sbr_sendpost($id, $text, $to, $from = 0, $type = '', $mail = false,
  * @param array $rstagetext Массив из text стадий
  * @param bool $purifier TRUE - вычистить внутренности скриптов, FALSE - заменить допустимыми символами
  */
-function cot_validate_stages(&$rstagetitle, &$rstagetext, $purifier = false) {
+function cot_validate_stages(&$rstagetitle, &$rstagetext, $purifier = false)
+{
 	// Если включен плагин htmlpurifier, то очищаем через него
 	if ($purifier === true) {
 		if (cot_plugin_active('htmlpurifier') && function_exists('htmlpurifier_filter')) {
@@ -296,8 +289,7 @@ function cot_validate_stages(&$rstagetitle, &$rstagetext, $purifier = false) {
 			foreach ($rstagetext as $key => $value) {
 				$rstagetext[$key] = htmlpurifier_filter($value, false);
 			}
-		}
-		else {
+		} else {
 			error_log('Попытка функции cot_validate_stages валидировать title и text с помощью неактивного плагина htmlpurifier');
 			return false;
 		}
@@ -312,4 +304,3 @@ function cot_validate_stages(&$rstagetitle, &$rstagetext, $purifier = false) {
 		}
 	}
 }
-

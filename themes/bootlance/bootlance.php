@@ -18,4 +18,7 @@ Schemes=default:Default
 
 defined('COT_CODE') or die('Wrong URL');
 
-?>
+function timeLeft($dateTime)
+{
+    return cot_build_timegap(cot::$sys['now'], $dateTime, 4, 0, null, 60);
+}

@@ -13,7 +13,7 @@ defined('COT_CODE') or die('Wrong URL');
 
 $id = cot_import('id', 'G', 'INT');
 $num = cot_import('num', 'G', 'INT');
-$stageid = cot_import('stageid', 'G', 'INT');
+$stageid = cot_import('stageid', 'G', 'INT'); // Нигде не используется
 $action = cot_import('action', 'G', 'ALP');
 
 list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('plug', 'sbr');
@@ -100,13 +100,11 @@ if($usr['id'] == $sbr['sbr_employer'])
 	}
 	
 	// Принятие этапа (Завершение этапа и оплата Исполнителю суммы за этап)
-	if(!empty($num) && $a == 'done' && $sbr['sbr_status'] == 'process')
-	{
+	if(!empty($num) && $a == 'done' && $sbr['sbr_status'] == 'process') {
 		cot_shield_protect();
-		
-		if($stage = $db->query("SELECT * FROM $db_sbr_stages WHERE stage_sid=" . $id . " AND stage_status='process' AND stage_num=" . $num)->fetch())
+
+		if ($stage = $db->query("SELECT * FROM $db_sbr_stages WHERE stage_sid=" . $id . " AND stage_status='process' AND stage_num=" . $num)->fetch())
 		{
-		
 			$rtext = cot_import('rtext', 'P', 'TXT');
 			
 			/* === Hook === */
@@ -232,13 +230,21 @@ if($usr['id'] == $sbr['sbr_employer'])
 				}
 			}
 		}
-		
-		cot_redirect(cot_url('sbr', 'id=' . $id . '&num=' . $num, '', true));
+
+        $urlParams = ['id' => $id,];
+        $stagesCount = cot::$db->query(
+            'SELECT COUNT(*) FROM ' . cot::$db->sbr_stages . ' WHERE stage_sid = :id',
+            ['id' => $id,]
+        )->fetchColumn();
+        if (cot::$cfg['plugin']['sbr']['stages_on'] && $stagesCount > 1) {
+            $urlParams['num'] = $num;
+        }
+
+		cot_redirect(cot_url('sbr', $urlParams, '', true));
 	}
-}
+
 // Действия только для Исполнителя
-elseif($usr['id'] == $sbr['sbr_performer'])
-{
+} elseif (cot::$usr['id'] == $sbr['sbr_performer']) {
 	$role = 'performer';
 	
 	// Если сделка на согласовании, то можно подтвердить участие
@@ -302,9 +308,17 @@ elseif($usr['id'] == $sbr['sbr_performer'])
 }
 
 // Обращение в арбитраж
-if(!empty($num) && $a == 'claim' && $sbr['sbr_status'] == 'process')
-{
+if (!empty($num) && $a == 'claim' && $sbr['sbr_status'] == 'process') {
 	cot_shield_protect();
+
+    $urlParams = ['id' => $id,];
+    $stagesCount = cot::$db->query(
+        'SELECT COUNT(*) FROM ' . cot::$db->sbr_stages . ' WHERE stage_sid = :id',
+        ['id' => $id,]
+    )->fetchColumn();
+    if (cot::$cfg['plugin']['sbr']['stages_on'] && $stagesCount > 1) {
+        $urlParams['num'] = $num;
+    }
 
 	if($stage = $db->query("SELECT * FROM $db_sbr_stages WHERE stage_sid=" . $id . " AND stage_status='process' AND stage_num=" . $num)->fetch())
 	{
@@ -366,17 +380,26 @@ if(!empty($num) && $a == 'claim' && $sbr['sbr_status'] == 'process')
 					$db->update($db_sbr, array('sbr_claim' => $sys['now'], 'sbr_status' => 'claim'), "sbr_id=" . $id);
 				}
 			}
-			cot_redirect(cot_url('sbr', 'id=' . $id . '&num=' . $num, '', true));
+			cot_redirect(cot_url('sbr', $urlParams, '', true));
 		}
 	}
 
-	cot_redirect(cot_url('sbr', 'id=' . $id . '&num=' . $num . '&action=claim', '', true));
+    $urlParams['action'] = 'claim';
+	cot_redirect(cot_url('sbr', $urlParams, '', true));
 }
 
 // Принятие решения арбитражной комиссией
-if(!empty($num) && $a == 'decision' && $sbr['sbr_status'] == 'claim' && $usr['isadmin'])
-{
+if (!empty($num) && $a == 'decision' && $sbr['sbr_status'] == 'claim' && $usr['isadmin']) {
 	cot_shield_protect();
+
+    $urlParams = ['id' => $id,];
+    $stagesCount = cot::$db->query(
+        'SELECT COUNT(*) FROM ' . cot::$db->sbr_stages . ' WHERE stage_sid = :id',
+        ['id' => $id,]
+    )->fetchColumn();
+    if (cot::$cfg['plugin']['sbr']['stages_on'] && $stagesCount > 1) {
+        $urlParams['num'] = $num;
+    }
 
 	if($stage = $db->query("SELECT * FROM $db_sbr_stages WHERE stage_sid=" . $id . " AND stage_status='claim' AND stage_num=" . $num)->fetch())
 	{
@@ -547,53 +570,57 @@ if(!empty($num) && $a == 'decision' && $sbr['sbr_status'] == 'claim' && $usr['is
 					/* ===== */
 				}
 			}
-			cot_redirect(cot_url('sbr', 'id=' . $id . '&num=' . $num, '', true));
+			cot_redirect(cot_url('sbr', $urlParams, '', true));
 		}
 	}
 
-	cot_redirect(cot_url('sbr', 'id=' . $id . '&num=' . $num . '&action=decision', '', true));
+    $urlParams['action'] = 'decision';
+	cot_redirect(cot_url('sbr', $urlParams, '', true));
 }
 
-if($a == 'addpost')
-{
+$to = null;
+if ($a == 'addpost') {
 	cot_shield_protect();
 	
 	$rposttext = cot_import('rposttext', 'P', 'HTM');
 	$to = cot_import('to', 'P', 'ALP');
 	
 	/* === Hook === */
-	foreach (cot_getextplugins('sbr.post.add.import') as $pl)
-	{
+	foreach (cot_getextplugins('sbr.post.add.import') as $pl) {
 		include $pl;
 	}
 	/* ===== */
 
-	if(empty($_FILES)){
+	if (empty($_FILES)) {
 		cot_check(empty($rposttext), $L['sbr_posts_error_textempty'], 'rposttext');
 	}
 	
-	if(!cot_error_found())
-	{
-		if($usr['isadmin'])
-		{
-			if($to != 'all')
-			{
+	if (!cot_error_found()) {
+        $post_type = '';
+		if (cot::$usr['isadmin']) {
+			if ($to != 'all') {
 				$recipient = ($to == 'employer') ? $sbr['sbr_employer'] : $sbr['sbr_performer'];
-			}
-			else
-			{
+			} else {
 				$recipient = 0;
 				$post_type = 'info';
 			}
-		}
-		else
-		{
+		} else {
 			$recipient = ($role == 'employer') ? $sbr['sbr_performer'] : $sbr['sbr_employer'];
 		}
 		
 		$postid = cot_sbr_sendpost($id, $rposttext, $recipient, $usr['id'], $post_type, true, $_FILES['rpostfiles']);
 	}
-	cot_redirect(cot_url('sbr', 'id=' . $id . '&num=' . $num, '#addpost', true));
+
+    $urlParams = ['id' => $id,];
+    $stagesCount = cot::$db->query(
+        'SELECT COUNT(*) FROM ' . cot::$db->sbr_stages . ' WHERE stage_sid = :id',
+        ['id' => $id,]
+    )->fetchColumn();
+    if (cot::$cfg['plugin']['sbr']['stages_on'] && $stagesCount > 1) {
+        $urlParams['num'] = $num;
+    }
+
+	cot_redirect(cot_url('sbr', $urlParams, '#addpost', true));
 }
 
 $out['subtitle'] = $sbr['sbr_title'];
@@ -616,32 +643,35 @@ $t->assign(cot_generate_usertags($sbr['sbr_performer'], 'SBR_PERFORMER_'));
 $t->assign(cot_generate_sbrtags($sbr, 'SBR_', $usr['isadmin'], $cfg['homebreadcrumb']));
 
 $sqllist_rowset = $db->query("SELECT * FROM $db_sbr_stages WHERE stage_sid=" . $id . " ORDER BY stage_num ASC")->fetchAll();
-foreach ($sqllist_rowset as $stage)
-{
-	$t->assign(array(
-		'STAGENAV_ROW_ID' => $stage['stage_id'],
-		'STAGENAV_ROW_NUM' => $stage['stage_num'],
-		'STAGENAV_ROW_TITLE' => $stage['stage_title'],
-		'STAGENAV_ROW_TEXT' => $stage['stage_text'],
-		'STAGENAV_ROW_STATUS' => $stage['stage_status'],
-		'STAGENAV_ROW_URL' => cot_url('sbr', 'id='.$id.'&num='.$stage['stage_num']),
-	));
-	$t->parse('MAIN.STAGENAV_ROW');
+$stagesCount = 0;
+if (!empty($sqllist_rowset)) {
+    foreach ($sqllist_rowset as $stage) {
+        $stagesCount++;
+        $t->assign(array(
+            'STAGENAV_ROW_ID' => $stage['stage_id'],
+            'STAGENAV_ROW_NUM' => $stage['stage_num'],
+            'STAGENAV_ROW_TITLE' => $stage['stage_title'],
+            'STAGENAV_ROW_TEXT' => $stage['stage_text'],
+            'STAGENAV_ROW_STATUS' => $stage['stage_status'],
+            'STAGENAV_ROW_URL' => cot_url('sbr', 'id=' . $id . '&num=' . $stage['stage_num']),
+        ));
+        $t->parse('MAIN.STAGENAV_ROW');
+    }
 }
-
-if(empty($action))
-{
-	if(!empty($num))
-	{
+if (empty($action)) {
+	if (!empty($num)) {
 		require_once cot_incfile('sbr', 'plug', 'stage');
-	}
-	else
-	{
+	} else {
 		require_once cot_incfile('sbr', 'plug', 'info');
+        // Информацию о последнем (или единственном этапе) сделки выводим и на основной странице сделки
+        if (!empty($stage['stage_num'])) {
+            $num = $stage['stage_num'];
+            require_once cot_incfile('sbr', 'plug', 'stage');
+            $num = 0;
+        }
 	}
 
-	if(!empty($role))
-	{
+	if (!empty($role)) {
 		$query_string = " AND (post_to=0 OR post_to=" . $usr['id'] . " OR post_from=" . $usr['id'] . ")";
 	}
 	/* === Hook === */
@@ -711,10 +741,11 @@ if(empty($action))
 		$t->parse('MAIN.SBR.POSTS.POST_ROW');
 	}
 
-	$t->assign(array(
+	$t->assign([
 		'POST_FORM_ACTION' => cot_url('sbr', 'id=' . $id . '&num=' . $num . '&a=addpost'),
 		'POST_FORM_TO' => cot_selectbox($to, 'to', $R['sbr_posts_to_values'], $R['sbr_posts_to_titles']),
-	));
+        'STAGES_COUNT' => $stagesCount,
+	]);
 	
 	cot_display_messages($t, 'MAIN.SBR.POSTS.POSTFORM');
 	
@@ -732,45 +763,44 @@ if(empty($action))
 	$t->parse('MAIN.SBR');
 }
 
-
-		
-if($action == 'done')
-{
+$urlParams = ['id' => $id, 'num' => $num,];
+if ($action == 'done') {
 	// Действие доступно только для заказчика
 	cot_block($role == 'employer');
-	
-	$t->assign(array(
-		'STAGEDONE_FORM_ACTION' => cot_url('sbr', 'id=' . $id . '&num=' . $num . '&a=done'),
-		'STAGEDONE_FORM_TEXT' => cot_textarea('rtext', $rtext, 5, 80),
-	));
+
+    $urlParams['a'] = 'done';
+	$t->assign([
+		'STAGEDONE_FORM_ACTION' => cot_url('sbr', $urlParams),
+		'STAGEDONE_FORM_TEXT' => cot_textarea('rtext', (isset($rtext) ? $rtext : ''), 5, 80),
+	]);
 	
 	cot_display_messages($t, 'MAIN.STAGEDONE');
 	
 	$t->parse('MAIN.STAGEDONE');
 }
 
-if($action == 'claim')
-{
+if ($action == 'claim') {
 	$stage = $db->query("SELECT * FROM $db_sbr_stages WHERE stage_sid=" . $id . " AND stage_num=" . $num)->fetch();
 	
 	cot_block(!empty($role) && $sbr['sbr_status'] == 'process' && $stage['stage_status'] == 'process');
-	
-	$t->assign(array(
-		'CLAIM_FORM_ACTION' => cot_url('sbr', 'id=' . $id . '&num=' . $num . '&a=claim'),
+
+    $urlParams['a'] = 'claim';
+	$t->assign([
+		'CLAIM_FORM_ACTION' => cot_url('sbr', $urlParams),
 		'CLAIM_FORM_TEXT' => cot_textarea('rtext', $rtext, 5, 80),
-	));
-	
+	]);
+
 	cot_display_messages($t, 'MAIN.CLAIM');
 	
 	$t->parse('MAIN.CLAIM');
 }
 
-if($action == 'decision')
-{
+if ($action == 'decision') {
 	cot_block($usr['isadmin'] && $sbr['sbr_status'] == 'claim');
-	
+
+    $urlParams['a'] = 'decision';
 	$t->assign(array(
-		'DECISION_FORM_ACTION' => cot_url('sbr', 'id=' . $id . '&num=' . $num . '&a=decision'),
+		'DECISION_FORM_ACTION' => cot_url('sbr', $urlParams),
 		'DECISION_FORM_TEXT' => cot_textarea('rdecisiontext', $rtext, 5, 80),
 		'DECISION_FORM_PAYPERFORMER' => cot_inputbox('text', 'payperformer', $payperformer),
 		'DECISION_FORM_PAYEMPLOYER' => cot_inputbox('text', 'payemployer', $payemployer),

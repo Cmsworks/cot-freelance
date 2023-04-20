@@ -7,13 +7,21 @@
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru
  * @license BSD
+ *
+ * @var array<string, mixed> $sbr
+ * @var XTemplate $t
  */
 
 defined('COT_CODE') or die('Wrong URL');
 
-$sqllist_rowset = $db->query("SELECT * FROM $db_sbr_stages WHERE stage_sid=" . $sbr['sbr_id'] . " ORDER BY stage_num ASC")->fetchAll();
-foreach ($sqllist_rowset as $stage)
-{
+$sqllist_rowset = cot::$db->query(
+    'SELECT * FROM ' . cot::$db->sbr_stages . ' WHERE stage_sid = ? ORDER BY stage_num ASC',
+    $sbr['sbr_id']
+)->fetchAll();
+foreach ($sqllist_rowset as $stage) {
+    $expireDate = !empty($stage['stage_expire']) ?
+        $stage['stage_expire'] : $stage['stage_begin'] + $stage['stage_days'] * 24 * 60 * 60;
+
 	$t->assign(array(
 		'STAGE_ROW_NUM' => $stage['stage_num'],
 		'STAGE_ROW_ID' => $stage['stage_id'],
@@ -25,13 +33,13 @@ foreach ($sqllist_rowset as $stage)
 		'STAGE_ROW_BEGIN' => $stage['stage_begin'],
 		'STAGE_ROW_DONE' => $stage['stage_done'],
 		'STAGE_ROW_EXPIRE' => $stage['stage_expire'],
-		'STAGE_ROW_EXPIREDATE' => $stage['stage_begin'] + $stage['stage_days']*24*60*60,
-		'STAGE_ROW_EXPIREDAYS' => cot_build_timegap($sys['now'], $stage['stage_begin'] + $stage['stage_days']*24*60*60),
+		'STAGE_ROW_EXPIREDATE' => $expireDate,
+		'STAGE_ROW_EXPIREDAYS' => cot_build_timegap(cot::$sys['now'], $expireDate),
 		'STAGE_ROW_DONE_URL' => cot_url('sbr', 'id=' . $id . '&stageid=' . $stage['stage_id'] . '&a=done'),
 	));
 	
 	$stagefiles = $db->query("SELECT * FROM $db_sbr_files WHERE file_sid=" . $id . " AND file_area='stage' AND file_code='".$stage['stage_num']."' ORDER BY file_id ASC")->fetchAll();
-	if(count($stagefiles) > 0)
+	if (count($stagefiles) > 0)
 	{
 		foreach($stagefiles as $file)
 		{

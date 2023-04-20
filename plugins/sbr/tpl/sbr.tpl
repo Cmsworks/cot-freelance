@@ -6,6 +6,7 @@
 
 <ul class="nav nav-tabs">
 	<li<!-- IF !{PHP.num} --> class="active"<!-- ENDIF -->><a href="{SBR_URL}">{PHP.L.sbr_nav_info}</a></li>
+	<!-- IF {PHP.cfg.plugin.sbr.stages_on} == 1 AND {STAGES_COUNT} > 1 -->
 	<!-- BEGIN: STAGENAV_ROW -->
 	<li<!-- IF {PHP.num} == {STAGENAV_ROW_NUM} --> class="active"<!-- ENDIF -->>
 		<a href="{STAGENAV_ROW_URL}">
@@ -17,6 +18,7 @@
 		</a>
 	</li>
 	<!-- END: STAGENAV_ROW -->
+	<!-- ENDIF -->
 </ul>
 		
 <!-- BEGIN: SBR -->	
@@ -45,11 +47,12 @@
 			</tr>
 			<tr>
 				<td class="width30"><b>{PHP.L.sbr_calc_total}</b></td>
-				<td><span id="total">{SBR_TOTAL}</span> {PHP.cfg.payments.valuta}</td>
+				<td><span id="total">{SBR_TOTAL}</span> {PHP.cfg.payments.valuta} </td>
 			</tr>
 			<!-- ENDIF -->
 		</table>
-	</div>		
+	</div>
+	<!-- IF {PHP.cfg.plugin.sbr.stages_on} == 1 AND {STAGES_COUNT} > 1 -->
 	<div id="sbrstageslist">
 		<!-- BEGIN: STAGE_ROW -->
 		<div class="accordion" id="accordion2">
@@ -80,6 +83,7 @@
 		</div>
 		<!-- END: STAGE_ROW -->
 	</div>
+	<!-- ENDIF -->
 	<hr/>
 	<div>
 		<!-- BEGIN: EMPLOYER -->
@@ -144,8 +148,12 @@
 	
 	<h3>{STAGE_TITLE}</h3>		
 	<p>
-		<b>{PHP.L.sbr_stagecost}:</b> {STAGE_COST} {PHP.cfg.payments.valuta}, 
+		<b>{PHP.L.sbr_stagecost}:</b> {STAGE_COST} {PHP.cfg.payments.valuta},
+		<!-- IF {STAGE_EXPIRE} > 0 -->
+		<b>{PHP.L.sbr_stagedays}:</b> {STAGE_EXPIRE|cot_date('datetime_fulltext', $this)}
+		<!-- ELSE -->
 		<b>{PHP.L.sbr_stagedays}:</b> {STAGE_DAYS|cot_declension($this, 'Days')}
+		<!-- ENDIF -->
 	</p>
 	<h4>{PHP.L.sbr_stagetext}</h4>
 	<p>{STAGE_TEXT}</p>

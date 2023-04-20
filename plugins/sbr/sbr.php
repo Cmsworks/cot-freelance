@@ -39,5 +39,3 @@ if (!in_array($m, array('add', 'edit')))
 }
 
 require_once cot_incfile('sbr', 'plug', $m);
-
-?>

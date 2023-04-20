@@ -13,18 +13,24 @@ defined('COT_CODE') or die('Wrong URL');
 
 require_once cot_incfile('forms');
 
-$pid = cot_import('pid', 'G', 'INT');
+$pid = (int) cot_import('pid', 'G', 'INT');
 $uid = cot_import('uid', 'G', 'INT');
 $stagescount = cot_import('stagescount', 'G', 'INT');
-if(empty($stagescount)) $stagescount = 1;
+if (empty($stagescount)) {
+    $stagescount = 1;
+}
 
 $cfg['msg_separate'] = true;
 
 list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('plug', 'sbr');
 
+$rsbrperformer = '';
+$rsbr = [
+  'sbr_title' => '',
+];
+
 /* === Hook === */
-foreach (cot_getextplugins('sbr.add.first') as $pl)
-{
+foreach (cot_getextplugins('sbr.add.first') as $pl) {
 	include $pl;
 }
 /* ===== */
@@ -39,8 +45,7 @@ if ($a == 'add')
 	cot_block($usr['auth_write']);
 	
 	/* === Hook === */
-	foreach (cot_getextplugins('sbr.add.add.first') as $pl)
-	{
+	foreach (cot_getextplugins('sbr.add.add.first') as $pl) {
 		include $pl;
 	}
 	/* ===== */
@@ -52,96 +57,134 @@ if ($a == 'add')
 	$rstagetext = cot_import('rstagetext', 'P', 'ARR');
 	$rstagecost = cot_import('rstagecost', 'P', 'ARR');
 	$rstagedays = cot_import('rstagedays', 'P', 'ARR');
+    $rStageExpire = cot_import('rstageexpire', 'P', 'ARR');
 	
-	$rstagefiles = $_FILES['rstagefiles'];
+	$rstagefiles = isset($_FILES['rstagefiles']) ? $_FILES['rstagefiles'] : null;
 
 	$stagescount = cot_import('stagescount', 'P', 'INT');
-	
+
 	/* === Hook === */
-	foreach (cot_getextplugins('sbr.add.add.import') as $pl)
-	{
+	foreach (cot_getextplugins('sbr.add.add.import') as $pl) {
 		include $pl;
 	}
 	/* ===== */
 
-	if(empty($uid))
-	{
+	if (empty($uid)) {
 		$rsbrperformer = cot_import('rsbrperformer', 'P', 'TXT', 100, TRUE);
 		$rsbr['sbr_performer'] = $db->query("SELECT user_id FROM $db_users WHERE user_name = ? LIMIT 1", array($rsbrperformer))->fetchColumn();
 		if (empty($rsbr['sbr_performer'])) cot_error('sbr_error_rsbrperformer', 'rsbrperformer');
 		if ($rsbr['sbr_performer'] == $usr['id']) cot_error('sbr_error_rsbrperformernotyou', 'rsbrperformer');
-	}
-	else
-	{
+	} else {
 		$rsbr['sbr_performer'] = $uid;
 	}
 	
-	cot_check(empty($rsbrtitle), $L['sbr_error_rsbrtitle'], 'rsbrtitle');
-	
-	for($i = 1; $i <= $stagescount; $i++)
-	{
-		cot_check(empty($rstagetitle[$i]), $L['sbr_error_rstagetitle'], 'rstagetitle['.$i.']');
-		cot_check(empty($rstagetext[$i]), $L['sbr_error_rstagetext'], 'rstagetext['.$i.']');
-		cot_check(empty($rstagecost[$i]), $L['sbr_error_rstagecost'], 'rstagecost['.$i.']');
-		cot_check((!empty($rstagecost[$i]) && $rstagecost[$i] < $cfg['plugin']['sbr']['mincost'] && $cfg['plugin']['sbr']['mincost'] > 0), $L['sbr_error_rstagecostmin'], 'rstagecost['.$i.']');
-		cot_check((!empty($rstagecost[$i]) && $rstagecost[$i] > $cfg['plugin']['sbr']['maxcost'] && $cfg['plugin']['sbr']['maxcost'] > 0), $L['sbr_error_rstagecostmax'], 'rstagecost['.$i.']');
-		cot_check(empty($rstagedays[$i]), $L['sbr_error_rstagedays'], 'rstagedays['.$i.']');
-		cot_check((!empty($rstagedays[$i]) && $rstagedays[$i] > $cfg['plugin']['sbr']['maxdays'] && $cfg['plugin']['sbr']['maxdays'] > 0), $L['sbr_error_rstagedaysmax'], 'rstagedays['.$i.']');
+	cot_check(empty($rsbrtitle), cot::$L['sbr_error_rsbrtitle'], 'rsbrtitle');
+
+    $rsbr['sbr_cost'] = 0;
+
+	for ($i = 1; $i <= $stagescount; $i++) {
+        if (cot::$cfg['plugin']['sbr']['stages_on'] && $stagescount > 1) {
+            // Если у нас только 1 этап. Название этапа можно не указывать
+            cot_check(empty($rstagetitle[$i]), cot::$L['sbr_error_rstagetitle'], 'rstagetitle[' . $i . ']');
+        }
+		cot_check(empty($rstagetext[$i]), cot::$L['sbr_error_rstagetext'], 'rstagetext['.$i.']');
+		cot_check(empty($rstagecost[$i]), cot::$L['sbr_error_rstagecost'], 'rstagecost['.$i.']');
+		cot_check(
+            (
+                !empty($rstagecost[$i])
+                && $rstagecost[$i] < $cfg['plugin']['sbr']['mincost']
+                && $cfg['plugin']['sbr']['mincost'] > 0
+            ),
+            cot::$L['sbr_error_rstagecostmin'],
+            'rstagecost['.$i.']'
+        );
+		cot_check(
+            (
+                !empty($rstagecost[$i])
+                && $rstagecost[$i] > $cfg['plugin']['sbr']['maxcost']
+                && $cfg['plugin']['sbr']['maxcost'] > 0
+            ),
+            cot::$L['sbr_error_rstagecostmax'],
+            'rstagecost['.$i.']'
+        );
+
+        if (!empty($rStageExpire[$i])) {
+            $rStageExpire[$i] = cot_import_date($rStageExpire[$i], true, false, 'D');
+        }
+        if (empty($rStageExpire[$i])) {
+            $rStageExpire[$i] = 0;
+        }
+        $rstagedays[$i] = (int) $rstagedays[$i];
+		cot_check(
+            empty($rstagedays[$i]) && empty($rStageExpire[$i]),
+            cot::$L['sbr_error_rstagedays'],
+            'rstagedays[' . $i . ']'
+        );
+		cot_check(
+            (
+                !empty($rstagedays[$i])
+                && $rstagedays[$i] > $cfg['plugin']['sbr']['maxdays']
+                && $cfg['plugin']['sbr']['maxdays'] > 0
+            ),
+            cot::$L['sbr_error_rstagedaysmax'],
+            'rstagedays['.$i.']'
+        );
+
+        cot_check(
+            ($rStageExpire[$i] > 0 && $rStageExpire[$i] < cot::$sys['now']),
+            'Дата окончания срока исполнения не может быть в прошлом',
+            'rstageexpire[' . $i . ']'
+        );
 
 		/* === Hook === */
-		foreach (cot_getextplugins('sbr.add.add.stages.error') as $pl)
-		{
+		foreach (cot_getextplugins('sbr.add.add.stages.error') as $pl) {
 			include $pl;
 		}
 		/* ===== */
 
-		$rsbr['sbr_cost'] += $rstagecost[$i];
+		$rsbr['sbr_cost'] += (isset($rstagecost[$i]) ? (float) $rstagecost[$i] : 0);
 	}
 
-	$rsbr['sbr_tax'] = $rsbr['sbr_cost']*$cfg['plugin']['sbr']['tax']/100;
+	$rsbr['sbr_tax'] = $rsbr['sbr_cost'] * cot::$cfg['plugin']['sbr']['tax'] / 100;
 	
 	$rsbr['sbr_title'] = $rsbrtitle;
 	$rsbr['sbr_pid'] = $pid;
 	$rsbr['sbr_employer'] = $usr['id'];
-	
+
 	/* === Hook === */
-	foreach (cot_getextplugins('sbr.add.add.error') as $pl)
-	{
+	foreach (cot_getextplugins('sbr.add.add.error') as $pl) {
 		include $pl;
 	}
 	/* ===== */
 	
-	if (!cot_error_found())
-	{
+	if (!cot_error_found()) {
 		$rsbr['sbr_status'] = 'new';
-		$rsbr['sbr_create'] = $sys['now'];
+		$rsbr['sbr_create'] = cot::$sys['now'];
 
-		$db->insert($db_sbr, $rsbr);
-		$id = $db->lastInsertId();
+		cot::$db->insert(cot::$db->sbr, $rsbr);
+		$id = cot::$db->lastInsertId();
 		
-		for($i = 1; $i <= $stagescount; $i++)
-		{
-			$rstage['stage_sid'] = $id;
-			$rstage['stage_num'] = $i;
-			$rstage['stage_title'] = $rstagetitle[$i];
-			$rstage['stage_text'] = $rstagetext[$i];
-			$rstage['stage_cost'] = $rstagecost[$i];
-			$rstage['stage_days'] = $rstagedays[$i];
-			
-			$db->insert($db_sbr_stages, $rstage);
-			$stageid = $db->lastInsertId();
+		for ($i = 1; $i <= $stagescount; $i++) {
+            $rstage = [
+                'stage_sid' => $id,
+                'stage_num' => $i,
+                'stage_title' => isset($rstagetitle[$i]) ? $rstagetitle[$i] : '',
+                'stage_text' => $rstagetext[$i],
+                'stage_cost' => $rstagecost[$i],
+                'stage_days' => $rstagedays[$i],
+                'stage_expire' => $rStageExpire[$i],
+            ];
+
+            cot::$db->insert(cot::$db->sbr_stages, $rstage);
+			$stageid = cot::$db->lastInsertId();
 			
 			$sbr_path = $cfg['plugin']['sbr']['filepath'] . '/' . $id . '/';
-			if (!file_exists($sbr_path))
-			{
-				mkdir($sbr_path);
-				@chmod($sbr_path, $cfg['dir_perms']);
+			if (!file_exists($sbr_path)) {
+                mkdir($sbr_path, cot::$cfg['dir_perms'], true);
 			}
 
-			for($j = 0; $j < 10; $j++)
-			{
-				if($rstagefiles['size'][$i][$j] > 0 && $rstagefiles['error'][$i][$j] == 0)
-				{
+			for ($j = 0; $j < 10; $j++) {
+				if ($rstagefiles['size'][$i][$j] > 0 && $rstagefiles['error'][$i][$j] == 0) {
 					$u_tmp_name_file = $rstagefiles['tmp_name'][$i][$j];
 					$u_type_file = $rstagefiles['type'][$i][$j];
 					$u_name_file = $rstagefiles['name'][$i][$j];
@@ -199,14 +242,13 @@ if ($a == 'add')
 	}
 }
 
-$out['subtitle'] = $L['sbr_addtitle'];
-$out['head'] .= $R['code_noindex'];
+$out['subtitle'] = cot::$L['sbr_addtitle'];
+$out['head'] .= cot::$R['code_noindex'];
 
 $mskin = cot_tplfile(array('sbr', 'add'), 'plug');
 
 /* === Hook === */
-foreach (cot_getextplugins('sbr.add.main') as $pl)
-{
+foreach (cot_getextplugins('sbr.add.main') as $pl) {
 	include $pl;
 }
 /* ===== */
@@ -239,20 +281,47 @@ $t->assign(array(
 	'SBRADD_FORM_OWNERID' => $usr['id'],
 	'SBRADD_FORM_MAINTITLE' => cot_inputbox('text', 'rsbrtitle', $rsbr['sbr_title']),
 ));	
-	
-for($i = 1; $i <= $stagescount; $i++)
-{
+
+for ($i = 1; $i <= $stagescount; $i++) {
 	$t->assign(array(
 		'STAGEADD_FORM_NUM' => $i,
-		'STAGEADD_FORM_TITLE' => cot_inputbox('text', 'rstagetitle['.$i.']', $rstagetitle[$i]),
-		'STAGEADD_FORM_TEXT' => cot_textarea('rstagetext['.$i.']', $rstagetext[$i], 10, 120, '', 'input_textarea'),
-		'STAGEADD_FORM_COST' => cot_inputbox('text', 'rstagecost['.$i.']', $rstagecost[$i], array('class' => 'stagecost', 'size' => '10', 'maxlength' => '100')),
-		'STAGEADD_FORM_DAYS' => cot_inputbox('text', 'rstagedays['.$i.']', $rstagedays[$i], array('size' => '10', 'maxlength' => '100')),
+		'STAGEADD_FORM_TITLE' => cot_inputbox(
+            'text',
+            'rstagetitle['.$i.']',
+            isset($rstagetitle[$i]) ? $rstagetitle[$i] : ''
+        ),
+		'STAGEADD_FORM_TEXT' => cot_textarea(
+            'rstagetext['.$i.']',
+            isset($rstagetext[$i]) ? $rstagetext[$i] : '',
+            10,
+            120,
+            '',
+            'input_textarea'
+        ),
+		'STAGEADD_FORM_COST' => cot_inputbox(
+            'text',
+            'rstagecost['.$i.']',
+            isset($rstagecost[$i]) ? $rstagecost[$i] : '',
+            array('class' => 'stagecost', 'maxlength' => '100')
+        ),
+		'STAGEADD_FORM_DAYS' => cot_inputbox(
+            'text',
+            'rstagedays['.$i.']',
+            !empty($rstagedays[$i]) ? $rstagedays[$i] : '',
+            ['maxlength' => '100']
+        ),
+        'STAGEADD_FORM_EXPIRE' => cot_inputbox(
+            'datetime-local',
+            'rstageexpire['.$i.']',
+            !empty($rStageExpire[$i]) ?
+                cot_date('Y-m-d\TH:i:s', $rStageExpire[$i])
+                : cot_date('Y-m-d\TH:i:s'),
+            ['min' => cot_date('Y-m-d\TH:i:s')]
+        ),
 	));
 
 	/* === Hook === */
-	foreach (cot_getextplugins('sbr.add.stages.tags') as $pl)
-	{
+	foreach (cot_getextplugins('sbr.add.stages.tags') as $pl) {
 		include $pl;
 	}
 	/* ===== */
