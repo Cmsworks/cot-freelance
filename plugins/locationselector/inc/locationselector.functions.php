@@ -165,18 +165,20 @@ function cot_getlocation($country = '', $region = 0, $city = 0)
 	$location['country'] = '';
 	$location['region'] = '';
 	$location['city'] = '';	
-	if(!empty($country))
-	{
+	if (!empty($country) && isset($cot_countries[$country])) {
 		$location['country'] = $cot_countries[$country];
 	}
-	if(!empty($country) && (int)$region > 0)
-	{
-		$location['region'] = $cot_lf_regions[$region];
+
+    $region = (int) $region;
+	if (!empty($country) && $region > 0 && isset($cot_lf_regions[$region])) {
+		$location['region'] =  $cot_lf_regions[$region];
 	}
-	if(!empty($country) && (int)$region > 0 && (int)$city > 0)
-	{
-		$location['city'] = $cot_lf_cities[$city];	
+
+    $city = (int) $city;
+	if (!empty($country) && $region > 0 && $city > 0 && isset($cot_lf_cities[$city])) {
+		$location['city'] = $cot_lf_cities[$city];
 	}
+
 	return $location;
 }
 
