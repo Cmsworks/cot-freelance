@@ -1,10 +1,8 @@
 <?php
-
 /**
  * projects module
  *
  * @package projects
- * @version 2.5.8
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru, littledev.ru
  * @license BSD
@@ -12,7 +10,7 @@
 
 defined('COT_CODE') or die('Wrong URL');
 
-list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('projects', 'any', 'RWA');
+list(cot::$usr['auth_read'], cot::$usr['auth_write'], cot::$usr['isadmin']) = cot_auth('projects', 'any', 'RWA');
 
 // Requirements
 require_once cot_langfile('projects', 'module');
@@ -29,7 +27,8 @@ cot::$db->registerTable('projects_posts');
 cot_extrafields_register_table('projects');
 cot_extrafields_register_table('projects_offers');
 
-$structure['projects'] = (is_array($structure['projects'])) ? $structure['projects'] : array();
+cot::$structure['projects'] = (!empty(cot::$structure['projects']) && is_array(cot::$structure['projects'])) ?
+    cot::$structure['projects'] : [];
 
 /**
  * Update projects categories counters
@@ -134,12 +133,22 @@ function cot_build_structure_projects_tree($parent = '', $selected = '', $level 
 		return false;
 	}
 
+    $title = '';
+    $desc = '';
+    $count = 0;
+    $icon = '';
+    if (isset(cot::$structure['projects']) && !empty($parent) && isset(cot::$structure['projects'][$parent])) {
+        $title = cot::$structure['projects'][$parent]['title'];
+        $desc  = cot::$structure['projects'][$parent]['desc'];
+        $count = cot::$structure['projects'][$parent]['count'];
+        $icon  = cot::$structure['projects'][$parent]['icon'];
+    }
 	$t1->assign(array(
-		"TITLE" => htmlspecialchars($structure['projects'][$parent]['title']),
-		"DESC" => $structure['projects'][$parent]['desc'],
-		"COUNT" => $structure['projects'][$parent]['count'],
-		"ICON" => $structure['projects'][$parent]['icon'],
-		"HREF" => cot_url("projects", $urlparams + array('c' => $parent)),
+		"TITLE" => htmlspecialchars($title),
+		"DESC"  => $desc,
+		"COUNT" => $count,
+		"ICON"  => $icon,
+		"HREF"  => cot_url("projects", $urlparams + array('c' => $parent)),
 		"LEVEL" => $level,
 	));
 
@@ -153,7 +162,7 @@ function cot_build_structure_projects_tree($parent = '', $selected = '', $level 
 	{
 		$jj++;
 		$urlparams['c'] = $row;
-		$subcats = $structure['projects'][$row]['subcats'];
+		$subcats = !empty($structure['projects'][$row]['subcats']) ? $structure['projects'][$row]['subcats'] : [];
 		$t1->assign(array(
 			"ROW_CAT" => $row,
 			"ROW_TITLE" => htmlspecialchars($structure['projects'][$row]['title']),
@@ -162,7 +171,7 @@ function cot_build_structure_projects_tree($parent = '', $selected = '', $level 
 			"ROW_ICON" => $structure['projects'][$row]['icon'],
 			"ROW_HREF" => cot_url("projects", $urlparams),
 			"ROW_SELECTED" => ((is_array($selected) && in_array($row, $selected)) || (!is_array($selected) && $row == $selected)) ? 1 : 0,
-			"ROW_SUBCAT" => (count($subcats) > 0) ? cot_build_structure_projects_tree($row, $selected, $level + 1) : '',
+			"ROW_SUBCAT" => !empty($subcats) ? cot_build_structure_projects_tree($row, $selected, $level + 1) : '',
 			"ROW_LEVEL" => $level,
 			"ROW_ODDEVEN" => cot_build_oddeven($jj),
 			"ROW_JJ" => $jj
@@ -737,10 +746,10 @@ function cot_getprojectslist($template='index', $count=5, $sqlsearch='', $order 
  * @param type $name
  * @param type $subcat
  * @param type $hideprivate
- * @param type $is_module
- * @return type
+ * @param bool $is_module
+ * @return string
  */
-function cot_projects_selectcat($check, $name, $subcat = '', $hideprivate = true)
+function cot_projects_selectcat($check, $name, $subcat = '', $hideprivate = true, $is_module = false)
 {
 	global $structure;
 
@@ -767,6 +776,6 @@ function cot_projects_selectcat($check, $name, $subcat = '', $hideprivate = true
 	return($result);
 }
 
-if ($cfg['projects']['markup'] == 1){
-  $prjeditor = $cfg['projects']['prjeditor'];
+if (!empty(cot::$cfg['projects']['markup']) && cot::$cfg['projects']['markup'] == 1) {
+    $prjeditor = isset(cot::$cfg['projects']['prjeditor']) ? cot::$cfg['projects']['prjeditor'] : null;
 }

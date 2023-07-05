@@ -4,8 +4,8 @@
  * Code=payments
  * Name=Payments
  * Description=Платежный модуль
- * Version=2.0.4
- * Date=
+ * Version=2.0.5
+ * Date=2022-09-08
  * Author=CMSWorks Team
  * Copyright=Copyright (c) CMSWorks.ru
  * Notes=
@@ -36,12 +36,9 @@
  * Payments module
  *
  * @package payments
- * @version 2.0.4
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru
  * @license BSD
  */
 
 defined('COT_CODE') or die('Wrong URL');
-
-?>

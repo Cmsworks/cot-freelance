@@ -1,10 +1,8 @@
 <?php
-
 /**
  * market module
  *
  * @package market
- * @version 2.5.2
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru, littledev.ru
  * @license BSD
@@ -13,38 +11,38 @@
 $sort = cot_import('sort', 'G', 'ALP');
 $c = cot_import('c', 'G', 'ALP');
 $sq = cot_import('sq', 'G', 'TXT');
-$sq = $db->prep($sq);
 
-if (!empty($c)){
-	list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('market', $c);
-	cot_block($usr['auth_read']);
-}else{
-	list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('market', 'any', 'RWA');
-	cot_block($usr['auth_read']);
+if (!empty($c)) {
+	list(cot::$usr['auth_read'], cot::$usr['auth_write'], cot::$usr['isadmin']) = cot_auth('market', $c);
+
+} else {
+	list(cot::$usr['auth_read'], cot::$usr['auth_write'], cot::$usr['isadmin']) =
+        cot_auth('market', 'any', 'RWA');
+}
+cot_block(cot::$usr['auth_read']);
+
+$maxrowsperpage = cot::$cfg['market']['cat___default']['maxrowsperpage'];
+if (!empty($c) && isset(cot::$cfg['market']['cat_' . $c]) && !empty(cot::$cfg['market']['cat_' . $c]['maxrowsperpage'])) {
+    $maxrowsperpage = cot::$cfg['market']['cat_' . $c]['maxrowsperpage'];
 }
 
-$maxrowsperpage = ($cfg['market']['cat_' . $c]['maxrowsperpage']) ? $cfg['market']['cat_' . $c]['maxrowsperpage'] : $cfg['market']['cat___default']['maxrowsperpage'];
 list($pn, $d, $d_url) = cot_import_pagenav('d', $maxrowsperpage);
 
 /* === Hook === */
-foreach (cot_getextplugins('market.list.first') as $pl)
-{
+foreach (cot_getextplugins('market.list.first') as $pl) {
 	include $pl;
 }
 /* ===== */
 
-if (!empty($c))
-{
-	$out['subtitle'] = (!empty($cfg['market']['cat_' . $c]['metatitle'])) ? $cfg['market']['cat_' . $c]['metatitle'] : $cfg['market']['cat___default']['metatitle'];
-	$out['subtitle'] = (!empty($out['subtitle'])) ? $out['subtitle'] : $L['market'];
-	$out['desc'] = (!empty($cfg['market']['cat_' . $c]['metadesc'])) ? $cfg['market']['cat_' . $c]['metadesc'] : $cfg['market']['cat___default']['metadesc'];
-	$out['keywords'] = (!empty($cfg['market']['cat_' . $c]['keywords'])) ? $cfg['market']['cat_' . $c]['keywords'] : $cfg['market']['cat___default']['keywords'];
-}
-else
-{
-	$out['subtitle'] = (!empty($cfg['market']['cat___default']['metatitle'])) ? $cfg['market']['cat___default']['metatitle'] : $L['market'];
-	$out['desc'] = $cfg['market']['cat___default']['metadesc'];
-	$out['keywords'] = $cfg['market']['cat___default']['keywords'];
+if (!empty($c)) {
+    cot::$out['subtitle'] = (!empty($cfg['market']['cat_' . $c]['metatitle'])) ? $cfg['market']['cat_' . $c]['metatitle'] : $cfg['market']['cat___default']['metatitle'];
+    cot::$out['subtitle'] = (!empty($out['subtitle'])) ? $out['subtitle'] : $L['market'];
+    cot::$out['desc'] = (!empty($cfg['market']['cat_' . $c]['metadesc'])) ? $cfg['market']['cat_' . $c]['metadesc'] : $cfg['market']['cat___default']['metadesc'];
+    cot::$out['keywords'] = (!empty($cfg['market']['cat_' . $c]['keywords'])) ? $cfg['market']['cat_' . $c]['keywords'] : $cfg['market']['cat___default']['keywords'];
+} else {
+    cot::$out['subtitle'] = (!empty($cfg['market']['cat___default']['metatitle'])) ? $cfg['market']['cat___default']['metatitle'] : $L['market'];
+    cot::$out['desc'] = $cfg['market']['cat___default']['metadesc'];
+    cot::$out['keywords'] = $cfg['market']['cat___default']['keywords'];
 }
 
 $where = array();
@@ -52,18 +50,17 @@ $order = array();
 
 $where['state'] = "item_state=0";
 
-if (!empty($c))
-{
+if (!empty($c)) {
 	$catsub = cot_structure_children('market', $c);
 	$where['cat'] = "item_cat IN ('" . implode("','", $catsub) . "')";
 }
 
-if (!empty($sq))
-{
+if (!empty($sq)) {
 	$words = explode(' ', preg_replace("'\s+'", " ", $sq));
 	$sqlsearch = '%'.implode('%', $words).'%';
 
-	$where['search'] = "(item_title LIKE '".$db->prep($sqlsearch)."' OR item_text LIKE '".$db->prep($sqlsearch)."')";
+	$where['search'] = "(item_title LIKE " . cot::$db->quote($sqlsearch) .
+        " OR item_text LIKE " . cot::$db->quote($sqlsearch) . ")";
 }
 
 // Extra fields
@@ -98,11 +95,16 @@ $list_url_path = array('c' => $c, 'sort' => $sort, 'sq' => $sq);
 // Building the canonical URL
 $out['canonical_uri'] = cot_url('market', $list_url_path);
 
-$mskin = cot_tplfile(array('market', 'list', $structure['market'][$c]['tpl']));
+if (!empty($c) && isset(cot::$structure['market'][$c])) {
+    $mskin = cot_tplfile(array('market', 'list', cot::$structure['market'][$c]['tpl']));
+} else {
+    $mskin = cot_tplfile(['market', 'list']);
+}
+
+$join_columns = $join_condition = '';
 
 /* === Hook === */
-foreach (cot_getextplugins('market.list.query') as $pl)
-{
+foreach (cot_getextplugins('market.list.query') as $pl) {
 	include $pl;
 }
 /* ===== */
@@ -112,16 +114,14 @@ $t = new XTemplate($mskin);
 $where = ($where) ? 'WHERE ' . implode(' AND ', $where) : '';
 $order = ($order) ? 'ORDER BY ' . implode(', ', $order) : '';
 
-$totalitems = $db->query("SELECT COUNT(*) FROM $db_market AS m $join_condition 
-	LEFT JOIN $db_users AS u ON u.user_id=m.item_userid
-	" . $where . "")->fetchColumn();
+$totalitems = cot::$db->query('SELECT COUNT(*) FROM ' . cot::$db->market . " AS m $join_condition 
+	LEFT JOIN " . cot::$db->users . ' AS u ON u.user_id=m.item_userid ' . $where)->fetchColumn();
 
-$sqllist = $db->query("SELECT m.*, u.* $join_columns 
-	FROM $db_market AS m $join_condition
-	LEFT JOIN $db_users AS u ON u.user_id=m.item_userid 
-	" . $where . "
-	" . $order . "
-	LIMIT $d, " . $maxrowsperpage);
+$sql = "SELECT m.*, u.* $join_columns FROM " . cot::$db->market . " AS m $join_condition
+	LEFT JOIN " . cot::$db->users . " AS u ON u.user_id=m.item_userid " .
+	$where . " " . $order . " LIMIT $d, " . $maxrowsperpage;
+
+$sqllist = cot::$db->query($sql);
 
 $pagenav = cot_pagenav('market', $list_url_path, $d, $totalitems, $maxrowsperpage);
 
@@ -136,7 +136,12 @@ $catpath = cot_breadcrumbs($catpatharray, $cfg['homebreadcrumb'], true);
 
 $t->assign(array(
 	"SEARCH_ACTION_URL" => cot_url('market', '', '', true),
-	"SEARCH_SQ" => cot_inputbox('text', 'sq', htmlspecialchars($sq), 'class="schstring"'),
+	"SEARCH_SQ" => cot_inputbox(
+        'text',
+        'sq',
+        !empty($sq) ? htmlspecialchars($sq) : '',
+        'class="schstring"'
+    ),
 	"SEARCH_CAT" => cot_market_selectcat($c, 'c'),
 	"SEARCH_SORTER" => cot_selectbox($sort, "sort", array('', 'costasc', 'costdesc'), array($L['market_mostrelevant'], $L['market_costasc'], $L['market_costdesc']), false),
 	"PAGENAV_PAGES" => $pagenav['main'],
@@ -187,6 +192,7 @@ foreach($sqllist_rowset as $item)
 $extp = cot_getextplugins('market.list.loop');
 /* ===== */
 
+$jj = 0;
 foreach ($sqllist_rowset as $item)
 {
 	$jj++;

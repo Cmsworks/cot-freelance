@@ -5,8 +5,8 @@
  * Name=PayPro
  * Category=Payments
  * Description=Услуга PRO
- * Version=1.2.3
- * Date=
+ * Version=1.2.4
+ * Date=2022-09-08
  * Author=CMSWorks Team
  * Copyright=Copyright (c) CMSWorks.ru, littledev.ru
  * Notes=
@@ -29,10 +29,7 @@
  * PayPro Plugin
  *
  * @package paypro
- * @version 1.2.3
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru, littledev.ru
  * @license BSD
  */
-
-?>

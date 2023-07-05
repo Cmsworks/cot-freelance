@@ -17,20 +17,17 @@ require_once cot_langfile('usercategories', 'plug');
 // Global variables
 function cot_cfg_usercategories()
 {
-	global $cfg;
-	
-	$tpaset = str_replace("\r\n", "\n", $cfg['plugin']['usercategories']['catslimit']);
+	$tpaset = str_replace("\r\n", "\n", cot::$cfg['plugin']['usercategories']['catslimit']);
 	$tpaset = explode("\n", $tpaset);
 	$paytopset = array();
-	foreach ($tpaset as $lineset)
-	{
+    $catslimit = [];
+	foreach ($tpaset as $lineset) {
 		$lines = explode("|", $lineset);
-		$lines[0] = trim($lines[0]);
-		$lines[1] = trim($lines[1]);
-		$lines[2] = trim($lines[2]);
+		$lines[0] = (int) trim($lines[0]);
+		$lines[1] = !empty($lines[1]) ? (int) trim($lines[1]) : 0;
+		$lines[2] = !empty($lines[2]) ? (int) trim($lines[2]) : 0;
 		
-		if ($lines[0] > 0 && $lines[1] > 0 && $lines[2] > 0)
-		{	
+		if ($lines[0] > 0 && $lines[1] > 0 && $lines[2] > 0) {
 			$catslimit[$lines[0]]['default'] = $lines[1];
 			$catslimit[$lines[0]]['pro'] = $lines[2];
 		}
@@ -127,7 +124,10 @@ function cot_usercategories_treecheck($chosen, $name, $parent = '', $template = 
 		return false;
 	}
 	
-	if(!is_array($chosen)){
+	if (!is_array($chosen)) {
+        if (empty($chosen)) {
+            $chosen = [];
+        }
 		$chosen = explode(',', $chosen);
 	}
 	
@@ -155,7 +155,8 @@ function cot_usercategories_treecheck($chosen, $name, $parent = '', $template = 
 	foreach ($children as $row)
 	{
 		if(cot_auth('usercategories', $row, $userrights)){
-			$subcats = $structure['usercategories'][$row]['subcats'];
+			$subcats = isset($structure['usercategories'][$row]['subcats']) ?
+                $structure['usercategories'][$row]['subcats'] : [];
 			$cattitle = htmlspecialchars($structure['usercategories'][$row]['title']);
 			if ($i18n_enabled && $i18n_notmain){
 				$x_i18n = cot_i18n_get_cat($row, $i18n_locale);
@@ -167,7 +168,8 @@ function cot_usercategories_treecheck($chosen, $name, $parent = '', $template = 
 			$t1->assign(array(
 				"CAT_ROW_CAT" => $row,
 				"CAT_ROW_CHECKBOX" => (is_array($chosen) && in_array($row, $chosen) || !is_array($chosen) && $row == $chosen) ? cot_checkbox($row, $name, $cattitle, '', $row) : cot_checkbox('', $name, $cattitle, '', $row),
-				"CAT_ROW_SUBCAT" => (count($subcats) > 0) ? cot_usercategories_treecheck($chosen, $name, $row, $template, $userrights, $level) : '',
+				"CAT_ROW_SUBCAT" => (!empty($subcats) && count($subcats) > 0) ?
+                    cot_usercategories_treecheck($chosen, $name, $row, $template, $userrights, $level) : '',
 			));
 			
 			if ($i18n_enabled && $i18n_notmain){
@@ -216,7 +218,7 @@ function cot_usercategories_tree($chosen = '', $parent = '', $template = '', $le
 		return false;
 	}
 	
-	if(!is_array($chosen)){
+	if (!empty($chosen) && is_array($chosen)) {
 		$chosen = explode(',', $chosen);
 	}
 	
@@ -269,18 +271,16 @@ function cot_usercategories_tree($chosen = '', $parent = '', $template = '', $le
 	$extp = cot_getextplugins('usercategories.tree.loop');
 	/* ===== */
 
-	foreach ($children as $row)
-	{
+	foreach ($children as $row) {
 		$jj++;
-		$subcats = $structure['usercategories'][$row]['subcats'];
+		$subcats = !empty($structure['usercategories'][$row]['subcats']) ?
+            $structure['usercategories'][$row]['subcats'] : [];
 		$urlparams['cat'] = $row;
 		
-		if(is_array($subcats))
-		{
-			$parent_selected = (is_array($chosen)) ? (bool)count(array_intersect($subcats, $chosen)) : in_array($chosen, $subcats);
-		}
-		else
-		{
+		if (is_array($subcats)) {
+			$parent_selected = (is_array($chosen)) ?
+                (bool) count(array_intersect($subcats, $chosen)) : in_array($chosen, $subcats);
+        } else {
 			$parent_selected = false;
 		}
 
@@ -292,7 +292,7 @@ function cot_usercategories_tree($chosen = '', $parent = '', $template = '', $le
 			"CAT_ROW_ICON" => $structure['usercategories'][$row]['icon'],
 			"CAT_ROW_URL" => cot_url("users", $urlparams),
 			"CAT_ROW_SELECTED" => (is_array($chosen) && in_array($row, $chosen) || !is_array($chosen) && $row == $chosen || $parent_selected) ? 1 : 0,
-			"CAT_ROW_SUBCAT" => (count($subcats) > 0) ? cot_usercategories_tree($chosen, $row, $template, $level) : '',
+			"CAT_ROW_SUBCAT" => !empty($subcats) ? cot_usercategories_tree($chosen, $row, $template, $level) : '',
 			"CAT_ROW_ODDEVEN" => cot_build_oddeven($jj),
 			"CAT_ROW_JJ" => $jj
 		));
@@ -381,35 +381,32 @@ function cot_usercategories_catlist($cats, $template = ''){
  * Select users cat for search from
  * 
  * @global array $structure
- * @param type $check
- * @param type $name
- * @param type $subcat
- * @param type $hideprivate
- * @return type
+ * @param $check
+ * @param string $name
+ * @param string $subcat
+ * @param bool $hideprivate
+ * @return string
  */
 function cot_usercategories_selectcat($check, $name, $subcat = '', $hideprivate = true)
 {
 	global $structure;
 
-	$structure['usercategories'] = (is_array($structure['usercategories'])) ? $structure['usercategories'] : array();
+	cot::$structure['usercategories'] = (!empty(cot::$structure['usercategories']) && is_array(cot::$structure['usercategories'])) ?
+        cot::$structure['usercategories'] : [];
 
 	$result_array = array();
-	foreach ($structure['usercategories'] as $i => $x)
-	{
+	foreach (cot::$structure['usercategories'] as $i => $x) {
 		$display = ($hideprivate) ? cot_auth('usercategories', $i, 'R') : true;
-		if ($display && !empty($subcat) && isset($structure['usercategories'][$subcat]))
-		{
-			$mtch = $structure['usercategories'][$subcat]['path'].".";
+		if ($display && !empty($subcat) && isset(cot::$structure['usercategories'][$subcat])) {
+			$mtch = cot::$structure['usercategories'][$subcat]['path'].".";
 			$mtchlen = mb_strlen($mtch);
 			$display = (mb_substr($x['path'], 0, $mtchlen) == $mtch || $i === $subcat);
 		}
 
-		if ((!$is_module || cot_auth('usercategories', $i, 'R')) && $i!='all' && $display)
-		{
+		if ($i != 'all' && $display && cot_auth('usercategories', $i, 'R')) {
 			$result_array[$i] = $x['tpath'];
 		}
 	}
-	$result = cot_selectbox($check, $name, array_keys($result_array), array_values($result_array), true);
 
-	return($result);
+    return cot_selectbox($check, $name, array_keys($result_array), array_values($result_array), true);
 }

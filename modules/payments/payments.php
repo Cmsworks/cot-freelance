@@ -1,5 +1,4 @@
 <?php
-
 /**
  * [BEGIN_COT_EXT]
  * Hooks=module
@@ -9,7 +8,6 @@
  * Payments module
  *
  * @package payments
- * @version 1.1.2
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru
  * @license BSD
@@ -32,4 +30,3 @@ require_once cot_incfile('payments', 'module', $m);
 require_once $cfg['system_dir'] . '/header.php';
 echo $module_body;
 require_once $cfg['system_dir'] . '/footer.php';
-?>

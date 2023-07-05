@@ -32,15 +32,21 @@ foreach ($extp as $pl)
 }
 /* ===== */
 
-$sys['parser'] = $cfg['market']['parser'];
+cot::$sys['parser'] = cot::$cfg['market']['parser'];
 $parser_list = cot_get_parsers();
 
-if ($a == 'add')
-{
+$ritem = [
+    'item_cat' => '',
+    'item_title' => '',
+    'item_alias' => '',
+    'item_text' => '',
+    'item_cost' => 0,
+    'item_parser' => ''
+];
+
+if ($a == 'add') {
 	cot_shield_protect();
 
-	$ritem = array();
-	
 	/* === Hook === */
 	foreach (cot_getextplugins('market.add.add.first') as $pl)
 	{
@@ -134,11 +140,15 @@ if (empty($ritem['item_type']) && !empty($type))
 	$ritem['item_type'] = $type;
 }
 
-$out['subtitle'] = $L['market_add_product_title'];
-$out['head'] .= $R['code_noindex'];
-$sys['sublocation'] = $structure['market'][$c]['title'];
+cot::$out['subtitle'] = cot::$L['market_add_product_title'];
+cot::$out['head'] .= cot::$R['code_noindex'];
 
-$mskin = cot_tplfile(array('market', 'add', $structure['market'][$ritem['item_cat']]['tpl']));
+$tpl = '';
+if (!empty($ritem['item_cat']) && isset(cot::$structure['market'][$ritem['item_cat']])) {
+    cot::$sys['sublocation'] = cot::$structure['market'][$ritem['item_cat']]['title'];
+    $tpl = cot::$structure['market'][$ritem['item_cat']]['tpl'];
+}
+$mskin = cot_tplfile(array('market', 'add', $tpl));
 
 /* === Hook === */
 foreach (cot_getextplugins('market.add.main') as $pl)
@@ -155,7 +165,7 @@ cot_display_messages($t);
 $t->assign(array(
 	"PRDADD_FORM_SEND" => cot_url('market', 'm=add&c='.$c.'&a=add'),
 	"PRDADD_FORM_CAT" => cot_selectbox_structure('market', $ritem['item_cat'], 'rcat'),
-	"PRDADD_FORM_CATTITLE" => (!empty($c)) ? $structure['market'][$c]['title'] : '',
+	"PRDADD_FORM_CATTITLE" => (!empty($c) && isset(cot::$structure['market'][$c])) ? cot::$structure['market'][$c]['title'] : '',
 	"PRDADD_FORM_TITLE" => cot_inputbox('text', 'rtitle', $ritem['item_title'], 'size="56"'),
 	"PRDADD_FORM_ALIAS" => cot_inputbox('text', 'ralias', $ritem['item_alias'], array('size' => '32', 'maxlength' => '255')),
 	"PRDADD_FORM_TEXT" => cot_textarea('rtext', $ritem['item_text'], 10, 60, 'id="formtext"', ($prdeditor && $prdeditor != 'disable') ? 'input_textarea_'.$prdeditor : ''),
@@ -164,7 +174,7 @@ $t->assign(array(
 ));
 
 // Extra fields
-foreach($cot_extrafields[$db_market] as $exfld)
+foreach ($cot_extrafields[$db_market] as $exfld)
 {
 	$uname = strtoupper($exfld['field_name']);
 	$exfld_val = cot_build_extrafields('ritem'.$exfld['field_name'], $exfld, $ritem['item_'.$exfld['field_name']]);

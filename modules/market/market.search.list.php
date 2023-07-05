@@ -1,5 +1,4 @@
 <?php
-
 /**
  * [BEGIN_COT_EXT]
  * Hooks=search.list
@@ -10,7 +9,6 @@
  * market module
  *
  * @package market
- * @version 2.5.2
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru, littledev.ru
  * @license BSD
@@ -18,8 +16,7 @@
 
 defined('COT_CODE') or die('Wrong URL.');
 
-if ($cfg['market']['marketsearch'] && ($tab == 'market' || empty($tab)) && cot_module_active('market') && !cot_error_found())
-{
+if (cot::$cfg['market']['marketsearch'] && (empty($tab) || $tab == 'market') && !cot_error_found()) {
 	if ($rs['marketsub'][0] != 'all' && count($rs['marketsub']) > 0)
 	{
 		if ($rs['marketsubcat'])
@@ -48,43 +45,50 @@ if ($cfg['market']['marketsearch'] && ($tab == 'market' || empty($tab)) && cot_m
 	}
 	$where_and['state'] = "item_state = 0";
 	$where_and['date'] = ($rs['setlimit'] > 0) ? "item_date >= ".$rs['setfrom']." AND item_date <= ".$rs['setto'] : "";
-	$where_and['users'] = (!empty($touser)) ? "item_userid ".$touser_ids : "";
+	$where_and['users'] = (!empty($touser)) ? "item_userid " . $touser : "";
 
-	$where_or['title'] = ($rs['markettitle'] == 1) ? "item_title LIKE '".$db->prep($sqlsearch)."'" : "";
-	$where_or['text'] = (($rs['markettext'] == 1)) ? "item_text LIKE '".$db->prep($sqlsearch)."'" : "";
+	$where_or['title'] = ($rs['markettitle'] == 1) ? "item_title LIKE '".cot::$db->prep($sqlsearch)."'" : "";
+	$where_or['text'] = (($rs['markettext'] == 1)) ? "item_text LIKE '".cot::$db->prep($sqlsearch)."'" : "";
 	// String query for addition market fields.
-	foreach (explode(',', trim($cfg['plugin']['search']['addfields'])) as $addfields_el)
-	{
+	foreach (explode(',', trim(cot::$cfg['plugin']['search']['addfields'])) as $addfields_el) {
 		$addfields_el = trim($addfields_el);
-		$where_or[$addfields_el] .= ( (!empty($addfields_el))) ? $addfields_el." LIKE '".$sqlsearch."'" : "";
+        if (empty($addfields_el)) {
+            continue;
+        }
+		$where_or[$addfields_el] = $addfields_el." LIKE '" . cot::$db->prep($sqlsearch) . "'";
 	}
-	$where_or = array_diff($where_or, array(''));
-	count($where_or) || $where_or['title'] = "item_title LIKE '".$db->prep($sqlsearch)."'";
-	$where_and['or'] = '('.implode(' OR ', $where_or).')';
-	$where_and = array_diff($where_and, array(''));
-	$where = implode(' AND ', $where_and);
 
 	/* === Hook === */
-	foreach (cot_getextplugins('market.search.query') as $pl)
-	{
+	foreach (cot_getextplugins('market.search.query') as $pl) {
 		include $pl;
 	}
 	/* ===== */
 
-	if (!$db->fieldExists($db_market, 'item_'.$rs['marketsort']))
-	{
+	if (!$db->fieldExists($db_market, 'item_'.$rs['marketsort'])) {
 		$rs['marketsort'] = 'date';
 	}
 
-	$sqllist = $db->query("SELECT SQL_CALC_FOUND_ROWS m.* $search_join_columns
+    $where_or = array_diff($where_or, array(''));
+    count($where_or) || $where_or['title'] = "item_title LIKE '".cot::$db->prep($sqlsearch)."'";
+    $where_and['or'] = '('.implode(' OR ', $where_or).')';
+    $where_and = array_diff($where_and, array(''));
+    $where = implode(' AND ', $where_and);
+
+    $search_join_columns = (!empty($search_join_columns)) ? $search_join_columns : '';
+    $search_join_condition = (!empty($search_join_condition)) ? $search_join_condition : '';
+    $search_union_query = (!empty($search_union_query)) ? $search_union_query : '';
+
+    $query = "SELECT SQL_CALC_FOUND_ROWS m.* $search_join_columns
 		FROM $db_market AS m $search_join_condition
 		WHERE $where
 		ORDER BY item_".$rs['marketsort']." ".$rs['marketsort2']."
 		LIMIT $d, ".$cfg_maxitems
-			.$search_union_query);
+        .$search_union_query;
+
+	$sqllist = cot::$db->query($query);
 
 	$items = $sqllist->rowCount();
-	$totalitems[] = $db->query('SELECT FOUND_ROWS()')->fetchColumn();
+	$totalitems[] = cot::$db->query('SELECT FOUND_ROWS()')->fetchColumn();
 	$jj = 0;
 		
 	$sqllist_rowset = $sqllist->fetchAll();

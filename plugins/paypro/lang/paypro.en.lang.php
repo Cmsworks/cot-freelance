@@ -3,7 +3,6 @@
  * Paypro plugin
  *
  * @package payrpo
- * @version 1.0
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru, littledev.ru
  * @license BSD
@@ -14,7 +13,7 @@ defined('COT_CODE') or die('Wrong URL.');
 /**
  * Module Config
  */
-$L['cfg_cost'] = array('Cosr per month', '');
+$L['cfg_cost'] = array('Cost per month', '');
 $L['cfg_offerslimit'] = array('Offers limit count for simple users', '');
 $L['cfg_projectslimit'] = array('Projects limit count for simple users', '');
 
@@ -35,8 +34,16 @@ $L['paypro_header_expire'] = 'PRO is available to';
 $L['paypro_header_expire_short'] = 'PRO to';
 $L['paypro_header_extend'] = 'Extend';
 
-$L['paypro_warning_projectslimit_empty'] = 'You can no longer publish projects. Maximum number of projects for the publication is: '.$cfg['plugin']['paypro']['projectslimit'].' night. To remove this restriction, use PRO-service account.';
-$L['paypro_warning_offerslimit_empty'] = 'You can no longer post project proposals. The maximum number of responses to the projects is: '.$cfg['plugin']['paypro']['offerslimit'].' night. To remove this restriction, use PRO-service account.';
+$tmpProjectLimit = !empty(cot::$cfg['plugin']['paypro']['projectslimit']) ?
+    cot::$cfg['plugin']['paypro']['projectslimit'] : 0;
+$L['paypro_warning_projectslimit_empty'] = 'You can no longer publish projects. Maximum number of projects for the publication is: ' .
+    $tmpProjectLimit . ' night. To remove this restriction, use PRO-service account.';
+
+$tmpOffersLimit = !empty(cot::$cfg['plugin']['paypro']['offerslimit']) ?
+    cot::$cfg['plugin']['paypro']['offerslimit'] : 0;
+$L['paypro_warning_offerslimit_empty'] = 'You can no longer post project proposals. The maximum number of responses to the projects is: ' .
+    $tmpOffersLimit . ' night. To remove this restriction, use PRO-service account.';
+
 $L['paypro_warning_onlyforpro'] = 'You can not leave suggestions for this project, as it is only available for users with PRO-account. To remove this restriction, use PRO-service account.';
 
 $L['paypro_error_username'] = 'Login empty';

@@ -3,6 +3,7 @@
 		{FILE "{PHP.cfg.themes_dir}/admin/{PHP.cfg.admintheme}/warnings.tpl"}
 		<div class="block">
 			<form name="saverightsbyitem" id="saverightsbyitem" action="{ADMIN_RIGHTSBYITEM_FORM_URL}" method="post" class="ajax">
+				{ADMIN_RIGHTSBYITEM_FORM_ITEMS}
 				<table class="cells table table-bordered table-striped">
 					<tr>
 						<th class="coltop span1" rowspan="2"></th>

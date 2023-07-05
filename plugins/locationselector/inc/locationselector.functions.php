@@ -1,10 +1,8 @@
 <?php
-
 /**
  * Location Selector for Cotonti
  *
  * @package locationselector
- * @version 2.0.0
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru, littledev.ru
  * @license BSD
@@ -24,8 +22,7 @@ $db_ls_regions = (isset($db_ls_regions)) ? $db_ls_regions : $db_x . 'ls_regions'
 $db_ls_cities = (isset($db_ls_cities)) ? $db_ls_cities : $db_x . 'ls_cities';
 $R['input_location'] = (empty($R['input_location'])) ? '<span class="locselect"><span>{$country}</span> <span>{$region}</span> <span>{$city}</span></span>' : $R['input_location'];
 
-if (!$cot_countries)
-{
+if (empty($cot_countries)) {
 	include_once cot_langfile('countries', 'core');
 }
 
@@ -39,6 +36,7 @@ function cot_load_location()
 		$cot_lf_cities = array();
 		$cot_lf_regions = array();
 		$cot_lf_locations = array();
+        $countriesfilter = [];
 		if (!empty($cfg['plugin']['locationselector']['countriesfilter']) && $cfg['plugin']['locationselector']['countriesfilter'] != 'all')
 		{
 			$countriesfilter = str_replace(' ', '', $cfg['plugin']['locationselector']['countriesfilter']);
@@ -108,13 +106,15 @@ function cot_getcountries($countriesfilter = array())
 function cot_getregions($country)
 {
 	global $cot_lf_regions, $cot_lf_locations;
-	$regions = array();
-	$cot_lf_locations[$country] = (is_array($cot_lf_locations[$country])) ? $cot_lf_locations[$country] : array();
-	foreach ($cot_lf_locations[$country] as $i => $reg)
-	{
+
+	$regions = [];
+	$cot_lf_locations[$country] = (!empty($cot_lf_locations[$country]) && is_array($cot_lf_locations[$country])) ?
+        $cot_lf_locations[$country] : [];
+	foreach ($cot_lf_locations[$country] as $i => $reg) {
 		$regions[$i] = $cot_lf_regions[$i];
 	}
 	asort($regions);
+
 	return $regions;
 }
 
@@ -165,18 +165,20 @@ function cot_getlocation($country = '', $region = 0, $city = 0)
 	$location['country'] = '';
 	$location['region'] = '';
 	$location['city'] = '';	
-	if(!empty($country))
-	{
+	if (!empty($country) && isset($cot_countries[$country])) {
 		$location['country'] = $cot_countries[$country];
 	}
-	if(!empty($country) && (int)$region > 0)
-	{
-		$location['region'] = $cot_lf_regions[$region];
+
+    $region = (int) $region;
+	if (!empty($country) && $region > 0 && isset($cot_lf_regions[$region])) {
+		$location['region'] =  $cot_lf_regions[$region];
 	}
-	if(!empty($country) && (int)$region > 0 && (int)$city > 0)
-	{
-		$location['city'] = $cot_lf_cities[$city];	
+
+    $city = (int) $city;
+	if (!empty($country) && $region > 0 && $city > 0 && isset($cot_lf_cities[$city])) {
+		$location['city'] = $cot_lf_cities[$city];
 	}
+
 	return $location;
 }
 
@@ -185,23 +187,26 @@ function cot_select_location($country = '', $region = 0, $city = 0, $userdefault
 	global $cfg, $L, $R, $usr;
 
 	$countriesfilter = array();
-	if (!empty($cfg['plugin']['locationselector']['countriesfilter']) &&  $cfg['plugin']['locationselector']['countriesfilter'] != 'all')
-	{
+    $disabled = '';
+
+	if (
+        !empty($cfg['plugin']['locationselector']['countriesfilter']) &&
+        $cfg['plugin']['locationselector']['countriesfilter'] != 'all'
+    ) {
 		$countriesfilter = str_replace(' ', '', $cfg['plugin']['locationselector']['countriesfilter']);
 		$countriesfilter = explode(',', $countriesfilter);
 		$disabled = (count($countriesfilter) == 1) ? 'disabled="disabled" ' : '';
 		$country = (count($countriesfilter) == 1) ? $countriesfilter[0] : $country;
 	}
 	
-	if ($userdefault && $usr['id'] > 0 && $country == '' && $region == 0 && $city == 0)
-	{
+	if ($userdefault && $usr['id'] > 0 && $country == '' && $region == 0 && $city == 0) {
 		$country = $usr['profile']['user_country'];
 		$region = $usr['profile']['user_region'];
 		$city = $usr['profile']['user_city'];
 	}
 	
 	$countries = cot_getcountries($countriesfilter);
-	if($countries){
+	if ($countries) {
 		$countries = array(0 => $L['select_country']) + $countries;
 		$country_selectbox = cot_selectbox($country, 'country', array_keys($countries), array_values($countries), 
 			false, $disabled . 'class="locselectcountry form-control" id="locselectcountry"');
@@ -252,6 +257,4 @@ function cot_import_location($source = 'P')
 
 cot_load_location();
 
-//$cot_location - удалить 
-
-?>
+//$cot_location - удалить

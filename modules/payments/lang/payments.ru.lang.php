@@ -14,17 +14,18 @@ defined('COT_CODE') or die('Wrong URL.');
 /**
  * Module Config
  */
+$tmpCurrency = !empty(cot::$cfg['payments']['valuta']) ? cot::$cfg['payments']['valuta'] : 'руб.';
 $L['cfg_balance_enabled'] = array('Включить внутренние счета');
 $L['cfg_valuta'] = array('Валюта сайта');
 $L['cfg_transfers_enabled'] = array('Включить переводы между пользователями');
 $L['cfg_transfertax'] = array('Комиссия за переводы между пользователями', '%');
-$L['cfg_transfermin'] = array('Минимальная сумма перевода между пользователями', $cfg['payments']['valuta']);
-$L['cfg_transfermax'] = array('Максимальная сумма перевода между пользователями', $cfg['payments']['valuta']);
+$L['cfg_transfermin'] = array('Минимальная сумма перевода между пользователями', $tmpCurrency);
+$L['cfg_transfermax'] = array('Максимальная сумма перевода между пользователями', $tmpCurrency);
 $L['cfg_transfertaxfromrecipient'] = array('Удерживать комиссию с получателя перевода');
 $L['cfg_payouts_enabled'] = array('Включить заявки на вывод со счета');
 $L['cfg_payouttax'] = array('Комиссия за вывод со счета', '%');
-$L['cfg_payoutmin'] = array('Минимальная сумма для вывода со счета', $cfg['payments']['valuta']);
-$L['cfg_payoutmax'] = array('Максимальная сумма для вывода со счета', $cfg['payments']['valuta']);
+$L['cfg_payoutmin'] = array('Минимальная сумма для вывода со счета', $tmpCurrency);
+$L['cfg_payoutmax'] = array('Максимальная сумма для вывода со счета', $tmpCurrency);
 $L['cfg_clearpaymentsdays'] = array('Очищать базу от неоплаченных платежек через', 'дней');
 
 $L['info_desc'] = 'Система оплаты';

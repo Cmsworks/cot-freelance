@@ -23,103 +23,102 @@
 <!-- END: LIST -->
 
 <!-- BEGIN: MAIN -->
-		<h2>{PHP.L.Structure}</h2>
-		{FILE "{PHP.cfg.themes_dir}/admin/{PHP.cfg.admintheme}/warnings.tpl"}
-		<div class="block btn-toolbar">
-				<a href="{ADMIN_STRUCTURE_URL_EXTRAFIELDS}" class="btn btn-default">{PHP.L.adm_extrafields}</a>
-				<a href="{ADMIN_PAGE_STRUCTURE_RESYNCALL}" class="ajax btn btn-default special" title="{PHP.L.adm_tpl_resyncalltitle}">{PHP.L.Resync}</a>
-				<!-- IF {ADMIN_STRUCTURE_I18N_URL} -->
-				<a href="{ADMIN_STRUCTURE_I18N_URL}" class="btn btn-default">{PHP.L.i18n_structure}</a>
-				<!-- ENDIF -->
-		</div>
+{FILE "{PHP.cfg.themes_dir}/admin/{PHP.cfg.admintheme}/warnings.tpl"}
+<div class="block btn-toolbar">
+		<a href="{ADMIN_STRUCTURE_URL_EXTRAFIELDS}" class="btn btn-default">{PHP.L.adm_extrafields}</a>
+		<a href="{ADMIN_PAGE_STRUCTURE_RESYNCALL}" class="ajax btn btn-default special" title="{PHP.L.adm_tpl_resyncalltitle}">{PHP.L.Resync}</a>
+		<!-- IF {ADMIN_STRUCTURE_I18N_URL} -->
+		<a href="{ADMIN_STRUCTURE_I18N_URL}" class="btn btn-default">{PHP.L.i18n_structure}</a>
+		<!-- ENDIF -->
+</div>
 
-		<!-- BEGIN: OPTIONS -->
-		<div class="block">
-			<form name="savestructure" id="savestructure" action="{ADMIN_STRUCTURE_UPDATE_FORM_URL}" method="post" enctype="multipart/form-data">
-			<table class="cells table table-bordered table-striped">
-				<tr>
-					<th class="width20">{PHP.L.Path}:</th>
-					<th class="width80">{ADMIN_STRUCTURE_PATH}</th>
-				</tr>
-				<tr>
-					<td>{PHP.L.Code}:</td>
-					<td>{ADMIN_STRUCTURE_CODE}</td>
-				</tr>
-				<tr>
-					<td>{PHP.L.Title}:</td>
-					<td>{ADMIN_STRUCTURE_TITLE}</td>
-				</tr>
-				<tr>
-					<td>{PHP.L.Description}:</td>
-					<td>{ADMIN_STRUCTURE_DESC}</td>
-				</tr>
-				<tr>
-					<td>{PHP.L.Icon}:</td>
-					<td>{ADMIN_STRUCTURE_ICON}</td>
-				</tr>
-				<tr>
-					<td>{PHP.L.Locked}:</td>
-					<td>{ADMIN_STRUCTURE_LOCKED}</td>
-				</tr>
-				<tr>
-					<td>{PHP.L.adm_tpl_mode}:</td>
-					<td>
-						{ADMIN_STRUCTURE_TPLMODE} {ADMIN_STRUCTURE_SELECT}<br />
-						{PHP.L.adm_tpl_quickcat}: {ADMIN_STRUCTURE_TPLQUICK}
-					</td>
-				</tr>
-				<!-- BEGIN: EXTRAFLD -->
-				<tr>
-					<td>{ADMIN_STRUCTURE_EXTRAFLD_TITLE}:</td>
-					<td class="{ADMIN_STRUCTURE_ODDEVEN}">{ADMIN_STRUCTURE_EXTRAFLD}</td>
-				</tr>
-				<!-- END: EXTRAFLD -->
-			</table>
-				<!-- BEGIN: CONFIG -->
-				<h2>{PHP.L.Configuration}</h2>{CONFIG_HIDDEN}
-				{ADMIN_CONFIG_EDIT_CUSTOM}
+<!-- BEGIN: OPTIONS -->
+<div class="block">
+	<form name="savestructure" id="savestructure" action="{ADMIN_STRUCTURE_UPDATE_FORM_URL}" method="post" enctype="multipart/form-data">
+	<table class="cells table table-bordered table-striped">
+		<tr>
+			<th class="width20">{PHP.L.Path}:</th>
+			<th class="width80">{ADMIN_STRUCTURE_PATH}</th>
+		</tr>
+		<tr>
+			<td>{PHP.L.Code}:</td>
+			<td>{ADMIN_STRUCTURE_CODE}</td>
+		</tr>
+		<tr>
+			<td>{PHP.L.Title}:</td>
+			<td>{ADMIN_STRUCTURE_TITLE}</td>
+		</tr>
+		<tr>
+			<td>{PHP.L.Description}:</td>
+			<td>{ADMIN_STRUCTURE_DESC}</td>
+		</tr>
+		<tr>
+			<td>{PHP.L.Icon}:</td>
+			<td>{ADMIN_STRUCTURE_ICON}</td>
+		</tr>
+		<tr>
+			<td>{PHP.L.Locked}:</td>
+			<td>{ADMIN_STRUCTURE_LOCKED}</td>
+		</tr>
+		<tr>
+			<td>{PHP.L.adm_tpl_mode}:</td>
+			<td>
+				{ADMIN_STRUCTURE_TPLMODE} {ADMIN_STRUCTURE_SELECT}<br />
+				{PHP.L.adm_tpl_quickcat}: {ADMIN_STRUCTURE_TPLQUICK}
+			</td>
+		</tr>
+		<!-- BEGIN: EXTRAFLD -->
+		<tr>
+			<td>{ADMIN_STRUCTURE_EXTRAFLD_TITLE}:</td>
+			<td class="{ADMIN_STRUCTURE_ODDEVEN}">{ADMIN_STRUCTURE_EXTRAFLD}</td>
+		</tr>
+		<!-- END: EXTRAFLD -->
+	</table>
+		<!-- BEGIN: CONFIG -->
+		<h2>{PHP.L.Configuration}</h2>{CONFIG_HIDDEN}
+		{ADMIN_CONFIG_EDIT_CUSTOM}
 
-				<table class="cells table">
-					<tr>
-						<td class="coltop width35">{PHP.L.Parameter}</td>
-						<td class="coltop width60">{PHP.L.Value}</td>
-						<td class="coltop width5">{PHP.L.Reset}</td>
-					</tr>
-	<!-- BEGIN: ADMIN_CONFIG_ROW -->
-	<!-- BEGIN: ADMIN_CONFIG_FIELDSET_BEGIN -->
-					<tr>
-						<td class="group_begin" colspan="3">
-							<h4>{ADMIN_CONFIG_FIELDSET_TITLE}</h4>
-						</td>
-					</tr>
-	<!-- END: ADMIN_CONFIG_FIELDSET_BEGIN -->
-	<!-- BEGIN: ADMIN_CONFIG_ROW_OPTION -->
-					<tr>
-						<td>{ADMIN_CONFIG_ROW_CONFIG_TITLE}:</td>
-						<td>
-							{ADMIN_CONFIG_ROW_CONFIG}
-							<div class="adminconfigmore">{ADMIN_CONFIG_ROW_CONFIG_MORE}</div>
-						</td>
-						<td class="centerall">
-							<a href="{ADMIN_CONFIG_ROW_CONFIG_MORE_URL}" class="ajax btn btn-default">
-								{PHP.L.Reset}
-							</a>
-						</td>
-					</tr>
-	<!-- END: ADMIN_CONFIG_ROW_OPTION -->
-	<!-- END: ADMIN_CONFIG_ROW -->
+		<table class="cells table">
+			<tr>
+				<td class="coltop width35">{PHP.L.Parameter}</td>
+				<td class="coltop width60">{PHP.L.Value}</td>
+				<td class="coltop width5">{PHP.L.Reset}</td>
+			</tr>
+<!-- BEGIN: ADMIN_CONFIG_ROW -->
+<!-- BEGIN: ADMIN_CONFIG_FIELDSET_BEGIN -->
+			<tr>
+				<td class="group_begin" colspan="3">
+					<h4>{ADMIN_CONFIG_FIELDSET_TITLE}</h4>
+				</td>
+			</tr>
+<!-- END: ADMIN_CONFIG_FIELDSET_BEGIN -->
+<!-- BEGIN: ADMIN_CONFIG_ROW_OPTION -->
+			<tr>
+				<td>{ADMIN_CONFIG_ROW_CONFIG_TITLE}:</td>
+				<td>
+					{ADMIN_CONFIG_ROW_CONFIG}
+					<div class="adminconfigmore">{ADMIN_CONFIG_ROW_CONFIG_MORE}</div>
+				</td>
+				<td class="centerall">
+					<a href="{ADMIN_CONFIG_ROW_CONFIG_MORE_URL}" class="ajax btn btn-default">
+						{PHP.L.Reset}
+					</a>
+				</td>
+			</tr>
+<!-- END: ADMIN_CONFIG_ROW_OPTION -->
+<!-- END: ADMIN_CONFIG_ROW -->
 
-				</table>
+		</table>
 
 <!-- END: CONFIG -->
-			<table class="cells table">
-				<tr>
-					<td class="valid" colspan="2"><input type="submit" class="submit btn btn-success" value="{PHP.L.Update}" /></td>
-				</tr>
-			</table>
-			</form>
-		</div>
-		<!-- END: OPTIONS -->
+	<table class="cells table">
+		<tr>
+			<td class="valid" colspan="2"><input type="submit" class="submit btn btn-success" value="{PHP.L.Update}" /></td>
+		</tr>
+	</table>
+	</form>
+</div>
+<!-- END: OPTIONS -->
 
 		<!-- BEGIN: DEFAULT -->
 		<div class="block">
@@ -144,7 +143,9 @@
 					<td class="action {ADMIN_STRUCTURE_ODDEVEN}">
 						<a title="{PHP.L.Options}" href="{ADMIN_STRUCTURE_OPTIONS_URL}" class="ajax btn">{PHP.L.short_config}</a>
 						<!-- IF {ADMIN_STRUCTURE_RIGHTS_URL} --><a title="{PHP.L.Rights}" href="{ADMIN_STRUCTURE_RIGHTS_URL}" class="btn btn-default">{PHP.L.short_rights}</a><!-- ENDIF -->
-						<!-- IF {PHP.dozvil} --><a title="{PHP.L.Delete}" href="{ADMIN_STRUCTURE_UPDATE_DEL_URL}" class="btn btn-default">{PHP.L.short_delete}</a><!-- ENDIF -->
+						<!-- IF {ADMIN_STRUCTURE_CAN_DELETE} -->
+						<a title="{PHP.L.Delete}" href="{ADMIN_STRUCTURE_DELETE_CONFIRM_URL}" class="confirmLink btn btn-default">{PHP.L.short_delete}</a>
+						<!-- ENDIF -->
 						<a href="{ADMIN_STRUCTURE_JUMPTO_URL}" title="{PHP.L.Pages}" class="btn special">{PHP.L.short_open}</a> </td>
 				</tr>
 				<!-- END: ROW -->

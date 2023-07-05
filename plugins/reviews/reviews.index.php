@@ -1,5 +1,4 @@
 <?php
-
 /**
  * [BEGIN_COT_EXT]
  * Hooks=index.tags
@@ -16,13 +15,11 @@
  */
 defined('COT_CODE') or die('Wrong URL.');
 
-if ($usr['id'] > 0)
-{
-	$scores = cot_getreview_scores($urr['user_id']);
+if (cot::$usr['id'] > 0) {
+	$scores = cot_getreview_scores(cot::$usr['id']);
 	$t->assign(array(
 		"USERINFO_REVIEWS_NEGATIVE_SUMM" => $scores['neg']['summ'],
 		"USERINFO_REVIEWS_POZITIVE_SUMM" => $scores['poz']['summ'],
-		"USERINFO_RATING" => $usr['profile']['user_rating'],
+		"USERINFO_RATING" => !empty(cot::$usr['profile']['user_rating']) ? cot::$usr['profile']['user_rating'] : 0,
 	));
 }
-?>

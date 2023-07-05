@@ -1,10 +1,8 @@
 <?php
-
 /**
  * market module
  *
  * @package market
- * @version 2.5.7
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru, littledev.ru
  * @license BSD
@@ -12,7 +10,7 @@
 
 defined('COT_CODE') or die('Wrong URL');
 
-list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('market', 'any', 'RWA');
+list(cot::$usr['auth_read'], cot::$usr['auth_write'], cot::$usr['isadmin']) = cot_auth('market', 'any', 'RWA');
 
 // Requirements
 require_once cot_langfile('market', 'module');
@@ -24,7 +22,8 @@ cot::$db->registerTable('market');
 
 cot_extrafields_register_table('market');
 
-$structure['market'] = (is_array($structure['market'])) ? $structure['market'] : array();
+cot::$structure['market'] = (!empty(cot::$structure['market']) && is_array(cot::$structure['market'])) ?
+    cot::$structure['market'] : [];
 
 /**
  * Update market categories counters
@@ -44,7 +43,7 @@ function cot_market_sync($cat)
 		$subcats = cot_structure_children('market', $c, true, true);
 		$count = $db->query("SELECT COUNT(*) FROM $db_market WHERE item_cat IN ('".implode("','", $subcats)."') AND item_state = 0")->fetchColumn();		
 		$db->query("UPDATE $db_structure SET structure_count=".(int)$count." WHERE structure_area='market' AND structure_code = ?", $c);
-		$summcount += $count;
+		//$summcount += $count;
 		if($cat == $c) $catcount = $count;
 	}
 	$cache && $cache->db->remove('structure', 'system');
@@ -82,10 +81,6 @@ function cot_market_auth($cat = null)
 	list($auth['auth_read'], $auth['auth_write'], $auth['isadmin']) = cot_auth('market', $cat, 'RWA1');
 	return $auth;
 }
-
-
-
-
 
 function cot_build_structure_market_tree($parent = '', $selected = '', $level = 0, $template = '')
 {
@@ -134,11 +129,21 @@ function cot_build_structure_market_tree($parent = '', $selected = '', $level = 
 		return false;
 	}
 
+    $title = '';
+    $desc = '';
+    $count = 0;
+    $icon = '';
+    if (isset(cot::$structure['market']) && !empty($parent) && isset(cot::$structure['market'][$parent])) {
+        $title = cot::$structure['market'][$parent]['title'];
+        $desc  = cot::$structure['market'][$parent]['desc'];
+        $count = cot::$structure['market'][$parent]['count'];
+        $icon  = cot::$structure['market'][$parent]['icon'];
+    }
 	$t1->assign(array(
-		"TITLE" => htmlspecialchars($structure['market'][$parent]['title']),
-		"DESC" => $structure['market'][$parent]['desc'],
-		"COUNT" => $structure['market'][$parent]['count'],
-		"ICON" => $structure['market'][$parent]['icon'],
+		"TITLE" => htmlspecialchars($title),
+		"DESC" => $desc,
+		"COUNT" => $count,
+		"ICON" => $icon,
 		"HREF" => cot_url("market", $urlparams + array('c' => $parent)),
 		"LEVEL" => $level,
 	));
@@ -161,7 +166,7 @@ function cot_build_structure_market_tree($parent = '', $selected = '', $level = 
 			"ROW_ICON" => $structure['market'][$row]['icon'],
 			"ROW_HREF" => cot_url("market", $urlparams),
 			"ROW_SELECTED" => ((is_array($selected) && in_array($row, $selected)) || (!is_array($selected) && $row == $selected)) ? 1 : 0,
-			"ROW_SUBCAT" => (count($subcats) > 0) ? cot_build_structure_market_tree($row, $selected, $level + 1) : '',
+			"ROW_SUBCAT" => !empty($subcats) ? cot_build_structure_market_tree($row, $selected, $level + 1) : '',
 			"ROW_LEVEL" => $level,
 			"ROW_ODDEVEN" => cot_build_oddeven($jj),
 			"ROW_JJ" => $jj
@@ -256,7 +261,7 @@ function cot_generate_markettags($item_data, $tag_prefix = '', $textlength = 0, 
 		$item_data['item_pageurl'] = (empty($item_data['item_alias'])) ? 
 			cot_url('market', 'c='.$item_data['item_cat'].'&id='.$item_data['item_id']) : cot_url('market', 'c='.$item_data['item_cat'].'&al='.$item_data['item_alias']);
 		
-		$catpatharray[] = array(cot_url('market'), $L['market']);
+		$catpatharray[] = array(cot_url('market'), cot::$L['market']);
 		$itempatharray[] = array($item_data['item_pageurl'], $item_data['item_title']);
 
 		$patharray = array_merge($catpatharray, cot_structure_buildpath('market', $item_data['item_cat']), $itempatharray);
@@ -270,7 +275,15 @@ function cot_generate_markettags($item_data, $tag_prefix = '', $textlength = 0, 
 		$text_cut = ((int)$textlength > 0) ? cot_string_truncate($text, $textlength) : $text;
 		
 		$item_data['item_status'] = cot_market_status($item_data['item_state']);
-		
+
+        $userPrdUrlParams = ['m' => 'details'];
+        if (!empty($item_data['item_userid'])) {
+            $userPrdUrlParams['id'] = $item_data['item_userid'];
+        }
+        if (!empty($item_data['user_name'])) {
+            $userPrdUrlParams['u'] = $item_data['user_name'];
+        }
+        $userPrdUrlParams['tab'] = 'market';
 		$temp_array = array(
 			'ID' => $item_data['item_id'],
 			'ALIAS' => $item_data['item_alias'],
@@ -278,7 +291,7 @@ function cot_generate_markettags($item_data, $tag_prefix = '', $textlength = 0, 
 			'STATUS' => $item_data['item_status'],
 			'LOCALSTATUS' => $L['market_status_'.$item_data['item_status']],
 			'URL' => $item_data['item_pageurl'],
-			'USER_PRDURL' => cot_url('users', 'm=details&id=' . $item_data['item_userid'] . '&u=' . $item_data['user_name'] . '&tab=market'),
+			'USER_PRDURL' => cot_url('users', $userPrdUrlParams),
 			'TITLE' => $itempath,
 			'SHORTTITLE' => $item_data['item_title'],
 			'CAT' => $item_data['item_cat'],
@@ -295,12 +308,18 @@ function cot_generate_markettags($item_data, $tag_prefix = '', $textlength = 0, 
 			'USER_IS_ADMIN' => ($admin_rights || $usr['id'] == $item_data['item_userid']),
 		);
 
-		if ($admin_rights || $usr['id'] == $item_data['item_userid'])
-		{
+		if ($admin_rights || cot::$usr['id'] == $item_data['item_userid']) {
+            $deleteUrl = cot_url(
+                'market',
+                ['m' => 'edit', 'a' => 'update', 'delete' => '1', 'id' => $item_data['item_id'], 'x' => cot::$sys['xk'],]
+            );
+            $deleteConfirmUrl = cot_confirm_url($deleteUrl, 'market');
 			$temp_array['ADMIN_EDIT'] = cot_rc_link(cot_url('market', 'm=edit&id=' . $item_data['item_id']), $L['Edit']);
 			$temp_array['ADMIN_EDIT_URL'] = cot_url('market', 'm=edit&id=' . $item_data['item_id']);
 			$temp_array['HIDEPRODUCT_URL'] = cot_url('market', 'm=edit&id=' . $item_data['item_id'] .	(($item_data['item_state'] == 1) ? '&a=public' : '&a=hide'));
 			$temp_array['HIDEPRODUCT_TITLE'] = ($item_data['item_state'] == 1) ? $L['Publish'] : $L['Hide'];
+            $temp_array['ADMIN_DELETE'] = cot_rc_link($deleteConfirmUrl, cot::$L['Delete'], 'class="confirmLink"');
+            $temp_array['ADMIN_DELETE_URL'] = $deleteConfirmUrl;
 		}
 
 		// Extrafields
@@ -660,10 +679,7 @@ function cot_market_update($id, &$ritem, $auth = array())
 	return true;
 }
 
-
-
-function cot_getmarketlist($template = 'index', $count = 5, $sqlsearch = '',
-							 $order = "item_date DESC")
+function cot_getmarketlist($template = 'index', $count = 5, $sqlsearch = '', $order = "item_date DESC")
 {
 	global $db, $db_market, $cfg, $db_users;
 	
@@ -672,19 +688,20 @@ function cot_getmarketlist($template = 'index', $count = 5, $sqlsearch = '',
 	$t = new XTemplate(cot_tplfile(array('market', $template), 'module'));
 	
 	$sqlsearch = !empty($sqlsearch) ? " AND " . $sqlsearch : '';
-	
+
 	$sqllist = $db->query("SELECT * FROM $db_market AS p LEFT JOIN $db_users AS u ON u.user_id=p.item_userid
-	WHERE item_state=0 $sqlsearch ORDER BY $order LIMIT " . (int)$count);
+	WHERE item_state=0 $sqlsearch ORDER BY $order LIMIT " . (int) $count);
 	
 	$sqllist_rowset = $sqllist->fetchAll();
+
 	$sqllist_idset = array();
 	foreach($sqllist_rowset as $item)
 	{
 		$sqllist_idset[$item['item_id']] = $item['item_alias'];
 	}
-	
-	foreach($sqllist_rowset as $item)
-	{
+
+    $jj = 0;
+	foreach ($sqllist_rowset as $item) {
 		$jj++;
 		$t->assign(cot_generate_usertags($item, 'PRD_ROW_OWNER_'));
 		$t->assign(cot_generate_markettags($item, 'PRD_ROW_', $cfg['market']['shorttextlen'],
@@ -710,10 +727,10 @@ function cot_getmarketlist($template = 'index', $count = 5, $sqlsearch = '',
  * @param type $name
  * @param type $subcat
  * @param type $hideprivate
- * @param type $is_module
- * @return type
+ * @param string $is_module
+ * @return string
  */
-function cot_market_selectcat($check, $name, $subcat = '', $hideprivate = true)
+function cot_market_selectcat($check, $name, $subcat = '', $hideprivate = true, $is_module = true)
 {
 	global $structure;
 
@@ -740,6 +757,6 @@ function cot_market_selectcat($check, $name, $subcat = '', $hideprivate = true)
 	return($result);
 }
 
-if ($cfg['market']['markup'] == 1){
-  $prdeditor = $cfg['market']['prdeditor'];
+if (!empty(cot::$cfg['market']['markup']) && cot::$cfg['market']['markup'] == 1) {
+    $prdeditor = isset(cot::$cfg['market']['prdeditor']) ? cot::$cfg['market']['prdeditor'] : null;
 }

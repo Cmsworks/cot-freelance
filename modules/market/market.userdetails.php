@@ -52,8 +52,9 @@ $where['owner'] = "item_userid=" . $urr['user_id'];
 $order['date'] = "item_date DESC";
 
 $wherecount = $where;
-if($wherecount['cat'])
-	unset($wherecount['cat']);
+if (isset($wherecount['cat'])) {
+    unset($wherecount['cat']);
+}
 
 /* === Hook === */
 foreach (cot_getextplugins('market.userdetails.query') as $pl)
@@ -90,12 +91,12 @@ foreach ($sql_market_count_cat as $value) {
 }
 
 $opt_array = array(
-					'm' => 'details',
-				  	'id'=> $urr['user_id'],
-				  	'u'=> $urr['user_name'],
-				    'tab' => 'market'
-				    );
-if($category){	
+    'm' => 'details',
+    'id'=> $urr['user_id'],
+    'u'=> $urr['user_name'],
+    'tab' => 'market'
+);
+if($category) {
 	$market_count = $page_nav[$category];
 	$opt_array['cat'] = $category;
 }
@@ -121,9 +122,42 @@ foreach($sqllist_rowset as $item)
 $extp = cot_getextplugins('market.userdetails.loop');
 /* ===== */
 
-foreach ($sqllist_rowset as $item)
-{
-	$t1->assign(cot_generate_markettags($item, 'PRD_ROW_', $cfg['market']['shorttextlen'], $usr['isadmin'], $cfg['homebreadcrumb']));
+foreach ($sqllist_rowset as $item) {
+    $marketTags = cot_generate_markettags(
+        $item,
+        'PRD_ROW_',
+        $cfg['market']['shorttextlen'],
+        cot::$usr['isadmin'],
+        cot::$cfg['homebreadcrumb']
+    );
+
+    if (!empty($marketTags['PRD_ROW_ADMIN_DELETE_URL'])) {
+        // Redirect back to user details page
+        $urlParams = $opt_array;
+        if ($durl > 0) {
+            $urlParams['dmarket'] = $durl;
+        }
+        $deleteUrl = cot_url(
+            'market',
+            [
+                'm' => 'edit',
+                'a' => 'update',
+                'delete' => '1',
+                'id' => $item['item_id'],
+                'x' => cot::$sys['xk'],
+                'redirect' => base64_encode(cot_url('users', $urlParams, '', true)),
+            ]
+        );
+        $deleteConfirmUrl = cot_confirm_url($deleteUrl, 'market');
+        $marketTags['PRD_ROW_ADMIN_DELETE'] = cot_rc_link(
+            $deleteConfirmUrl,
+            cot::$L['Delete'],
+            'class="confirmLink"'
+        );
+        $marketTags['PRD_ROW_ADMIN_DELETE_URL'] = $deleteConfirmUrl;
+    }
+
+	$t1->assign($marketTags);
 	
 	/* === Hook === */
 	foreach ($extp as $pl)

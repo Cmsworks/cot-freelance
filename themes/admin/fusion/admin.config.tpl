@@ -1,8 +1,6 @@
 <!-- BEGIN: MAIN -->
-
 {FILE "{PHP.cfg.themes_dir}/admin/{PHP.cfg.admintheme}/warnings.tpl"}
 
-<h2>{PHP.L.Configuration}</h2>
 
 <!-- BEGIN: EDIT -->
 
@@ -70,14 +68,7 @@
 <!-- BEGIN: ADMIN_CONFIG_ROW -->
 	<div class="span3">
 		<div class="thumbnail">
-			<a href="{ADMIN_CONFIG_ROW_URL}">
-				<!-- IF {ADMIN_CONFIG_ROW_ICO} --> 
-				<img src="{ADMIN_CONFIG_ROW_ICO}" style="height: 32px!important;">
-				<!-- ELSE -->
-				<img src="{PHP.cfg.system_dir}/admin/img/plugins32.png" style="height: 32px!important;">
-				<!-- ENDIF -->
-				{ADMIN_CONFIG_ROW_NAME}
-			</a>
+			<a href="{ADMIN_CONFIG_ROW_URL}">{ADMIN_CONFIG_ROW_ICON} {ADMIN_CONFIG_ROW_NAME}</a>
 		</div>
 		<br/>
 	</div>

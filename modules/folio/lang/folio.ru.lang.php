@@ -12,6 +12,10 @@
 
 defined('COT_CODE') or die('Wrong URL.');
 
+if (empty($sitemap_freqs)) {
+    require cot_langfile('sitemap');
+}
+
 /**
  * Module Config
  */
@@ -79,7 +83,7 @@ $L['plu_folio_set_sec'] = 'Категории работ';
 $L['plu_folio_res_sort1'] = 'Дате публикации';
 $L['plu_folio_res_sort2'] = 'Названию';
 $L['plu_folio_res_sort3'] = 'Популярности';
-$L['plu_folio_res_sort3'] = 'Категории';
+$L['plu_folio_res_sort4'] = 'Категории';
 $L['plu_folio_search_names'] = 'Поиск в названиях';
 $L['plu_folio_search_text'] = 'Поиск в описании';
 $L['plu_folio_set_subsec'] = 'Поиск в подразделах';

@@ -4,8 +4,8 @@
  * Code=locationselector
  * Name=Location Selector
  * Description=Редактор/Селектор стран, регионов, городов
- * Version=2.5.9
- * Date=2012.11.03
+ * Version=2.5.10
+ * Date=2022-09-08
  * Author=CMSWorks Team
  * Copyright=Copyright (c) CMSWorks.ru, littledev.ru
  * Notes=

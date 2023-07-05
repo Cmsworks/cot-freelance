@@ -5,14 +5,12 @@ defined('COT_CODE') or die('Wrong URL');
 function cot_load_structure_custom()
 {
 	global $db, $db_structure, $cfg, $cot_extrafields, $structure;
+
 	$structure = array();
-	if (defined('COT_UPGRADE'))
-	{
+	if (defined('COT_UPGRADE')) {
 		$sql = $db->query("SELECT * FROM $db_structure ORDER BY structure_path ASC");
 		$row['structure_area'] = 'page';
-	}
-	else
-	{
+	} else {
 		$sql = $db->query("SELECT * FROM $db_structure ORDER BY structure_area ASC, structure_path ASC");
 	}
 
@@ -23,6 +21,7 @@ function cot_load_structure_custom()
 	$path = array(); // code path tree
 	$tpath = array(); // title path tree
 	$tpls = array(); // tpl codes tree
+    $subcats = [];
 
 	foreach ($sql->fetchAll() as $row)
 	{
@@ -87,7 +86,7 @@ function cot_load_structure_custom()
 	{
 		foreach ($area_structure as $i => $x)
 		{
-			$structure[$area][$i]['subcats'] = $subcats[$area][$i];
+			$structure[$area][$i]['subcats'] = isset($subcats[$area][$i]) ? $subcats[$area][$i] : null;
 		}
 	}
 }

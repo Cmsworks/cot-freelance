@@ -27,7 +27,10 @@ $sort = cot_import('sort', 'G', 'ALP');
 $mass_act = cot_import('prd_action', 'P', 'TXT');
 $prd_arr = cot_import('prd_arr', 'P', 'ARR');
 
-$maxrowsperpage = ($cfg['market']['cat_' . $c]['maxrowsperpage']) ? $cfg['market']['cat_' . $c]['maxrowsperpage'] : $cfg['market']['cat___default']['maxrowsperpage'];
+$maxrowsperpage = cot::$cfg['market']['cat___default']['maxrowsperpage'];
+if (!empty($c) && isset($cfg['market']['cat_' . $c]['maxrowsperpage'])) {
+    $maxrowsperpage = cot::$cfg['market']['cat_' . $c]['maxrowsperpage'];
+}
 list($pn, $d, $d_url) = cot_import_pagenav('d', $maxrowsperpage);
 
 /* === Hook === */
@@ -216,7 +219,7 @@ foreach ($sqllist_rowset as $item)
 /* === Hook === */
 $extp = cot_getextplugins('market.admin.list.loop');
 /* ===== */
-
+$jj = 0;
 foreach ($sqllist_rowset as $item)
 {
 	$jj++;

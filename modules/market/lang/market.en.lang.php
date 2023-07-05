@@ -12,6 +12,10 @@
 
 defined('COT_CODE') or die('Wrong URL.');
 
+if (empty($sitemap_freqs)) {
+    require cot_langfile('sitemap');
+}
+
 /**
  * Module Config
  */
@@ -85,7 +89,7 @@ $L['plu_market_set_sec'] = 'Products categories';
 $L['plu_market_res_sort1'] = 'Date';
 $L['plu_market_res_sort2'] = 'Title';
 $L['plu_market_res_sort3'] = 'Popularity';
-$L['plu_market_res_sort3'] = 'Category';
+$L['plu_market_res_sort4'] = 'Category';
 $L['plu_market_search_names'] = 'Search in titles';
 $L['plu_market_search_text'] = 'Search in text';
 $L['plu_market_set_subsec'] = 'Include subcategories';

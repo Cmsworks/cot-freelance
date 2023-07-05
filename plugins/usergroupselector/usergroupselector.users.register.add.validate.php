@@ -19,7 +19,6 @@ defined('COT_CODE') or die('Wrong URL.');
 require_once cot_langfile('usergroupselector', 'plug');
 
 $usergroup = cot_import('usergroup', 'G', 'ALP');
-if (cot_error_found() && !empty($usergroup))
-{
+if (cot_error_found() && !empty($usergroup)) {
 	cot_redirect(cot_url('users', 'm=register&usergroup='.$usergroup, '', true));
 }

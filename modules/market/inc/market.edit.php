@@ -41,11 +41,9 @@ cot_block($usr['isadmin'] || $usr['auth_write'] && $usr['id'] == $item['item_use
 $sys['parser'] = $item['item_parser'];
 $parser_list = cot_get_parsers();
 
-if ($a == 'update')
-{
+if ($a == 'update') {
 	/* === Hook === */
-	foreach (cot_getextplugins('market.edit.update.first') as $pl)
-	{
+	foreach (cot_getextplugins('market.edit.update.first') as $pl) {
 		include $pl;
 	}
 	/* ===== */
@@ -53,26 +51,29 @@ if ($a == 'update')
 	cot_block($usr['isadmin'] || $usr['auth_write'] && $usr['id'] == $item['item_userid']);
 
 	$ritem = cot_market_import('POST', $item, $usr);
-	
-	if ($_SERVER['REQUEST_METHOD'] == 'POST')
-	{
+
+    $rdelete = false;
+	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$rdelete = cot_import('rdelete', 'P', 'BOL');
-	}
-	else
-	{
+	} else {
 		$rdelete = cot_import('delete', 'G', 'BOL');
 		cot_check_xg();
 	}
 
-	if ($rdelete)
-	{
+	if ($rdelete) {
 		cot_market_delete($id, $item);
+        $redirect = cot_import('redirect', 'G', 'TXT');
+        if (!empty($redirect)) {
+            $redirect = base64_decode($redirect);
+            if (!empty($redirect)) {
+                cot_redirect($redirect);
+            }
+        }
 		cot_redirect(cot_url('market', "c=" . $item['item_cat'], '', true));
 	}
 	
 	/* === Hook === */
-	foreach (cot_getextplugins('market.edit.update.import') as $pl)
-	{
+	foreach (cot_getextplugins('market.edit.update.import') as $pl) {
 		include $pl;
 	}
 	/* ===== */
@@ -247,8 +248,16 @@ $t = new XTemplate($mskin);
 // Error and message handling
 cot_display_messages($t);
 
+$formSendParams = [
+    'm' => 'edit',
+    'a' => 'update',
+    'id' => $item['item_id']
+];
+if (isset($r)) {
+    $formSendParams['r'] = $r;
+}
 $t->assign(array(
-	"PRDEDIT_FORM_SEND" => cot_url('market', "m=edit&a=update&id=" . $item['item_id'] . "&r=" . $r),
+	"PRDEDIT_FORM_SEND" => cot_url('market', $formSendParams),
 	"PRDEDIT_FORM_ID" => $item['item_id'],
 	"PRDEDIT_FORM_CAT" => cot_selectbox_structure('market', $item['item_cat'], 'rcat'),
 	"PRDEDIT_FORM_CATTITLE" => $structure['market'][$item['item_cat']]['title'],

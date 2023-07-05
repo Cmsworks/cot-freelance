@@ -51,8 +51,9 @@ $where['owner'] = "item_userid=" . $urr['user_id'];
 $order['date'] = "item_date DESC";
 
 $wherecount = $where;
-if($wherecount['cat'])
-	unset($wherecount['cat']);
+if(isset($wherecount['cat'])) {
+    unset($wherecount['cat']);
+}
 
 /* === Hook === */
 foreach (cot_getextplugins('projects.userdetails.query') as $pl)

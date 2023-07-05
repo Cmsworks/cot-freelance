@@ -12,6 +12,10 @@
 
 defined('COT_CODE') or die('Wrong URL.');
 
+if (empty($sitemap_freqs)) {
+    require cot_langfile('sitemap');
+}
+
 /**
  * Module Config
  */
@@ -153,7 +157,7 @@ $L['plu_prj_set_sec'] = 'Porjects categories';
 $L['plu_prj_res_sort1'] = 'Date';
 $L['plu_prj_res_sort2'] = 'Title';
 $L['plu_prj_res_sort3'] = 'Popularity';
-$L['plu_prj_res_sort3'] = 'Category';
+$L['plu_prj_res_sort4'] = 'Category';
 $L['plu_prj_search_names'] = 'Search in titles';
 $L['plu_prj_search_text'] = 'Search in projects text';
 $L['plu_prj_set_subsec'] = 'Include subcategories';

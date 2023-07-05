@@ -86,7 +86,7 @@ function cot_payments_userservice($area, $userid, $expire, $action='set')
  * @param int $summ стоимость
  * @param array $options дополнительные параметры
  */
-function cot_payments_create_order($area = 'balance', $summ, $options = array())
+function cot_payments_create_order($area = 'balance', $summ = 0, $options = array())
 {
 	global $db_payments, $db_payments_balance, $db, $sys, $cfg, $usr;
 
