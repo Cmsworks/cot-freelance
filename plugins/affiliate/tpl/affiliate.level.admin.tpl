@@ -1,0 +1,12 @@
+<!-- BEGIN: REFERALS -->
+
+<ul>
+	<!-- BEGIN: REFERAL_ROW -->
+	<li>
+		{REFERAL_ROW_USER_NAME} ({REFERAL_ROW_PERCENT}%) 
+		{REFERAL_ROW_SUBREFERALS}
+	</li>
+	<!-- END: REFERAL_ROW -->
+</ul>
+
+<!-- END: REFERALS -->
