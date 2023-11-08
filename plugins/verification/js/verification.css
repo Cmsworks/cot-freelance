@@ -1,0 +1,66 @@
+.padding10 {padding:10px;}
+.padding20-0 {padding:20px 0px;}
+
+.ver_img_box {padding:10px;}
+.ver_img_box img{max-width:600px;}
+
+#label_confirm{display: inline;}
+
+.jqmWindowVerification {
+display: none;
+position: fixed;
+    top: 3%;
+    left: 20%;
+overflow: auto;
+max-width:800px; max-height:650px;
+background-color: #EEE;
+color: #333;
+border: 1px solid white;
+padding: 7px;
+text-align: left;
+border-radius: 5px;
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+box-shadow: 0px 0px 9px 3px #fff;
+text-shadow: 0px 0px 3px #fff, 1px 1px 0px #fff;
+font-size:13px;
+overflow-y: auto;
+}
+.jqmClose {cursor:pointer;position:absolute; bottom:7px; right:10px;}
+.jqmWindowVerification img{max-width:800px; max-height:600px;}
+.user_identity{ position:relative; top:1px; bottom:1px;  width:25px; height:25px;  background: url(../img/ver_icon.png)  no-repeat; padding:2px 15px;}
+.relative {position:relative;}
+.vrf_info_win {min-width:200px;
+max-width:300px;
+z-index:10;position:absolute;
+top:-60px;
+left:0px;
+background-color: #FFFF66;
+padding:5px;
+border-radius: 5px;
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+box-shadow: 2px 2px 7px 1px #999;
+}
+
+.vrf-arrow-border {
+  border-color: #999 transparent transparent transparent;
+  border-style: solid;
+  border-width: 10px 5px 0 5px;
+  height:0;
+  width:0;
+  position:absolute;
+  bottom:-11px;
+  left:48%;
+}
+.vrf-arrow {
+  border-color: #FFFF66 transparent transparent transparent;
+  border-style: solid;
+  border-width: 10px 5px 0 5px;
+  height:0;
+  width:0;
+  position:absolute;
+  bottom:-10px;
+  left:48%;
+}
+.sp_err_conf{display:none; width:300px;height:60px;}
